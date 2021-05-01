@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="Курсач.UserControls.FullInfo"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Курсач.UserControls"
+             xmlns:viewModel="clr-namespace:Курсач.ViewModels"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" >
+    <Grid DataContext="{Binding CurrentBook}" Style="{DynamicResource GridStyle}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.5*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="1.25*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="2*" />
+        </Grid.RowDefinitions>
+        <Image HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="0" Grid.Row="0" Grid.RowSpan="4" Source="{Binding COVER}" />
+        <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock FontSize="16" Margin="15, 5, 0, 0" Text="Название книги: " />
+                <TextBlock FontSize="16" Margin="0, 5, 0, 0" Text="{Binding TITLE}" />
+            </StackPanel>
+            <TextBlock FontSize="16" Margin="15, 5, 0, 0" Text="{Binding GENRE}" />
+            <StackPanel Margin="15, 5, 0, 0" Orientation="Horizontal">
+                <TextBlock FontSize="16" Text="Автор: " />
+                <TextBlock FontSize="16" Text="{Binding AUTHOR}" />
+            </StackPanel>
+            <StackPanel VerticalAlignment="Center" Margin="15, 7.5, 0, 7.5" Orientation="Horizontal">
+                <TextBlock FontSize="16" Margin="0, 0, 5, 0" Text="{Binding RATING}" VerticalAlignment="Center" />
+                <materialDesign:PackIcon Margin="0, 0, 5, 0" Kind="Star" VerticalAlignment="Center" />
+                <TextBlock FontSize="16" Margin="0, 0, 5, 0" VerticalAlignment="Center" Text="{Binding NUMBEROFVOICES}" />
+                <materialDesign:RatingBar VerticalAlignment="Center" HorizontalAlignment="Right" />
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Template="{DynamicResource LightButton}" Margin="0 5" Width="200" Height="Auto" Content="Добавить в корзину" />
+            <Button Template="{DynamicResource DarkButton}" Margin="0 5" Width="200" Content="Купить" Height="Auto" />
+        </StackPanel>
+        <TextBlock FontSize="16" TextWrapping="Wrap" VerticalAlignment="Center" Grid.Row="2" Grid.RowSpan="2" Grid.Column="2" Text="{Binding DESCRIPTION}" />
+    </Grid>
+</UserControl>

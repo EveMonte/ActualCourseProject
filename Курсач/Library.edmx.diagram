@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3a841ae3b5c54696ad2aa8b6d257f5fc" Name="Diagram1">
+        <EntityTypeShape EntityType="LIBRARYModel.BASKETS" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="LIBRARYModel.BOOKS" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LIBRARYModel.GENRES" Width="1.5" PointX="0.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LIBRARYModel.MARKS" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LIBRARYModel.SUBSCRIPTIONS" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LIBRARYModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LIBRARYModel.USERS" Width="1.5" PointX="3" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LIBRARYModel.YOUR_BOOKS" Width="1.5" PointX="5.25" PointY="7" IsExpanded="true" />
+        <AssociationConnector Association="LIBRARYModel.BASKETS_BOOK_ID_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="LIBRARYModel.BASKETS_USER_ID_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="LIBRARYModel.BOOK_ID_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="LIBRARYModel.GENRE_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="LIBRARYModel.MARKS_BOOK_ID_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="LIBRARYModel.MARKS_USER_ID_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="LIBRARYModel.SUBSCRIPTION_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="LIBRARYModel.USER_ID_FK" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

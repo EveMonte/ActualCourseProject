@@ -1,0 +1,576 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище LIBRARYModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BASKETS">
+          <Key>
+            <PropertyRef Name="BASKET_ID" />
+          </Key>
+          <Property Name="BASKET_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USER_ID" Type="int" />
+          <Property Name="BOOK_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="BOOKS">
+          <Key>
+            <PropertyRef Name="BOOK_ID" />
+          </Key>
+          <Property Name="BOOK_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TITLE" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AUTHOR" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="GENRE" Type="int" />
+          <Property Name="YEAR" Type="int" Nullable="false" />
+          <Property Name="PRICE" Type="money" Nullable="false" />
+          <Property Name="COVER" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CATEGORY" Type="varchar" MaxLength="10" />
+          <Property Name="RATING" Type="numeric" Precision="3" Scale="2" Nullable="false" />
+          <Property Name="PAGES" Type="int" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="nvarchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GENRES">
+          <Key>
+            <PropertyRef Name="GENRE_ID" />
+          </Key>
+          <Property Name="GENRE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GENRE" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MARKS">
+          <Key>
+            <PropertyRef Name="MARK_ID" />
+          </Key>
+          <Property Name="MARK_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BOOK_ID" Type="int" />
+          <Property Name="USER_ID" Type="int" />
+          <Property Name="MARK" Type="int" />
+        </EntityType>
+        <EntityType Name="SUBSCRIPTIONS">
+          <Key>
+            <PropertyRef Name="SUBSCRIPTION_ID" />
+          </Key>
+          <Property Name="SUBSCRIPTION_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SUBSCRIPTION_DATE" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="USERS">
+          <Key>
+            <PropertyRef Name="USER_ID" />
+          </Key>
+          <Property Name="USER_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SECOND_NAME" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PASSWORD" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ACCOUNT" Type="varchar" MaxLength="10" />
+          <Property Name="CREDIT_CARD" Type="varchar" MaxLength="16" />
+          <Property Name="SUBSCRIPTION" Type="int" />
+        </EntityType>
+        <EntityType Name="YOUR_BOOKS">
+          <Key>
+            <PropertyRef Name="YOUR_BOOKS_ID" />
+          </Key>
+          <Property Name="YOUR_BOOKS_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USER_ID" Type="int" />
+          <Property Name="BOOK_ID" Type="int" />
+        </EntityType>
+        <Association Name="BASKETS_BOOK_ID_FK">
+          <End Role="BOOKS" Type="Self.BOOKS" Multiplicity="0..1" />
+          <End Role="BASKETS" Type="Self.BASKETS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BOOKS">
+              <PropertyRef Name="BOOK_ID" />
+            </Principal>
+            <Dependent Role="BASKETS">
+              <PropertyRef Name="BOOK_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BASKETS_USER_ID_FK">
+          <End Role="USERS" Type="Self.USERS" Multiplicity="0..1" />
+          <End Role="BASKETS" Type="Self.BASKETS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERS">
+              <PropertyRef Name="USER_ID" />
+            </Principal>
+            <Dependent Role="BASKETS">
+              <PropertyRef Name="USER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BOOK_ID_FK">
+          <End Role="BOOKS" Type="Self.BOOKS" Multiplicity="0..1" />
+          <End Role="YOUR_BOOKS" Type="Self.YOUR_BOOKS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BOOKS">
+              <PropertyRef Name="BOOK_ID" />
+            </Principal>
+            <Dependent Role="YOUR_BOOKS">
+              <PropertyRef Name="BOOK_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="GENRE_FK">
+          <End Role="GENRES" Type="Self.GENRES" Multiplicity="0..1" />
+          <End Role="BOOKS" Type="Self.BOOKS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GENRES">
+              <PropertyRef Name="GENRE_ID" />
+            </Principal>
+            <Dependent Role="BOOKS">
+              <PropertyRef Name="GENRE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MARKS_BOOK_ID_FK">
+          <End Role="BOOKS" Type="Self.BOOKS" Multiplicity="0..1" />
+          <End Role="MARKS" Type="Self.MARKS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BOOKS">
+              <PropertyRef Name="BOOK_ID" />
+            </Principal>
+            <Dependent Role="MARKS">
+              <PropertyRef Name="BOOK_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MARKS_USER_ID_FK">
+          <End Role="USERS" Type="Self.USERS" Multiplicity="0..1" />
+          <End Role="MARKS" Type="Self.MARKS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERS">
+              <PropertyRef Name="USER_ID" />
+            </Principal>
+            <Dependent Role="MARKS">
+              <PropertyRef Name="USER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SUBSCRIPTION_FK">
+          <End Role="SUBSCRIPTIONS" Type="Self.SUBSCRIPTIONS" Multiplicity="0..1" />
+          <End Role="USERS" Type="Self.USERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SUBSCRIPTIONS">
+              <PropertyRef Name="SUBSCRIPTION_ID" />
+            </Principal>
+            <Dependent Role="USERS">
+              <PropertyRef Name="SUBSCRIPTION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="USER_ID_FK">
+          <End Role="USERS" Type="Self.USERS" Multiplicity="0..1" />
+          <End Role="YOUR_BOOKS" Type="Self.YOUR_BOOKS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERS">
+              <PropertyRef Name="USER_ID" />
+            </Principal>
+            <Dependent Role="YOUR_BOOKS">
+              <PropertyRef Name="USER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище LIBRARYModelContainer">
+          <EntitySet Name="BASKETS" EntityType="Self.BASKETS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BOOKS" EntityType="Self.BOOKS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GENRES" EntityType="Self.GENRES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MARKS" EntityType="Self.MARKS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SUBSCRIPTIONS" EntityType="Self.SUBSCRIPTIONS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USERS" EntityType="Self.USERS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="YOUR_BOOKS" EntityType="Self.YOUR_BOOKS" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="BASKETS_BOOK_ID_FK" Association="Self.BASKETS_BOOK_ID_FK">
+            <End Role="BOOKS" EntitySet="BOOKS" />
+            <End Role="BASKETS" EntitySet="BASKETS" />
+          </AssociationSet>
+          <AssociationSet Name="BASKETS_USER_ID_FK" Association="Self.BASKETS_USER_ID_FK">
+            <End Role="USERS" EntitySet="USERS" />
+            <End Role="BASKETS" EntitySet="BASKETS" />
+          </AssociationSet>
+          <AssociationSet Name="BOOK_ID_FK" Association="Self.BOOK_ID_FK">
+            <End Role="BOOKS" EntitySet="BOOKS" />
+            <End Role="YOUR_BOOKS" EntitySet="YOUR_BOOKS" />
+          </AssociationSet>
+          <AssociationSet Name="GENRE_FK" Association="Self.GENRE_FK">
+            <End Role="GENRES" EntitySet="GENRES" />
+            <End Role="BOOKS" EntitySet="BOOKS" />
+          </AssociationSet>
+          <AssociationSet Name="MARKS_BOOK_ID_FK" Association="Self.MARKS_BOOK_ID_FK">
+            <End Role="BOOKS" EntitySet="BOOKS" />
+            <End Role="MARKS" EntitySet="MARKS" />
+          </AssociationSet>
+          <AssociationSet Name="MARKS_USER_ID_FK" Association="Self.MARKS_USER_ID_FK">
+            <End Role="USERS" EntitySet="USERS" />
+            <End Role="MARKS" EntitySet="MARKS" />
+          </AssociationSet>
+          <AssociationSet Name="SUBSCRIPTION_FK" Association="Self.SUBSCRIPTION_FK">
+            <End Role="SUBSCRIPTIONS" EntitySet="SUBSCRIPTIONS" />
+            <End Role="USERS" EntitySet="USERS" />
+          </AssociationSet>
+          <AssociationSet Name="USER_ID_FK" Association="Self.USER_ID_FK">
+            <End Role="USERS" EntitySet="USERS" />
+            <End Role="YOUR_BOOKS" EntitySet="YOUR_BOOKS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LIBRARYModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BASKETS">
+          <Key>
+            <PropertyRef Name="BASKET_ID" />
+          </Key>
+          <Property Name="BASKET_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USER_ID" Type="Int32" />
+          <Property Name="BOOK_ID" Type="Int32" />
+          <NavigationProperty Name="BOOKS" Relationship="Self.BASKETS_BOOK_ID_FK" FromRole="BASKETS" ToRole="BOOKS" />
+          <NavigationProperty Name="USERS" Relationship="Self.BASKETS_USER_ID_FK" FromRole="BASKETS" ToRole="USERS" />
+        </EntityType>
+        <EntityType Name="BOOKS">
+          <Key>
+            <PropertyRef Name="BOOK_ID" />
+          </Key>
+          <Property Name="BOOK_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TITLE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AUTHOR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="GENRE" Type="Int32" />
+          <Property Name="YEAR" Type="Int32" Nullable="false" />
+          <Property Name="PRICE" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="COVER" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CATEGORY" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="RATING" Type="Decimal" Precision="3" Scale="2" Nullable="false" />
+          <Property Name="PAGES" Type="Int32" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="BASKETS" Relationship="Self.BASKETS_BOOK_ID_FK" FromRole="BOOKS" ToRole="BASKETS" />
+          <NavigationProperty Name="YOUR_BOOKS" Relationship="Self.BOOK_ID_FK" FromRole="BOOKS" ToRole="YOUR_BOOKS" />
+          <NavigationProperty Name="GENRES" Relationship="Self.GENRE_FK" FromRole="BOOKS" ToRole="GENRES" />
+          <NavigationProperty Name="MARKS" Relationship="Self.MARKS_BOOK_ID_FK" FromRole="BOOKS" ToRole="MARKS" />
+        </EntityType>
+        <EntityType Name="GENRES">
+          <Key>
+            <PropertyRef Name="GENRE_ID" />
+          </Key>
+          <Property Name="GENRE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GENRE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="BOOKS" Relationship="Self.GENRE_FK" FromRole="GENRES" ToRole="BOOKS" />
+        </EntityType>
+        <EntityType Name="MARKS">
+          <Key>
+            <PropertyRef Name="MARK_ID" />
+          </Key>
+          <Property Name="MARK_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BOOK_ID" Type="Int32" />
+          <Property Name="USER_ID" Type="Int32" />
+          <Property Name="MARK" Type="Int32" />
+          <NavigationProperty Name="BOOKS" Relationship="Self.MARKS_BOOK_ID_FK" FromRole="MARKS" ToRole="BOOKS" />
+          <NavigationProperty Name="USERS" Relationship="Self.MARKS_USER_ID_FK" FromRole="MARKS" ToRole="USERS" />
+        </EntityType>
+        <EntityType Name="SUBSCRIPTIONS">
+          <Key>
+            <PropertyRef Name="SUBSCRIPTION_ID" />
+          </Key>
+          <Property Name="SUBSCRIPTION_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SUBSCRIPTION_DATE" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="USERS" Relationship="Self.SUBSCRIPTION_FK" FromRole="SUBSCRIPTIONS" ToRole="USERS" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="USERS">
+          <Key>
+            <PropertyRef Name="USER_ID" />
+          </Key>
+          <Property Name="USER_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SECOND_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ACCOUNT" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CREDIT_CARD" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="SUBSCRIPTION" Type="Int32" />
+          <NavigationProperty Name="BASKETS" Relationship="Self.BASKETS_USER_ID_FK" FromRole="USERS" ToRole="BASKETS" />
+          <NavigationProperty Name="MARKS" Relationship="Self.MARKS_USER_ID_FK" FromRole="USERS" ToRole="MARKS" />
+          <NavigationProperty Name="SUBSCRIPTIONS" Relationship="Self.SUBSCRIPTION_FK" FromRole="USERS" ToRole="SUBSCRIPTIONS" />
+          <NavigationProperty Name="YOUR_BOOKS" Relationship="Self.USER_ID_FK" FromRole="USERS" ToRole="YOUR_BOOKS" />
+        </EntityType>
+        <EntityType Name="YOUR_BOOKS">
+          <Key>
+            <PropertyRef Name="YOUR_BOOKS_ID" />
+          </Key>
+          <Property Name="YOUR_BOOKS_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USER_ID" Type="Int32" />
+          <Property Name="BOOK_ID" Type="Int32" />
+          <NavigationProperty Name="BOOKS" Relationship="Self.BOOK_ID_FK" FromRole="YOUR_BOOKS" ToRole="BOOKS" />
+          <NavigationProperty Name="USERS" Relationship="Self.USER_ID_FK" FromRole="YOUR_BOOKS" ToRole="USERS" />
+        </EntityType>
+        <Association Name="BASKETS_BOOK_ID_FK">
+          <End Role="BOOKS" Type="Self.BOOKS" Multiplicity="0..1" />
+          <End Role="BASKETS" Type="Self.BASKETS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BOOKS">
+              <PropertyRef Name="BOOK_ID" />
+            </Principal>
+            <Dependent Role="BASKETS">
+              <PropertyRef Name="BOOK_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BASKETS_USER_ID_FK">
+          <End Role="USERS" Type="Self.USERS" Multiplicity="0..1" />
+          <End Role="BASKETS" Type="Self.BASKETS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERS">
+              <PropertyRef Name="USER_ID" />
+            </Principal>
+            <Dependent Role="BASKETS">
+              <PropertyRef Name="USER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BOOK_ID_FK">
+          <End Role="BOOKS" Type="Self.BOOKS" Multiplicity="0..1" />
+          <End Role="YOUR_BOOKS" Type="Self.YOUR_BOOKS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BOOKS">
+              <PropertyRef Name="BOOK_ID" />
+            </Principal>
+            <Dependent Role="YOUR_BOOKS">
+              <PropertyRef Name="BOOK_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="GENRE_FK">
+          <End Role="GENRES" Type="Self.GENRES" Multiplicity="0..1" />
+          <End Role="BOOKS" Type="Self.BOOKS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GENRES">
+              <PropertyRef Name="GENRE_ID" />
+            </Principal>
+            <Dependent Role="BOOKS">
+              <PropertyRef Name="GENRE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MARKS_BOOK_ID_FK">
+          <End Role="BOOKS" Type="Self.BOOKS" Multiplicity="0..1" />
+          <End Role="MARKS" Type="Self.MARKS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BOOKS">
+              <PropertyRef Name="BOOK_ID" />
+            </Principal>
+            <Dependent Role="MARKS">
+              <PropertyRef Name="BOOK_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MARKS_USER_ID_FK">
+          <End Role="USERS" Type="Self.USERS" Multiplicity="0..1" />
+          <End Role="MARKS" Type="Self.MARKS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERS">
+              <PropertyRef Name="USER_ID" />
+            </Principal>
+            <Dependent Role="MARKS">
+              <PropertyRef Name="USER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SUBSCRIPTION_FK">
+          <End Role="SUBSCRIPTIONS" Type="Self.SUBSCRIPTIONS" Multiplicity="0..1" />
+          <End Role="USERS" Type="Self.USERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SUBSCRIPTIONS">
+              <PropertyRef Name="SUBSCRIPTION_ID" />
+            </Principal>
+            <Dependent Role="USERS">
+              <PropertyRef Name="SUBSCRIPTION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="USER_ID_FK">
+          <End Role="USERS" Type="Self.USERS" Multiplicity="0..1" />
+          <End Role="YOUR_BOOKS" Type="Self.YOUR_BOOKS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERS">
+              <PropertyRef Name="USER_ID" />
+            </Principal>
+            <Dependent Role="YOUR_BOOKS">
+              <PropertyRef Name="USER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LIBRARYEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BASKETS" EntityType="Self.BASKETS" />
+          <EntitySet Name="BOOKS" EntityType="Self.BOOKS" />
+          <EntitySet Name="GENRES" EntityType="Self.GENRES" />
+          <EntitySet Name="MARKS" EntityType="Self.MARKS" />
+          <EntitySet Name="SUBSCRIPTIONS" EntityType="Self.SUBSCRIPTIONS" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="USERS" EntityType="Self.USERS" />
+          <EntitySet Name="YOUR_BOOKS" EntityType="Self.YOUR_BOOKS" />
+          <AssociationSet Name="BASKETS_BOOK_ID_FK" Association="Self.BASKETS_BOOK_ID_FK">
+            <End Role="BOOKS" EntitySet="BOOKS" />
+            <End Role="BASKETS" EntitySet="BASKETS" />
+          </AssociationSet>
+          <AssociationSet Name="BASKETS_USER_ID_FK" Association="Self.BASKETS_USER_ID_FK">
+            <End Role="USERS" EntitySet="USERS" />
+            <End Role="BASKETS" EntitySet="BASKETS" />
+          </AssociationSet>
+          <AssociationSet Name="BOOK_ID_FK" Association="Self.BOOK_ID_FK">
+            <End Role="BOOKS" EntitySet="BOOKS" />
+            <End Role="YOUR_BOOKS" EntitySet="YOUR_BOOKS" />
+          </AssociationSet>
+          <AssociationSet Name="GENRE_FK" Association="Self.GENRE_FK">
+            <End Role="GENRES" EntitySet="GENRES" />
+            <End Role="BOOKS" EntitySet="BOOKS" />
+          </AssociationSet>
+          <AssociationSet Name="MARKS_BOOK_ID_FK" Association="Self.MARKS_BOOK_ID_FK">
+            <End Role="BOOKS" EntitySet="BOOKS" />
+            <End Role="MARKS" EntitySet="MARKS" />
+          </AssociationSet>
+          <AssociationSet Name="MARKS_USER_ID_FK" Association="Self.MARKS_USER_ID_FK">
+            <End Role="USERS" EntitySet="USERS" />
+            <End Role="MARKS" EntitySet="MARKS" />
+          </AssociationSet>
+          <AssociationSet Name="SUBSCRIPTION_FK" Association="Self.SUBSCRIPTION_FK">
+            <End Role="SUBSCRIPTIONS" EntitySet="SUBSCRIPTIONS" />
+            <End Role="USERS" EntitySet="USERS" />
+          </AssociationSet>
+          <AssociationSet Name="USER_ID_FK" Association="Self.USER_ID_FK">
+            <End Role="USERS" EntitySet="USERS" />
+            <End Role="YOUR_BOOKS" EntitySet="YOUR_BOOKS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище LIBRARYModelContainer" CdmEntityContainer="LIBRARYEntities">
+          <EntitySetMapping Name="BASKETS">
+            <EntityTypeMapping TypeName="LIBRARYModel.BASKETS">
+              <MappingFragment StoreEntitySet="BASKETS">
+                <ScalarProperty Name="BASKET_ID" ColumnName="BASKET_ID" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="BOOK_ID" ColumnName="BOOK_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BOOKS">
+            <EntityTypeMapping TypeName="LIBRARYModel.BOOKS">
+              <MappingFragment StoreEntitySet="BOOKS">
+                <ScalarProperty Name="BOOK_ID" ColumnName="BOOK_ID" />
+                <ScalarProperty Name="TITLE" ColumnName="TITLE" />
+                <ScalarProperty Name="AUTHOR" ColumnName="AUTHOR" />
+                <ScalarProperty Name="GENRE" ColumnName="GENRE" />
+                <ScalarProperty Name="YEAR" ColumnName="YEAR" />
+                <ScalarProperty Name="PRICE" ColumnName="PRICE" />
+                <ScalarProperty Name="COVER" ColumnName="COVER" />
+                <ScalarProperty Name="CATEGORY" ColumnName="CATEGORY" />
+                <ScalarProperty Name="RATING" ColumnName="RATING" />
+                <ScalarProperty Name="PAGES" ColumnName="PAGES" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GENRES">
+            <EntityTypeMapping TypeName="LIBRARYModel.GENRES">
+              <MappingFragment StoreEntitySet="GENRES">
+                <ScalarProperty Name="GENRE_ID" ColumnName="GENRE_ID" />
+                <ScalarProperty Name="GENRE" ColumnName="GENRE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MARKS">
+            <EntityTypeMapping TypeName="LIBRARYModel.MARKS">
+              <MappingFragment StoreEntitySet="MARKS">
+                <ScalarProperty Name="MARK_ID" ColumnName="MARK_ID" />
+                <ScalarProperty Name="BOOK_ID" ColumnName="BOOK_ID" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="MARK" ColumnName="MARK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SUBSCRIPTIONS">
+            <EntityTypeMapping TypeName="LIBRARYModel.SUBSCRIPTIONS">
+              <MappingFragment StoreEntitySet="SUBSCRIPTIONS">
+                <ScalarProperty Name="SUBSCRIPTION_ID" ColumnName="SUBSCRIPTION_ID" />
+                <ScalarProperty Name="SUBSCRIPTION_DATE" ColumnName="SUBSCRIPTION_DATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="LIBRARYModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USERS">
+            <EntityTypeMapping TypeName="LIBRARYModel.USERS">
+              <MappingFragment StoreEntitySet="USERS">
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="SECOND_NAME" ColumnName="SECOND_NAME" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="ACCOUNT" ColumnName="ACCOUNT" />
+                <ScalarProperty Name="CREDIT_CARD" ColumnName="CREDIT_CARD" />
+                <ScalarProperty Name="SUBSCRIPTION" ColumnName="SUBSCRIPTION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="YOUR_BOOKS">
+            <EntityTypeMapping TypeName="LIBRARYModel.YOUR_BOOKS">
+              <MappingFragment StoreEntitySet="YOUR_BOOKS">
+                <ScalarProperty Name="YOUR_BOOKS_ID" ColumnName="YOUR_BOOKS_ID" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="BOOK_ID" ColumnName="BOOK_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

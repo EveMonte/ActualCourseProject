@@ -1,0 +1,24 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    >
+    <Style x:Key="WindowStyle" TargetType="Window">
+        <Setter Property="Background" Value="#F4F2EF" />
+        <Setter Property="Foreground" Value="Black" />
+    </Style>
+    <Style x:Key="TextBlockStyle" TargetType="TextBlock">
+        <Setter Property="Background"  Value="Black" />
+    </Style>
+    <Style x:Key="LabelStyle" TargetType="Label">
+        <Setter Property="Background"  Value="Black" />
+    </Style>
+    <Style x:Key="GridStyle" TargetType="Grid">
+        <Setter Property="Background"  Value="White" />
+    </Style>
+    <Style x:Key="ImageStyle" TargetType="Image">
+        <Setter Property="Source" Value="C:\Users\User\Desktop\Курсааааач\Media\Логотип.png" />
+    </Style>
+    <Style x:Key="DataGridStyle" TargetType="DataGrid">
+        <Setter Property="Background" Value="#F4F2EF" />
+        <Setter Property="Foreground" Value="Black" />
+    </Style>
+</ResourceDictionary>

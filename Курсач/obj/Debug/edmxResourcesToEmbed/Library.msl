@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище LIBRARYModelContainer" CdmEntityContainer="LIBRARYEntities">
+    <EntitySetMapping Name="BASKETS">
+      <EntityTypeMapping TypeName="LIBRARYModel.BASKETS">
+        <MappingFragment StoreEntitySet="BASKETS">
+          <ScalarProperty Name="BASKET_ID" ColumnName="BASKET_ID" />
+          <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+          <ScalarProperty Name="BOOK_ID" ColumnName="BOOK_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BOOKS">
+      <EntityTypeMapping TypeName="LIBRARYModel.BOOKS">
+        <MappingFragment StoreEntitySet="BOOKS">
+          <ScalarProperty Name="BOOK_ID" ColumnName="BOOK_ID" />
+          <ScalarProperty Name="TITLE" ColumnName="TITLE" />
+          <ScalarProperty Name="AUTHOR" ColumnName="AUTHOR" />
+          <ScalarProperty Name="GENRE" ColumnName="GENRE" />
+          <ScalarProperty Name="YEAR" ColumnName="YEAR" />
+          <ScalarProperty Name="PRICE" ColumnName="PRICE" />
+          <ScalarProperty Name="COVER" ColumnName="COVER" />
+          <ScalarProperty Name="CATEGORY" ColumnName="CATEGORY" />
+          <ScalarProperty Name="RATING" ColumnName="RATING" />
+          <ScalarProperty Name="PAGES" ColumnName="PAGES" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GENRES">
+      <EntityTypeMapping TypeName="LIBRARYModel.GENRES">
+        <MappingFragment StoreEntitySet="GENRES">
+          <ScalarProperty Name="GENRE_ID" ColumnName="GENRE_ID" />
+          <ScalarProperty Name="GENRE" ColumnName="GENRE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MARKS">
+      <EntityTypeMapping TypeName="LIBRARYModel.MARKS">
+        <MappingFragment StoreEntitySet="MARKS">
+          <ScalarProperty Name="MARK_ID" ColumnName="MARK_ID" />
+          <ScalarProperty Name="BOOK_ID" ColumnName="BOOK_ID" />
+          <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+          <ScalarProperty Name="MARK" ColumnName="MARK" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUBSCRIPTIONS">
+      <EntityTypeMapping TypeName="LIBRARYModel.SUBSCRIPTIONS">
+        <MappingFragment StoreEntitySet="SUBSCRIPTIONS">
+          <ScalarProperty Name="SUBSCRIPTION_ID" ColumnName="SUBSCRIPTION_ID" />
+          <ScalarProperty Name="SUBSCRIPTION_DATE" ColumnName="SUBSCRIPTION_DATE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="LIBRARYModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="USERS">
+      <EntityTypeMapping TypeName="LIBRARYModel.USERS">
+        <MappingFragment StoreEntitySet="USERS">
+          <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="SECOND_NAME" ColumnName="SECOND_NAME" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+          <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+          <ScalarProperty Name="ACCOUNT" ColumnName="ACCOUNT" />
+          <ScalarProperty Name="CREDIT_CARD" ColumnName="CREDIT_CARD" />
+          <ScalarProperty Name="SUBSCRIPTION" ColumnName="SUBSCRIPTION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="YOUR_BOOKS">
+      <EntityTypeMapping TypeName="LIBRARYModel.YOUR_BOOKS">
+        <MappingFragment StoreEntitySet="YOUR_BOOKS">
+          <ScalarProperty Name="YOUR_BOOKS_ID" ColumnName="YOUR_BOOKS_ID" />
+          <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+          <ScalarProperty Name="BOOK_ID" ColumnName="BOOK_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

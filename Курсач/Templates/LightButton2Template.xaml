@@ -1,0 +1,26 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Курсач.Templates">
+    <ControlTemplate x:Key="LightButton2" TargetType="Button">
+        <Border 
+                CornerRadius="5"
+                Background="#B58252"
+                BorderBrush="#503115"
+                TextBlock.Foreground="White"
+                TextBlock.FontFamily="Tahoma"
+                TextBlock.FontSize="16"
+                MinWidth="100"
+                Padding="5"
+                >
+            <ContentControl Content="{TemplateBinding Content}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            />
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Opacity" Value="0.8" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+</ResourceDictionary>
