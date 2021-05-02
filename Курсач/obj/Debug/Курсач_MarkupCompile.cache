@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\User\Downloads\OOP10-master\Курсач\App.xaml
-151331012169
+1987276966
 41403066702
-50-1908676382
+53-1285378540
 150270619790
-Pages\AdditionalInfo.xaml;Pages\ListOfBooks.xaml;Templates\DarkButtonTemplate.xaml;Templates\LightButton2Template.xaml;Templates\LightButtonTemplate.xaml;Templates\TextBoxTemplate.xaml;UserControls\BookUserControl.xaml;UserControls\FullInfo.xaml;UserControls\SendMessageControl.xaml;UserControls\FormControl.xaml;UserControls\RegisterControl.xaml;Themes\darkTheme.xaml;Themes\lightTheme.xaml;Views\MainWindow.xaml;Views\Workframe.xaml;
+Pages\AdditionalInfo.xaml;Pages\ListOfBooks.xaml;Pages\YourBooks.xaml;Styles\darkTheme.xaml;Styles\lightTheme.xaml;Templates\DarkButtonTemplate.xaml;Templates\LightButton2Template.xaml;Templates\LightButtonTemplate.xaml;Templates\TextBoxTemplate.xaml;UserControls\BookUserControl.xaml;UserControls\FullInfo.xaml;UserControls\SendMessageControl.xaml;UserControls\FormControl.xaml;UserControls\RegisterControl.xaml;Themes\darkTheme.xaml;Themes\lightTheme.xaml;UserControls\YourBook.xaml;Views\MainWindow.xaml;Views\Workframe.xaml;
 
-True
+False
 

@@ -23,8 +23,11 @@
                     <RowDefinition Height="50*" />
                 </Grid.RowDefinitions>
                 <TextBox MaxHeight="50" Grid.Row="0" Grid.ColumnSpan="4"
-                         Text="{Binding Path=Email}" x:Name="emailTextBox" VerticalContentAlignment="Center"
-                         Margin="18, 0,18,0" materialDesign:HintAssist.Hint="{x:Static language:Languages.enterLogin}"
+                         Text="{Binding Path=Email}"
+                         x:Name="emailTextBox"
+                         VerticalContentAlignment="Center"
+                         Margin="18, 0,18,0"
+                         materialDesign:HintAssist.Hint="{x:Static language:Languages.enterLogin}"
                          Style="{DynamicResource MaterialDesignFloatingHintTextBox }" FontSize="16" />
                 <PasswordBox PasswordChanged="passwordTextBox_PasswordChanged" MaxHeight="50" MinHeight="40" Grid.Row="1"
                              Grid.ColumnSpan="4" x:Name="passwordTextBox"
@@ -37,14 +40,15 @@
                         Template="{DynamicResource DarkButton}"
                         Content="{x:Static language:Languages.signIn}"
                         Height="Auto"
-                        Margin="0 15"/>
+                        Margin="0 0"/>
                 <Button x:Name="createAccount"
                         Grid.Row="3"
                         Grid.ColumnSpan="4"
                         Command="{Binding Path=OpenRegisterControlCommand}"
                         Template="{DynamicResource LightButton}" 
                         Content="{x:Static language:Languages.createAccount}"
-                        Height="40" />
+                        Height="Auto"
+                        Margin="0 0"/>
             <!--<StackPanel Grid.Row="4" Grid.ColumnSpan="2" Cursor="Hand" Orientation="Horizontal"
                             HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" Grid.Column="1" Width="126">
                     <materialDesign:PackIcon Kind="Globe" VerticalAlignment="Center" MaxHeight="60" MaxWidth="60" MinHeight="30"

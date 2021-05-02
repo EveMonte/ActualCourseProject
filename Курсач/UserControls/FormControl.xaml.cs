@@ -28,7 +28,7 @@ namespace Курсач
             InitializeComponent();
             DataContext = registerViewModel;
         }
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        /*private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (cmb.SelectedIndex == 0)
             {
@@ -38,7 +38,7 @@ namespace Курсач
                 Properties.Settings.Default.languageCode = "en-US";
             Properties.Settings.Default.Save();
 
-        }
+        }*/
 
         private void Apply_Click(object sender, RoutedEventArgs e)
         {

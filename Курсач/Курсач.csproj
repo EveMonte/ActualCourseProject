@@ -171,6 +171,9 @@
     <Compile Include="Pages\ListOfBooks.xaml.cs">
       <DependentUpon>ListOfBooks.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\YourBooks.xaml.cs">
+      <DependentUpon>YourBooks.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Singleton\FullInfoViewModelSingleTone.cs" />
     <Compile Include="Singleton\MainWindowViewModelSingleton.cs" />
     <Compile Include="Singleton\SendMessageViewModelSingleton.cs" />
@@ -192,6 +195,9 @@
     </Compile>
     <Compile Include="UserControls\RegisterControl.xaml.cs">
       <DependentUpon>RegisterControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\YourBook.xaml.cs">
+      <DependentUpon>YourBook.xaml</DependentUpon>
     </Compile>
     <Compile Include="USERS.cs">
       <DependentUpon>Library.tt</DependentUpon>
@@ -225,6 +231,8 @@
     <Compile Include="ViewModels\DelegateCommand.cs" />
     <Compile Include="ViewModels\MainFrameViewModel.cs" />
     <Compile Include="ViewModels\WorkframeViewModel.cs" />
+    <Compile Include="ViewModels\YourBooksViewModel.cs" />
+    <Compile Include="ViewModels\YourBookViewModel.cs" />
     <Compile Include="Views\Workframe.xaml.cs">
       <DependentUpon>Workframe.xaml</DependentUpon>
     </Compile>
@@ -236,6 +244,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\ListOfBooks.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\YourBooks.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\darkTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\lightTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -280,6 +300,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\lightTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\YourBook.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -367,6 +391,7 @@
       <DependentUpon>Library.edmx</DependentUpon>
       <LastGenOutput>Library.cs</LastGenOutput>
     </Content>
+    <Resource Include="Media\ЛоготипDark.png" />
     <Resource Include="Media\ЛоготипСОбводкой.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

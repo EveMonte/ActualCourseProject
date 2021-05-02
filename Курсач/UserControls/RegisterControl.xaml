@@ -7,33 +7,87 @@
              xmlns:language="clr-namespace:Курсач.Properties.Languages"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" >
-    <Grid>
-        <StackPanel x:Name="Register" Grid.Column="3" Grid.Row="1"  Background="White" Grid.RowSpan="1"  >
-            <StackPanel Orientation="Horizontal">
-                <TextBox x:Name="secondNameTextBox" Text="{Binding SecondName}" Width="200"
-                         Height="50" Margin="18.5,16,5,8" materialDesign:HintAssist.Hint="{x:Static language:Languages.secondName}"
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="18" />
-                <TextBox x:Name="nameTextBox" Text="{Binding Name}" Width="200" Height="50"
-                         Margin="5,16,18.5,8" materialDesign:HintAssist.Hint="{x:Static language:Languages.name}"
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="18" />
-            </StackPanel>
-            <TextBox x:Name="emailTextBox" Text="{Binding Email}" Height="50" Margin="18.5,8"
-                     materialDesign:HintAssist.Hint="{x:Static language:Languages.enterLogin}"
-                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="18" ></TextBox>
-            <PasswordBox PasswordChanged="password1Box_PasswordChanged" x:Name="password1Box" Height="50" Margin="18.5,8"
-                         materialDesign:HintAssist.Hint="{x:Static language:Languages.enterPassword}"
-                         Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" FontSize="18" />
-            <PasswordBox PasswordChanged="password2Box_PasswordChanged" x:Name="password2Box" Height="50" Margin="18.5,8"
-                         materialDesign:HintAssist.Hint="{x:Static language:Languages.repeatPasword}"
-                         Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" FontSize="18" />
-            <Button x:Name="Create_Account" Template="{DynamicResource DarkButton}"
-                    Command="{Binding RegistrationCommand}" Content="{x:Static language:Languages.createAccount}"
-                    MinWidth="400" Margin="18,0,19,8" />
-            <Label Cursor="Hand" HorizontalAlignment="Center" Margin="0,0,0,16"
-                   Content="{x:Static language:Languages.already}" FontSize="14" Foreground="#FF1877F3" />
-            <StackPanel.Effect>
-                <DropShadowEffect/>
-            </StackPanel.Effect>
+    <Grid Style="{DynamicResource GridStyle}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.9*" />
+            <RowDefinition Height="0.9*" />
+            <RowDefinition Height="0.9*" />
+            <RowDefinition Height="0.9*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="0.6*" />
+        </Grid.RowDefinitions>
+
+            <Grid HorizontalAlignment="Stretch" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="secondNameTextBox"
+                         MaxHeight="50"
+                         Grid.Column="0"
+                         Text="{Binding SecondName}"
+                         Margin="18,0,10,0"
+                         HorizontalAlignment="Stretch"
+                         materialDesign:HintAssist.Hint="Фамилия"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         FontSize="16"
+                         />
+                <TextBox x:Name="nameTextBox"
+                         MaxHeight="50"
+                         Grid.Column="1"
+                         HorizontalAlignment="Stretch"
+                         Text="{Binding Name}"
+                         Margin="10,0,18,0"
+                         materialDesign:HintAssist.Hint="Имя"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         FontSize="16" />
+            </Grid>
+
+        <TextBox Grid.Row="1"
+                 MaxHeight="50"
+                     x:Name="emailTextBox"
+                     Text="{Binding Email}"
+                     Margin="18,0"
+                     materialDesign:HintAssist.Hint="Email"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                     FontSize="16" />
+        <PasswordBox Grid.Row="2"
+                     MaxHeight="50"
+                     PasswordChanged="password1Box_PasswordChanged"
+                     x:Name="password1Box"
+                     Margin="18,0"
+                     materialDesign:HintAssist.Hint="Пароль"
+                     Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
+                     FontSize="16" />
+            <PasswordBox Grid.Row="3"
+                         MaxHeight="50"
+                         PasswordChanged="password2Box_PasswordChanged"
+                         x:Name="password2Box"
+                         Margin="18,0"
+                         materialDesign:HintAssist.Hint="Повторите пароль"
+                         Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
+                         FontSize="16" />
+            <Button Grid.Row="4"
+                    x:Name="Create_Account"
+                    Template="{DynamicResource DarkButton}"
+                    Command="{Binding RegistrationCommand}"
+                    Height="Auto"
+                    Content="{x:Static language:Languages.createAccount}"
+                     />
+        <StackPanel Grid.Row="5">
+            <Button Width="120" Padding="0"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    Command="{Binding OpenSignInCommand}">
+                <Label Cursor="Hand"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,0"
+                   Content="{x:Static language:Languages.already}"
+                   FontSize="14"
+                   Foreground="#FF1877F3" />
+            </Button>
         </StackPanel>
+        
+
     </Grid>
 </UserControl>

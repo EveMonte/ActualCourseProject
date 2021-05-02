@@ -7,25 +7,73 @@
              xmlns:language="clr-namespace:Курсач.Properties.Languages"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" >
-    <Grid>
-        <StackPanel x:Name="CheckPanel"  Background="White" VerticalAlignment="Center">
-            <TextBox Text="{Binding Path=Code}"  x:Name="codeBox" Height="50"
-                     Margin="18.5,8" materialDesign:HintAssist.Hint="Введите проверочный код"
-                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="18">
+    <Grid Background="White" VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="0.8*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1.25*" />
+            <RowDefinition Height="0.7*" />
+            <RowDefinition Height="0.7*" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0"
+                   TextWrapping="Wrap"
+                   FontSize="16"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Bottom"
+                   Margin="15, 0, 15, 0"
+                   Text="На вашу почту было отправлено сообщение с кодом подтверждения." />
+        <TextBlock Grid.Row="1"
+                   TextWrapping="Wrap"
+                   FontSize="16"
+                   Margin="15, 0, 15, 0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Bottom"
+                   Text="Для подтверждения аккаунта необходимо ввести этот код ниже:" />
+        <TextBox Grid.Row="2"
+                     Text="{Binding Path=Code}"
+                     x:Name="codeBox"
+                 Height="Auto"
+                 MaxHeight="50"
+                     Margin="18,0"
+                     materialDesign:HintAssist.Hint="Введите проверочный код"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                     FontSize="16">
                 <TextBox.Template>
                     <ControlTemplate TargetType="TextBox">
                         <TextBox Text="{Binding Path=Code, Mode=TwoWay}" />
                     </ControlTemplate>
                 </TextBox.Template>
                 </TextBox>
-            <Button Template="{DynamicResource LightButton}" MinHeight="50" x:Name="Check"
-                    Command="{Binding Path=SendMessageCommand}" MinWidth="400"
-                    Margin="18,0,19,8" Content="Подтвердить код" />
-            <Label Cursor="Hand" HorizontalAlignment="Center" Margin="0,0,0,16"
-                   Content="Отправить код повторно" FontSize="14" Foreground="#FF1877F3" />
-            <Label Cursor="Hand" HorizontalAlignment="Center" Margin="0,0,0,16"
-                   Content="Назад" FontSize="14" Foreground="#FF1877F3" />
-
-        </StackPanel>
+            <Button Grid.Row="3"
+                    Template="{DynamicResource LightButton}"
+                    x:Name="Check"
+                    Height="Auto"
+                    Command="{Binding Path=SendMessageCommand}"
+                    Margin="18,0,18,0"
+                    Content="Подтвердить код"
+                    HorizontalAlignment="Stretch"/>
+        <Button Grid.Row="4"
+                Background="Transparent"
+                Padding="0"
+                BorderBrush="Transparent"
+                Command="{Binding SendNewMessageCommand}">
+            <Label Cursor="Hand"
+                   HorizontalAlignment="Center"
+                   Content="Отправить код повторно"
+                   FontSize="16"
+                   Foreground="#FF1877F3" />
+        </Button>
+        <Button Grid.Row="5"
+                Padding="0"
+                Background="Transparent"
+                BorderBrush="Transparent"
+                Command="{Binding OpenRegistrationCommand}">
+            <Label Cursor="Hand"
+                   HorizontalAlignment="Center"
+                   Content="Назад"
+                   FontSize="16"
+                   Foreground="#FF1877F3" />
+        </Button>
     </Grid>
 </UserControl>

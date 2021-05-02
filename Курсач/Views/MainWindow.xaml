@@ -83,11 +83,11 @@
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <StackPanel HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1"
+            <StackPanel HorizontalAlignment="Left" Grid.Row="0" Grid.RowSpan="3" Grid.Column="1"
                         VerticalAlignment="Center">
                 <TextBlock MaxWidth="170" Text="Bookварь©2021" Cursor="Hand"
                            FontSize="20" FontFamily="Tahoma"  Margin="0,0,0,10" />
-                <StackPanel Orientation="Horizontal">
+                <WrapPanel>
                     <TextBlock TextWrapping="Wrap" Text="Вкл/выкл темную тему" Margin="0, 0, 10, 0" FontSize="16"/>
                     <ToggleButton Command="{Binding Path=ToggleCommand}" IsChecked="{Binding Path=ThemeChoice, Mode=TwoWay}"
                                   x:Name="theme" VerticalAlignment="Bottom" HorizontalAlignment="Right"
@@ -95,7 +95,7 @@
                           ToolTip="Сменить тему" materialDesign:ShadowAssist.ShadowDepth="Depth3">
 
                     </ToggleButton>
-                </StackPanel>
+                </WrapPanel>
             </StackPanel>
             <TextBlock Grid.RowSpan="3" TextWrapping="Wrap" VerticalAlignment="Center"
                        Grid.Row="0" Grid.Column="3" FontSize="20"

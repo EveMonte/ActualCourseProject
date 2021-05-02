@@ -83,7 +83,7 @@ namespace Курсач.ViewModels
         #endregion
 
         public ICommand RegistrationCommand { get; private set; }
-        public ICommand SendMessageCommand { get; private set; }
+        public ICommand OpenSignInCommand { get; private set; }
 
         // Если пользователя с таким email не существует, введенные пароли совпадают и длина паролей больше 6 символов
         bool CanExecute(object parametr)
@@ -103,68 +103,26 @@ namespace Курсач.ViewModels
             return false;
         }
         private static string generatedCode;
-        private string GenerateCode() //Генерация кода
-        {
-            string code = "";
-            string forGeneration = "QWERTYUIOPASDFGHJKLZXCVBNM1234567890";
-            Random random = new Random();
-            for (int i = 0; i < 6; i++)
-            {
-                code += forGeneration[random.Next(forGeneration.Length)];
-            }
-            return code;
-        }
-        //Асинхронная отправка сообщения на почту
-        private static async Task SendEmailAsync(string email, string code)
-        {
-            try
-            {
-                MailAddress from = new MailAddress("bookvar.official@gmail.com", "Администрация онлайн-библиотеки Bookварь");
-                MailAddress to = new MailAddress(email);
-                MailMessage m = new MailMessage(from, to);
-                m.Subject = "Код подтверждения";
-                m.Body = $"Введите символьный код, расположенный ниже, в приложение:\n{code}\nНикому не давайте его!";
-                SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-                smtp.Credentials = new NetworkCredential("bookvar.official@gmail.com", "rm.dthnb");
-                smtp.EnableSsl = true;
-                await smtp.SendMailAsync(m);
-                MessageBox.Show("Письмо отправлено");
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Ошибка при попытке отправить сообщение: {ex.Message}");
-            }
-        }
-
-        // Вызываем отправление письма и открываем user control для ввода кода
-        void Execute(object parametr)
-        {
-            generatedCode = GenerateCode();
-            SendEmailAsync(Email, generatedCode).GetAwaiter();
-            SendMessageViewModelSingleton.GetInstance(new SendMessageViewModel());
-            SendMessageViewModelSingleton.GetInstance().SendMessageViewModel.newUser = new USERS { ACCOUNT = "User", EMAIL = Email, NAME = Name, PASSWORD = FirstPassword, SECOND_NAME = SecondName };
-            SendMessageViewModelSingleton.GetInstance().SendMessageViewModel.generatedCode = generatedCode;
-
-            MainWindowViewModelSingleton.GetInstance().MainFrameViewModel.SelectedViewModel = //new SendMessageViewModel();
-                SendMessageViewModelSingleton.GetInstance().SendMessageViewModel;
-            /*foreach (Employee employee in employees)
-            {
-                if (employee.Email == user.email)
-                {
-                    user.TypeOfUser = "Administrator";
-                    MessageBox.Show("Hello admin!");
-                }
-            }*/
-            //SendMessageViewModelSingleton.GetInstance().SendMessageViewModel.newUser = new User { Email = Email, Name = Name, Password = firstPassword, SecondName = SecondName, Subscription }
-
-        }
+        
         public RegistrationViewModel()
         {
             using (LIBRARYEntities library = new LIBRARYEntities())
             {
                 listOfUsers = library.USERS.ToList<USERS>();
             }
-            RegistrationCommand = new DelegateCommand(Execute, CanExecute);
+            RegistrationCommand = new DelegateCommand(OpenSendMessage);
+            OpenSignInCommand = new DelegateCommand(OpenSignIn);
+        }
+
+        private void OpenSendMessage(object obj)
+        {
+            SendMessageViewModelSingleton.GetInstance(new SendMessageViewModel(new USERS { ACCOUNT = "User", EMAIL = Email, NAME = Name, PASSWORD = FirstPassword, SECOND_NAME = SecondName }));
+            MainWindowViewModelSingleton.GetInstance().MainFrameViewModel.SelectedViewModel = SendMessageViewModelSingleton.GetInstance().SendMessageViewModel;
+        }
+
+        private void OpenSignIn(object obj)
+        {
+            MainWindowViewModelSingleton.GetInstance().MainFrameViewModel.SelectedViewModel = new RegisterViewModel();
         }
     }
 }

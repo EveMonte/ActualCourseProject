@@ -11,7 +11,10 @@
         xmlns:language="clr-namespace:Курсач.Properties.Languages"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Style="{DynamicResource WindowStyle}"
-        Title="Bookварь" WindowState="Maximized" Width="1920" Height="1080" 
+        Title="Bookварь"
+        WindowState="Maximized"
+        Width="1920"
+        Height="1080" 
         Icon="C:\Users\User\Desktop\Курсааааач\Курсач\Курсач\Media\Логотип.png">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -28,47 +31,88 @@
             <RowDefinition Height="400*"/>
             <RowDefinition Height="400*"/>
         </Grid.RowDefinitions>
-        <Border Grid.Row="0" Grid.ColumnSpan="6" Background="#B56F2F" />
-        <StackPanel HorizontalAlignment="Center" Grid.Row="0" Grid.ColumnSpan="6" Orientation="Horizontal">
-            <Image Source="/Media/ЛоготипСОбводкой.png" Margin="0, 0, 20, 0" />
-            <TextBlock HorizontalAlignment="Center" FontSize="20" Foreground="White" VerticalAlignment="Center" Text="Множество бесплатных книг при покупки месячного абонемента" />
+        <Border Grid.Row="0"
+                Grid.ColumnSpan="6"
+                Background="#B56F2F" />
+        <StackPanel HorizontalAlignment="Center"
+                    Grid.Row="0"
+                    Grid.ColumnSpan="6"
+                    Orientation="Horizontal">
+            <Image Source="/Media/ЛоготипСОбводкой.png"
+                   Margin="0, 0, 20, 0" />
+            <TextBlock HorizontalAlignment="Center"
+                       FontSize="20"
+                       Foreground="White"
+                       VerticalAlignment="Center"
+                       Text="Множество бесплатных книг при покупки месячного абонемента" />
         </StackPanel>
-        <Grid x:Name="sidePanel" Grid.RowSpan="5" Background="#B56F2F"
-              HorizontalAlignment="Left" Width="60">
+        <Grid x:Name="sidePanel"
+              Grid.RowSpan="5"
+              Background="#B56F2F"
+              HorizontalAlignment="Left"
+              Width="60">
             <DockPanel>
-                <StackPanel DockPanel.Dock="Top" VerticalAlignment="Top">
-                    <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Foreground="White">
-                        <ListViewItem Height="50" Padding="0">
+                <StackPanel DockPanel.Dock="Top"
+                            VerticalAlignment="Top">
+                    <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                              Foreground="White">
+                        <ListViewItem Height="50"
+                                      Padding="0">
                             <StackPanel VerticalAlignment="Center">
                                 <Button Click="Button_Click" Width="180" Height="50"
-                                    Padding="0"
+                                        Padding="0"
                                         VerticalAlignment="Center"
                                         HorizontalContentAlignment="Left"
-                                     Background="Transparent" BorderBrush="Transparent">
+                                        Background="Transparent"
+                                        BorderBrush="Transparent">
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon VerticalAlignment="Center"
-                                                         Margin="10, 0, 10, 0"
-                                                         Width="40" Height="40" Kind="Menu"/>
+                                                                 Margin="10, 0, 10, 0"
+                                                                 Width="40"
+                                                                 Height="40"
+                                                                 Kind="Menu"/>
                                         <TextBlock VerticalAlignment="Center" FontSize="16" Text="Меню" />
                                     </StackPanel>
                                 </Button>
                             </StackPanel>
                         </ListViewItem>
-                        <ListViewItem Padding="0" Height="50">
-                            <StackPanel Orientation="Horizontal"
+                        <ListViewItem Padding="0"
+                                      Height="50">
+                            <Button Padding="0"
+                                    Background="Transparent"
+                                    BorderBrush="Transparent"
+                                    Command="{Binding OpenListOfBooksCommand}">
+                                <StackPanel Orientation="Horizontal"
                                         VerticalAlignment="Center">
-                                <materialDesign:PackIcon Kind="Home"  Width="40" Height="40" Margin="10,0,10,0"
-                                                         VerticalAlignment="Center"/>
-                                <TextBlock Text="Главная" VerticalAlignment="Center" FontSize="16" />
-                            </StackPanel>
+                                    <materialDesign:PackIcon Kind="Home"
+                                                             Width="40"
+                                                             Height="40"
+                                                             Margin="10,0,10,0"
+                                                             VerticalAlignment="Center"/>
+                                    <TextBlock Text="Главная"
+                                               VerticalAlignment="Center"
+                                               FontSize="16" />
+                                </StackPanel>
+                            </Button>
                         </ListViewItem>
                         <ListViewItem Padding="0" Height="50">
-                            <StackPanel Orientation="Horizontal"
+                            <Button Padding="0"
+                                    Background="Transparent"
+                                    BorderBrush="Transparent"
+                                    Command="{Binding OpenYourBooksCommand}">
+                                <StackPanel Orientation="Horizontal"
                                         VerticalAlignment="Center">
-                                <materialDesign:PackIcon Kind="Books"  Width="40" Height="40" Margin="10,0,10,0"
-                                                         VerticalAlignment="Center"/>
-                                <TextBlock Text="Ваша Полка" VerticalAlignment="Center" FontSize="16" />
-                            </StackPanel>
+                                    <materialDesign:PackIcon Kind="Books"
+                                                             Width="40"
+                                                             Height="40"
+                                                             Margin="10,0,10,0"
+                                                             VerticalAlignment="Center"/>
+                                    <TextBlock Text="Ваша Полка"
+                                               VerticalAlignment="Center"
+                                               FontSize="16" />
+                                </StackPanel>
+                            </Button>
+
                         </ListViewItem>
                         <ListViewItem Padding="0" Height="50">
                             <StackPanel Orientation="Horizontal"

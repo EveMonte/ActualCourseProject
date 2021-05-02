@@ -11,7 +11,8 @@ namespace Курсач
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class BOOKS
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -41,5 +42,11 @@ namespace Курсач
         public virtual GENRES GENRES { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MARKS> MARKS { get; set; }
+        [NotMapped]
+        public string Genre { get; set; }
+        [NotMapped]
+        public int Mark { get; set; }
+        [NotMapped]
+        public int NUMBEROFVOICES { get; set; }
     }
 }

@@ -3,8 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Курсач"
              xmlns:userControls="clr-namespace:Курсач.UserControls"
-                          xmlns:pages="clr-namespace:Курсач.Pages"
-
+             xmlns:pages="clr-namespace:Курсач.Pages"
              xmlns:viewmodels="clr-namespace:Курсач.ViewModels"
              StartupUri="Views\MainWindow.xaml"
              ShutdownMode="OnLastWindowClose">
@@ -31,6 +30,15 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:AdditionalInfoViewModel}">
                 <pages:AdditionalInfo />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:MainFrameViewModel}">
+                <local:MainWindow />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:YourBooksViewModel}">
+                <pages:YourBooks />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:YourBookViewModel}">
+                <userControls:YourBook />
             </DataTemplate>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />

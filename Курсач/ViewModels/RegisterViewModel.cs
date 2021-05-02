@@ -22,12 +22,8 @@ namespace Курсач.ViewModels
     public class RegisterViewModel : BaseViewModel
     {
         #region Data
-        ObservableCollection<User> listOfUsers;
-        User currentUser;
-        string connectionString;
-        SqlDataAdapter adapter;
-        DataTable usersTable;
-        public User CurrentUser
+        USERS currentUser;
+        public USERS CurrentUser
         {
             get
             {
@@ -75,6 +71,7 @@ namespace Курсач.ViewModels
                 {
                     if (u.PASSWORD == Password && u.EMAIL == Email)
                     {
+                        currentUser = u;
                         return true;
                     }
                 }
@@ -84,6 +81,8 @@ namespace Курсач.ViewModels
 
         void OpenWorkFrame(object obj) // Открыть главную страницу
         {
+            WorkFrameSingleTone.GetInstance(new WorkframeViewModel(currentUser));
+
             Workframe workframe = new Workframe();
             workframe.Show();
         }

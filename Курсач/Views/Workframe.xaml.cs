@@ -36,7 +36,7 @@ namespace Курсач
 
         private void WorkFrame_Loaded(object sender, RoutedEventArgs e)
         {
-            WorkFrameSingleTone.GetInstance(new WorkframeViewModel());
+            WorkFrameSingleTone.GetInstance();
             DataContext = WorkFrameSingleTone.GetInstance().WorkframeViewModel;
         }
 

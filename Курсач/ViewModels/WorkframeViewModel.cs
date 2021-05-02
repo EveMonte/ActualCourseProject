@@ -17,7 +17,7 @@ namespace Курсач.ViewModels
 {
     public class WorkframeViewModel : BaseViewModel
     {
-
+        public USERS currentUser;
         private BaseViewModel _currentPage;
         public BaseViewModel CurrentPageViewModel
         {
@@ -62,45 +62,37 @@ namespace Курсач.ViewModels
         public ICommand OpenFullInfo { get; private set; }
         public ICommand SaveChangesCommand { get; private set; }
         public ICommand ChangeCoverCommand { get; private set; }
+        public ICommand OpenListOfBooksCommand { get; private set; }
+        public ICommand OpenYourBooksCommand { get; private set; }
         #endregion
 
         #region Command's Logic
-        public WorkframeViewModel()
+        public WorkframeViewModel(USERS user)
         {
+            currentUser = user;
             CurrentPageViewModel = new ListOfBooksViewModel();
             AddCommand = new DelegateCommand(AddBook);
             RemoveCommand = new DelegateCommand(RemoveBook, CanRemoveBook);
             SaveChangesCommand = new DelegateCommand(SaveBooks);
             ChangeCoverCommand = new DelegateCommand(ChangeCover);
-
+            OpenListOfBooksCommand = new DelegateCommand(OpenListOfBooks);
+            OpenYourBooksCommand = new DelegateCommand(OpenYourBooks);
         }
 
+        private void OpenYourBooks(object obj)
+        {
+            CurrentPageViewModel = new YourBooksViewModel();
+        }
+
+        private void OpenListOfBooks(object obj)
+        {
+            CurrentPageViewModel = new ListOfBooksViewModel();
+        }
 
         private void SaveBooks(object obj)//Save books from datagrid to database
         {
             using (LIBRARYEntities db = new LIBRARYEntities())
             {
-                /*string sqlCommand = "";
-                foreach (BOOKS book in db.BOOKS)
-                {
-                    sqlCommand += String.Format("DELETE BOOKS WHERE BOOK_ID = {0} ", book.BOOK_ID);
-                }
-                if(sqlCommand != "")
-                    db.Database.ExecuteSqlCommand(sqlCommand);
-                sqlCommand = "";
-                sqlCommand += "  INSERT INTO BOOKS(TITLE, AUTHOR, GENRE, YEAR, PRICE, COVER, CATEGORY, RATING, PAGES, DESCRIPTION)" +
-                        "VALUES";
-                foreach (BOOKS book in Books)
-                {
-                    sqlCommand += String.Format("('{0}', '{1}', {2}, {3}, cast('{4}' as money), '{5}', '{6}', cast('{7}' as numeric(3,2)), {8}, '{9}'),",
-                        book.TITLE, book.AUTHOR, book.GENRE, book.YEAR, book.PRICE, book.COVER, book.CATEGORY, book.RATING, book.PAGES, book.DESCRIPTION);
-
-                }
-                sqlCommand = sqlCommand.Substring(0, sqlCommand.Length - 1);
-                Console.WriteLine(sqlCommand);
-                if (sqlCommand != "")
-                    db.Database.ExecuteSqlCommand(sqlCommand);
-                */
                 var users = db.USERS;
                 db.BOOKS.RemoveRange(db.BOOKS);
                 foreach (BOOKS book in Books)

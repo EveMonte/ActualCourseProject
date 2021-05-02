@@ -2,6 +2,9 @@
 FC:\Users\User\Downloads\OOP10-master\Курсач\App.xaml;;
 FC:\Users\User\Downloads\OOP10-master\Курсач\Pages\AdditionalInfo.xaml;;
 FC:\Users\User\Downloads\OOP10-master\Курсач\Pages\ListOfBooks.xaml;;
+FC:\Users\User\Downloads\OOP10-master\Курсач\Pages\YourBooks.xaml;;
+FC:\Users\User\Downloads\OOP10-master\Курсач\Styles\darkTheme.xaml;;
+FC:\Users\User\Downloads\OOP10-master\Курсач\Styles\lightTheme.xaml;;
 FC:\Users\User\Downloads\OOP10-master\Курсач\Templates\DarkButtonTemplate.xaml;;
 FC:\Users\User\Downloads\OOP10-master\Курсач\Templates\LightButton2Template.xaml;;
 FC:\Users\User\Downloads\OOP10-master\Курсач\Templates\LightButtonTemplate.xaml;;
@@ -12,6 +15,7 @@ FC:\Users\User\Downloads\OOP10-master\Курсач\UserControls\SendMessageContr
 FC:\Users\User\Downloads\OOP10-master\Курсач\UserControls\FormControl.xaml;;
 FC:\Users\User\Downloads\OOP10-master\Курсач\UserControls\RegisterControl.xaml;;
 FC:\Users\User\Downloads\OOP10-master\Курсач\Themes\darkTheme.xaml;;
+FC:\Users\User\Downloads\OOP10-master\Курсач\UserControls\YourBook.xaml;;
 FC:\Users\User\Downloads\OOP10-master\Курсач\Views\MainWindow.xaml;;
 FC:\Users\User\Downloads\OOP10-master\Курсач\Views\Workframe.xaml;;
 

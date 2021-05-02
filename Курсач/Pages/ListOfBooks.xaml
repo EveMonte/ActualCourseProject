@@ -30,18 +30,19 @@
                    Margin="0 5"
                VerticalAlignment="Center"
                Style="{DynamicResource ImageStyle}" 
-               Source="C:\Users\User\Desktop\Курсааааач\Media\Логотип.png" />
-            <TextBox VerticalAlignment="Center"
+               Source="\Media\Логотип.png" />
+            <TextBox VerticalAlignment="Top"
                      Grid.Column="1"
                      x:Name="Search"
                      materialDesign:HintAssist.Hint="{x:Static language:Languages.search}"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      FontSize="16"
+                     MaxHeight="50"
                      Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}" />
             <StackPanel Orientation="Horizontal"
                         Grid.Column="3"
                         HorizontalAlignment="Right">
-                <ComboBox Height="46"
+                <ComboBox 
                           Padding="0"
                           Margin="0, 0, 10, 0"
                           FontSize="16"
