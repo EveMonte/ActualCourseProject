@@ -40,6 +40,7 @@
                         Template="{DynamicResource DarkButton}"
                         Content="{x:Static language:Languages.signIn}"
                         Height="Auto"
+                        MaxHeight="70"
                         Margin="0 0"/>
                 <Button x:Name="createAccount"
                         Grid.Row="3"
@@ -48,6 +49,7 @@
                         Template="{DynamicResource LightButton}" 
                         Content="{x:Static language:Languages.createAccount}"
                         Height="Auto"
+                        MaxHeight="70"
                         Margin="0 0"/>
             <!--<StackPanel Grid.Row="4" Grid.ColumnSpan="2" Cursor="Hand" Orientation="Horizontal"
                             HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" Grid.Column="1" Width="126">

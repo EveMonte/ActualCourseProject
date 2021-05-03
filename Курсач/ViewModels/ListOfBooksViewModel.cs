@@ -15,7 +15,20 @@ namespace Курсач.ViewModels
     public class ListOfBooksViewModel : BaseViewModel
     {
         #region Data
-        public ObservableCollection<BOOKS> Books { get; set; }
+        LIBRARYEntities db = new LIBRARYEntities();
+        private ObservableCollection<BOOKS> books;
+        public ObservableCollection<BOOKS> Books
+        {
+            get
+            {
+                return books;
+            }
+            set
+            {
+                books = value;
+                OnPropertyChanged("Books");
+            }
+        }
         public ObservableCollection<GENRES> Genres { get; private set; }
         GENRES selectedGenre;
         public GENRES SelectedGenre
@@ -61,8 +74,24 @@ namespace Курсач.ViewModels
 
         private void OpenFullInfoUserControl(object obj)
         {
-            FullInfoViewModel.book = SelectedBook;
             FullInfoViewModelSingleTone.GetInstance(new FullInfoViewModel());
+            string command = String.Format($"SELECT * " +
+                $"FROM GENRES");
+            var h = (db.Database.SqlQuery<GENRES>(command));
+            foreach (GENRES genre in h)
+            {
+                if (genre.GENRE_ID == SelectedBook.GENRE)
+                    SelectedBook.Genre = genre.GENRE;
+            }
+            command = String.Format($"SELECT COUNT(*) FROM MARKS WHERE BOOK_ID = {SelectedBook.BOOK_ID}");
+            var a = db.Database.SqlQuery<int>(command);
+            foreach (var b in a)
+            {
+                int s = b;
+                SelectedBook.NUMBEROFVOICES = s;
+            }
+            SelectedBook.RATING = SelectedBook.RATING;
+            FullInfoViewModelSingleTone.GetInstance().FullInfoViewModel.CurrentBook = SelectedBook;
             WorkFrameSingleTone.GetInstance().WorkframeViewModel.CurrentPageViewModel = new AdditionalInfoViewModel();
         }
         #region Filter

@@ -7,7 +7,7 @@
              xmlns:viewModel="clr-namespace:Курсач.ViewModels"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" >
-    <Grid DataContext="{Binding CurrentBook}" Style="{DynamicResource GridStyle}">
+    <Grid DataContext="{Binding CurrentBook, Mode=TwoWay}" Style="{DynamicResource GridStyle}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.5*" />
             <ColumnDefinition Width="2*" />
@@ -24,7 +24,7 @@
                 <TextBlock FontSize="16" Margin="15, 5, 0, 0" Text="Название книги: " />
                 <TextBlock FontSize="16" Margin="0, 5, 0, 0" Text="{Binding TITLE}" />
             </StackPanel>
-            <TextBlock FontSize="16" Margin="15, 5, 0, 0" Text="{Binding GENRE}" />
+            <TextBlock FontSize="16" Margin="15, 5, 0, 0" Text="{Binding Genre}" />
             <StackPanel Margin="15, 5, 0, 0" Orientation="Horizontal">
                 <TextBlock FontSize="16" Text="Автор: " />
                 <TextBlock FontSize="16" Text="{Binding AUTHOR}" />
@@ -33,8 +33,15 @@
                 <TextBlock FontSize="16" Margin="0, 0, 5, 0" Text="{Binding RATING}" VerticalAlignment="Center" />
                 <materialDesign:PackIcon Margin="0, 0, 5, 0" Kind="Star" VerticalAlignment="Center" />
                 <TextBlock FontSize="16" Margin="0, 0, 5, 0" VerticalAlignment="Center" Text="{Binding NUMBEROFVOICES}" />
-                <materialDesign:RatingBar VerticalAlignment="Center" HorizontalAlignment="Right"  />
+                <materialDesign:RatingBar VerticalAlignment="Center"
+                                          Value="{Binding RATING}"
+                                          HorizontalAlignment="Right"
+                                          Foreground="#B56F2F"/>
             </StackPanel>
+            <Button Padding="0"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    Content="Удалить оценку"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Template="{DynamicResource LightButton}" Margin="0 5" Width="200" Height="Auto" Content="Добавить в корзину" />

@@ -7,7 +7,6 @@
       xmlns:userControl="clr-namespace:Курсач.UserControls"
       mc:Ignorable="d" 
       Title="AdditionalInfo">
-
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />

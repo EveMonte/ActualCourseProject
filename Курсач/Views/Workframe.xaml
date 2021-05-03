@@ -13,8 +13,7 @@
         Style="{DynamicResource WindowStyle}"
         Title="Bookварь"
         WindowState="Maximized"
-        Width="1920"
-        Height="1080" 
+        MinWidth="1350" MinHeight="760"
         Icon="C:\Users\User\Desktop\Курсааааач\Курсач\Курсач\Media\Логотип.png">
     <Grid>
         <Grid.ColumnDefinitions>

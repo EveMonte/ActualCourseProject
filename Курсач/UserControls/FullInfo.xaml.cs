@@ -25,7 +25,8 @@ namespace Курсач.UserControls
         public FullInfo()
         {
             InitializeComponent();
-            DataContext = FullInfoViewModelSingleTone.GetInstance().FullInfoViewModel;
+            DataContext = FullInfoViewModelSingleTone.GetInstance(new FullInfoViewModel()).FullInfoViewModel;
+
         }
     }
 }
