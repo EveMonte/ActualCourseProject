@@ -35,13 +35,22 @@
                 <TextBlock FontSize="16" Margin="0, 0, 5, 0" VerticalAlignment="Center" Text="{Binding NUMBEROFVOICES}" />
                 <materialDesign:RatingBar VerticalAlignment="Center"
                                           Value="{Binding RATING}"
+                                          x:Name="rating"
                                           HorizontalAlignment="Right"
                                           Foreground="#B56F2F"/>
+                <Button Template="{DynamicResource LightButton2}"
+                        x:Name="SetMark"
+                        Command="{Binding MarkCommand}"
+                        CommandParameter="{Binding Value, ElementName=rating}"
+                        Content="Поставить оценку">
+                </Button>
             </StackPanel>
             <Button Padding="0"
                     Background="Transparent"
                     BorderBrush="Transparent"
-                    Content="Удалить оценку"/>
+                    >
+                <TextBlock Text="Удалить оценку" />
+            </Button>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Template="{DynamicResource LightButton}" Margin="0 5" Width="200" Height="Auto" Content="Добавить в корзину" />

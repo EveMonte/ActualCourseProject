@@ -51,10 +51,6 @@ namespace Курсач.ViewModels
         public AdditionalInfoViewModel()
         {
             Books = new ObservableCollection<BOOKS>();
-            foreach (BOOKS book in Books)
-            {
-                Books.Remove(book);
-            }
             using (LIBRARYEntities library = new LIBRARYEntities())
             {
                 foreach (BOOKS book in library.BOOKS)
