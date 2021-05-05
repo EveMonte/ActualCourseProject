@@ -69,7 +69,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border>
-                        <userControls:BookUserControl Width="130" Height="280" />
+                        <userControls:BookUserControl Width="130" Height="280"  />
                         <Border.InputBindings>
                             <MouseBinding MouseAction="{x:Static MouseAction.LeftDoubleClick}"
                                           Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=DataContext.OpenFullInfo}" />

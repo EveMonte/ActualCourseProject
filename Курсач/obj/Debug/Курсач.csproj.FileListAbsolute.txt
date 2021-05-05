@@ -253,3 +253,7 @@ C:\Users\User\Downloads\OOP10-master\Курсач\obj\Debug\Pages\YourBooks.g.cs
 C:\Users\User\Downloads\OOP10-master\Курсач\obj\Debug\Pages\YourBooks.baml
 C:\Users\User\Downloads\OOP10-master\Курсач\obj\Debug\UserControls\YourBook.g.cs
 C:\Users\User\Downloads\OOP10-master\Курсач\obj\Debug\UserControls\YourBook.baml
+C:\Users\User\Downloads\OOP10-master\Курсач\obj\Debug\Pages\BasketPage.g.cs
+C:\Users\User\Downloads\OOP10-master\Курсач\obj\Debug\UserControls\BasketBook.g.cs
+C:\Users\User\Downloads\OOP10-master\Курсач\obj\Debug\Pages\BasketPage.baml
+C:\Users\User\Downloads\OOP10-master\Курсач\obj\Debug\UserControls\BasketBook.baml

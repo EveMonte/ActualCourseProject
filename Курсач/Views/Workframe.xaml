@@ -58,7 +58,9 @@
                         <ListViewItem Height="50"
                                       Padding="0">
                             <StackPanel VerticalAlignment="Center">
-                                <Button Click="Button_Click" Width="180" Height="50"
+                                <Button Click="Button_Click"
+                                        Width="180"
+                                        Height="50"
                                         Padding="0"
                                         VerticalAlignment="Center"
                                         HorizontalContentAlignment="Left"
@@ -80,6 +82,9 @@
                             <Button Padding="0"
                                     Background="Transparent"
                                     BorderBrush="Transparent"
+                                    HorizontalContentAlignment="Left"
+                                    Height="50"
+                                    Width="180"
                                     Command="{Binding OpenListOfBooksCommand}">
                                 <StackPanel Orientation="Horizontal"
                                         VerticalAlignment="Center">
@@ -98,9 +103,13 @@
                             <Button Padding="0"
                                     Background="Transparent"
                                     BorderBrush="Transparent"
+                                    VerticalAlignment="Stretch"
+                                    HorizontalContentAlignment="Left"
+                                    Height="50"
+                                    Width="180"
                                     Command="{Binding OpenYourBooksCommand}">
                                 <StackPanel Orientation="Horizontal"
-                                        VerticalAlignment="Center">
+                                        VerticalAlignment="Stretch">
                                     <materialDesign:PackIcon Kind="Books"
                                                              Width="40"
                                                              Height="40"
@@ -111,39 +120,75 @@
                                                FontSize="16" />
                                 </StackPanel>
                             </Button>
-
                         </ListViewItem>
                         <ListViewItem Padding="0" Height="50">
-                            <StackPanel Orientation="Horizontal"
+                            <Button Padding="0"
+                                    Background="Transparent"
+                                    BorderBrush="Transparent"
+                                    VerticalAlignment="Stretch"
+                                    HorizontalContentAlignment="Left"
+                                    Height="50"
+                                    Width="180"
+                                    Command="{Binding OpenBasketCommand}">
+                                <StackPanel Orientation="Horizontal"
                                         VerticalAlignment="Center">
-                                <materialDesign:PackIcon Kind="Basket" Width="40" Height="40" Margin="10,0,10,0"
+                                    <materialDesign:PackIcon Kind="Basket" Width="40" Height="40" Margin="10,0,10,0"
                                                          VerticalAlignment="Center"/>
-                                <TextBlock Text="Корзина" VerticalAlignment="Center" FontSize="16" />
-                            </StackPanel>
+                                    <TextBlock Text="Корзина" VerticalAlignment="Center" FontSize="16" />
+                                </StackPanel>
+                            </Button>
                         </ListViewItem>
                         <ListViewItem Padding="0" Height="50">
-                            <StackPanel Orientation="Horizontal"
+                            <Button Padding="0"
+                                    Background="Transparent"
+                                    BorderBrush="Transparent"
+                                    VerticalAlignment="Stretch"
+                                    HorizontalContentAlignment="Left"
+                                    Width="180"
+                                    Height="50"
+                                    Command="{Binding UserCommand}">
+                                <StackPanel Orientation="Horizontal"
                                         VerticalAlignment="Center">
-                                <materialDesign:PackIcon Kind="User" Width="40" Height="40" Margin="10,0,10,0"
+                                    <materialDesign:PackIcon Kind="User" Width="40" Height="40" Margin="10,0,10,0"
                                                          VerticalAlignment="Center"/>
-                                <TextBlock Text="Пользователь" VerticalAlignment="Center" FontSize="16" />
-                            </StackPanel>
+                                    <TextBlock Text="Пользователь" VerticalAlignment="Center" FontSize="16" />
+                                </StackPanel>
+                            </Button>
                         </ListViewItem>
                         <ListViewItem Padding="0" Height="50">
-                            <StackPanel Orientation="Horizontal"
+                            <Button Padding="0"
+                                    Background="Transparent"
+                                    BorderBrush="Transparent"
+                                    VerticalAlignment="Stretch"
+                                    HorizontalContentAlignment="Left"
+                                    Height="50"
+                                    Width="180"
+                                    HorizontalAlignment="Stretch"
+                                    Command="{Binding SubscriptionCommand}">
+                                <StackPanel Orientation="Horizontal"
                                         VerticalAlignment="Center">
-                                <materialDesign:PackIcon Kind="Crown"  Width="40" Height="40" Margin="10,0,10,0"
+                                    <materialDesign:PackIcon Kind="Crown"  Width="40" Height="40" Margin="10,0,10,0"
                                                          VerticalAlignment="Center"/>
-                                <TextBlock Text="Абонемент" VerticalAlignment="Center" FontSize="16" />
-                            </StackPanel>
+                                    <TextBlock Text="Абонемент" VerticalAlignment="Center" FontSize="16" />
+                                </StackPanel>
+                            </Button>
                         </ListViewItem>
                         <ListViewItem Padding="0" Height="50">
-                            <StackPanel Orientation="Horizontal"
+                            <Button Padding="0"
+                                    Background="Transparent"
+                                    BorderBrush="Transparent"
+                                    VerticalAlignment="Stretch"
+                                    HorizontalContentAlignment="Left"
+                                    Height="50"
+                                    Width="180"
+                                    Command="{Binding SettingsCommand}">
+                                <StackPanel Orientation="Horizontal"
                                         VerticalAlignment="Center">
-                                <materialDesign:PackIcon Kind="Settings" Width="40" Height="40" Margin="10,0,10,0"
+                                    <materialDesign:PackIcon Kind="Settings" Width="40" Height="40" Margin="10,0,10,0"
                                                          VerticalAlignment="Center"/>
-                                <TextBlock Text="Настройки" VerticalAlignment="Center" FontSize="16" />
-                            </StackPanel>
+                                    <TextBlock Text="Настройки" VerticalAlignment="Center" FontSize="16" />
+                                </StackPanel>
+                            </Button>
                         </ListViewItem>
                     </ListView>
                 </StackPanel>

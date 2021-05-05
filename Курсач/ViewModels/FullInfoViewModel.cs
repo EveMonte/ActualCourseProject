@@ -34,7 +34,7 @@ namespace Курсач.ViewModels
          
         }
 
-        void SetMark(object obj)
+        private void SetMark(object obj)
         {
             int mark = (int)obj;
             string command = String.Format($"INSERT INTO MARKS(BOOK_ID, USER_ID, MARK)" +

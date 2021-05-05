@@ -15,9 +15,23 @@ namespace Курсач.ViewModels
     public class YourBooksViewModel : BaseViewModel
     {
         #region Data
-        public ObservableCollection<BOOKS> Books { get; set; }
+        private ObservableCollection<BOOKS> books;
+
+        public ObservableCollection<BOOKS> Books
+        {
+            get
+            {
+                return books;
+            }
+            set
+            {
+                books = value;
+                OnPropertyChanged("Books");
+            }
+        }
         public ObservableCollection<GENRES> Genres { get; private set; }
         public IQueryable<BOOKS> coll { get; set; }
+        LIBRARYEntities db = new LIBRARYEntities();
         public USERS currentUser;
         private int mark;
         public int Mark
@@ -54,10 +68,13 @@ namespace Курсач.ViewModels
             }
         }
         #endregion
+        public ICommand DeleteCommand { get; private set; }
 
         public ICommand FindByGenreCommand { get; private set; }
         public YourBooksViewModel()
         {
+            DeleteCommand = new DelegateCommand(DeleteBook);
+
             currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser;
             Books = new ObservableCollection<BOOKS>();
             using (LIBRARYEntities library = new LIBRARYEntities())
@@ -106,6 +123,20 @@ namespace Курсач.ViewModels
             FindByGenreCommand = new DelegateCommand(FindByGenre);
         }
 
+        private void DeleteBook(object obj)
+        {
+            foreach(BOOKS book in books)
+            {
+                if(book.BOOK_ID == (int)obj)
+                {
+                    Books.Remove(book);
+                    db.Database.ExecuteSqlCommand($"DELETE FROM YOUR_BOOKS WHERE BOOK_ID = {(int)obj}");
+                    db.SaveChanges();
+                    break;
+                }
+            }
+        }
+
         private void FindByGenre(object obj)
         {
             Books = new ObservableCollection<BOOKS>(Books.Where(n => n.GENRE == SelectedGenre.GENRE_ID));
@@ -113,8 +144,8 @@ namespace Курсач.ViewModels
 
         private void OpenFullInfoUserControl(object obj)
         {
-            FullInfoViewModel.book = SelectedBook;
             FullInfoViewModelSingleTone.GetInstance(new FullInfoViewModel());
+            FullInfoViewModelSingleTone.GetInstance().FullInfoViewModel.CurrentBook = SelectedBook;
             WorkFrameSingleTone.GetInstance().WorkframeViewModel.CurrentPageViewModel = new AdditionalInfoViewModel();
         }
         #region Filter

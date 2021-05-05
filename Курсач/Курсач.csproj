@@ -168,6 +168,9 @@
     <Compile Include="Pages\AdditionalInfo.xaml.cs">
       <DependentUpon>AdditionalInfo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\BasketPage.xaml.cs">
+      <DependentUpon>BasketPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ListOfBooks.xaml.cs">
       <DependentUpon>ListOfBooks.xaml</DependentUpon>
     </Compile>
@@ -183,6 +186,9 @@
     </Compile>
     <Compile Include="sysdiagrams.cs">
       <DependentUpon>Library.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\BasketBook.xaml.cs">
+      <DependentUpon>BasketBook.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\BookUserControl.xaml.cs">
       <DependentUpon>BookUserControl.xaml</DependentUpon>
@@ -243,6 +249,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\BasketPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\ListOfBooks.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -272,6 +282,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Templates\TextBoxTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\BasketBook.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

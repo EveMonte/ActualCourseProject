@@ -40,8 +40,15 @@
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Template="{DynamicResource LightButton}" Margin="0 5" Width="200" Height="Auto" Content="Скачать" />
-            <Button Template="{DynamicResource DarkButton}" Margin="0 5" Width="200" Content="Удалить" Height="Auto" />
+            <Button Template="{DynamicResource LightButton}" Margin="0 5" Width="200" Height="Auto" Content="Скачать"
+                    Command="{Binding DataContext.DownloadCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                    CommandParameter="{Binding BOOK_ID}"/>
+            <Button Template="{DynamicResource DarkButton}"
+                    Margin="0 5" Width="200"
+                    Content="Удалить"
+                    Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                    CommandParameter="{Binding BOOK_ID}"
+                    Height="Auto" />
         </StackPanel>
         <TextBlock FontSize="16" TextWrapping="Wrap" VerticalAlignment="Center" Grid.Row="2" Grid.RowSpan="2" Grid.Column="2" Text="{Binding DESCRIPTION}" />
     </Grid>

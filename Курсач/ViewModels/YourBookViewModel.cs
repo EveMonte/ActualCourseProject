@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Курсач.Models;
 using Курсач.Singleton;
 
@@ -24,7 +25,7 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("Mark");
             }                
         }
-
+        public ICommand com { get; private set; }
         public static BOOKS book;
         private Book currentBook;
         LIBRARYEntities db = new LIBRARYEntities();
@@ -43,7 +44,7 @@ namespace Курсач.ViewModels
         public YourBookViewModel()
         {
             currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser;
-
+            com = new DelegateCommand(msb);
             string command; 
             command = String.Format($"SELECT COUNT(*) FROM MARKS WHERE BOOK_ID = {book.BOOK_ID}");
             var a = db.Database.SqlQuery<int>(command);
@@ -59,6 +60,11 @@ namespace Курсач.ViewModels
             {
                 Mark = (int)b.MARK;
             }
+        }
+
+        private void msb(object obj)
+        {
+            System.Windows.Forms.MessageBox.Show("Test");
         }
     }
 }
