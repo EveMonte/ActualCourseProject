@@ -40,7 +40,10 @@
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Template="{DynamicResource LightButton}" Margin="0 5" Width="200" Height="Auto" Content="Скачать"
+            <Button Template="{DynamicResource LightButton}"
+                    Margin="0 5" Width="200"
+                    Height="Auto"
+                    Content="Открыть"
                     Command="{Binding DataContext.DownloadCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
                     CommandParameter="{Binding BOOK_ID}"/>
             <Button Template="{DynamicResource DarkButton}"

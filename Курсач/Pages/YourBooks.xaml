@@ -16,23 +16,23 @@
             <RowDefinition Height="800*" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0"
-              Grid.Column="1"
-              Grid.ColumnSpan="4"
-              Margin="150 0">
+              Grid.Column="1">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250" />
                 <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="0.4*" />
+                <ColumnDefinition Width="250" />
             </Grid.ColumnDefinitions>
-            <Image Grid.Column="0"
+            <Image Grid.Column="1"
                    Margin="0 5"
                VerticalAlignment="Center"
                Style="{DynamicResource ImageStyle}" 
                Source="\Media\Логотип.png" />
             <TextBox VerticalAlignment="Top"
-                     Grid.Column="1"
+                     Grid.Column="2"
                      x:Name="Search"
                      materialDesign:HintAssist.Hint="{x:Static language:Languages.search}"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -40,7 +40,7 @@
                      MaxHeight="50"
                      Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}" />
             <StackPanel Orientation="Horizontal"
-                        Grid.Column="3"
+                        Grid.Column="4"
                         HorizontalAlignment="Right">
                 <ComboBox 
                           Padding="0"
@@ -63,8 +63,10 @@
             </StackPanel>
 
         </Grid>
-        <ListBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4" ItemsSource="{Binding Books, Mode=TwoWay}"
+        <ListBox Grid.Row="1"
+                 ItemsSource="{Binding Books, Mode=TwoWay}"
                  SelectedItem="{Binding SelectedBook, Mode=TwoWay}"
+                 Padding="150 0"
                  x:Name="listOfBooks">
             <ListBox.ItemTemplate>
                 <DataTemplate>

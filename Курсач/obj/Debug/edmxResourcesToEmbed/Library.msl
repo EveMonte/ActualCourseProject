@@ -24,6 +24,7 @@
           <ScalarProperty Name="RATING" ColumnName="RATING" />
           <ScalarProperty Name="PAGES" ColumnName="PAGES" />
           <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+          <ScalarProperty Name="LINK" ColumnName="LINK" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

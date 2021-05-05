@@ -25,6 +25,7 @@
     <Property Name="RATING" Type="Decimal" Precision="3" Scale="2" Nullable="false" />
     <Property Name="PAGES" Type="Int32" Nullable="false" />
     <Property Name="DESCRIPTION" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LINK" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="BASKETS" Relationship="Self.BASKETS_BOOK_ID_FK" FromRole="BOOKS" ToRole="BASKETS" />
     <NavigationProperty Name="YOUR_BOOKS" Relationship="Self.BOOK_ID_FK" FromRole="BOOKS" ToRole="YOUR_BOOKS" />
     <NavigationProperty Name="GENRES" Relationship="Self.GENRE_FK" FromRole="BOOKS" ToRole="GENRES" />

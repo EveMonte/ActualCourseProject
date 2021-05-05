@@ -248,7 +248,6 @@ C:\Users\User\Downloads\OOP10-master\Курсач\obj\Debug\en\Курсач.reso
 C:\Users\User\Downloads\OOP10-master\Курсач\obj\Debug\Курсач.csproj.CopyComplete
 C:\Users\User\Downloads\OOP10-master\Курсач\obj\Debug\Styles\darkTheme.baml
 C:\Users\User\Downloads\OOP10-master\Курсач\obj\Debug\Styles\lightTheme.baml
-C:\Users\User\Downloads\OOP10-master\Курсач\obj\Debug\Курсач.csprojAssemblyReference.cache
 C:\Users\User\Downloads\OOP10-master\Курсач\obj\Debug\Pages\YourBooks.g.cs
 C:\Users\User\Downloads\OOP10-master\Курсач\obj\Debug\Pages\YourBooks.baml
 C:\Users\User\Downloads\OOP10-master\Курсач\obj\Debug\UserControls\YourBook.g.cs
@@ -257,3 +256,4 @@ C:\Users\User\Downloads\OOP10-master\Курсач\obj\Debug\Pages\BasketPage.g.c
 C:\Users\User\Downloads\OOP10-master\Курсач\obj\Debug\UserControls\BasketBook.g.cs
 C:\Users\User\Downloads\OOP10-master\Курсач\obj\Debug\Pages\BasketPage.baml
 C:\Users\User\Downloads\OOP10-master\Курсач\obj\Debug\UserControls\BasketBook.baml
+C:\Users\User\Downloads\OOP10-master\Курсач\obj\Debug\Курсач.csprojAssemblyReference.cache

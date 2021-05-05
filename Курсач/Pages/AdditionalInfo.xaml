@@ -9,19 +9,19 @@
       Title="AdditionalInfo">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="1*" />
+           
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="1.25*" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
-        <userControl:FullInfo Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" />
-        <ListBox Grid.Row="2" Grid.ColumnSpan="5" ItemsSource="{Binding Books}"
+        <userControl:FullInfo Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" />
+        <ListBox Grid.Row="2" Grid.ColumnSpan="4" ItemsSource="{Binding Books}"
                  SelectedItem="{Binding SelectedBook, Mode=TwoWay}">
             <ListBox.ItemTemplate>
                 <DataTemplate>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -69,12 +70,14 @@ namespace Курсач.ViewModels
         }
         #endregion
         public ICommand DeleteCommand { get; private set; }
+        public ICommand DownloadCommand { get; private set; }
+
 
         public ICommand FindByGenreCommand { get; private set; }
         public YourBooksViewModel()
         {
             DeleteCommand = new DelegateCommand(DeleteBook);
-
+            DownloadCommand = new DelegateCommand(DownloadBook);
             currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser;
             Books = new ObservableCollection<BOOKS>();
             using (LIBRARYEntities library = new LIBRARYEntities())
@@ -121,6 +124,18 @@ namespace Курсач.ViewModels
             Items = CollectionViewSource.GetDefaultView(Books);
             Items.Filter = Search;
             FindByGenreCommand = new DelegateCommand(FindByGenre);
+        }
+
+        private void DownloadBook(object obj)
+        {
+            BOOKS book = db.BOOKS.Where<BOOKS>(n => n.BOOK_ID == (int)obj).FirstOrDefault();
+            new Process
+            {
+                StartInfo = new ProcessStartInfo($"{book.LINK}")
+                {
+                UseShellExecute = true
+                }
+            }.Start();
         }
 
         private void DeleteBook(object obj)

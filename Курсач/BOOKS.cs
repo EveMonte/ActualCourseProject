@@ -34,7 +34,9 @@ namespace Курсач
         public decimal RATING { get; set; }
         public int PAGES { get; set; }
         public string DESCRIPTION { get; set; }
-    
+        public string LINK { get; set; }
+
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BASKETS> BASKETS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -368,6 +368,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Library.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="Books\АннаКаренина.pdf" />
     <None Include="Library.edmx.diagram">
       <DependentUpon>Library.edmx</DependentUpon>
     </None>

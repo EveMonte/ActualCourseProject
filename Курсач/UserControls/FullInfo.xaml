@@ -9,11 +9,11 @@
              mc:Ignorable="d" >
     <Grid DataContext="{Binding CurrentBook, Mode=TwoWay}" Style="{DynamicResource GridStyle}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1.5*" />
-            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1.75*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*" />
+            <RowDefinition Height="3*" />
             <RowDefinition Height="1.25*" />
             <RowDefinition Height="2*" />
             <RowDefinition Height="2*" />

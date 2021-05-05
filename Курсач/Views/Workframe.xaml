@@ -239,6 +239,6 @@
                 </ListView>-->
             </DockPanel>
         </Grid>        
-        <Frame NavigationUIVisibility="Hidden" Content="{Binding CurrentPageViewModel}" Margin="150 0" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="3" />
+        <Frame NavigationUIVisibility="Hidden" Content="{Binding CurrentPageViewModel}" Padding="150 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" Grid.RowSpan="3" />
     </Grid>
 </Window>
