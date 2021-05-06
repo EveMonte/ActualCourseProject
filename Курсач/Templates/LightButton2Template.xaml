@@ -5,12 +5,13 @@
         <Border 
                 CornerRadius="5"
                 Background="#B58252"
+                            Margin="15 7"
+
                 BorderBrush="#503115"
                 TextBlock.Foreground="White"
                 TextBlock.FontFamily="Tahoma"
                 TextBlock.FontSize="16"
                 MinWidth="100"
-                Padding="5"
                 >
             <ContentControl Content="{TemplateBinding Content}"
                             HorizontalAlignment="Center"

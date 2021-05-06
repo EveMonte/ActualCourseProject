@@ -44,12 +44,14 @@ namespace Курсач
         {
             if (hidden)
             {
-                sidePanel.Width = 180;
+                GridLengthConverter conv = new GridLengthConverter();
+                col.Width = (GridLength)conv.ConvertFrom(180);
                 hidden = false;
             }
             else
             {
-                sidePanel.Width = 60;
+                GridLengthConverter conv = new GridLengthConverter();
+                col.Width = (GridLength)conv.ConvertFrom(60);
                 hidden = true;
             }
         }

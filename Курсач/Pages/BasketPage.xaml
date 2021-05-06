@@ -12,27 +12,25 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50*" />
+            <RowDefinition Height="70*" />
             <RowDefinition Height="800*" />
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0"
-              Grid.Column="1"
-              Grid.ColumnSpan="4"
-              Margin="150 0">
+        <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="150" />
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="0.4*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="2.5*" />
+                <ColumnDefinition Width="150" />
             </Grid.ColumnDefinitions>
-            <Image Grid.Column="0"
+            <Image Grid.Column="1"
                    Margin="0 5"
                VerticalAlignment="Center"
                Style="{DynamicResource ImageStyle}" 
                Source="\Media\Логотип.png" />
             <TextBox VerticalAlignment="Top"
-                     Grid.Column="1"
+                     Grid.Column="2"
                      x:Name="Search"
                      materialDesign:HintAssist.Hint="{x:Static language:Languages.search}"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -40,12 +38,13 @@
                      MaxHeight="50"
                      Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}" />
             <StackPanel Orientation="Horizontal"
-                        Grid.Column="3"
+                        Grid.Column="4"
                         HorizontalAlignment="Right">
                 <ComboBox 
                           Padding="0"
                           Margin="0, 0, 10, 0"
                           FontSize="16"
+                          Width="180"
                           VerticalAlignment="Center"
                           SelectedIndex="0"
                           SelectedItem="{Binding SelectedGenre}"
@@ -53,11 +52,15 @@
                           MaxDropDownHeight="300">
                     <ComboBox.ItemTemplate >
                         <DataTemplate>
-                            <TextBlock Margin="0" Text="{Binding GENRE}" VerticalAlignment="Bottom"/>
+                            <TextBlock Margin="0" Text="{Binding GENRE}"
+                                       VerticalAlignment="Bottom"
+                                       HorizontalAlignment="Center"/>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                <Button Content="Жанр" VerticalAlignment="Center" Template="{DynamicResource LightButton2}"
+                <Button Content="Жанр"
+                        VerticalAlignment="Center"
+                        Template="{DynamicResource LightButton2}"
                         Command="{Binding FindByGenreCommand}"
                         />
             </StackPanel>
@@ -69,7 +72,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border>
-                        <userControls:YourBook Height="500" Width="800" />
+                        <userControls:BasketBook Height="500" Width="800" Focusable="False" />
                         <Border.InputBindings>
                             <MouseBinding MouseAction="{x:Static MouseAction.LeftDoubleClick}"
                                           Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=DataContext.OpenFullInfo}" />

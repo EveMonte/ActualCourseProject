@@ -63,7 +63,9 @@
             </StackPanel>
 
         </Grid>
-        <ListBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4" ItemsSource="{Binding Books, Mode=TwoWay}"
+        <ListBox Grid.Column="0" Grid.Row="1"
+                 Grid.ColumnSpan="4"
+                 ItemsSource="{Binding Books, Mode=TwoWay}"
                  SelectedItem="{Binding SelectedBook}"
                  x:Name="listOfBooks">
             <ListBox.ItemTemplate>

@@ -11,12 +11,13 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.5*" />
             <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="10" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="1.6*" />
             <RowDefinition Height="2*" />
-            <RowDefinition Height="1.25*" />
             <RowDefinition Height="2*" />
-            <RowDefinition Height="2*" />
+            <RowDefinition Height="75" />
         </Grid.RowDefinitions>
         <Image HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="0" Grid.Row="0" Grid.RowSpan="4" Source="{Binding COVER}" />
         <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left">
@@ -37,22 +38,31 @@
                                           HorizontalAlignment="Right"
                                           Value="{Binding Mark}"
                                           Foreground="#B56F2F"/>
+                <Button Template="{DynamicResource LightButton2}"
+                        x:Name="SetMark"
+                        Margin="10 0"
+                        Command="{Binding Path=MarkCommand}"
+                        CommandParameter="{Binding Value, ElementName=rating}"
+                        Content="Поставить оценку" />
             </StackPanel>
         </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Template="{DynamicResource LightButton}"
-                    Margin="0 5" Width="200"
-                    Height="Auto"
+        <Button Template="{DynamicResource DarkButton}"
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Width="Auto"
+                    Height="75"
                     Content="Открыть"
+                    Padding="0"
+                FontSize="18"
                     Command="{Binding DataContext.DownloadCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
                     CommandParameter="{Binding BOOK_ID}"/>
-            <Button Template="{DynamicResource DarkButton}"
-                    Margin="0 5" Width="200"
-                    Content="Удалить"
-                    Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
-                    CommandParameter="{Binding BOOK_ID}"
-                    Height="Auto" />
-        </StackPanel>
-        <TextBlock FontSize="16" TextWrapping="Wrap" VerticalAlignment="Center" Grid.Row="2" Grid.RowSpan="2" Grid.Column="2" Text="{Binding DESCRIPTION}" />
+        <TextBlock FontSize="16"
+                   TextWrapping="Wrap"
+                   VerticalAlignment="Top"
+                   Grid.Row="1"
+                   Margin="15, 5, 10, 0"
+                   Grid.RowSpan="2"
+                   Grid.Column="1"
+                   Text="{Binding DESCRIPTION}" />
     </Grid>
 </UserControl>

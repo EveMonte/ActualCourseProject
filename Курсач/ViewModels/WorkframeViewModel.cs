@@ -64,6 +64,9 @@ namespace Курсач.ViewModels
         public ICommand ChangeCoverCommand { get; private set; }
         public ICommand OpenListOfBooksCommand { get; private set; }
         public ICommand OpenYourBooksCommand { get; private set; }
+        public ICommand OpenBasketCommand { get; private set; }
+        public ICommand OpenUserCommand { get; private set; }
+
         #endregion
 
         #region Command's Logic
@@ -71,12 +74,24 @@ namespace Курсач.ViewModels
         {
             currentUser = user;
             CurrentPageViewModel = new ListOfBooksViewModel();
+            OpenUserCommand = new DelegateCommand(OpenUser);
             AddCommand = new DelegateCommand(AddBook);
             RemoveCommand = new DelegateCommand(RemoveBook, CanRemoveBook);
             SaveChangesCommand = new DelegateCommand(SaveBooks);
             ChangeCoverCommand = new DelegateCommand(ChangeCover);
             OpenListOfBooksCommand = new DelegateCommand(OpenListOfBooks);
             OpenYourBooksCommand = new DelegateCommand(OpenYourBooks);
+            OpenBasketCommand = new DelegateCommand(OpenBasket);
+        }
+
+        private void OpenUser(object obj)
+        {
+            CurrentPageViewModel = new UserPageVM();
+        }
+
+        private void OpenBasket(object obj)
+        {
+            CurrentPageViewModel = new BasketVM();
         }
 
         private void OpenYourBooks(object obj)

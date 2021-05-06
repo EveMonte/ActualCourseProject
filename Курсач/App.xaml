@@ -40,6 +40,15 @@
             <DataTemplate DataType="{x:Type viewmodels:YourBookViewModel}">
                 <userControls:YourBook />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:BasketVM}">
+                <pages:BasketPage />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:UserPageVM}">
+                <pages:UserPage />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:PasswordBlockVM}">
+                <userControls:PasswordBlock />
+            </DataTemplate>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />

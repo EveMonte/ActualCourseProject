@@ -4,13 +4,12 @@
     <ControlTemplate x:Key="DarkButton" TargetType="Button">
         <Border Background="#6B3401"
                 BorderBrush="#503115"
-                MinHeight="40"
                 CornerRadius="5"
                 Margin="15 7"
                 TextBlock.Foreground="White"
                 TextBlock.FontWeight="Bold"
                 TextBlock.FontFamily="Tahoma"
-                TextBlock.FontSize="16">
+                TextBlock.FontSize="{TemplateBinding FontSize}">
             <ContentControl Content="{TemplateBinding Content}"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"

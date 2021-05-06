@@ -22,7 +22,7 @@
     <Property Name="CATEGORY" Type="varchar" MaxLength="10" />
     <Property Name="RATING" Type="numeric" Precision="3" Scale="2" Nullable="false" />
     <Property Name="PAGES" Type="int" Nullable="false" />
-    <Property Name="DESCRIPTION" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="nvarchar" MaxLength="800" Nullable="false" />
     <Property Name="LINK" Type="varchar" MaxLength="150" Nullable="false" />
   </EntityType>
   <EntityType Name="GENRES">

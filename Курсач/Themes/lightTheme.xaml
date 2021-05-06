@@ -17,8 +17,4 @@
     <Style x:Key="ImageStyle" TargetType="Image">
         <Setter Property="Source" Value="C:\Users\User\Desktop\Курсааааач\Media\Логотип.png" />
     </Style>
-    <Style x:Key="DataGridStyle" TargetType="DataGrid">
-        <Setter Property="Background" Value="#F4F2EF" />
-        <Setter Property="Foreground" Value="Black" />
-    </Style>
 </ResourceDictionary>

@@ -17,12 +17,12 @@
         Icon="C:\Users\User\Desktop\Курсааааач\Курсач\Курсач\Media\Логотип.png">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="180"/>
+            <ColumnDefinition x:Name="col" MinWidth="60"/>
             <ColumnDefinition Width="80*"/>
             <ColumnDefinition Width="150*"/>
             <ColumnDefinition Width="150*"/>
             <ColumnDefinition Width="80*"/>
-            <ColumnDefinition Width="180"/>
+            <ColumnDefinition Width="60"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
@@ -49,7 +49,7 @@
               Grid.RowSpan="5"
               Background="#B56F2F"
               HorizontalAlignment="Left"
-              Width="60">
+ >
             <DockPanel>
                 <StackPanel DockPanel.Dock="Top"
                             VerticalAlignment="Top">
@@ -146,7 +146,7 @@
                                     HorizontalContentAlignment="Left"
                                     Width="180"
                                     Height="50"
-                                    Command="{Binding UserCommand}">
+                                    Command="{Binding OpenUserCommand}">
                                 <StackPanel Orientation="Horizontal"
                                         VerticalAlignment="Center">
                                     <materialDesign:PackIcon Kind="User" Width="40" Height="40" Margin="10,0,10,0"
@@ -192,53 +192,10 @@
                         </ListViewItem>
                     </ListView>
                 </StackPanel>
-                <!--<ListView DockPanel.Dock="Bottom" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Foreground="White">
-                    <ListViewItem Height="50" Padding="0">
-                        <Button Command="{Binding AddCommand}" Width="180" Height="50"
-                                    Padding="0"
-                                        VerticalAlignment="Center"
-                                        HorizontalContentAlignment="Left"
-                                     Background="Transparent" BorderBrush="Transparent">
-                            <StackPanel Orientation="Horizontal"
-                                        VerticalAlignment="Center">
-                                <materialDesign:PackIcon Margin="10,0,10,0" VerticalAlignment="Center" Kind="Add" Width="40" Height="40" />
-                                <TextBlock VerticalAlignment="Center" FontSize="16" Text="Добавить" />
-                            </StackPanel>
-
-                        </Button>
-                    </ListViewItem>
-                    <ListViewItem Height="50" Padding="0">
-                        <Button Command="{Binding RemoveCommand}"
-                                CommandParameter="{Binding SelectedBook}"
-                                Width="180" Height="50"
-                                    Padding="0"
-                                        VerticalAlignment="Center"
-                                        HorizontalContentAlignment="Left"
-                                     Background="Transparent" BorderBrush="Transparent">
-                            <StackPanel Orientation="Horizontal"
-                                        VerticalAlignment="Center">
-                                <materialDesign:PackIcon Margin="10,0,10,0" VerticalAlignment="Center" Kind="Remove" Width="40" Height="40" />
-                                <TextBlock VerticalAlignment="Center" FontSize="16" Text="Удалить" />
-                            </StackPanel>
-                        </Button>
-                    </ListViewItem>
-                    <ListViewItem Height="50" Padding="0">
-                        <Button Command="{Binding SaveChangesCommand}" Width="180" Height="50"
-                                    Padding="0"
-                                        VerticalAlignment="Center"
-                                        HorizontalContentAlignment="Left"
-                                     Background="Transparent" BorderBrush="Transparent">
-                            <StackPanel Orientation="Horizontal"
-                                        VerticalAlignment="Center">
-                                <materialDesign:PackIcon Margin="10,0,10,0" VerticalAlignment="Center" Kind="ContentSave" Width="40" Height="40" />
-                                <TextBlock VerticalAlignment="Center" FontSize="16" Text="Сохранить" />
-                            </StackPanel>
-                        </Button>
-
-                    </ListViewItem>
-                </ListView>-->
             </DockPanel>
         </Grid>        
-        <Frame NavigationUIVisibility="Hidden" Content="{Binding CurrentPageViewModel}" Padding="150 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" Grid.RowSpan="3" />
+        <Frame NavigationUIVisibility="Hidden" Content="{Binding CurrentPageViewModel}"
+               Padding="200 0"
+               Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6" Grid.RowSpan="3" />
     </Grid>
 </Window>

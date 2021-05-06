@@ -10,12 +10,13 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.5*" />
             <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="10" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="1.6*" />
             <RowDefinition Height="2*" />
-            <RowDefinition Height="1.25*" />
             <RowDefinition Height="2*" />
-            <RowDefinition Height="2*" />
+            <RowDefinition Height="75" />
         </Grid.RowDefinitions>
         <Image HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="0" Grid.Row="0" Grid.RowSpan="4" Source="{Binding COVER}" />
         <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left">
@@ -36,12 +37,38 @@
                                           HorizontalAlignment="Right"
                                           Value="{Binding Mark}"
                                           Foreground="#B56F2F"/>
+                <Button Template="{DynamicResource LightButton2}"
+                        x:Name="SetMark"
+                        Margin="10 0"
+                        Command="{Binding DataContext.MarkCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                        CommandParameter="{Binding BOOK_ID}"
+                        Content="Поставить оценку" />
             </StackPanel>
         </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Template="{DynamicResource LightButton}" Margin="0 5" Width="160" Height="Auto" Content="Купить" />
-            <Button Template="{DynamicResource DarkButton}" Margin="0 5" Width="220" Content="Удалить из корзины" Height="Auto" />
+        <StackPanel Grid.Row="3" Grid.Column="1"
+                    Orientation="Horizontal"
+                    Margin="0, 0, 10, 0"
+                    HorizontalAlignment="Center">
+            <Button Template="{DynamicResource LightButton}"
+                    Width="225" 
+                    Height="75"
+                    Content="Купить книгу" />
+            <Button Template="{DynamicResource DarkButton}"
+                    Width="225"
+                    FontSize="16"
+                    HorizontalAlignment="Stretch"
+                    Content="Удалить из корзины"
+                    Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                    CommandParameter="{Binding BOOK_ID}"
+                    Height="75" />        
         </StackPanel>
-        <TextBlock FontSize="16" TextWrapping="Wrap" VerticalAlignment="Center" Grid.Row="2" Grid.RowSpan="2" Grid.Column="2" Text="{Binding DESCRIPTION}" />
+        <TextBlock FontSize="16"
+                   TextWrapping="Wrap"
+                   VerticalAlignment="Top"
+                   Grid.Row="1"
+                   Margin="15, 5, 10, 0"
+                   Grid.RowSpan="2"
+                   Grid.Column="1"
+                   Text="{Binding DESCRIPTION}" />
     </Grid>
 </UserControl>

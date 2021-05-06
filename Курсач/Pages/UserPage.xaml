@@ -1,0 +1,294 @@
+﻿<Page x:Class="Курсач.Pages.UserPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:local="clr-namespace:Курсач.Pages"
+      mc:Ignorable="d" 
+      Title="UserPage"
+
+      Background="#F4F2EF">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="0.5*" />
+            <RowDefinition Height="0.6*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1.5*" />
+            <ColumnDefinition Width="1.5*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Border Background="White"
+                Grid.Column="1"
+                Grid.Row="1"
+                Grid.ColumnSpan="2"
+                Grid.RowSpan="7" />
+        <TextBlock FontSize="20"
+                   Text="Кабинет Пользователя"
+                   Grid.Row="0"
+                   Grid.ColumnSpan="4"
+                   FontFamily="Tahoma"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"/>
+
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Left"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    >
+            <materialDesign:PackIcon Kind="User"
+                                 Grid.Row="1"
+                                 Grid.Column="0"
+                                 Width="Auto"
+                                 Height="Auto"/>
+            <StackPanel VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Фамилия: "
+                               FontSize="16"/>
+                    <TextBlock Text="{Binding SECONDNAME}"
+                               FontSize="16"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Имя: "
+                               FontSize="16"/>
+                    <TextBlock Text="{Binding NAME}"
+                               FontSize="16"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="2"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    HorizontalAlignment="Center"
+                    Visibility="Collapsed">
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Center">
+                <TextBlock Text="Введите новый Email: "
+                           FontSize="16"
+                           VerticalAlignment="Bottom"
+                           Margin="0, 0, 15, 0"/>
+                <TextBox Text="{Binding NewEmail}"
+                         Width="300"
+                         FontSize="16"
+                         Style="{DynamicResource MaterialDesignTextBox}"/>
+                <Button Content="Подтвердить"
+                        Margin="10 0"
+                        Template="{DynamicResource LightButton2}"
+                        Command="{Binding ApplyCommand}"/>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="1"
+                    Grid.Column="2"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right">
+            <Button Width="200"
+                    FontSize="14"
+                    Height="50"
+                    Template="{DynamicResource LightButton}"
+                    Content="Изменить Email"
+                    Click="Button_Click_Email"/>
+            <Button Width="200"
+                    FontSize="14"
+                    Height="50"
+                    Template="{DynamicResource DarkButton}"
+                    Content="Изменить пароль"
+                    Click="Button_Click"/>
+        </StackPanel>
+        <Grid Grid.Row="3"
+                    Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.5*" />
+                <ColumnDefinition Width="1.5*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+                <TextBlock Text="Статус подписки: "
+                           FontSize="16"
+                           HorizontalAlignment="Right"
+                           Grid.Row="0"
+                           VerticalAlignment="Bottom"
+                           Grid.Column="0"/>
+                <TextBlock Text="{Binding Subscription}"
+                           Grid.Column="1"
+                           Grid.Row="0"
+                           VerticalAlignment="Bottom"
+                           FontSize="16"/>
+                <TextBlock Text="Номер карты: "
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Bottom"
+                           Grid.Column="0"
+                           Grid.Row="1"
+                           FontSize="16"/>
+                <TextBox Text="{Binding CreditCard}"
+                         Grid.Row="1"
+                         VerticalAlignment="Bottom"
+                         Grid.Column="1"
+                         Height="30"
+                         Width="180"
+                         Style="{DynamicResource MaterialDesignTextBox}"
+                         Margin="10 0"
+                         FontSize="16"/>
+                <Button Content="Подтвердить"
+                        Grid.Column="3"
+                        Grid.Row="1"
+                        Width="150"
+                        VerticalAlignment="Bottom"
+                        Height="50"
+                        Template="{DynamicResource LightButton2}"/>
+        </Grid>
+        <Grid Grid.Row="2"
+              Margin="0, 15, 0 , 0"
+              Grid.Column="1"
+              HorizontalAlignment="Left"
+              Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Количество книг на полке: "
+                       Grid.Column="0"
+                       Grid.Row="0"
+                       VerticalAlignment="Bottom"
+                       HorizontalAlignment="Right"
+                       FontSize="16" />
+            <TextBlock Text="{Binding YourBooks}"
+                       Grid.Row="0"
+                       VerticalAlignment="Bottom"
+                       Grid.Column="1"
+                       FontSize="16" />
+            <TextBlock Text="Количество оценок: "
+                       Grid.Column="0"
+                       VerticalAlignment="Bottom"
+                       Grid.Row="1"
+                       HorizontalAlignment="Right"
+                       FontSize="16" />
+            <TextBlock Text="{Binding Marks}"
+                       Grid.Row="1"
+                       VerticalAlignment="Bottom"
+                       Grid.Column="1"
+                       FontSize="16" />
+        </Grid>
+        <Grid
+            x:Name="passwordStk"
+            Grid.Column="1"
+            Grid.Row="4"
+            Grid.RowSpan="2"
+            Grid.ColumnSpan="2"
+            Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.5*" />
+                <ColumnDefinition Width="1.25*" />
+                <ColumnDefinition Width="1.5*" />
+
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Введите старый пароль: "
+                           FontSize="16"
+                           VerticalAlignment="Bottom"
+                           HorizontalAlignment="Right"
+                           Grid.Column="0"
+                           Grid.Row="0"
+                           Margin="0, 0, 15, 0"/>
+            <PasswordBox Width="200"
+                         Grid.Row="0"
+                         Grid.Column="1"
+                         VerticalAlignment="Bottom"
+                         HorizontalAlignment="Left"
+                         Margin="0, 10, 0 , 0"
+                         FontSize="16"
+                         Style="{DynamicResource MaterialDesignPasswordBox}">
+            </PasswordBox>
+            <TextBlock Text="Введите новый пароль: "
+                           FontSize="16"
+                           Grid.Row="1"
+                           Grid.Column="0"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Bottom"
+                           Margin="0, 0, 15, 0"/>
+            <PasswordBox Width="200"
+                         Grid.Column="1"
+                         Grid.Row="1"
+                         HorizontalAlignment="Left"
+                         VerticalAlignment="Bottom"
+                         Margin="0, 10, 0 , 0"
+                         MaxHeight="40"
+                         FontSize="16"
+                         Style="{DynamicResource MaterialDesignPasswordBox}">
+            </PasswordBox>
+            <TextBlock Text="Повторите новый пароль: "
+                       FontSize="16"
+                       Grid.Row="2"
+                       Grid.Column="0"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Bottom"
+                       Margin="0, 0, 15, 0"/>
+            <PasswordBox Width="200"
+                         VerticalAlignment="Bottom"
+                         Grid.Column="1"
+                         Grid.Row="2"
+                         MaxHeight="40"
+                         Margin="0, 10, 0 , 0"
+                         FontSize="16"
+                         HorizontalAlignment="Left"
+                         Style="{DynamicResource MaterialDesignPasswordBox}">
+            </PasswordBox>
+            <Button Template="{DynamicResource DarkButton}"
+                    Content="Отправить код на почту"
+                    Height="50"
+                    Width="250"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Grid.Column="2"
+                    Grid.Row="2"/>
+            <TextBlock Text="Ввести код подтверждения: "
+                           Grid.Column="0"
+                       VerticalAlignment="Bottom"
+                       HorizontalAlignment="Right"
+                       FontSize="16"
+                       Margin="0, 0, 15, 0"
+                           Grid.Row="3" />
+            <TextBox Text="{Binding Code}"
+                     FontSize="16"
+                     Grid.Row="3"
+                     Grid.Column="1"
+                     HorizontalAlignment="Left"
+                     Width="200"
+                     Height="40"
+                     Style="{DynamicResource MaterialDesignTextBox}" />
+            <Button Template="{DynamicResource LightButton2}"
+                    Content="Подтвердить"
+                    Width="150"
+                    Padding="0"
+                    Height="50"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Grid.Column="2"
+                    Grid.Row="3"/>
+        </Grid>
+    </Grid>
+</Page>
