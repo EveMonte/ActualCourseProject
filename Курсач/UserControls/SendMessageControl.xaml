@@ -50,8 +50,9 @@
                     x:Name="Check"
                     Height="Auto"
                     Command="{Binding Path=SendMessageCommand}"
-                    Margin="18,0,18,0"
+                    Margin="15 7"
                     Content="Подтвердить код"
+                    FontSize="20"
                     HorizontalAlignment="Stretch"/>
         <Button Grid.Row="4"
                 Background="Transparent"

@@ -5,7 +5,6 @@
         <Border 
                 CornerRadius="5"
                 Background="#B58252"
-                            Margin="15 7"
 
                 BorderBrush="#503115"
                 TextBlock.Foreground="White"

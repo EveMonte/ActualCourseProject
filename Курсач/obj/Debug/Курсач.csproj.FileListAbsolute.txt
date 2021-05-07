@@ -303,7 +303,6 @@ C:\Users\User\Desktop\OOP10-master\Курсач\bin\Debug\System.Data.SQLite.xml
 C:\Users\User\Desktop\OOP10-master\Курсач\bin\Debug\System.Memory.xml
 C:\Users\User\Desktop\OOP10-master\Курсач\bin\Debug\System.Numerics.Vectors.xml
 C:\Users\User\Desktop\OOP10-master\Курсач\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
-C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Курсач.csprojAssemblyReference.cache
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Themes\lightTheme.baml
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Pages\AdditionalInfo.g.cs
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Pages\BasketPage.g.cs
@@ -356,5 +355,5 @@ C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Курсач.exe
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Курсач.pdb
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Pages\UserPage.g.cs
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Pages\UserPage.baml
-C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\UserControls\PasswordBlock.g.cs
-C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\UserControls\PasswordBlock.baml
+C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Components\BindablePasswordBox.g.cs
+C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Components\BindablePasswordBox.baml

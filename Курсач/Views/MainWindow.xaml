@@ -28,11 +28,16 @@
             <RowDefinition Height="232*"/>
             <RowDefinition Height="250*"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="3" Grid.Column="0"  Background="White"
-                    Grid.ColumnSpan="5" VerticalAlignment="Center"
+        <StackPanel Grid.Row="3"
+                    Grid.Column="0"
+                    Background="White"
+                    Grid.ColumnSpan="5"
+                    VerticalAlignment="Center"
                     HorizontalAlignment="Center">
-            <TextBlock TextAlignment="Center" VerticalAlignment="Center"
-                       FontSize="20" FontFamily="Tahoma" />
+            <TextBlock TextAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="20"
+                       FontFamily="Tahoma" />
 
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1"

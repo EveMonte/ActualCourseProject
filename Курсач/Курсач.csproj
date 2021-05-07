@@ -144,6 +144,9 @@
     <Compile Include="Commands\OpenRegisterControlCommand.cs" />
     <Compile Include="Commands\OpenWorkFrameCommand.cs" />
     <Compile Include="Commands\RegistrationCommand.cs" />
+    <Compile Include="Components\BindablePasswordBox.xaml.cs">
+      <DependentUpon>BindablePasswordBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GENRES.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
@@ -165,6 +168,7 @@
     <Compile Include="MARKS.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
+    <Compile Include="Methods\SaltedHash.cs" />
     <Compile Include="Pages\AdditionalInfo.xaml.cs">
       <DependentUpon>AdditionalInfo.xaml</DependentUpon>
     </Compile>
@@ -199,9 +203,6 @@
     <Compile Include="UserControls\FullInfo.xaml.cs">
       <DependentUpon>FullInfo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\PasswordBlock.xaml.cs">
-      <DependentUpon>PasswordBlock.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\SendMessageControl.xaml.cs">
       <DependentUpon>SendMessageControl.xaml</DependentUpon>
     </Compile>
@@ -235,7 +236,6 @@
     <Compile Include="ViewModels\BasketVM.cs" />
     <Compile Include="ViewModels\FullInfoViewModel.cs" />
     <Compile Include="ViewModels\ListOfBooksViewModel.cs" />
-    <Compile Include="ViewModels\PasswordBlockVM.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
     <Compile Include="ViewModels\SendMessageViewModel.cs" />
@@ -254,6 +254,10 @@
     <Compile Include="YOUR_BOOKS.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
+    <Page Include="Components\BindablePasswordBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\AdditionalInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -307,10 +311,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\FullInfo.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\PasswordBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

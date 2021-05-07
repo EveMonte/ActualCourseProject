@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Курсач"
              xmlns:language="clr-namespace:Курсач.Properties.Languages"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:components="clr-namespace:Курсач.Components"
              mc:Ignorable="d"
              >
     <Grid>
@@ -29,11 +29,15 @@
                          Margin="18, 0,18,0"
                          materialDesign:HintAssist.Hint="{x:Static language:Languages.enterLogin}"
                          Style="{DynamicResource MaterialDesignFloatingHintTextBox }" FontSize="16" />
-                <PasswordBox PasswordChanged="passwordTextBox_PasswordChanged" MaxHeight="50" MinHeight="40" Grid.Row="1"
-                             Grid.ColumnSpan="4" x:Name="passwordTextBox"
-                             materialDesign:HintAssist.Hint="{x:Static language:Languages.enterPassword}"
-                             Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
-                             VerticalContentAlignment="Center" Margin="18,0" FontSize="16" />
+                <components:BindablePasswordBox MaxHeight="50"
+                                                MinHeight="40"
+                                                Grid.Row="1"
+                                                Grid.ColumnSpan="4"
+                                                x:Name="passwordTextBox"
+                                                VerticalContentAlignment="Center"
+                                                materialDesign:HintAssist.Hint="{x:Static language:Languages.enterPassword}"
+                                                Margin="18,0"
+                                                FontSize="16" />
                 <Button Grid.Row="2"
                         Grid.ColumnSpan="4"
                         Command="{Binding Path=OpenWorkFrameCommand}"
@@ -41,7 +45,8 @@
                         Content="{x:Static language:Languages.signIn}"
                         Height="Auto"
                         MaxHeight="70"
-                        Margin="0 0"/>
+                        FontSize="20"
+                        Margin="15 7"/>
                 <Button x:Name="createAccount"
                         Grid.Row="3"
                         Grid.ColumnSpan="4"
@@ -49,6 +54,7 @@
                         Template="{DynamicResource LightButton}" 
                         Content="{x:Static language:Languages.createAccount}"
                         Height="Auto"
+                        FontSize="20"
                         MaxHeight="70"
                         Margin="0 0"/>
             <!--<StackPanel Grid.Row="4" Grid.ColumnSpan="2" Cursor="Hand" Orientation="Horizontal"

@@ -44,11 +44,5 @@ namespace Курсач
         {
             Environment.Exit(0);
         }
-
-        private void passwordTextBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            registerViewModel.Password = passwordTextBox.Password;
-
-        }
     }
 }

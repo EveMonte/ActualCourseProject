@@ -72,6 +72,8 @@
                     Template="{DynamicResource DarkButton}"
                     Command="{Binding RegistrationCommand}"
                     Height="Auto"
+                    Margin="15 7"
+                    FontSize="20"
                     Content="{x:Static language:Languages.createAccount}"
                      />
         <StackPanel Grid.Row="5">
