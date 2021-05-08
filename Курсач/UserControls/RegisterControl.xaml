@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Курсач"
              xmlns:language="clr-namespace:Курсач.Properties.Languages"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:components="clr-namespace:Курсач.Components"
              mc:Ignorable="d" >
     <Grid Style="{DynamicResource GridStyle}">
         <Grid.RowDefinitions>
@@ -45,27 +45,25 @@
 
         <TextBox Grid.Row="1"
                  MaxHeight="50"
-                     x:Name="emailTextBox"
-                     Text="{Binding Email}"
-                     Margin="18,0"
-                     materialDesign:HintAssist.Hint="Email"
-                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                     FontSize="16" />
-        <PasswordBox Grid.Row="2"
+                 x:Name="emailTextBox"
+                 Text="{Binding Email}"
+                 Margin="18,0"
+                 materialDesign:HintAssist.Hint="Email"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 FontSize="16" />
+        <components:BindablePasswordBox Grid.Row="2"
+                                        Password="{Binding FirstPassword}"
                      MaxHeight="50"
-                     PasswordChanged="password1Box_PasswordChanged"
                      x:Name="password1Box"
                      Margin="18,0"
                      materialDesign:HintAssist.Hint="Пароль"
-                     Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
                      FontSize="16" />
-            <PasswordBox Grid.Row="3"
+            <components:BindablePasswordBox Grid.Row="3"
+                                            Password="{Binding SecondPassword}"
                          MaxHeight="50"
-                         PasswordChanged="password2Box_PasswordChanged"
                          x:Name="password2Box"
                          Margin="18,0"
                          materialDesign:HintAssist.Hint="Повторите пароль"
-                         Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
                          FontSize="16" />
             <Button Grid.Row="4"
                     x:Name="Create_Account"
@@ -88,8 +86,6 @@
                    FontSize="14"
                    Foreground="#FF1877F3" />
             </Button>
-        </StackPanel>
-        
-
+        </StackPanel>      
     </Grid>
 </UserControl>

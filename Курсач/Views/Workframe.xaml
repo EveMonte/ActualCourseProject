@@ -10,12 +10,11 @@
         mc:Ignorable="d"
         xmlns:language="clr-namespace:Курсач.Properties.Languages"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Style="{DynamicResource WindowStyle}"
         Title="Bookварь"
         WindowState="Maximized"
-        MinWidth="1350" MinHeight="760"
+        MinWidth="1410" MinHeight="780"
         Icon="C:\Users\User\Desktop\Курсааааач\Курсач\Курсач\Media\Логотип.png">
-    <Grid>
+    <Grid Style="{DynamicResource GridMainStyle}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition x:Name="col" MinWidth="60"/>
             <ColumnDefinition Width="80*"/>
@@ -43,7 +42,7 @@
                        FontSize="20"
                        Foreground="White"
                        VerticalAlignment="Center"
-                       Text="Множество бесплатных книг при покупки месячного абонемента" />
+                       Text="Множество бесплатных книг при покупке месячного абонемента" />
         </StackPanel>
         <Grid x:Name="sidePanel"
               Grid.RowSpan="5"

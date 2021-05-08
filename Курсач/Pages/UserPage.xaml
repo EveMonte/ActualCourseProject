@@ -29,7 +29,7 @@
                 Grid.Row="1"
                 Grid.ColumnSpan="2"
                 Grid.RowSpan="7" />
-        <TextBlock FontSize="20"
+        <TextBlock FontSize="24"
                    Text="Кабинет Пользователя"
                    Grid.Row="0"
                    Grid.ColumnSpan="4"
@@ -59,6 +59,12 @@
                     <TextBlock Text="Имя: "
                                FontSize="16"/>
                     <TextBlock Text="{Binding NAME}"
+                               FontSize="16"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Статус: "
+                               FontSize="16"/>
+                    <TextBlock Text="{Binding ACCOUNT}"
                                FontSize="16"/>
                 </StackPanel>
             </StackPanel>
@@ -112,6 +118,7 @@
                     Grid.Row="1"
                     Width="220"
                     Margin="10 0"
+                    Command="{Binding ApplyCreditCardCommand}"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Bottom" />
             <TextBlock Text="Количество книг на полке: "
@@ -179,7 +186,7 @@
                             Grid.Column="2"
                             HorizontalAlignment="Left"
                             Grid.Row="0"
-                            Command="{Binding ApplyCommand}"/>
+                            Command="{Binding SendMessageCommand}"/>
                     <TextBlock Text="Ввести код подтверждения: "
                                Grid.Column="0"
                                VerticalAlignment="Bottom"
@@ -196,6 +203,7 @@
                              Height="40"
                              Style="{DynamicResource MaterialDesignTextBox}" />
                     <Button Template="{DynamicResource LightButton2}"
+                            Command="{Binding ApplyEmailCommand}"
                             Content="Подтвердить"
                             Width="220"                         
                             Padding="0"
@@ -251,6 +259,7 @@
                                VerticalAlignment="Bottom"
                                Margin="0, 0, 15, 0"/>
                     <components:BindablePasswordBox Width="220"
+                                                    Password="{Binding FirstPassword}"
                                  Grid.Column="1"
                                  Grid.Row="1"
                                  HorizontalAlignment="Left"
@@ -266,6 +275,7 @@
                                VerticalAlignment="Bottom"
                                Margin="0, 0, 15, 0"/>
                     <components:BindablePasswordBox Width="220"
+                                                    Password="{Binding SecondPassword}"
                                  VerticalAlignment="Bottom"
                                  Grid.Column="1"
                                  Grid.Row="2"
@@ -298,6 +308,7 @@
                              Height="40"
                              Style="{DynamicResource MaterialDesignTextBox}" />
                     <Button Template="{DynamicResource LightButton2}"
+                            Command="{Binding ApplyPasswordsCommand}"
                             Content="Подтвердить"
                             Width="220"
                             Padding="0"

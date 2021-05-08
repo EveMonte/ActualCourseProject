@@ -14,6 +14,13 @@
     <Style x:Key="GridStyle" TargetType="Grid">
         <Setter Property="Background"  Value="White" />
     </Style>
+    <Style x:Key="GridMainStyle" TargetType="Grid">
+        <Setter Property="Background"  Value="#F4F2EF" />
+    </Style>
+    <Style x:Key="UserControlStyle" TargetType="UserControl">
+        <Setter Property="Background" Value="White" />
+        <Setter Property="Foreground" Value="Black" />
+    </Style>
     <Style x:Key="ImageStyle" TargetType="Image">
         <Setter Property="Source" Value="C:\Users\User\Desktop\Курсааааач\Media\Логотип.png" />
     </Style>

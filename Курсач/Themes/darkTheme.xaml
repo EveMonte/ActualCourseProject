@@ -16,6 +16,9 @@
     <Style x:Key="GridStyle" TargetType="Grid">
         <Setter Property="Background"  Value="#3d3d3d"/>
     </Style>
+    <Style x:Key="GridMainStyle" TargetType="Grid">
+        <Setter Property="Background"  Value="#252525" />
+    </Style>
     <Style x:Key="ImageStyle" TargetType="Image">
         <Setter Property="Source" Value="C:\Users\User\Desktop\Курсааааач\Media\ЛоготипDark.png" />
     </Style>

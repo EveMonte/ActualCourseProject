@@ -21,23 +21,10 @@ namespace Курсач
     /// </summary>
     public partial class RegisterControl : UserControl
     {
-        RegistrationViewModel registrationViewModel;
         public RegisterControl()
         {
             InitializeComponent();
-            registrationViewModel = new RegistrationViewModel();
-            DataContext = registrationViewModel;
-        }
-
-        private void password1Box_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            registrationViewModel.FirstPassword = password1Box.Password;
-        }
-
-        private void password2Box_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            registrationViewModel.SecondPassword = password2Box.Password;
-
+            DataContext = new RegistrationViewModel();
         }
     }
 }

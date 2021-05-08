@@ -30,6 +30,7 @@
                          materialDesign:HintAssist.Hint="{x:Static language:Languages.enterLogin}"
                          Style="{DynamicResource MaterialDesignFloatingHintTextBox }" FontSize="16" />
                 <components:BindablePasswordBox MaxHeight="50"
+                                                Password="{Binding Password}"
                                                 MinHeight="40"
                                                 Grid.Row="1"
                                                 Grid.ColumnSpan="4"
@@ -46,7 +47,7 @@
                         Height="Auto"
                         MaxHeight="70"
                         FontSize="20"
-                        Margin="15 7"/>
+                        Margin="15 10"/>
                 <Button x:Name="createAccount"
                         Grid.Row="3"
                         Grid.ColumnSpan="4"
@@ -56,7 +57,7 @@
                         Height="Auto"
                         FontSize="20"
                         MaxHeight="70"
-                        Margin="0 0"/>
+                        Margin="15 10"/>
             <!--<StackPanel Grid.Row="4" Grid.ColumnSpan="2" Cursor="Hand" Orientation="Horizontal"
                             HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" Grid.Column="1" Width="126">
                     <materialDesign:PackIcon Kind="Globe" VerticalAlignment="Center" MaxHeight="60" MaxWidth="60" MinHeight="30"

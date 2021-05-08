@@ -15,31 +15,34 @@
             <RowDefinition Height="70*" />
             <RowDefinition Height="800*" />
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0"
-              Grid.Column="1">
+        <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150" />
                 <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="1.5*" />
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="2.5*" />
-                <ColumnDefinition Width="150" />
             </Grid.ColumnDefinitions>
-            <Image Grid.Column="1"
+            <Image Grid.Column="0"
                    Margin="0 5"
                VerticalAlignment="Center"
                Style="{DynamicResource ImageStyle}" 
                Source="\Media\Логотип.png" />
-            <TextBox VerticalAlignment="Top"
-                     Grid.Column="2"
+            <TextBox VerticalAlignment="Center"
+                     Grid.Column="1"
                      x:Name="Search"
                      materialDesign:HintAssist.Hint="{x:Static language:Languages.search}"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      FontSize="16"
                      MaxHeight="50"
                      Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Grid.Column="2"
+                       Text="Ваша Полка"
+                       FontFamily="Tahoma"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       FontSize="24"/>
             <StackPanel Orientation="Horizontal"
-                        Grid.Column="4"
+                        Grid.Column="3"
                         HorizontalAlignment="Right">
                 <ComboBox 
                           Padding="0"
@@ -59,7 +62,9 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                <Button Content="Жанр" VerticalAlignment="Center" Template="{DynamicResource LightButton2}"
+                <Button Content="Жанр"
+                        VerticalAlignment="Center"
+                        Template="{DynamicResource LightButton2}"
                         Command="{Binding FindByGenreCommand}"
                         />
             </StackPanel>

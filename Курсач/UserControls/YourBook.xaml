@@ -50,7 +50,7 @@
                     Grid.Row="3"
                     Grid.Column="1"
                     Width="Auto"
-                    Height="75"
+                    Height="50"
                     Content="Открыть"
                     Padding="0"
                 FontSize="18"

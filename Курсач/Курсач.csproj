@@ -168,6 +168,7 @@
     <Compile Include="MARKS.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
+    <Compile Include="Methods\MessageSender.cs" />
     <Compile Include="Methods\SaltedHash.cs" />
     <Compile Include="Pages\AdditionalInfo.xaml.cs">
       <DependentUpon>AdditionalInfo.xaml</DependentUpon>

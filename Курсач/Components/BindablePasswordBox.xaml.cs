@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Курсач.Methods;
 
 namespace Курсач.Components
 {
@@ -20,7 +21,7 @@ namespace Курсач.Components
     /// </summary>
     public partial class BindablePasswordBox : UserControl
     {
-
+        SaltedHash saltedHash;
         private bool flag;
         public string Password
         {
@@ -57,7 +58,7 @@ namespace Курсач.Components
         private void pswrdBx_PasswordChanged(object sender, RoutedEventArgs e)
         {
             flag = true;
-            Password = pswrdBx.Password;
+            Password = pswrdBx.Password;//(new SaltedHash(pswrdBx.Password)).Hash;
             flag = false;
         }
     }

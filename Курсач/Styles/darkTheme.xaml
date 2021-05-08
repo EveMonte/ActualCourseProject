@@ -16,6 +16,10 @@
     <Style x:Key="GridStyle" TargetType="Grid">
         <Setter Property="Background"  Value="#3d3d3d"/>
     </Style>
+    <Style x:Key="UserControlStyle" TargetType="UserControl">
+        <Setter Property="Background" Value="#252525" />
+        <Setter Property="Foreground" Value="White" />
+    </Style>
     <Style x:Key="ImageStyle" TargetType="Image">
         <Setter Property="Source"  Value="C:\Users\User\Downloads\OOP10-master\Курсач\Media\ЛоготипDark.png"/>
     </Style>

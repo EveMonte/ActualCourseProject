@@ -16,12 +16,14 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
 using System.Collections.ObjectModel;
+using Курсач.Methods;
 
 namespace Курсач.ViewModels
 {
     public class RegisterViewModel : BaseViewModel
     {
         #region Data
+        SaltedHash sh;
         USERS currentUser;
         public USERS CurrentUser
         {
@@ -69,7 +71,7 @@ namespace Курсач.ViewModels
                 var users = db.USERS;
                 foreach (USERS u in users)
                 {
-                    if (u.PASSWORD == Password && u.EMAIL == Email)
+                    if (SaltedHash.Verify(u.PASSWORD.Substring(44), u.PASSWORD.Substring(0, 44), Password) && u.EMAIL == Email)
                     {
                         currentUser = u;
                         return true;
@@ -81,10 +83,22 @@ namespace Курсач.ViewModels
 
         void OpenWorkFrame(object obj) // Открыть главную страницу
         {
-            WorkFrameSingleTone.GetInstance(new WorkframeViewModel(currentUser));
+            using (LIBRARYEntities db = new LIBRARYEntities())
+            {
+                var users = db.USERS;
+                foreach (USERS u in users)
+                {
+                    if (SaltedHash.Verify(u.PASSWORD.Substring(44), u.PASSWORD.Substring(0, 44), Password) && u.EMAIL == Email)
+                    {
+                        currentUser = u;
+                        WorkFrameSingleTone.GetInstance(new WorkframeViewModel(currentUser));
+                        Workframe workframe = new Workframe();
+                        workframe.Show();
+                        break;
+                    }
+                }
+            }
 
-            Workframe workframe = new Workframe();
-            workframe.Show();
         }
         void OpenRegisterWindow(object obj) // Открыть UserControl с регистрацией
         {
@@ -94,7 +108,7 @@ namespace Курсач.ViewModels
         public RegisterViewModel()
         {
             OpenRegisterControlCommand = new DelegateCommand(OpenRegisterWindow);
-            OpenWorkFrameCommand = new DelegateCommand(OpenWorkFrame, CanExecute);
+            OpenWorkFrameCommand = new DelegateCommand(OpenWorkFrame);
         }
     }
 }

@@ -13,8 +13,8 @@
             <ColumnDefinition Width="1.75*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="1.25*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="0.8*" />
             <RowDefinition Height="2*" />
             <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
@@ -31,7 +31,9 @@
                 <TextBlock FontSize="16" Text="Автор: " />
                 <TextBlock FontSize="16" Text="{Binding AUTHOR}" />
             </StackPanel>
-            <StackPanel VerticalAlignment="Center" Margin="15, 7.5, 0, 7.5" Orientation="Horizontal">
+            <StackPanel VerticalAlignment="Center" Margin="15, 7.5, 0, 7.5"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Stretch">
                 <TextBlock FontSize="16" Margin="0, 0, 5, 0" Text="{Binding RATING}" VerticalAlignment="Center" />
                 <materialDesign:PackIcon Margin="0, 0, 5, 0" Kind="Star" VerticalAlignment="Center" />
                 <TextBlock FontSize="16" Margin="0, 0, 5, 0" VerticalAlignment="Center" Text="{Binding NUMBEROFVOICES}" />
@@ -44,6 +46,7 @@
                         x:Name="SetMark"
                         Command="{Binding Path=MarkCommand}"
                         CommandParameter="{Binding Value, ElementName=rating}"
+                        HorizontalAlignment="Right"
                         Content="Поставить оценку">
                 </Button>
             </StackPanel>
@@ -55,9 +58,16 @@
             </Button>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Template="{DynamicResource LightButton}" Margin="0 5" Width="200" Height="Auto" Content="Добавить в корзину" />
-            <Button Template="{DynamicResource DarkButton}" Margin="0 5" Width="200" Content="Купить" Height="Auto" />
+            <Button Template="{DynamicResource LightButton}" Margin="15, 7, 0, 0" Width="200" Height="Auto" Content="Добавить в корзину" />
+            <Button Template="{DynamicResource DarkButton}" Margin="15, 7, 0, 0" Width="200" Content="Купить" Height="Auto" />
         </StackPanel>
-        <TextBlock FontSize="16" TextWrapping="Wrap" VerticalAlignment="Center" Grid.Row="2" Grid.RowSpan="2" Grid.Column="2" Text="{Binding DESCRIPTION}" />
+        <TextBlock FontSize="16"
+                   TextWrapping="Wrap"
+                   VerticalAlignment="Center"
+                   Margin="15 0"
+                   Grid.Row="2"
+                   Grid.RowSpan="2"
+                   Grid.Column="2"
+                   Text="{Binding DESCRIPTION}" />
     </Grid>
 </UserControl>

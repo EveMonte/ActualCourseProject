@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Курсач.Commands;
+using Курсач.Methods;
 using Курсач.Models;
 using Курсач.Singleton;
 
@@ -16,6 +17,7 @@ namespace Курсач.ViewModels
     public class RegistrationViewModel : BaseViewModel
     {
         #region Data
+        SaltedHash sh;
         private BaseViewModel _selectedViewModel;
         public BaseViewModel SelectedViewModel
         {
@@ -37,7 +39,7 @@ namespace Курсач.ViewModels
             set
             {
                 firstPassword = value;
-                OnPropertyChanged("firstPassword");
+                OnPropertyChanged("FirstPassword");
             }
         }
         public string secondPassword = "";
@@ -47,7 +49,7 @@ namespace Курсач.ViewModels
             set
             {
                 secondPassword = value;
-                OnPropertyChanged("Password");
+                OnPropertyChanged("SecondPassword");
             }
         }
         public string email;
@@ -102,21 +104,19 @@ namespace Курсач.ViewModels
             }
             return false;
         }
-        private static string generatedCode;
         
         public RegistrationViewModel()
         {
-            using (LIBRARYEntities library = new LIBRARYEntities())
-            {
-                listOfUsers = library.USERS.ToList<USERS>();
-            }
             RegistrationCommand = new DelegateCommand(OpenSendMessage);
             OpenSignInCommand = new DelegateCommand(OpenSignIn);
         }
 
         private void OpenSendMessage(object obj)
         {
-            SendMessageViewModelSingleton.GetInstance(new SendMessageViewModel(new USERS { ACCOUNT = "User", EMAIL = Email, NAME = Name, PASSWORD = FirstPassword, SECOND_NAME = SecondName }));
+            string hash = "";
+            sh = new SaltedHash(FirstPassword);
+            hash += sh.Hash + sh.Salt;
+            SendMessageViewModelSingleton.GetInstance(new SendMessageViewModel(new USERS { ACCOUNT = "User", EMAIL = Email, NAME = Name, PASSWORD = hash, SECOND_NAME = SecondName }));
             MainWindowViewModelSingleton.GetInstance().MainFrameViewModel.SelectedViewModel = SendMessageViewModelSingleton.GetInstance().SendMessageViewModel;
         }
 

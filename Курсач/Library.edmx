@@ -71,7 +71,7 @@
           <Property Name="EMAIL" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="SECOND_NAME" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="NAME" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="PASSWORD" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PASSWORD" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="ACCOUNT" Type="varchar" MaxLength="10" />
           <Property Name="CREDIT_CARD" Type="varchar" MaxLength="16" />
           <Property Name="SUBSCRIPTION" Type="int" />
@@ -303,7 +303,7 @@
           <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="SECOND_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="PASSWORD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ACCOUNT" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="CREDIT_CARD" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
           <Property Name="SUBSCRIPTION" Type="Int32" />
