@@ -357,4 +357,5 @@ C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Pages\UserPage.g.cs
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Pages\UserPage.baml
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Components\BindablePasswordBox.g.cs
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Components\BindablePasswordBox.baml
-C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Курсач.csprojAssemblyReference.cache
+C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Pages\SubscriptionPage.g.cs
+C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Pages\SubscriptionPage.baml

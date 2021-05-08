@@ -179,6 +179,9 @@
     <Compile Include="Pages\ListOfBooks.xaml.cs">
       <DependentUpon>ListOfBooks.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\SubscriptionPage.xaml.cs">
+      <DependentUpon>SubscriptionPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\UserPage.xaml.cs">
       <DependentUpon>UserPage.xaml</DependentUpon>
     </Compile>
@@ -245,6 +248,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="ViewModels\DelegateCommand.cs" />
     <Compile Include="ViewModels\MainFrameViewModel.cs" />
+    <Compile Include="ViewModels\SubscriptionVM.cs" />
     <Compile Include="ViewModels\UserPageVM.cs" />
     <Compile Include="ViewModels\WorkframeViewModel.cs" />
     <Compile Include="ViewModels\YourBooksViewModel.cs" />
@@ -268,6 +272,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\ListOfBooks.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\SubscriptionPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -424,6 +432,9 @@
       <DependentUpon>Library.edmx</DependentUpon>
       <LastGenOutput>Library.cs</LastGenOutput>
     </Content>
+    <Resource Include="Media\ЛентаАбонемент.png" />
+    <Resource Include="Media\АбонементОбводка.png" />
+    <Resource Include="Media\BookварьАбонемент.png" />
     <Resource Include="Media\ЛоготипDark.png" />
     <Resource Include="Media\ЛоготипСОбводкой.png" />
   </ItemGroup>

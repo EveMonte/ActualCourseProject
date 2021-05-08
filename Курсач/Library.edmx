@@ -52,6 +52,7 @@
           </Key>
           <Property Name="SUBSCRIPTION_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SUBSCRIPTION_DATE" Type="datetime" Nullable="false" />
+		  <Property Name="LENGTH" Type="int" Nullable="true" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -283,6 +284,7 @@
           </Key>
           <Property Name="SUBSCRIPTION_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SUBSCRIPTION_DATE" Type="DateTime" Nullable="false" Precision="3" />
+		  <Property Name="LENGTH" Type="Int32" Nullable="true" />
           <NavigationProperty Name="USERS" Relationship="Self.SUBSCRIPTION_FK" FromRole="SUBSCRIPTIONS" ToRole="USERS" />
         </EntityType>
         <EntityType Name="sysdiagrams">
@@ -516,6 +518,7 @@
               <MappingFragment StoreEntitySet="SUBSCRIPTIONS">
                 <ScalarProperty Name="SUBSCRIPTION_ID" ColumnName="SUBSCRIPTION_ID" />
                 <ScalarProperty Name="SUBSCRIPTION_DATE" ColumnName="SUBSCRIPTION_DATE" />
+				<ScalarProperty Name="LENGTH" ColumnName="LENGTH" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -56,6 +56,7 @@
     </Key>
     <Property Name="SUBSCRIPTION_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="SUBSCRIPTION_DATE" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LENGTH" Type="Int32" Nullable="true" />
     <NavigationProperty Name="USERS" Relationship="Self.SUBSCRIPTION_FK" FromRole="SUBSCRIPTIONS" ToRole="USERS" />
   </EntityType>
   <EntityType Name="sysdiagrams">

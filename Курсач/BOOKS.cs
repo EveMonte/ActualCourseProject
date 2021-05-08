@@ -50,5 +50,7 @@ namespace Курсач
         public int Mark { get; set; }
         [NotMapped]
         public int NUMBEROFVOICES { get; set; }
+        [NotMapped]
+        public int Subscription { get; set; }
     }
 }

@@ -51,6 +51,7 @@
         <MappingFragment StoreEntitySet="SUBSCRIPTIONS">
           <ScalarProperty Name="SUBSCRIPTION_ID" ColumnName="SUBSCRIPTION_ID" />
           <ScalarProperty Name="SUBSCRIPTION_DATE" ColumnName="SUBSCRIPTION_DATE" />
+          <ScalarProperty Name="LENGTH" ColumnName="LENGTH" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

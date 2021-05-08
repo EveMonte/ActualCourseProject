@@ -61,6 +61,17 @@ namespace Курсач.ViewModels
                 Books = new ObservableCollection<BOOKS>(library.BOOKS);
                 Genres = new ObservableCollection<GENRES>(library.GENRES.OrderBy(n => n.GENRE));
             }
+            foreach(BOOKS book in Books)
+            {
+                if(book.CATEGORY == "Подписка")
+                {
+                    book.Subscription = 1;
+                }
+                else
+                {
+                    book.Subscription = 0;
+                }
+            }
             OpenFullInfo = new DelegateCommand(OpenFullInfoUserControl);
             Items = CollectionViewSource.GetDefaultView(Books);
             Items.Filter = Search;

@@ -47,6 +47,7 @@
     </Key>
     <Property Name="SUBSCRIPTION_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="SUBSCRIPTION_DATE" Type="datetime" Nullable="false" />
+    <Property Name="LENGTH" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>

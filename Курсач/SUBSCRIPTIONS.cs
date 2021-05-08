@@ -22,7 +22,8 @@ namespace Курсач
     
         public int SUBSCRIPTION_ID { get; set; }
         public System.DateTime SUBSCRIPTION_DATE { get; set; }
-    
+        public int LENGTH { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<USERS> USERS { get; set; }
     }

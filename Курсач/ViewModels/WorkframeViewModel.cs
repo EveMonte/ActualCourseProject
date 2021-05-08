@@ -66,6 +66,7 @@ namespace Курсач.ViewModels
         public ICommand OpenYourBooksCommand { get; private set; }
         public ICommand OpenBasketCommand { get; private set; }
         public ICommand OpenUserCommand { get; private set; }
+        public ICommand SubscriptionCommand { get; private set; }
 
         #endregion
 
@@ -82,6 +83,12 @@ namespace Курсач.ViewModels
             OpenListOfBooksCommand = new DelegateCommand(OpenListOfBooks);
             OpenYourBooksCommand = new DelegateCommand(OpenYourBooks);
             OpenBasketCommand = new DelegateCommand(OpenBasket);
+            SubscriptionCommand = new DelegateCommand(OpenSubscription);
+        }
+
+        private void OpenSubscription(object obj)
+        {
+            CurrentPageViewModel = new SubscriptionVM();
         }
 
         private void OpenUser(object obj)

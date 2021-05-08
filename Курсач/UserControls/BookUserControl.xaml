@@ -17,6 +17,10 @@
             <RowDefinition Height="60*" />
         </Grid.RowDefinitions>
         <Image Height="200" Width="130" Grid.Column="0" Grid.Row="0" Source="{Binding COVER}" />
+        <Image Source="/Media/ЛентаАбонемент.png"
+               VerticalAlignment="Top"
+               HorizontalAlignment="Left"
+               Opacity="{Binding Subscription}"/>
         <DockPanel Grid.Row="1">
             <StackPanel DockPanel.Dock="Left">
                 <StackPanel Orientation="Horizontal">
