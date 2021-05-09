@@ -22,7 +22,7 @@
           <Property Name="AUTHOR" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="GENRE" Type="int" />
           <Property Name="YEAR" Type="int" Nullable="false" />
-          <Property Name="PRICE" Type="money" Nullable="false" />
+          <Property Name="PRICE" Type="smallmoney" Nullable="false" />
           <Property Name="COVER" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="CATEGORY" Type="varchar" MaxLength="10" />
           <Property Name="RATING" Type="numeric" Precision="3" Scale="2" Nullable="false" />

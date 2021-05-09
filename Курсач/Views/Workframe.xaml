@@ -29,12 +29,12 @@
                 <RowDefinition Height="400*"/>
                 <RowDefinition Height="400*"/>
             </Grid.RowDefinitions>
-            <Border Grid.Row="0"
+        <Border Grid.Row="0"
                 Grid.ColumnSpan="6"
                     VerticalAlignment="Top"
                     Height="75"
                 Background="#B56F2F" />
-            <StackPanel HorizontalAlignment="Center"
+        <StackPanel HorizontalAlignment="Center"
                     Grid.Row="0"
                     Grid.ColumnSpan="6"
                         VerticalAlignment="Top"
@@ -200,10 +200,28 @@
         <ScrollViewer Grid.Row="1"
                       Grid.Column="1"
                       Grid.ColumnSpan="5"
+                      HorizontalContentAlignment="Center"
                       Grid.RowSpan="5">
             <Frame NavigationUIVisibility="Hidden"
-               Content="{Binding CurrentPageViewModel}"
-               Padding="200 0" />
+               Content="{Binding CurrentPageViewModel}" />
         </ScrollViewer>
+        <Border Background="Black"
+                    Grid.ColumnSpan="6"
+                    Grid.RowSpan="4"
+                Visibility="{Binding Visibility}"
+                Opacity="0.2">
+            <Border.Effect>
+                <BlurEffect Radius="5"  />
+            </Border.Effect>
+        </Border>
+        <ContentControl Content="{Binding AddCreditCardViewModel}"
+                        Grid.ColumnSpan="5"
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        Grid.RowSpan="3"
+                        Width="800"
+                        Height="450"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"/>
     </Grid>
 </Window>

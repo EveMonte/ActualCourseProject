@@ -28,7 +28,7 @@
                     <TextBlock Text="{Binding RATING}" />
                 </StackPanel>
             </StackPanel>
-            <TextBlock DockPanel.Dock="Right" HorizontalAlignment="Right" Text="{Binding PRICE}" />
+            <TextBlock DockPanel.Dock="Right" HorizontalAlignment="Right" Text="{Binding FormattedPrice}" />
         </DockPanel>
         <StackPanel Grid.Row="2">
             <TextBlock TextWrapping="Wrap" Text="{Binding AUTHOR}" />

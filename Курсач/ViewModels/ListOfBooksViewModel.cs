@@ -41,7 +41,6 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("SelectedGenre");
             }
         }
-        public ICommand OpenFullInfo { get; private set; }
         BOOKS selectedBook;
         public BOOKS SelectedBook
         {
@@ -54,7 +53,32 @@ namespace Курсач.ViewModels
         }
         #endregion
 
+        #region Commands
+        public ICommand OpenFullInfo { get; private set; }
         public ICommand FindByGenreCommand { get; private set; }
+        #endregion
+
+        #region Commands' Logic
+        private void FindByGenre(object obj)
+        {
+            Books = new ObservableCollection<BOOKS>(Books.Where(n => n.GENRE == SelectedGenre.GENRE_ID));
+        }
+
+        private void OpenFullInfoUserControl(object obj) // Open page with extended info
+        {
+            foreach (GENRES genre in db.GENRES.ToList()) //we are looking for our book in GENRES...
+            {
+                if (genre.GENRE_ID == SelectedBook.GENRE)
+                    SelectedBook.Genre = genre.GENRE; //... and when we find it we write it in the notmapped property
+            }
+            SelectedBook.NUMBEROFVOICES = db.MARKS.Where(n => n.BOOK_ID == SelectedBook.BOOK_ID).Count(); //counting marks to write in notmapped property
+            SelectedBook.Mark = (int)db.MARKS.FirstOrDefault(n => (n.USER_ID == User.USER_ID) && (n.BOOK_ID == SelectedBook.BOOK_ID)).MARK;
+            FullInfoViewModelSingleTone.GetInstance(new FullInfoViewModel()).FullInfoViewModel.CurrentBook = SelectedBook;
+            WorkFrameSingleTone.GetInstance().WorkframeViewModel.CurrentPageViewModel = new AdditionalInfoViewModel();
+        }
+        #endregion
+
+        //Constructor
         public ListOfBooksViewModel(USERS user)
         {
             User = user;
@@ -63,9 +87,9 @@ namespace Курсач.ViewModels
                 Books = new ObservableCollection<BOOKS>(library.BOOKS);
                 Genres = new ObservableCollection<GENRES>(library.GENRES.OrderBy(n => n.GENRE));
             }
-            foreach(BOOKS book in Books)
+            foreach (BOOKS book in Books) //check books. If book is available by subscription, we place band
             {
-                if(book.CATEGORY == "Подписка")
+                if (book.CATEGORY == "Подписка")
                 {
                     book.Subscription = 1;
                 }
@@ -73,47 +97,12 @@ namespace Курсач.ViewModels
                 {
                     book.Subscription = 0;
                 }
+                book.FormattedPrice = Convert.ToString(decimal.Round(decimal.Parse(Convert.ToString(book.PRICE).Replace(".", ",")), 2)).Replace(",", ".") + '$';
             }
             OpenFullInfo = new DelegateCommand(OpenFullInfoUserControl);
             Items = CollectionViewSource.GetDefaultView(Books);
             Items.Filter = Search;
             FindByGenreCommand = new DelegateCommand(FindByGenre);
-        }
-
-        private void FindByGenre(object obj)
-        {
-            Books = new ObservableCollection<BOOKS>(Books.Where(n => n.GENRE == SelectedGenre.GENRE_ID));
-        }
-
-        private void OpenFullInfoUserControl(object obj)
-        {
-            FullInfoViewModelSingleTone.GetInstance(new FullInfoViewModel());
-            string command = String.Format($"SELECT * " +
-                $"FROM GENRES");
-            var h = (db.Database.SqlQuery<GENRES>(command));
-            foreach (GENRES genre in h)
-            {
-                if (genre.GENRE_ID == SelectedBook.GENRE)
-                    SelectedBook.Genre = genre.GENRE;
-            }
-            command = String.Format($"SELECT COUNT(*) FROM MARKS WHERE BOOK_ID = {SelectedBook.BOOK_ID}");
-            var a = db.Database.SqlQuery<int>(command);
-            foreach (var b in a)
-            {
-                int s = b;
-                SelectedBook.NUMBEROFVOICES = s;
-            }
-            foreach(var mark in db.MARKS.Where(n => n.USER_ID == User.USER_ID))
-            {
-                if (mark.BOOK_ID == SelectedBook.BOOK_ID)
-                {
-                    SelectedBook.Mark = (int)mark.MARK;
-                    break;
-                }
-            }
-            SelectedBook.RATING = SelectedBook.RATING;
-            FullInfoViewModelSingleTone.GetInstance().FullInfoViewModel.CurrentBook = SelectedBook;
-            WorkFrameSingleTone.GetInstance().WorkframeViewModel.CurrentPageViewModel = new AdditionalInfoViewModel();
         }
         #region Filter
         public string Text

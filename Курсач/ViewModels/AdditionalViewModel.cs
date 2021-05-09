@@ -57,21 +57,21 @@ namespace Курсач.ViewModels
         public ICommand MarkCommand { get; private set; }
         public ICommand AddToBasketCommand { get; private set; }
         public ICommand BuyCommand { get; private set; }
+        public ICommand AddToYourBooksCommand { get; private set; }
         #endregion
 
         #region Commands' Logic
         //change book to another
         private void OpenFullInfoUserControl(object obj)
         {
-            var h = db.GENRES.ToList();
-            foreach (GENRES genre in h) //we are looking for our book in GENRES...
+            foreach (GENRES genre in db.GENRES.ToList()) //we are looking for our book in GENRES...
             {
                 if (genre.GENRE_ID == SelectedBook.GENRE)
                     SelectedBook.Genre = genre.GENRE; //... and when we find it we write it in the notmapped property
             }
             SelectedBook.NUMBEROFVOICES = db.MARKS.Where(n => n.BOOK_ID == SelectedBook.BOOK_ID).Count(); //counting marks to write in notmapped property
             SelectedBook.RATING = SelectedBook.RATING;
-            FullInfoViewModelSingleTone.GetInstance().FullInfoViewModel.CurrentBook = SelectedBook;
+            FullInfoViewModelSingleTone.GetInstance(new FullInfoViewModel()).FullInfoViewModel.CurrentBook = SelectedBook;
             CurrentBook = SelectedBook;
             CreateSimilarBooks();
             SelectedBook = null;
@@ -131,17 +131,57 @@ namespace Курсач.ViewModels
                 }
             }
         }
+        //Add new book to your shelf
+        private void AddToYourBooks(object obj)
+        {
+            if(db.YOUR_BOOKS.FirstOrDefault(n => (n.USER_ID == currentUser.USER_ID) && (n.BOOK_ID == (int)obj)) == null)
+            {
+                YOUR_BOOKS newBook = new YOUR_BOOKS();
+                newBook.BOOK_ID = (int)obj;
+                newBook.USER_ID = currentUser.USER_ID;
+                db.YOUR_BOOKS.Add(newBook);
+                db.SaveChangesAsync().GetAwaiter();
+            }
+        }
+
+        private void BuyTheBook(object obj)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
         //Constructor
         public AdditionalInfoViewModel()
         {
             currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser; //get current user
             CurrentBook = FullInfoViewModelSingleTone.GetInstance().FullInfoViewModel.CurrentBook; // get current book
+            if (CurrentBook.CATEGORY == "Подписка")
+            {
+                CurrentBook.Subscription = 1;
+                if (currentUser.SUBSCRIPTION != null)
+                {
+                    CurrentBook.UserWithSubscription = "Visible";
+                    CurrentBook.UserWithoutSubscription = "Collapsed";
+                }
+                else
+                {
+                    CurrentBook.UserWithSubscription = "Collapsed";
+                    CurrentBook.UserWithoutSubscription = "Visible";
+                }
+            }
+            else
+            {
+                CurrentBook.Subscription = 0;
+                CurrentBook.UserWithSubscription = "Collapsed";
+                CurrentBook.UserWithoutSubscription = "Visible";
+
+            }
             CreateSimilarBooks();
             //DelegateCommand
             OpenFullInfo = new DelegateCommand(OpenFullInfoUserControl);
             MarkCommand = new DelegateCommand(Rate);
             AddToBasketCommand = new DelegateCommand(AddBookToBasket);
+            BuyCommand = new DelegateCommand(BuyTheBook);
+            AddToYourBooksCommand = new DelegateCommand(AddToYourBooks);
         }
     }
 }

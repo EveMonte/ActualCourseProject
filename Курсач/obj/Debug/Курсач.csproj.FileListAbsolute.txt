@@ -360,5 +360,6 @@ C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Components\BindablePas
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Pages\SubscriptionPage.g.cs
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Pages\SubscriptionPage.baml
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Курсач.csprojAssemblyReference.cache
-C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\UserControls\AbonementBook.g.cs
-C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\UserControls\AbonementBook.baml
+C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\UserControls\AddCreditCard.g.cs
+C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\UserControls\AddCreditCard.baml
+C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Templates\RedButtonTemplate.baml

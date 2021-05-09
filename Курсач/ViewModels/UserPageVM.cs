@@ -262,9 +262,11 @@ namespace Курсач.ViewModels
 
         private void ApplyCreditCard(object obj)
         {
-            var user = db.USERS.Where(n => n.USER_ID == currentUser.USER_ID).FirstOrDefault();
+            /*var user = db.USERS.Where(n => n.USER_ID == currentUser.USER_ID).FirstOrDefault();
             user.CREDIT_CARD = CreditCard;
-            db.SaveChanges();
+            db.SaveChangesAsync().GetAwaiter();*/
+            WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new AddCreditCardVM();
+            WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Visible";
         }
 
         private void SendMessage(object obj)

@@ -12,7 +12,7 @@
     <Grid Style="{DynamicResource GridMainStyle}">
         <Grid.RowDefinitions>
             <RowDefinition Height="70" />
-            <RowDefinition Height="800*" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>

@@ -29,7 +29,8 @@
                 <TextBlock FontSize="16" Text="Автор: " />
                 <TextBlock FontSize="16" Text="{Binding AUTHOR}" />
             </StackPanel>
-            <StackPanel VerticalAlignment="Center" Margin="15, 7.5, 0, 7.5" Orientation="Horizontal">
+            <DockPanel VerticalAlignment="Center" Margin="15, 7.5, 0, 7.5"
+                       DockPanel.Dock="Left">
                 <TextBlock FontSize="16" Margin="0, 0, 5, 0" Text="{Binding RATING}" VerticalAlignment="Center" />
                 <materialDesign:PackIcon Margin="0, 0, 5, 0" Kind="Star" VerticalAlignment="Center" />
                 <TextBlock FontSize="16" Margin="0, 0, 5, 0" VerticalAlignment="Center" Text="{Binding NUMBEROFVOICES}" />
@@ -37,13 +38,20 @@
                                           HorizontalAlignment="Right"
                                           Value="{Binding Mark}"
                                           Foreground="#B56F2F"/>
-                <Button Template="{DynamicResource LightButton2}"
-                        x:Name="SetMark"
-                        Margin="10 0"
-                        Command="{Binding DataContext.MarkCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
-                        CommandParameter="{Binding BOOK_ID}"
-                        Content="Поставить оценку" />
-            </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            DockPanel.Dock="Right"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Right">
+                    <Button Template="{DynamicResource LightButton2}"
+                            x:Name="SetMark"
+                            Margin="15 0"
+                            Command="{Binding DataContext.MarkCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                            CommandParameter="{Binding Value, ElementName=rating}"
+                            HorizontalAlignment="Right"
+                            Content="Поставить оценку">
+                    </Button>
+                </StackPanel>
+            </DockPanel>
         </StackPanel>
         <StackPanel Grid.Row="3" Grid.Column="1"
                     Orientation="Horizontal"

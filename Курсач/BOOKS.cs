@@ -52,5 +52,11 @@ namespace Курсач
         public int NUMBEROFVOICES { get; set; }
         [NotMapped]
         public int Subscription { get; set; }
+        [NotMapped]
+        public string UserWithoutSubscription { get; set; }
+        [NotMapped]
+        public string UserWithSubscription { get; set; }
+        [NotMapped]
+        public string FormattedPrice { get; set; }
     }
 }

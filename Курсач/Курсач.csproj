@@ -197,8 +197,8 @@
     <Compile Include="sysdiagrams.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\AbonementBook.xaml.cs">
-      <DependentUpon>AbonementBook.xaml</DependentUpon>
+    <Compile Include="UserControls\AddCreditCard.xaml.cs">
+      <DependentUpon>AddCreditCard.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\BasketBook.xaml.cs">
       <DependentUpon>BasketBook.xaml</DependentUpon>
@@ -221,7 +221,7 @@
     <Compile Include="USERS.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\AbonementBookVM.cs" />
+    <Compile Include="ViewModels\AddCreditCardVM.cs" />
     <Compile Include="ViewModels\AdditionalViewModel.cs" />
     <Compile Include="ViewModels\ApplicationContext.cs" />
     <Compile Include="Models\Book.cs" />
@@ -310,11 +310,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Templates\RedButtonTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Templates\TextBoxTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\AbonementBook.xaml">
+    <Page Include="UserControls\AddCreditCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

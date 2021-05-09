@@ -1,4 +1,4 @@
-﻿
+﻿C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\GeneratedInternalTypeHelper.g.cs
 FC:\Users\User\Desktop\OOP10-master\Курсач\App.xaml;;
 FC:\Users\User\Desktop\OOP10-master\Курсач\Components\BindablePasswordBox.xaml;;
 FC:\Users\User\Desktop\OOP10-master\Курсач\Pages\AdditionalInfo.xaml;;
@@ -12,7 +12,9 @@ FC:\Users\User\Desktop\OOP10-master\Курсач\Styles\lightTheme.xaml;;
 FC:\Users\User\Desktop\OOP10-master\Курсач\Templates\DarkButtonTemplate.xaml;;
 FC:\Users\User\Desktop\OOP10-master\Курсач\Templates\LightButton2Template.xaml;;
 FC:\Users\User\Desktop\OOP10-master\Курсач\Templates\LightButtonTemplate.xaml;;
+FC:\Users\User\Desktop\OOP10-master\Курсач\Templates\RedButtonTemplate.xaml;;
 FC:\Users\User\Desktop\OOP10-master\Курсач\Templates\TextBoxTemplate.xaml;;
+FC:\Users\User\Desktop\OOP10-master\Курсач\UserControls\AddCreditCard.xaml;;
 FC:\Users\User\Desktop\OOP10-master\Курсач\UserControls\BasketBook.xaml;;
 FC:\Users\User\Desktop\OOP10-master\Курсач\UserControls\BookUserControl.xaml;;
 FC:\Users\User\Desktop\OOP10-master\Курсач\UserControls\FullInfo.xaml;;
@@ -23,5 +25,4 @@ FC:\Users\User\Desktop\OOP10-master\Курсач\Themes\darkTheme.xaml;;
 FC:\Users\User\Desktop\OOP10-master\Курсач\UserControls\YourBook.xaml;;
 FC:\Users\User\Desktop\OOP10-master\Курсач\Views\MainWindow.xaml;;
 FC:\Users\User\Desktop\OOP10-master\Курсач\Views\Workframe.xaml;;
-FC:\Users\User\Desktop\OOP10-master\Курсач\UserControls\AbonementBook.xaml;;
 

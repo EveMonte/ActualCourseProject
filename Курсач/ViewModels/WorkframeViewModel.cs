@@ -56,6 +56,33 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("SelectedBook");
             }
         }
+        private string visibility = "Collapsed";
+        public string Visibility
+        {
+            get
+            {
+                return visibility;
+            }
+            set
+            {
+                visibility = value;
+                OnPropertyChanged("Visibility");
+            }
+        }
+        private BaseViewModel addCreditCardViewModel;
+        public BaseViewModel AddCreditCardViewModel
+        {
+            get
+            {
+                return addCreditCardViewModel;
+            }
+            set
+            {
+                addCreditCardViewModel = value;
+                OnPropertyChanged("AddCreditCardViewModel");
+            }
+        }
+
         #region Commands
         public ICommand AddCommand { get; private set; }
         public ICommand RemoveCommand { get; private set; }
@@ -67,7 +94,6 @@ namespace Курсач.ViewModels
         public ICommand OpenBasketCommand { get; private set; }
         public ICommand OpenUserCommand { get; private set; }
         public ICommand SubscriptionCommand { get; private set; }
-
         #endregion
 
         #region Command's Logic

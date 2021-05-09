@@ -16,13 +16,14 @@ using System.Windows.Shapes;
 namespace Курсач.UserControls
 {
     /// <summary>
-    /// Логика взаимодействия для AbonementBook.xaml
+    /// Логика взаимодействия для AddCreditCard.xaml
     /// </summary>
-    public partial class AbonementBook : UserControl
+    public partial class AddCreditCard : UserControl
     {
-        public AbonementBook()
+        public AddCreditCard()
         {
             InitializeComponent();
+            //DataContext = new 
         }
     }
 }
