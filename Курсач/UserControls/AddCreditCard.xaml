@@ -112,7 +112,7 @@
                 Template="{DynamicResource DarkButton}"
                 Width="200"
                 Height="50"
-                Command="{Binding AddCard}"
+                Command="{Binding AddCardCommand}"
                 Content="Добавить карту"
                 FontSize="16"/>
     </Grid>

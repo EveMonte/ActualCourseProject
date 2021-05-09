@@ -146,7 +146,18 @@ namespace Курсач.ViewModels
 
         private void BuyTheBook(object obj)
         {
-            throw new NotImplementedException();
+            if (currentUser.CREDIT_CARD != null)
+            {
+                YOUR_BOOKS newBook = new YOUR_BOOKS();
+                newBook.BOOK_ID = (int)obj;
+                newBook.USER_ID = currentUser.USER_ID;
+                db.YOUR_BOOKS.Add(newBook);
+                db.SaveChangesAsync().GetAwaiter();
+            }
+            else
+            {
+                WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new AddCreditCardVM();
+            }
         }
         #endregion
         //Constructor

@@ -19,9 +19,6 @@
             <DataTemplate DataType="{x:Type viewmodels:SendMessageViewModel}">
                 <local:SendMessageControl />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:WorkframeViewModel}">
-                <local:SendMessageControl />
-            </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:FullInfoViewModel}">
                 <userControls:FullInfo />
             </DataTemplate>
@@ -51,6 +48,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:AddCreditCardVM}">
                 <userControls:AddCreditCard />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:WorkframeViewModel}">
+                <local:Workframe />
             </DataTemplate>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />

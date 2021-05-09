@@ -74,9 +74,11 @@ namespace Курсач.ViewModels
         public ICommand DownloadCommand { get; private set; }
         public ICommand MarkCommand { get; private set; }
         public ICommand FindByGenreCommand { get; private set; }
+        public ICommand BuyCommand { get; private set; }
         #endregion
         public BasketVM()
         {
+            BuyCommand = new DelegateCommand(BuyTheBook);
             DeleteCommand = new DelegateCommand(DeleteBook);
             MarkCommand = new DelegateCommand(SetMark);
             currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser;
@@ -124,6 +126,22 @@ namespace Курсач.ViewModels
             Items = CollectionViewSource.GetDefaultView(Books);
             Items.Filter = Search;
             FindByGenreCommand = new DelegateCommand(FindByGenre);
+        }
+
+        private void BuyTheBook(object obj)
+        {
+            if(currentUser.CREDIT_CARD != null)
+            {
+                YOUR_BOOKS newBook = new YOUR_BOOKS();
+                newBook.BOOK_ID = (int)obj;
+                newBook.USER_ID = currentUser.USER_ID;
+                db.YOUR_BOOKS.Add(newBook);
+                db.SaveChangesAsync().GetAwaiter();
+            }
+            else
+            {
+                WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new AddCreditCardVM();
+            }
         }
 
         private void SetMark(object obj)

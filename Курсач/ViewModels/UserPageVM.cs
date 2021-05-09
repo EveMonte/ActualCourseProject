@@ -266,7 +266,6 @@ namespace Курсач.ViewModels
             user.CREDIT_CARD = CreditCard;
             db.SaveChangesAsync().GetAwaiter();*/
             WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new AddCreditCardVM();
-            WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Visible";
         }
 
         private void SendMessage(object obj)

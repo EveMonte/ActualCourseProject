@@ -72,7 +72,8 @@ namespace Курсач.ViewModels
                     SelectedBook.Genre = genre.GENRE; //... and when we find it we write it in the notmapped property
             }
             SelectedBook.NUMBEROFVOICES = db.MARKS.Where(n => n.BOOK_ID == SelectedBook.BOOK_ID).Count(); //counting marks to write in notmapped property
-            SelectedBook.Mark = (int)db.MARKS.FirstOrDefault(n => (n.USER_ID == User.USER_ID) && (n.BOOK_ID == SelectedBook.BOOK_ID)).MARK;
+            MARKS mark = db.MARKS.FirstOrDefault(n => (n.USER_ID == User.USER_ID) && (n.BOOK_ID == SelectedBook.BOOK_ID));
+            SelectedBook.Mark = mark != null ? (int)mark.MARK : 0;
             FullInfoViewModelSingleTone.GetInstance(new FullInfoViewModel()).FullInfoViewModel.CurrentBook = SelectedBook;
             WorkFrameSingleTone.GetInstance().WorkframeViewModel.CurrentPageViewModel = new AdditionalInfoViewModel();
         }

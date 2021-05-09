@@ -104,15 +104,13 @@
                        Margin="0, 0, 15, 0"
                        Grid.Row="1"
                        FontSize="16"/>
-            <!--<TextBox Text="{Binding CreditCard, Mode=TwoWay}"
+            <TextBlock Text="{Binding CreditCard, Mode=TwoWay}"
                      Grid.Row="1"
-                     Width="220"
                      VerticalAlignment="Bottom"
                      HorizontalAlignment="Left"
                      Grid.Column="1"
-                     Style="{DynamicResource MaterialDesignTextBox}"
-                     FontSize="16" MaxLength="16"/>-->
-            <Button Content="Подтвердить"
+                     FontSize="16"/>
+            <Button Content="Изменить"
                     Template="{DynamicResource LightButton2}"
                     Grid.Column="2"
                     Grid.Row="1"

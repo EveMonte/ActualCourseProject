@@ -136,13 +136,20 @@
                     <Image Source="/Media/BookварьАбонемент.png"
                            Grid.Column="0"
                            Grid.RowSpan="2"
-                           HorizontalAlignment="Left"/>
+                           HorizontalAlignment="Left">
+                        <Image.Effect>
+                            <DropShadowEffect BlurRadius="10"
+                                              ShadowDepth="2"
+                                              Opacity="0.9"/>
+                        </Image.Effect>
+                    </Image>
                     <TextBlock Text="...А можете сэкономить более 20% и провести аж целый год в обществе любимых литературных героев всего за 85.99$"
                                TextWrapping="Wrap"
                                Grid.Column="1"
                                FontSize="20"
                                VerticalAlignment="Center"
                                Grid.Row="0"
+                               TextAlignment="Justify"
                                HorizontalAlignment="Center"
                                FontFamily="Tahoma"/>
                     <Button Template="{DynamicResource LightButton}"
@@ -154,11 +161,6 @@
                             Height="60"
                             Width="320"/>
                 </Grid>
-                <Border.Effect>
-                    <DropShadowEffect BlurRadius="10"
-                                      ShadowDepth="5"
-                                      Opacity="0.9"/>
-                </Border.Effect>
             </Border>
         </Grid>
     </Grid>
