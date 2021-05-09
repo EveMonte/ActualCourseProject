@@ -190,13 +190,15 @@
     </Compile>
     <Compile Include="Singleton\FullInfoViewModelSingleTone.cs" />
     <Compile Include="Singleton\MainWindowViewModelSingleton.cs" />
-    <Compile Include="Singleton\SendMessageViewModelSingleton.cs" />
     <Compile Include="Singleton\WorkFrameSingleTone.cs" />
     <Compile Include="SUBSCRIPTIONS.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
     <Compile Include="sysdiagrams.cs">
       <DependentUpon>Library.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AbonementBook.xaml.cs">
+      <DependentUpon>AbonementBook.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\BasketBook.xaml.cs">
       <DependentUpon>BasketBook.xaml</DependentUpon>
@@ -219,6 +221,7 @@
     <Compile Include="USERS.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\AbonementBookVM.cs" />
     <Compile Include="ViewModels\AdditionalViewModel.cs" />
     <Compile Include="ViewModels\ApplicationContext.cs" />
     <Compile Include="Models\Book.cs" />
@@ -311,6 +314,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\AbonementBook.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\BasketBook.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -394,7 +401,6 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Library.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Books\АннаКаренина.pdf" />
     <None Include="Library.edmx.diagram">
       <DependentUpon>Library.edmx</DependentUpon>
     </None>

@@ -116,8 +116,8 @@ namespace Курсач.ViewModels
             string hash = "";
             sh = new SaltedHash(FirstPassword);
             hash += sh.Hash + sh.Salt;
-            SendMessageViewModelSingleton.GetInstance(new SendMessageViewModel(new USERS { ACCOUNT = "User", EMAIL = Email, NAME = Name, PASSWORD = hash, SECOND_NAME = SecondName }));
-            MainWindowViewModelSingleton.GetInstance().MainFrameViewModel.SelectedViewModel = SendMessageViewModelSingleton.GetInstance().SendMessageViewModel;
+            MainWindowViewModelSingleton.GetInstance().MainFrameViewModel.SelectedViewModel = new SendMessageViewModel(new USERS { ACCOUNT = "User", EMAIL = Email, NAME = Name, PASSWORD = hash, SECOND_NAME = SecondName });
+
         }
 
         private void OpenSignIn(object obj)

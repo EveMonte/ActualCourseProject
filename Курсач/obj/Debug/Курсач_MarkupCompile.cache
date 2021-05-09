@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\User\Desktop\OOP10-master\Курсач\App.xaml
-24-1516191067
+25460968625
 4-1064893584
-63-1839388319
+65-1965114632
 150-1427691566
-Components\BindablePasswordBox.xaml;Pages\AdditionalInfo.xaml;Pages\BasketPage.xaml;Pages\ListOfBooks.xaml;Pages\SubscriptionPage.xaml;Pages\UserPage.xaml;Pages\YourBooks.xaml;Styles\darkTheme.xaml;Styles\lightTheme.xaml;Templates\DarkButtonTemplate.xaml;Templates\LightButton2Template.xaml;Templates\LightButtonTemplate.xaml;Templates\TextBoxTemplate.xaml;UserControls\BasketBook.xaml;UserControls\BookUserControl.xaml;UserControls\FullInfo.xaml;UserControls\SendMessageControl.xaml;UserControls\FormControl.xaml;UserControls\RegisterControl.xaml;Themes\darkTheme.xaml;Themes\lightTheme.xaml;UserControls\YourBook.xaml;Views\MainWindow.xaml;Views\Workframe.xaml;
+Components\BindablePasswordBox.xaml;Pages\AdditionalInfo.xaml;Pages\BasketPage.xaml;Pages\ListOfBooks.xaml;Pages\SubscriptionPage.xaml;Pages\UserPage.xaml;Pages\YourBooks.xaml;Styles\darkTheme.xaml;Styles\lightTheme.xaml;Templates\DarkButtonTemplate.xaml;Templates\LightButton2Template.xaml;Templates\LightButtonTemplate.xaml;Templates\TextBoxTemplate.xaml;UserControls\AbonementBook.xaml;UserControls\BasketBook.xaml;UserControls\BookUserControl.xaml;UserControls\FullInfo.xaml;UserControls\SendMessageControl.xaml;UserControls\FormControl.xaml;UserControls\RegisterControl.xaml;Themes\darkTheme.xaml;Themes\lightTheme.xaml;UserControls\YourBook.xaml;Views\MainWindow.xaml;Views\Workframe.xaml;
 
 False
 

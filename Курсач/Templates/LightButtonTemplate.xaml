@@ -16,7 +16,12 @@
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Opacity" Value="0.8" />
+                <Setter Property="Effect" >
+                    <Setter.Value>
+                        <DropShadowEffect BlurRadius="3" ShadowDepth="1" Color="Black" Opacity="0.9" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Background" Value="#c48c59" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="Opacity" Value="0.2" />

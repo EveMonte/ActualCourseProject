@@ -25,7 +25,7 @@ namespace Курсач
         public SendMessageControl()
         {
             InitializeComponent();
-            DataContext = SendMessageViewModelSingleton.GetInstance().SendMessageViewModel;
+            //DataContext = SendMessageViewModelSingleton.GetInstance().SendMessageViewModel;
             //DataContext = new SendMessageViewModel();
         }
 

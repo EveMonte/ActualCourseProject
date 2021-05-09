@@ -44,8 +44,8 @@
                     Grid.ColumnSpan="2"
                     >
             <materialDesign:PackIcon Kind="User"
-                                 Grid.Row="1"
-                                 Grid.Column="0"
+                                     HorizontalAlignment="Stretch"
+                                     VerticalAlignment="Stretch"
                                  Width="Auto"
                                  Height="Auto"/>
             <StackPanel VerticalAlignment="Center">
