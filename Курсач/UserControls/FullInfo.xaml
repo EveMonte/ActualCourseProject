@@ -69,8 +69,20 @@
         
 
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Template="{DynamicResource LightButton}" Margin="15, 7, 0, 0" Width="200" Height="Auto" Content="Добавить в корзину" />
-            <Button Template="{DynamicResource DarkButton}" Margin="15, 7, 0, 0" Width="200" Content="Купить" Height="Auto" />
+            <Button Template="{DynamicResource LightButton}"
+                    Margin="15, 7, 0, 0"
+                    Width="200"
+                    Command="{Binding DataContext.AddToBasketCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                    CommandParameter="{Binding BOOK_ID}"
+                    Height="Auto"
+                    Content="Добавить в корзину" />
+            <Button Template="{DynamicResource DarkButton}"
+                    Margin="15, 7, 0, 0"
+                    Width="200"
+                    Command="{Binding DataContext.BuyCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                    CommandParameter="{Binding Value, ElementName=rating}"
+                    Content="Купить"
+                    Height="Auto" />
         </StackPanel>
         <TextBlock FontSize="16"
                    TextWrapping="Wrap"

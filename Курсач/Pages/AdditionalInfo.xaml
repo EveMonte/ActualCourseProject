@@ -8,7 +8,7 @@
       mc:Ignorable="d" 
       Title="AdditionalInfo">
     <ScrollViewer>
-        <Grid ScrollViewer.CanContentScroll="True">
+        <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="400" />

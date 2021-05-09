@@ -68,11 +68,13 @@ namespace Курсач.ViewModels
             }
         }
         #endregion
+
+        #region Commands
         public ICommand DeleteCommand { get; private set; }
         public ICommand DownloadCommand { get; private set; }
-
         public ICommand MarkCommand { get; private set; }
         public ICommand FindByGenreCommand { get; private set; }
+        #endregion
         public BasketVM()
         {
             DeleteCommand = new DelegateCommand(DeleteBook);

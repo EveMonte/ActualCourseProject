@@ -103,7 +103,6 @@ namespace Курсач.ViewModels
                 int s = b;
                 SelectedBook.NUMBEROFVOICES = s;
             }
-            //SelectedBook.Mark = (int)db.MARKS.FirstOrDefault(n => (n.USER_ID == User.USER_ID) && (n.USER_ID == SelectedBook.BOOK_ID)).MARK;
             foreach(var mark in db.MARKS.Where(n => n.USER_ID == User.USER_ID))
             {
                 if (mark.BOOK_ID == SelectedBook.BOOK_ID)

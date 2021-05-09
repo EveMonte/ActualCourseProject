@@ -11,6 +11,7 @@ namespace Курсач.ViewModels
 {
     public class AdditionalInfoViewModel : BaseViewModel
     {
+        #region Data
         LIBRARYEntities db = new LIBRARYEntities();
         private ObservableCollection<BOOKS> books;
         public ObservableCollection<BOOKS> Books
@@ -25,8 +26,6 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("Books");
             }
         }
-        public ICommand OpenFullInfo { get; private set; }
-        public ICommand MarkCommand { get; private set; }
         BOOKS selectedBook;
         public BOOKS currentBook;
         USERS currentUser;
@@ -51,24 +50,26 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("SelectedBook");
             }
         }
+        #endregion
+
+        #region Commands
+        public ICommand OpenFullInfo { get; private set; }
+        public ICommand MarkCommand { get; private set; }
+        public ICommand AddToBasketCommand { get; private set; }
+        public ICommand BuyCommand { get; private set; }
+        #endregion
+
+        #region Commands' Logic
+        //change book to another
         private void OpenFullInfoUserControl(object obj)
         {
-            FullInfoViewModelSingleTone.GetInstance(new FullInfoViewModel());
-            string command = String.Format($"SELECT * " +
-                $"FROM GENRES");
-            var h = (db.Database.SqlQuery<GENRES>(command));
-            foreach (GENRES genre in h)
+            var h = db.GENRES.ToList();
+            foreach (GENRES genre in h) //we are looking for our book in GENRES...
             {
                 if (genre.GENRE_ID == SelectedBook.GENRE)
-                    SelectedBook.Genre = genre.GENRE;
+                    SelectedBook.Genre = genre.GENRE; //... and when we find it we write it in the notmapped property
             }
-            command = String.Format($"SELECT COUNT(*) FROM MARKS WHERE BOOK_ID = {SelectedBook.BOOK_ID}");
-            var a = db.Database.SqlQuery<int>(command);
-            foreach (var b in a)
-            {
-                int s = b;
-                SelectedBook.NUMBEROFVOICES = s;
-            }
+            SelectedBook.NUMBEROFVOICES = db.MARKS.Where(n => n.BOOK_ID == SelectedBook.BOOK_ID).Count(); //counting marks to write in notmapped property
             SelectedBook.RATING = SelectedBook.RATING;
             FullInfoViewModelSingleTone.GetInstance().FullInfoViewModel.CurrentBook = SelectedBook;
             CurrentBook = SelectedBook;
@@ -76,26 +77,30 @@ namespace Курсач.ViewModels
             SelectedBook = null;
             CurrentBook = CurrentBook;
         }
-        public AdditionalInfoViewModel()
+
+        //Add book to basket lol :)
+        private void AddBookToBasket(object obj)
         {
-            CurrentBook = FullInfoViewModelSingleTone.GetInstance().FullInfoViewModel.CurrentBook;
-            CreateSimilarBooks();
-            OpenFullInfo = new DelegateCommand(OpenFullInfoUserControl);
-            MarkCommand = new DelegateCommand(SetMark);
+            if(db.BASKETS.FirstOrDefault(n => (n.USER_ID == currentUser.USER_ID) && (n.BOOK_ID == (int)obj)) == null)
+            {
+                BASKETS newBasketBook = new BASKETS();
+                newBasketBook.BOOK_ID = (int)obj;
+                newBasketBook.USER_ID = currentUser.USER_ID;
+                db.BASKETS.Add(newBasketBook);
+                db.SaveChangesAsync().GetAwaiter();
+            }
         }
 
-        private void SetMark(object obj)
+        //Rate the book
+        private void Rate(object obj)
         {
-            currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser;
             MARKS m = db.MARKS.Where(n => (n.BOOK_ID == CurrentBook.BOOK_ID) && (n.USER_ID == currentUser.USER_ID)).FirstOrDefault();
-            if (m != null)
+            if (m != null) //if our current user already rated this book we change value of its mark
             {
                 CurrentBook.Mark = (int)obj;
                 m.MARK = CurrentBook.Mark;
-                //MARKS mrk = db.MARKS.FirstOrDefault(n => n == m);
-                //mrk.MARK = (int)obj;
             }
-            else
+            else //if there is no marks for this book we create a new one
             {
                 MARKS mark = new MARKS();
                 mark.BOOK_ID = CurrentBook.BOOK_ID;
@@ -105,33 +110,38 @@ namespace Курсач.ViewModels
                 db.MARKS.Add(mark);
                 CurrentBook.NUMBEROFVOICES++;
             }
-            db.SaveChanges();
-            CurrentBook.RATING = (decimal)(db.MARKS.Where(n => n.BOOK_ID == CurrentBook.BOOK_ID).Sum(n => n.MARK) / db.MARKS.Where(n => n.BOOK_ID == CurrentBook.BOOK_ID).Count());
-            var book = db.BOOKS.FirstOrDefault(n => n.BOOK_ID == CurrentBook.BOOK_ID);
-            book.RATING = CurrentBook.RATING;
-            db.SaveChangesAsync().GetAwaiter();
-            FullInfoViewModelSingleTone.GetInstance().FullInfoViewModel.CurrentBook = new BOOKS();
+            db.SaveChanges(); // save changes to DB
+            CurrentBook.RATING = (decimal)(db.MARKS.Where(n => n.BOOK_ID == CurrentBook.BOOK_ID).Sum(n => n.MARK) / db.MARKS.Where(n => n.BOOK_ID == CurrentBook.BOOK_ID).Count()); // recount rating of this book
+            var book = db.BOOKS.FirstOrDefault(n => n.BOOK_ID == CurrentBook.BOOK_ID); // get this book from the DB
+            book.RATING = CurrentBook.RATING; // change its rating
+            db.SaveChangesAsync().GetAwaiter(); // and save changes async
+            FullInfoViewModelSingleTone.GetInstance().FullInfoViewModel.CurrentBook = new BOOKS(); // to trigger OnPropertyChanged and update info in FullInfoUserControl
             FullInfoViewModelSingleTone.GetInstance().FullInfoViewModel.CurrentBook = CurrentBook;
         }
 
+        //Create similar books to listbox on the bottom of the page
         private void CreateSimilarBooks()
         {
-            Books = new ObservableCollection<BOOKS>();
-            foreach (BOOKS book in Books)
+            Books = new ObservableCollection<BOOKS>(); //cleaning observable collection
+            foreach (BOOKS book in db.BOOKS) //fill observable collection with new similar books
             {
-                Books.Remove(book);
-            }
-            using (LIBRARYEntities library = new LIBRARYEntities())
-            {
-                foreach (BOOKS book in library.BOOKS)
+                if ((CurrentBook.AUTHOR == book.AUTHOR && CurrentBook.TITLE != book.TITLE) || (CurrentBook.GENRE == book.GENRE && CurrentBook.TITLE != book.TITLE))
                 {
-                    if ((CurrentBook.AUTHOR == book.AUTHOR && CurrentBook.TITLE != book.TITLE) || (CurrentBook.GENRE == book.GENRE && CurrentBook.TITLE != book.TITLE))
-                    {
-                        Books.Add(book);
-                    }
+                    Books.Add(book);
                 }
-                //Books = new ObservableCollection<BOOKS>(library.BOOKS);
             }
+        }
+        #endregion
+        //Constructor
+        public AdditionalInfoViewModel()
+        {
+            currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser; //get current user
+            CurrentBook = FullInfoViewModelSingleTone.GetInstance().FullInfoViewModel.CurrentBook; // get current book
+            CreateSimilarBooks();
+            //DelegateCommand
+            OpenFullInfo = new DelegateCommand(OpenFullInfoUserControl);
+            MarkCommand = new DelegateCommand(Rate);
+            AddToBasketCommand = new DelegateCommand(AddBookToBasket);
         }
     }
 }
