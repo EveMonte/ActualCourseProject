@@ -189,7 +189,7 @@ namespace Курсач.ViewModels
             bool result = true;
             BOOKS current = obj as BOOKS;
 
-            if (current != null && !string.IsNullOrWhiteSpace(Text) && !current.TITLE.Contains(Text) && !current.AUTHOR.Contains(Text))
+            if (current != null && !string.IsNullOrWhiteSpace(Text) && !current.TITLE.ToLower().Contains(Text.ToLower()) && !current.AUTHOR.ToLower().Contains(Text.ToLower()))
             {
                 result = false;
             }

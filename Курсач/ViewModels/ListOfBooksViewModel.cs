@@ -15,6 +15,7 @@ namespace Курсач.ViewModels
     public class ListOfBooksViewModel : BaseViewModel
     {
         #region Data
+        private USERS User = new USERS();
         LIBRARYEntities db = new LIBRARYEntities();
         private ObservableCollection<BOOKS> books;
         public ObservableCollection<BOOKS> Books
@@ -54,8 +55,9 @@ namespace Курсач.ViewModels
         #endregion
 
         public ICommand FindByGenreCommand { get; private set; }
-        public ListOfBooksViewModel()
+        public ListOfBooksViewModel(USERS user)
         {
+            User = user;
             using (LIBRARYEntities library = new LIBRARYEntities())
             {
                 Books = new ObservableCollection<BOOKS>(library.BOOKS);
@@ -101,6 +103,15 @@ namespace Курсач.ViewModels
                 int s = b;
                 SelectedBook.NUMBEROFVOICES = s;
             }
+            //SelectedBook.Mark = (int)db.MARKS.FirstOrDefault(n => (n.USER_ID == User.USER_ID) && (n.USER_ID == SelectedBook.BOOK_ID)).MARK;
+            foreach(var mark in db.MARKS.Where(n => n.USER_ID == User.USER_ID))
+            {
+                if (mark.BOOK_ID == SelectedBook.BOOK_ID)
+                {
+                    SelectedBook.Mark = (int)mark.MARK;
+                    break;
+                }
+            }
             SelectedBook.RATING = SelectedBook.RATING;
             FullInfoViewModelSingleTone.GetInstance().FullInfoViewModel.CurrentBook = SelectedBook;
             WorkFrameSingleTone.GetInstance().WorkframeViewModel.CurrentPageViewModel = new AdditionalInfoViewModel();
@@ -140,7 +151,7 @@ namespace Курсач.ViewModels
             bool result = true;
             BOOKS current = obj as BOOKS;
 
-            if (current != null && !string.IsNullOrWhiteSpace(Text) && !current.TITLE.Contains(Text) && !current.AUTHOR.Contains(Text))
+            if (current != null && !string.IsNullOrWhiteSpace(Text) && !current.TITLE.ToLower().Contains(Text.ToLower()) && !current.AUTHOR.ToLower().Contains(Text.ToLower()))
             {
                 result = false;
             }

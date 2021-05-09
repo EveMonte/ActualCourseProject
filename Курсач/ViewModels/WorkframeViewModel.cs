@@ -74,7 +74,7 @@ namespace Курсач.ViewModels
         public WorkframeViewModel(USERS user)
         {
             currentUser = user;
-            CurrentPageViewModel = new ListOfBooksViewModel();
+            CurrentPageViewModel = new ListOfBooksViewModel(currentUser);
             OpenUserCommand = new DelegateCommand(OpenUser);
             AddCommand = new DelegateCommand(AddBook);
             RemoveCommand = new DelegateCommand(RemoveBook, CanRemoveBook);
@@ -108,7 +108,7 @@ namespace Курсач.ViewModels
 
         private void OpenListOfBooks(object obj)
         {
-            CurrentPageViewModel = new ListOfBooksViewModel();
+            CurrentPageViewModel = new ListOfBooksViewModel(currentUser);
         }
 
         private void SaveBooks(object obj)//Save books from datagrid to database

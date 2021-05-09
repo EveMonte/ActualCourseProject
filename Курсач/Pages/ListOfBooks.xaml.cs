@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Курсач.Singleton;
 using Курсач.ViewModels;
 
 namespace Курсач.Pages
@@ -24,7 +25,7 @@ namespace Курсач.Pages
         public ListOfBooks()
         {
             InitializeComponent();
-            DataContext = new ListOfBooksViewModel();
+            DataContext = new ListOfBooksViewModel(WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser);
         }
 
         private void Button_MouseUp(object sender, MouseButtonEventArgs e)

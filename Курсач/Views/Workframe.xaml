@@ -14,50 +14,54 @@
         WindowState="Maximized"
         MinWidth="1410" MinHeight="780"
         Icon="C:\Users\User\Desktop\Курсааааач\Курсач\Курсач\Media\Логотип.png">
-    <Grid Style="{DynamicResource GridMainStyle}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition x:Name="col" MinWidth="60"/>
-            <ColumnDefinition Width="80*"/>
-            <ColumnDefinition Width="150*"/>
-            <ColumnDefinition Width="150*"/>
-            <ColumnDefinition Width="80*"/>
-            <ColumnDefinition Width="60"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="75" />
-            <RowDefinition Height="50*" />
-            <RowDefinition Height="400*"/>
-            <RowDefinition Height="400*"/>
-        </Grid.RowDefinitions>
-        <Border Grid.Row="0"
+        <Grid Style="{DynamicResource GridMainStyle}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="col" MinWidth="60"/>
+                <ColumnDefinition Width="80*"/>
+                <ColumnDefinition Width="150*"/>
+                <ColumnDefinition Width="150*"/>
+                <ColumnDefinition Width="80*"/>
+                <ColumnDefinition Width="60"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75" />
+                <RowDefinition Height="50*" />
+                <RowDefinition Height="400*"/>
+                <RowDefinition Height="400*"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0"
                 Grid.ColumnSpan="6"
+                    VerticalAlignment="Top"
+                    Height="75"
                 Background="#B56F2F" />
-        <StackPanel HorizontalAlignment="Center"
+            <StackPanel HorizontalAlignment="Center"
                     Grid.Row="0"
                     Grid.ColumnSpan="6"
+                        VerticalAlignment="Top"
+                        Height="75"
                     Orientation="Horizontal">
-            <Image Source="/Media/АбонементОбводка.png"
+                <Image Source="/Media/АбонементОбводка.png"
                    Margin="0, 0, 20, 0" />
-            <TextBlock HorizontalAlignment="Center"
+                <TextBlock HorizontalAlignment="Center"
                        FontSize="20"
                        Foreground="White"
                        VerticalAlignment="Center"
                        Text="Множество бесплатных книг при покупке месячного абонемента" />
-        </StackPanel>
-        <Grid x:Name="sidePanel"
+            </StackPanel>
+            <Grid x:Name="sidePanel"
               Grid.RowSpan="5"
               Background="#B56F2F"
               HorizontalAlignment="Left"
  >
-            <DockPanel>
-                <StackPanel DockPanel.Dock="Top"
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top"
                             VerticalAlignment="Top">
-                    <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                               Foreground="White">
-                        <ListViewItem Height="50"
+                            <ListViewItem Height="50"
                                       Padding="0">
-                            <StackPanel VerticalAlignment="Center">
-                                <Button Click="Button_Click"
+                                <StackPanel VerticalAlignment="Center">
+                                    <Button Click="Button_Click"
                                         Width="180"
                                         Height="50"
                                         Padding="0"
@@ -65,41 +69,41 @@
                                         HorizontalContentAlignment="Left"
                                         Background="Transparent"
                                         BorderBrush="Transparent">
-                                    <StackPanel Orientation="Horizontal">
-                                        <materialDesign:PackIcon VerticalAlignment="Center"
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon VerticalAlignment="Center"
                                                                  Margin="10, 0, 10, 0"
                                                                  Width="40"
                                                                  Height="40"
                                                                  Kind="Menu"/>
-                                        <TextBlock VerticalAlignment="Center" FontSize="16" Text="Меню" />
-                                    </StackPanel>
-                                </Button>
-                            </StackPanel>
-                        </ListViewItem>
-                        <ListViewItem Padding="0"
+                                            <TextBlock VerticalAlignment="Center" FontSize="16" Text="Меню" />
+                                        </StackPanel>
+                                    </Button>
+                                </StackPanel>
+                            </ListViewItem>
+                            <ListViewItem Padding="0"
                                       Height="50">
-                            <Button Padding="0"
+                                <Button Padding="0"
                                     Background="Transparent"
                                     BorderBrush="Transparent"
                                     HorizontalContentAlignment="Left"
                                     Height="50"
                                     Width="180"
                                     Command="{Binding OpenListOfBooksCommand}">
-                                <StackPanel Orientation="Horizontal"
+                                    <StackPanel Orientation="Horizontal"
                                         VerticalAlignment="Center">
-                                    <materialDesign:PackIcon Kind="Home"
+                                        <materialDesign:PackIcon Kind="Home"
                                                              Width="40"
                                                              Height="40"
                                                              Margin="10,0,10,0"
                                                              VerticalAlignment="Center"/>
-                                    <TextBlock Text="Главная"
+                                        <TextBlock Text="Главная"
                                                VerticalAlignment="Center"
                                                FontSize="16" />
-                                </StackPanel>
-                            </Button>
-                        </ListViewItem>
-                        <ListViewItem Padding="0" Height="50">
-                            <Button Padding="0"
+                                    </StackPanel>
+                                </Button>
+                            </ListViewItem>
+                            <ListViewItem Padding="0" Height="50">
+                                <Button Padding="0"
                                     Background="Transparent"
                                     BorderBrush="Transparent"
                                     VerticalAlignment="Stretch"
@@ -107,21 +111,21 @@
                                     Height="50"
                                     Width="180"
                                     Command="{Binding OpenYourBooksCommand}">
-                                <StackPanel Orientation="Horizontal"
+                                    <StackPanel Orientation="Horizontal"
                                         VerticalAlignment="Stretch">
-                                    <materialDesign:PackIcon Kind="Books"
+                                        <materialDesign:PackIcon Kind="Books"
                                                              Width="40"
                                                              Height="40"
                                                              Margin="10,0,10,0"
                                                              VerticalAlignment="Center"/>
-                                    <TextBlock Text="Ваша Полка"
+                                        <TextBlock Text="Ваша Полка"
                                                VerticalAlignment="Center"
                                                FontSize="16" />
-                                </StackPanel>
-                            </Button>
-                        </ListViewItem>
-                        <ListViewItem Padding="0" Height="50">
-                            <Button Padding="0"
+                                    </StackPanel>
+                                </Button>
+                            </ListViewItem>
+                            <ListViewItem Padding="0" Height="50">
+                                <Button Padding="0"
                                     Background="Transparent"
                                     BorderBrush="Transparent"
                                     VerticalAlignment="Stretch"
@@ -129,16 +133,16 @@
                                     Height="50"
                                     Width="180"
                                     Command="{Binding OpenBasketCommand}">
-                                <StackPanel Orientation="Horizontal"
+                                    <StackPanel Orientation="Horizontal"
                                         VerticalAlignment="Center">
-                                    <materialDesign:PackIcon Kind="Basket" Width="40" Height="40" Margin="10,0,10,0"
+                                        <materialDesign:PackIcon Kind="Basket" Width="40" Height="40" Margin="10,0,10,0"
                                                          VerticalAlignment="Center"/>
-                                    <TextBlock Text="Корзина" VerticalAlignment="Center" FontSize="16" />
-                                </StackPanel>
-                            </Button>
-                        </ListViewItem>
-                        <ListViewItem Padding="0" Height="50">
-                            <Button Padding="0"
+                                        <TextBlock Text="Корзина" VerticalAlignment="Center" FontSize="16" />
+                                    </StackPanel>
+                                </Button>
+                            </ListViewItem>
+                            <ListViewItem Padding="0" Height="50">
+                                <Button Padding="0"
                                     Background="Transparent"
                                     BorderBrush="Transparent"
                                     VerticalAlignment="Stretch"
@@ -146,16 +150,16 @@
                                     Width="180"
                                     Height="50"
                                     Command="{Binding OpenUserCommand}">
-                                <StackPanel Orientation="Horizontal"
+                                    <StackPanel Orientation="Horizontal"
                                         VerticalAlignment="Center">
-                                    <materialDesign:PackIcon Kind="User" Width="40" Height="40" Margin="10,0,10,0"
+                                        <materialDesign:PackIcon Kind="User" Width="40" Height="40" Margin="10,0,10,0"
                                                          VerticalAlignment="Center"/>
-                                    <TextBlock Text="Пользователь" VerticalAlignment="Center" FontSize="16" />
-                                </StackPanel>
-                            </Button>
-                        </ListViewItem>
-                        <ListViewItem Padding="0" Height="50">
-                            <Button Padding="0"
+                                        <TextBlock Text="Пользователь" VerticalAlignment="Center" FontSize="16" />
+                                    </StackPanel>
+                                </Button>
+                            </ListViewItem>
+                            <ListViewItem Padding="0" Height="50">
+                                <Button Padding="0"
                                     Background="Transparent"
                                     BorderBrush="Transparent"
                                     VerticalAlignment="Stretch"
@@ -164,16 +168,16 @@
                                     Width="180"
                                     HorizontalAlignment="Stretch"
                                     Command="{Binding SubscriptionCommand}">
-                                <StackPanel Orientation="Horizontal"
+                                    <StackPanel Orientation="Horizontal"
                                         VerticalAlignment="Center">
-                                    <materialDesign:PackIcon Kind="Crown"  Width="40" Height="40" Margin="10,0,10,0"
+                                        <materialDesign:PackIcon Kind="Crown"  Width="40" Height="40" Margin="10,0,10,0"
                                                          VerticalAlignment="Center"/>
-                                    <TextBlock Text="Абонемент" VerticalAlignment="Center" FontSize="16" />
-                                </StackPanel>
-                            </Button>
-                        </ListViewItem>
-                        <ListViewItem Padding="0" Height="50">
-                            <Button Padding="0"
+                                        <TextBlock Text="Абонемент" VerticalAlignment="Center" FontSize="16" />
+                                    </StackPanel>
+                                </Button>
+                            </ListViewItem>
+                            <ListViewItem Padding="0" Height="50">
+                                <Button Padding="0"
                                     Background="Transparent"
                                     BorderBrush="Transparent"
                                     VerticalAlignment="Stretch"
@@ -181,20 +185,25 @@
                                     Height="50"
                                     Width="180"
                                     Command="{Binding SettingsCommand}">
-                                <StackPanel Orientation="Horizontal"
+                                    <StackPanel Orientation="Horizontal"
                                         VerticalAlignment="Center">
-                                    <materialDesign:PackIcon Kind="Settings" Width="40" Height="40" Margin="10,0,10,0"
+                                        <materialDesign:PackIcon Kind="Settings" Width="40" Height="40" Margin="10,0,10,0"
                                                          VerticalAlignment="Center"/>
-                                    <TextBlock Text="Настройки" VerticalAlignment="Center" FontSize="16" />
-                                </StackPanel>
-                            </Button>
-                        </ListViewItem>
-                    </ListView>
-                </StackPanel>
-            </DockPanel>
-        </Grid>        
-        <Frame NavigationUIVisibility="Hidden" Content="{Binding CurrentPageViewModel}"
-               Padding="200 0"
-               Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6" Grid.RowSpan="3" />
+                                        <TextBlock Text="Настройки" VerticalAlignment="Center" FontSize="16" />
+                                    </StackPanel>
+                                </Button>
+                            </ListViewItem>
+                        </ListView>
+                    </StackPanel>
+                </DockPanel>
+            </Grid>
+        <ScrollViewer Grid.Row="1"
+                      Grid.Column="1"
+                      Grid.ColumnSpan="5"
+                      Grid.RowSpan="5">
+            <Frame NavigationUIVisibility="Hidden"
+               Content="{Binding CurrentPageViewModel}"
+               Padding="200 0" />
+        </ScrollViewer>
     </Grid>
 </Window>

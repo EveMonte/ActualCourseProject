@@ -11,7 +11,7 @@
       Title="ListOfBooks">
     <Grid Style="{DynamicResource GridMainStyle}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="70*" />
+            <RowDefinition Height="70" />
             <RowDefinition Height="800*" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
@@ -70,6 +70,7 @@
                  Grid.ColumnSpan="4"
                  ItemsSource="{Binding Books, Mode=TwoWay}"
                  SelectedItem="{Binding SelectedBook}"
+                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
                  x:Name="listOfBooks">
             <ListBox.ItemTemplate>
                 <DataTemplate>

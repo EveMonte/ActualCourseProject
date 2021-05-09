@@ -12,9 +12,36 @@ namespace Курсач.ViewModels
     public class AdditionalInfoViewModel : BaseViewModel
     {
         LIBRARYEntities db = new LIBRARYEntities();
-        public ObservableCollection<BOOKS> Books { get; private set; }
+        private ObservableCollection<BOOKS> books;
+        public ObservableCollection<BOOKS> Books
+        {
+            get
+            {
+                return books;
+            }
+            private set
+            {
+                books = value;
+                OnPropertyChanged("Books");
+            }
+        }
         public ICommand OpenFullInfo { get; private set; }
+        public ICommand MarkCommand { get; private set; }
         BOOKS selectedBook;
+        public BOOKS currentBook;
+        USERS currentUser;
+        private BOOKS CurrentBook
+        {
+            get
+            {
+                return currentBook;
+            }
+            set
+            {
+                currentBook = value;
+                OnPropertyChanged("CurrentBook");
+            }
+        }
         public BOOKS SelectedBook
         {
             get { return selectedBook; }
@@ -44,11 +71,50 @@ namespace Курсач.ViewModels
             }
             SelectedBook.RATING = SelectedBook.RATING;
             FullInfoViewModelSingleTone.GetInstance().FullInfoViewModel.CurrentBook = SelectedBook;
+            CurrentBook = SelectedBook;
+            CreateSimilarBooks();
             SelectedBook = null;
-            //FullInfoViewModelSingleTone.GetInstance(new FullInfoViewModel());
-            //WorkFrameSingleTone.GetInstance().WorkframeViewModel.CurrentPageViewModel = new AdditionalInfoViewModel();
+            CurrentBook = CurrentBook;
         }
         public AdditionalInfoViewModel()
+        {
+            CurrentBook = FullInfoViewModelSingleTone.GetInstance().FullInfoViewModel.CurrentBook;
+            CreateSimilarBooks();
+            OpenFullInfo = new DelegateCommand(OpenFullInfoUserControl);
+            MarkCommand = new DelegateCommand(SetMark);
+        }
+
+        private void SetMark(object obj)
+        {
+            currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser;
+            MARKS m = db.MARKS.Where(n => (n.BOOK_ID == CurrentBook.BOOK_ID) && (n.USER_ID == currentUser.USER_ID)).FirstOrDefault();
+            if (m != null)
+            {
+                CurrentBook.Mark = (int)obj;
+                m.MARK = CurrentBook.Mark;
+                //MARKS mrk = db.MARKS.FirstOrDefault(n => n == m);
+                //mrk.MARK = (int)obj;
+            }
+            else
+            {
+                MARKS mark = new MARKS();
+                mark.BOOK_ID = CurrentBook.BOOK_ID;
+                mark.MARK = (int)obj;
+                CurrentBook.Mark = (int)obj;
+                mark.USER_ID = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser.USER_ID;
+                db.MARKS.Add(mark);
+                CurrentBook.NUMBEROFVOICES++;
+            }
+            db.SaveChanges();
+            CurrentBook.RATING = (decimal)(db.MARKS.Where(n => n.BOOK_ID == CurrentBook.BOOK_ID).Sum(n => n.MARK) / db.MARKS.Where(n => n.BOOK_ID == CurrentBook.BOOK_ID).Count());
+            var book = db.BOOKS.FirstOrDefault(n => n.BOOK_ID == CurrentBook.BOOK_ID);
+            book.RATING = CurrentBook.RATING;
+            db.SaveChangesAsync().GetAwaiter();
+            FullInfoViewModelSingleTone.GetInstance().FullInfoViewModel.CurrentBook = new BOOKS();
+            FullInfoViewModelSingleTone.GetInstance().FullInfoViewModel.CurrentBook = CurrentBook;
+        }
+
+        private void CreateSimilarBooks()
         {
             Books = new ObservableCollection<BOOKS>();
             foreach (BOOKS book in Books)
@@ -59,14 +125,13 @@ namespace Курсач.ViewModels
             {
                 foreach (BOOKS book in library.BOOKS)
                 {
-                    if (FullInfoViewModelSingleTone.GetInstance(new FullInfoViewModel()).FullInfoViewModel.CurrentBook.AUTHOR == book.AUTHOR)
+                    if ((CurrentBook.AUTHOR == book.AUTHOR && CurrentBook.TITLE != book.TITLE) || (CurrentBook.GENRE == book.GENRE && CurrentBook.TITLE != book.TITLE))
                     {
                         Books.Add(book);
                     }
                 }
                 //Books = new ObservableCollection<BOOKS>(library.BOOKS);
             }
-            OpenFullInfo = new DelegateCommand(OpenFullInfoUserControl);
         }
     }
 }
