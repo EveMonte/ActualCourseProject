@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using Курсач.Methods;
 using Курсач.Singleton;
 
 namespace Курсач.ViewModels
@@ -130,18 +131,30 @@ namespace Курсач.ViewModels
 
         private void BuyTheBook(object obj)
         {
-            if(currentUser.CREDIT_CARD != null)
+            if(db.YOUR_BOOKS.FirstOrDefault(n => (n.BOOK_ID == (int)obj) && (n.USER_ID == currentUser.USER_ID)) == null)
             {
-                YOUR_BOOKS newBook = new YOUR_BOOKS();
-                newBook.BOOK_ID = (int)obj;
-                newBook.USER_ID = currentUser.USER_ID;
-                db.YOUR_BOOKS.Add(newBook);
-                db.SaveChangesAsync().GetAwaiter();
-            }
-            else
-            {
-                WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new AddCreditCardVM();
-            }
+                if (currentUser.CREDIT_CARD != null)
+                {
+                    YOUR_BOOKS newBook = new YOUR_BOOKS();
+                    newBook.BOOK_ID = (int)obj;
+                    newBook.USER_ID = currentUser.USER_ID;
+                    db.YOUR_BOOKS.Add(newBook);
+                    BASKETS bookToDelete = db.BASKETS.FirstOrDefault(n => (n.USER_ID == currentUser.USER_ID) && (n.BOOK_ID == (int)obj));
+                    if (bookToDelete != null)
+                    {
+                        db.BASKETS.Remove(bookToDelete);
+                    }
+                    BOOKS yourBook = db.BOOKS.FirstOrDefault(n => n.BOOK_ID == (int)obj);
+                    db.SaveChangesAsync().GetAwaiter();
+                    Books.Remove(yourBook);
+                    string message = String.Format($"Здравствуйте, {currentUser.NAME}. Вы только что приобрели книгу \"{yourBook.TITLE}\" за {yourBook.PRICE}$. Наслаждайтесь чтением!");
+                    MessageSender.SendEmailAsync(currentUser.EMAIL, "", message, "Покупка книги").GetAwaiter();
+                }
+                else
+                {
+                    WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new AddCreditCardVM();
+                }
+            }            
         }
 
         private void SetMark(object obj)

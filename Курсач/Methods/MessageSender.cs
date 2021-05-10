@@ -11,14 +11,14 @@ namespace Курсач.Methods
     public class MessageSender
     {
         //Асинхронная отправка сообщения на почту
-        public static async Task SendEmailAsync(string email, string code, string message)
+        public static async Task SendEmailAsync(string email, string code, string message, string subject)
         {
             try
             {
                 MailAddress from = new MailAddress("bookvar.official@gmail.com", "Администрация онлайн-библиотеки Bookварь");
                 MailAddress to = new MailAddress(email);
                 MailMessage m = new MailMessage(from, to);
-                m.Subject = "Код подтверждения";
+                m.Subject = subject;
                 m.Body = message;
                 SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
                 smtp.Credentials = new NetworkCredential("bookvar.official@gmail.com", "rm.dthnb");

@@ -272,7 +272,7 @@ namespace Курсач.ViewModels
         {
             mainCode = MessageSender.GenerateCode();
             string message = $"С Вашей учетной записи поступил запрос на смену Email. Если это были Вы, то введите символьный код, расположенный ниже, в приложение:\n{mainCode}\nИначе свяжитесь с администрацией приложения!";
-            MessageSender.SendEmailAsync(currentUser.EMAIL, mainCode, message).GetAwaiter();
+            MessageSender.SendEmailAsync(currentUser.EMAIL, mainCode, message, "Смена Email").GetAwaiter();
         }
     }
 }

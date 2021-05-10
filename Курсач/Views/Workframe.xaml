@@ -18,11 +18,10 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition x:Name="col" MinWidth="60"/>
                 <ColumnDefinition Width="80*"/>
-                <ColumnDefinition Width="150*"/>
-                <ColumnDefinition Width="150*"/>
-                <ColumnDefinition Width="80*"/>
-                <ColumnDefinition Width="60"/>
-            </Grid.ColumnDefinitions>
+                <ColumnDefinition Width="400"/>
+                <ColumnDefinition Width="400"/>
+            <ColumnDefinition Width="80*"/>
+        </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="75" />
                 <RowDefinition Height="50*" />
@@ -51,8 +50,7 @@
             <Grid x:Name="sidePanel"
               Grid.RowSpan="5"
               Background="#B56F2F"
-              HorizontalAlignment="Left"
- >
+              HorizontalAlignment="Left" >
                 <DockPanel>
                     <StackPanel DockPanel.Dock="Top"
                             VerticalAlignment="Top">
@@ -82,12 +80,13 @@
                             </ListViewItem>
                             <ListViewItem Padding="0"
                                       Height="50">
-                                <Button Padding="0"
-                                    Background="Transparent"
-                                    BorderBrush="Transparent"
-                                    HorizontalContentAlignment="Left"
-                                    Height="50"
-                                    Width="180"
+                            <Button Width="180"
+                                        Height="50"
+                                        Padding="0"
+                                        VerticalAlignment="Center"
+                                        HorizontalContentAlignment="Left"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
                                     Command="{Binding OpenListOfBooksCommand}">
                                     <StackPanel Orientation="Horizontal"
                                         VerticalAlignment="Center">
@@ -135,21 +134,27 @@
                                     Command="{Binding OpenBasketCommand}">
                                     <StackPanel Orientation="Horizontal"
                                         VerticalAlignment="Center">
-                                        <materialDesign:PackIcon Kind="Basket" Width="40" Height="40" Margin="10,0,10,0"
-                                                         VerticalAlignment="Center"/>
-                                        <TextBlock Text="Корзина" VerticalAlignment="Center" FontSize="16" />
+                                        <materialDesign:PackIcon Kind="Basket"
+                                                                 Width="40"
+                                                                 Height="40"
+                                                                 Margin="10,0,10,0"
+                                                                 VerticalAlignment="Center"/>
+                                        <TextBlock Text="Корзина"
+                                                   VerticalAlignment="Center"
+                                                   FontSize="16" />
                                     </StackPanel>
                                 </Button>
                             </ListViewItem>
-                            <ListViewItem Padding="0" Height="50">
+                            <ListViewItem Padding="0"
+                                          Height="50">
                                 <Button Padding="0"
-                                    Background="Transparent"
-                                    BorderBrush="Transparent"
-                                    VerticalAlignment="Stretch"
-                                    HorizontalContentAlignment="Left"
-                                    Width="180"
-                                    Height="50"
-                                    Command="{Binding OpenUserCommand}">
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        VerticalAlignment="Stretch"
+                                        HorizontalContentAlignment="Left"
+                                        Width="180"
+                                        Height="50"
+                                        Command="{Binding OpenUserCommand}">
                                     <StackPanel Orientation="Horizontal"
                                         VerticalAlignment="Center">
                                         <materialDesign:PackIcon Kind="User" Width="40" Height="40" Margin="10,0,10,0"
@@ -199,12 +204,13 @@
             </Grid>
         <ScrollViewer Grid.Row="1"
                       Grid.Column="1"
-                      Grid.ColumnSpan="5"
-                      Padding="200"
+                      Grid.ColumnSpan="4"
                       HorizontalContentAlignment="Center"
-                      Grid.RowSpan="5">
+                      HorizontalAlignment="Center"
+                      Grid.RowSpan="3">
             <Frame NavigationUIVisibility="Hidden"
-               Content="{Binding CurrentPageViewModel}" />
+                   Padding="200 0"
+                   Content="{Binding CurrentPageViewModel}" />
         </ScrollViewer>
         <Border Background="Black"
                     Grid.ColumnSpan="6"
@@ -212,15 +218,16 @@
                 Visibility="{Binding Visibility}"
                 Opacity="0.2">
             <Border.Effect>
-                <BlurEffect Radius="10"  />
+                <BlurEffect Radius="5"  />
             </Border.Effect>
         </Border>
         <ContentControl Content="{Binding AddCreditCardViewModel}"
-                        Grid.ColumnSpan="5"
+                        Grid.ColumnSpan="4"
                         Grid.Column="1"
                         Grid.Row="1"
                         Grid.RowSpan="3"
                         Width="800"
+                        Margin="0, 0, 17, 0"
                         Height="450"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center"/>

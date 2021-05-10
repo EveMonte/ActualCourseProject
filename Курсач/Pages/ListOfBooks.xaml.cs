@@ -30,7 +30,7 @@ namespace Курсач.Pages
 
         private void Button_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            listOfBooks.Items.Refresh();
+            //listOfBooks.Items.Refresh();
         }
     }
 }

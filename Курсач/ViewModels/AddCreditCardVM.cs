@@ -53,6 +53,7 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("CVV");
             }
         }
+        private string CreditCard;
         LIBRARYEntities db = new LIBRARYEntities();
         USERS currentUser;
         public ICommand CloseUserPageCommand { get; private set; }
@@ -62,7 +63,6 @@ namespace Курсач.ViewModels
             currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser;
             CloseUserPageCommand = new DelegateCommand(Close);
             AddCardCommand = new DelegateCommand(AddCard);
-            WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser.CREDIT_CARD = CREDIT_CARD;
             WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Visible";
         }
 
@@ -71,6 +71,7 @@ namespace Курсач.ViewModels
             var user = db.USERS.FirstOrDefault(n => n.USER_ID == currentUser.USER_ID);
             user.CREDIT_CARD = CREDIT_CARD;
             db.SaveChangesAsync().GetAwaiter();
+            WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser.CREDIT_CARD = CREDIT_CARD;
             Close(new object());
 
         }
