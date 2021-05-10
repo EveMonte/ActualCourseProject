@@ -5,7 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Курсач"
              xmlns:language="clr-namespace:Курсач.Properties.Languages"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:components="clr-namespace:Курсач.Components"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:components="clr-namespace:Курсач.Helpers"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d"
              >
     <Grid>
@@ -29,17 +31,21 @@
                          Margin="18, 0,18,0"
                          materialDesign:HintAssist.Hint="{x:Static language:Languages.enterLogin}"
                          Style="{DynamicResource MaterialDesignFloatingHintTextBox }" FontSize="16" />
-                <components:BindablePasswordBox MaxHeight="50"
-                                                Password="{Binding Password}"
+            <PasswordBox MaxHeight="50"
                                                 MinHeight="40"
                                                 Grid.Row="1"
                                                 Grid.ColumnSpan="4"
                                                 x:Name="passwordTextBox"
                                                 VerticalContentAlignment="Center"
+                         Style="{DynamicResource MaterialDesignFloatingHintPasswordBox}"
                                                 materialDesign:HintAssist.Hint="{x:Static language:Languages.enterPassword}"
                                                 Margin="18,0"
-                                                FontSize="16" />
-                <Button Grid.Row="2"
+                                                FontSize="16" >
+                <i:Interaction.Behaviors>
+                    <components:PasswordBoxBindingBehavior Password="{Binding Password}"/>
+                </i:Interaction.Behaviors>
+            </PasswordBox>
+            <Button Grid.Row="2"
                         Grid.ColumnSpan="4"
                         Command="{Binding Path=OpenWorkFrameCommand}"
                         Template="{DynamicResource DarkButton}"

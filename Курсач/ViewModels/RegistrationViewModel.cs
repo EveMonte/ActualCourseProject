@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Runtime.InteropServices;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -31,9 +33,8 @@ namespace Курсач.ViewModels
                 OnPropertyChanged(nameof(SelectedViewModel));
             }
         }
-        List<USERS> listOfUsers;
-        public string firstPassword = "";
-        public string FirstPassword
+        public SecureString firstPassword;
+        public SecureString FirstPassword
         {
             get { return firstPassword; }
             set
@@ -42,8 +43,8 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("FirstPassword");
             }
         }
-        public string secondPassword = "";
-        public string SecondPassword
+        public SecureString secondPassword;
+        public SecureString SecondPassword
         {
             get { return secondPassword; }
             set
@@ -86,25 +87,7 @@ namespace Курсач.ViewModels
 
         public ICommand RegistrationCommand { get; private set; }
         public ICommand OpenSignInCommand { get; private set; }
-
-        // Если пользователя с таким email не существует, введенные пароли совпадают и длина паролей больше 6 символов
-        bool CanExecute(object parametr)
-        {
-            using (LIBRARYEntities db = new LIBRARYEntities())
-            {
-                var users = db.USERS;
-                foreach (USERS u in users)
-                {
-                    if (u.EMAIL != Email && firstPassword == secondPassword && firstPassword.Length > 6)
-                    {
-                        return true;
-                    }
-                }
-
-            }
-            return false;
-        }
-        
+       
         public RegistrationViewModel()
         {
             RegistrationCommand = new DelegateCommand(OpenSendMessage);
@@ -113,9 +96,33 @@ namespace Курсач.ViewModels
 
         private void OpenSendMessage(object obj)
         {
+            IntPtr password1 = default(IntPtr);
+            IntPtr password2 = default(IntPtr);
+            string insecurePassword1 = "";
+            string insecurePassword2 = "";
             string hash = "";
-            sh = new SaltedHash(FirstPassword);
-            hash += sh.Hash + sh.Salt;
+            try
+            {
+                password1 = Marshal.SecureStringToBSTR(FirstPassword);
+                insecurePassword1 = Marshal.PtrToStringBSTR(password1);
+                password2 = Marshal.SecureStringToBSTR(SecondPassword);
+                insecurePassword2 = Marshal.PtrToStringBSTR(password2);
+                sh = new SaltedHash(insecurePassword1);
+                if (insecurePassword1 == insecurePassword2 && insecurePassword1.Length > 6)
+                    hash += sh.Hash + sh.Salt;
+                else return;
+                insecurePassword1 = "";
+                insecurePassword2 = "";
+                FirstPassword.Dispose();
+                SecondPassword.Dispose();
+            }
+            catch
+            {
+                insecurePassword1 = "";
+                insecurePassword2 = "";
+                FirstPassword.Dispose();
+                SecondPassword.Dispose();
+            }
             MainWindowViewModelSingleton.GetInstance().MainFrameViewModel.SelectedViewModel = new SendMessageViewModel(new USERS { ACCOUNT = "User", EMAIL = Email, NAME = Name, PASSWORD = hash, SECOND_NAME = SecondName });
 
         }

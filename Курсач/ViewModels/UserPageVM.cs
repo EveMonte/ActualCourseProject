@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -93,8 +95,8 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("Marks");
             }
         }
-        private string oldPassword;
-        public string OldPassword
+        private SecureString oldPassword;
+        public SecureString OldPassword
         {
             get
             {
@@ -106,8 +108,8 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("OldPassword");
             }
         }
-        private string firstPassword;
-        public string FirstPassword
+        private SecureString firstPassword;
+        public SecureString FirstPassword
         {
             get
             {
@@ -119,8 +121,8 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("FirstPassword");
             }
         }
-        private string secondPassword;
-        public string SecondPassword
+        private SecureString secondPassword;
+        public SecureString SecondPassword
         {
             get
             {
@@ -216,23 +218,55 @@ namespace Курсач.ViewModels
 
         private void ApplyPassword(object obj)
         {
-            if (mainCode != Code)
+            IntPtr password1 = default(IntPtr);
+            IntPtr password2 = default(IntPtr);
+            IntPtr oldpassword = default(IntPtr);
+            string oldinsecurePassword = "";
+            string insecurePassword1 = "";
+            string insecurePassword2 = "";
+            string hash = "";
+            try
             {
-                System.Windows.Forms.MessageBox.Show("Неверный код!");
-            }
-            else if (firstPassword != currentUser.PASSWORD)
-            {
-                System.Windows.Forms.MessageBox.Show("Старый и новый пароль не должны совпадать!");
-            }
-            else if(FirstPassword != SecondPassword)
-            {
-                System.Windows.Forms.MessageBox.Show("Введенные пароли должны совпадать!");
-            }
-            else
-            {
+                password1 = Marshal.SecureStringToBSTR(FirstPassword);
+                insecurePassword1 = Marshal.PtrToStringBSTR(password1);
+                password2 = Marshal.SecureStringToBSTR(SecondPassword);
+                insecurePassword2 = Marshal.PtrToStringBSTR(password2);
+                if (mainCode != Code2)
+                {
+                    System.Windows.Forms.MessageBox.Show("Неверный код!");
+                }
+                else if (SaltedHash.Verify(currentUser.PASSWORD.Substring(44), currentUser.PASSWORD.Substring(0, 44), insecurePassword1) && insecurePassword1 != oldinsecurePassword)
+                {
+                    System.Windows.Forms.MessageBox.Show("Старый и новый пароль не должны совпадать!");
+                }
+                else if (insecurePassword1 != insecurePassword2)
+                {
+                    System.Windows.Forms.MessageBox.Show("Введенные пароли должны совпадать!");
+                }
+                else
+                {
 
-                currentUser.PASSWORD = FirstPassword;
-                db.SaveChangesAsync().GetAwaiter();
+                    currentUser.PASSWORD = insecurePassword1;
+                    USERS user = db.USERS.FirstOrDefault(n => n.USER_ID == currentUser.USER_ID);
+                    SaltedHash sh = new SaltedHash(insecurePassword1);
+                    user.PASSWORD = sh.Hash + sh.Salt;
+                    db.SaveChangesAsync().GetAwaiter();
+                    insecurePassword1 = "";
+                    insecurePassword2 = "";
+                    oldinsecurePassword = "";
+                    FirstPassword.Dispose();
+                    SecondPassword.Dispose();
+                    OldPassword.Dispose();
+                }
+            }
+            catch
+            {
+                insecurePassword1 = "";
+                insecurePassword2 = "";
+                oldinsecurePassword = "";
+                FirstPassword.Dispose();
+                SecondPassword.Dispose();
+                OldPassword.Dispose();
             }
         }
 
@@ -262,9 +296,6 @@ namespace Курсач.ViewModels
 
         private void ApplyCreditCard(object obj)
         {
-            /*var user = db.USERS.Where(n => n.USER_ID == currentUser.USER_ID).FirstOrDefault();
-            user.CREDIT_CARD = CreditCard;
-            db.SaveChangesAsync().GetAwaiter();*/
             WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new AddCreditCardVM();
         }
 

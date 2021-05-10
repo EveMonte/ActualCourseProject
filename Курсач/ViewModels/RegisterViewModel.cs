@@ -17,6 +17,8 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Collections.ObjectModel;
 using Курсач.Methods;
+using System.Security;
+using System.Runtime.InteropServices;
 
 namespace Курсач.ViewModels
 {
@@ -46,8 +48,8 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("Email");
             }
         }
-        private string password;
-        public string Password
+        private SecureString password;
+        public SecureString Password
         {
             get { return password; }
             set
@@ -64,42 +66,43 @@ namespace Курсач.ViewModels
         #endregion
 
         #region Command's Logic
-        public bool CanExecute(object parameter) // Можно ли войти
-        {
-            using (LIBRARYEntities db = new LIBRARYEntities())
-            {
-                var users = db.USERS;
-                foreach (USERS u in users)
-                {
-                    if (SaltedHash.Verify(u.PASSWORD.Substring(44), u.PASSWORD.Substring(0, 44), Password) && u.EMAIL == Email)
-                    {
-                        currentUser = u;
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-
         void OpenWorkFrame(object obj) // Открыть главную страницу
         {
+            IntPtr passwordBSTR = default(IntPtr);
+            string insecurePassword = "";
+
+
+            // immediately use insecurePassword (in local variable) value after decrypting it:
             using (LIBRARYEntities db = new LIBRARYEntities())
             {
                 var users = db.USERS;
                 foreach (USERS u in users)
                 {
-                    if (SaltedHash.Verify(u.PASSWORD.Substring(44), u.PASSWORD.Substring(0, 44), Password) && u.EMAIL == Email)
+                    try
                     {
-                        currentUser = u;
-                        WorkFrameSingleTone.GetInstance(new WorkframeViewModel(u)).WorkframeViewModel.currentUser = u;
+                        passwordBSTR = Marshal.SecureStringToBSTR(password);
+                        insecurePassword = Marshal.PtrToStringBSTR(passwordBSTR);
 
-                        Workframe workframe = new Workframe();
-                        workframe.Show();
-                        break;
+                        if (SaltedHash.Verify(u.PASSWORD.Substring(44), u.PASSWORD.Substring(0, 44), insecurePassword) && u.EMAIL == Email)
+                        {
+                            currentUser = u;
+                            WorkFrameSingleTone.GetInstance(new WorkframeViewModel(u)).WorkframeViewModel.currentUser = u;
+
+                            Workframe workframe = new Workframe();
+                            workframe.Show();
+                            Password.Dispose();
+                            insecurePassword = null;
+                            break;
+                        }
+                    }
+
+                    catch
+                    {
+                        insecurePassword = "";
+                        Password.Dispose();
                     }
                 }
             }
-
         }
         void OpenRegisterWindow(object obj) // Открыть UserControl с регистрацией
         {

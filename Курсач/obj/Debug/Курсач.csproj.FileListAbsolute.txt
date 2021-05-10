@@ -363,3 +363,8 @@ C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Курсач.csprojAss
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\UserControls\AddCreditCard.g.cs
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\UserControls\AddCreditCard.baml
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Templates\RedButtonTemplate.baml
+C:\Users\User\Desktop\OOP10-master\Курсач\bin\Debug\Microsoft.Xaml.Behaviors.dll
+C:\Users\User\Desktop\OOP10-master\Курсач\bin\Debug\Microsoft.Xaml.Behaviors.pdb
+C:\Users\User\Desktop\OOP10-master\Курсач\bin\Debug\Microsoft.Xaml.Behaviors.xml
+C:\Users\User\Desktop\OOP10-master\Курсач\bin\Debug\ru\EntityFramework.resources.dll
+C:\Users\User\Desktop\OOP10-master\Курсач\bin\Debug\ru\EntityFramework.SqlServer.resources.dll

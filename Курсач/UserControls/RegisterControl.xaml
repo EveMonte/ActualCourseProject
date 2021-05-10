@@ -5,7 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Курсач"
              xmlns:language="clr-namespace:Курсач.Properties.Languages"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:components="clr-namespace:Курсач.Components"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:components="clr-namespace:Курсач.Helpers"
              mc:Ignorable="d" >
     <Grid Style="{DynamicResource GridStyle}">
         <Grid.RowDefinitions>
@@ -51,21 +53,29 @@
                  materialDesign:HintAssist.Hint="Email"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  FontSize="16" />
-        <components:BindablePasswordBox Grid.Row="2"
-                                        Password="{Binding FirstPassword}"
+        <PasswordBox Grid.Row="2"
                      MaxHeight="50"
                      x:Name="password1Box"
                      Margin="18,0"
+                     Style="{DynamicResource MaterialDesignFloatingHintPasswordBox}"
                      materialDesign:HintAssist.Hint="Пароль"
-                     FontSize="16" />
-            <components:BindablePasswordBox Grid.Row="3"
-                                            Password="{Binding SecondPassword}"
+                     FontSize="16" >
+            <i:Interaction.Behaviors>
+                <components:PasswordBoxBindingBehavior Password="{Binding FirstPassword}"/>
+            </i:Interaction.Behaviors>
+        </PasswordBox>
+        <PasswordBox Grid.Row="3"
                          MaxHeight="50"
                          x:Name="password2Box"
                          Margin="18,0"
+                     Style="{DynamicResource MaterialDesignFloatingHintPasswordBox}"
                          materialDesign:HintAssist.Hint="Повторите пароль"
-                         FontSize="16" />
-            <Button Grid.Row="4"
+                         FontSize="16" >
+            <i:Interaction.Behaviors>
+                <components:PasswordBoxBindingBehavior Password="{Binding SecondPassword}"/>
+            </i:Interaction.Behaviors>
+        </PasswordBox>
+        <Button Grid.Row="4"
                     x:Name="Create_Account"
                     Template="{DynamicResource DarkButton}"
                     Command="{Binding RegistrationCommand}"

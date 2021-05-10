@@ -4,7 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      xmlns:local="clr-namespace:Курсач.Pages" xmlns:components="clr-namespace:Курсач.Components"
+      xmlns:local="clr-namespace:Курсач.Pages"
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors" xmlns:components="clr-namespace:Курсач.Helpers"
       mc:Ignorable="d" 
       Title="UserPage"
       Background="#F4F2EF">
@@ -239,16 +240,18 @@
                                Grid.Column="0"
                                Grid.Row="0"
                                Margin="0, 0, 15, 0"/>
-                    <components:BindablePasswordBox Width="220"
+                    <PasswordBox Width="220"
                                                     Grid.Row="0"
                                                     Height="40"
                                                     Grid.Column="1"
                                                     VerticalAlignment="Bottom"
                                                     HorizontalAlignment="Left"
                                                     FontSize="16"
-                                                    Password="{Binding OldPassword}"
                                                     >
-                    </components:BindablePasswordBox>
+                        <i:Interaction.Behaviors>
+                            <components:PasswordBoxBindingBehavior Password="{Binding OldPassword}"/>
+                        </i:Interaction.Behaviors>
+                    </PasswordBox>
                     <TextBlock Text="Введите новый пароль: "
                                FontSize="16"
                                Grid.Row="1"
@@ -256,15 +259,17 @@
                                HorizontalAlignment="Right"
                                VerticalAlignment="Bottom"
                                Margin="0, 0, 15, 0"/>
-                    <components:BindablePasswordBox Width="220"
-                                                    Password="{Binding FirstPassword}"
+                    <PasswordBox Width="220"
                                  Grid.Column="1"
                                  Grid.Row="1"
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Bottom"
                                  Height="40"
                                  FontSize="16">
-                    </components:BindablePasswordBox>
+                        <i:Interaction.Behaviors>
+                            <components:PasswordBoxBindingBehavior Password="{Binding FirstPassword}"/>
+                        </i:Interaction.Behaviors>
+                    </PasswordBox>
                     <TextBlock Text="Повторите новый пароль: "
                                FontSize="16"
                                Grid.Row="2"
@@ -272,15 +277,17 @@
                                HorizontalAlignment="Right"
                                VerticalAlignment="Bottom"
                                Margin="0, 0, 15, 0"/>
-                    <components:BindablePasswordBox Width="220"
-                                                    Password="{Binding SecondPassword}"
+                    <PasswordBox Width="220"
                                  VerticalAlignment="Bottom"
                                  Grid.Column="1"
                                  Grid.Row="2"
                                  Height="40"
                                  FontSize="16"
                                  HorizontalAlignment="Left">
-                    </components:BindablePasswordBox>
+                        <i:Interaction.Behaviors>
+                            <components:PasswordBoxBindingBehavior Password="{Binding SecondPassword}"/>
+                        </i:Interaction.Behaviors>
+                    </PasswordBox>
                     <Button Template="{DynamicResource DarkButton}"
                             Content="Отправить код на почту"
                             Width="220"
@@ -306,7 +313,7 @@
                              Height="40"
                              Style="{DynamicResource MaterialDesignTextBox}" />
                     <Button Template="{DynamicResource LightButton2}"
-                            Command="{Binding ApplyPasswordsCommand}"
+                            Command="{Binding ApplyPasswordCommand}"
                             Content="Подтвердить"
                             Width="220"
                             Padding="0"
