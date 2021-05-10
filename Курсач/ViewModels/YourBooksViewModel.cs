@@ -71,13 +71,13 @@ namespace Курсач.ViewModels
         #endregion
         public ICommand DeleteCommand { get; private set; }
         public ICommand DownloadCommand { get; private set; }
-
-
         public ICommand FindByGenreCommand { get; private set; }
+        public ICommand MarkCommand { get; private set; }
         public YourBooksViewModel()
         {
             DeleteCommand = new DelegateCommand(DeleteBook);
             DownloadCommand = new DelegateCommand(DownloadBook);
+            MarkCommand = new DelegateCommand(RateTheBook);
             currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser;
             Books = new ObservableCollection<BOOKS>();
             using (LIBRARYEntities library = new LIBRARYEntities())
@@ -117,13 +117,49 @@ namespace Курсач.ViewModels
                     }                     
                     Books.Add(b);
                 }
-                //Books = new ObservableCollection<BOOKS>(library.BOOKS);
                 library.SaveChanges();
                 Genres = new ObservableCollection<GENRES>(library.GENRES.OrderBy(n => n.GENRE));
             }
             Items = CollectionViewSource.GetDefaultView(Books);
             Items.Filter = Search;
             FindByGenreCommand = new DelegateCommand(FindByGenre);
+        }
+
+        private void RateTheBook(object obj)
+        {
+            int mark = 0;
+            BOOKS CurrentBook = Books.FirstOrDefault(n => n.BOOK_ID == (int)obj);
+            MARKS m = db.MARKS.Where(n => (n.BOOK_ID == (int)obj) && (n.USER_ID == currentUser.USER_ID)).FirstOrDefault();
+            if (m != null) //if our current user already rated this book we change value of its mark
+            {
+                foreach (BOOKS b in Books)
+                {
+                    if (b.BOOK_ID == (int)obj)
+                    {
+                        mark = b.Mark;
+                        break;
+                    }
+                }
+                m.MARK = mark;
+            }
+            else //if there is no marks for this book we create a new one
+            {
+                MARKS newMark = new MARKS();
+                newMark.BOOK_ID = (int)obj;
+                newMark.MARK = CurrentBook.Mark;
+                CurrentBook.Mark = (int)obj;
+                newMark.USER_ID = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser.USER_ID;
+                db.MARKS.Add(newMark);
+                CurrentBook.NUMBEROFVOICES++;
+            }
+            db.SaveChanges(); // save changes to DB
+            CurrentBook.RATING = ((decimal)db.MARKS.Where(n => n.BOOK_ID == CurrentBook.BOOK_ID).Sum(n => n.MARK) / (decimal)db.MARKS.Where(n => n.BOOK_ID == CurrentBook.BOOK_ID).Count()); // recount rating of this book
+            var book = db.BOOKS.FirstOrDefault(n => n.BOOK_ID == CurrentBook.BOOK_ID); // get this book from the DB
+            book.RATING = CurrentBook.RATING; // change its rating
+            db.SaveChangesAsync().GetAwaiter(); // and save changes async
+            ObservableCollection<BOOKS> newBooks = Books;
+            Books = new ObservableCollection<BOOKS>();
+            Books = newBooks;
         }
 
         private void DownloadBook(object obj)
@@ -157,12 +193,6 @@ namespace Курсач.ViewModels
             Books = new ObservableCollection<BOOKS>(Books.Where(n => n.GENRE == SelectedGenre.GENRE_ID));
         }
 
-        private void OpenFullInfoUserControl(object obj)
-        {
-            FullInfoViewModelSingleTone.GetInstance(new FullInfoViewModel());
-            FullInfoViewModelSingleTone.GetInstance().FullInfoViewModel.CurrentBook = SelectedBook;
-            WorkFrameSingleTone.GetInstance().WorkframeViewModel.CurrentPageViewModel = new AdditionalInfoViewModel();
-        }
         #region Filter
         public string Text
         {

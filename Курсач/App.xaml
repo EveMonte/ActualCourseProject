@@ -52,6 +52,12 @@
             <DataTemplate DataType="{x:Type viewmodels:WorkframeViewModel}">
                 <local:Workframe />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:ConfirmPurchase}">
+                <userControls:ConfirmPurchase />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:ConfirmSubscriptionVM}">
+                <userControls:ConfirmSubscription />
+            </DataTemplate>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />

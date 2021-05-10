@@ -170,6 +170,7 @@
     <Compile Include="MARKS.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
+    <Compile Include="Methods\ConvertDecimal.cs" />
     <Compile Include="Methods\MessageSender.cs" />
     <Compile Include="Methods\SaltedHash.cs" />
     <Compile Include="Pages\AdditionalInfo.xaml.cs">
@@ -208,6 +209,12 @@
     <Compile Include="UserControls\BookUserControl.xaml.cs">
       <DependentUpon>BookUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ConfirmPurchase.xaml.cs">
+      <DependentUpon>ConfirmPurchase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ConfirmSubscription.xaml.cs">
+      <DependentUpon>ConfirmSubscription.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\FullInfo.xaml.cs">
       <DependentUpon>FullInfo.xaml</DependentUpon>
     </Compile>
@@ -243,6 +250,8 @@
     </Compile>
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\BasketVM.cs" />
+    <Compile Include="ViewModels\ConfirmPurchase.cs" />
+    <Compile Include="ViewModels\ConfirmSubscriptionVM.cs" />
     <Compile Include="ViewModels\FullInfoViewModel.cs" />
     <Compile Include="ViewModels\ListOfBooksViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
@@ -329,6 +338,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\BookUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ConfirmPurchase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ConfirmSubscription.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

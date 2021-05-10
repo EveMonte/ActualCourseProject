@@ -368,3 +368,7 @@ C:\Users\User\Desktop\OOP10-master\Курсач\bin\Debug\Microsoft.Xaml.Behavio
 C:\Users\User\Desktop\OOP10-master\Курсач\bin\Debug\Microsoft.Xaml.Behaviors.xml
 C:\Users\User\Desktop\OOP10-master\Курсач\bin\Debug\ru\EntityFramework.resources.dll
 C:\Users\User\Desktop\OOP10-master\Курсач\bin\Debug\ru\EntityFramework.SqlServer.resources.dll
+C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\UserControls\ConfirmPurchase.g.cs
+C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\UserControls\ConfirmPurchase.baml
+C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\UserControls\ConfirmSubscription.g.cs
+C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\UserControls\ConfirmSubscription.baml

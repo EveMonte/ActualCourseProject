@@ -159,7 +159,40 @@ namespace Курсач.ViewModels
 
         private void SetMark(object obj)
         {
-            MARKS mark = new MARKS();
+            int mark = 0;
+            BOOKS CurrentBook = Books.FirstOrDefault(n => n.BOOK_ID == (int)obj);
+            MARKS m = db.MARKS.Where(n => (n.BOOK_ID == (int)obj) && (n.USER_ID == currentUser.USER_ID)).FirstOrDefault();
+            if (m != null) //if our current user already rated this book we change value of its mark
+            {
+                foreach (BOOKS b in Books)
+                {
+                    if (b.BOOK_ID == (int)obj)
+                    {
+                        mark = b.Mark;
+                        break;
+                    }
+                }
+                //CurrentBook.Mark = (int)obj;
+                m.MARK = mark;
+            }
+            else //if there is no marks for this book we create a new one
+            {
+                MARKS newMark = new MARKS();
+                newMark.BOOK_ID = (int)obj;
+                newMark.MARK = CurrentBook.Mark;
+                CurrentBook.Mark = (int)obj;
+                newMark.USER_ID = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser.USER_ID;
+                db.MARKS.Add(newMark);
+                CurrentBook.NUMBEROFVOICES++;
+            }
+            db.SaveChanges(); // save changes to DB
+            CurrentBook.RATING = ((decimal)db.MARKS.Where(n => n.BOOK_ID == CurrentBook.BOOK_ID).Sum(n => n.MARK) / (decimal)db.MARKS.Where(n => n.BOOK_ID == CurrentBook.BOOK_ID).Count()); // recount rating of this book
+            var book = db.BOOKS.FirstOrDefault(n => n.BOOK_ID == CurrentBook.BOOK_ID); // get this book from the DB
+            book.RATING = CurrentBook.RATING; // change its rating
+            db.SaveChangesAsync().GetAwaiter(); // and save changes async
+            ObservableCollection<BOOKS> newBooks = Books;
+            Books = new ObservableCollection<BOOKS>();
+            Books = newBooks;
         }
 
         private void DeleteBook(object obj)

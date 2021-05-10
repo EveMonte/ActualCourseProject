@@ -7,7 +7,6 @@
       xmlns:userControl="clr-namespace:Курсач.UserControls"
       mc:Ignorable="d" 
       Title="AdditionalInfo">
-    <ScrollViewer>
         <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
@@ -35,7 +34,7 @@
         <ListBox Grid.Row="3"
                  Grid.ColumnSpan="4"
                  ItemsSource="{Binding Books}"
-                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
                  SelectedItem="{Binding SelectedBook, Mode=TwoWay}">
             <ListBox.ItemTemplate>
@@ -56,5 +55,4 @@
             </ListBox.ItemsPanel>
         </ListBox>
     </Grid>
-    </ScrollViewer>
 </Page>

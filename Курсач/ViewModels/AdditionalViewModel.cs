@@ -72,11 +72,33 @@ namespace Курсач.ViewModels
             }
             SelectedBook.NUMBEROFVOICES = db.MARKS.Where(n => n.BOOK_ID == SelectedBook.BOOK_ID).Count(); //counting marks to write in notmapped property
             SelectedBook.RATING = SelectedBook.RATING;
-            FullInfoViewModelSingleTone.GetInstance(new FullInfoViewModel()).FullInfoViewModel.CurrentBook = SelectedBook;
+            MARKS mark = db.MARKS.FirstOrDefault(n => (n.USER_ID == currentUser.USER_ID) && (n.BOOK_ID == SelectedBook.BOOK_ID));
+            SelectedBook.Mark = mark != null ? (int)mark.MARK : 0;
             CurrentBook = SelectedBook;
             CreateSimilarBooks();
+            if (CurrentBook.CATEGORY == "Подписка")
+            {
+                CurrentBook.Subscription = 1;
+                if (currentUser.SUBSCRIPTION != null)
+                {
+                    CurrentBook.UserWithSubscription = "Visible";
+                    CurrentBook.UserWithoutSubscription = "Collapsed";
+                }
+                else
+                {
+                    CurrentBook.UserWithSubscription = "Collapsed";
+                    CurrentBook.UserWithoutSubscription = "Visible";
+                }
+            }
+            else
+            {
+                CurrentBook.Subscription = 0;
+                CurrentBook.UserWithSubscription = "Collapsed";
+                CurrentBook.UserWithoutSubscription = "Visible";
+
+            }
             SelectedBook = null;
-            CurrentBook = CurrentBook;
+            FullInfoViewModelSingleTone.GetInstance(new FullInfoViewModel()).FullInfoViewModel.CurrentBook = CurrentBook;
         }
 
         //Add book to basket lol :)
@@ -112,7 +134,7 @@ namespace Курсач.ViewModels
                 CurrentBook.NUMBEROFVOICES++;
             }
             db.SaveChanges(); // save changes to DB
-            CurrentBook.RATING = (decimal)(db.MARKS.Where(n => n.BOOK_ID == CurrentBook.BOOK_ID).Sum(n => n.MARK) / db.MARKS.Where(n => n.BOOK_ID == CurrentBook.BOOK_ID).Count()); // recount rating of this book
+            CurrentBook.RATING = ((decimal)db.MARKS.Where(n => n.BOOK_ID == CurrentBook.BOOK_ID).Sum(n => n.MARK) / (decimal)db.MARKS.Where(n => n.BOOK_ID == CurrentBook.BOOK_ID).Count()); // recount rating of this book
             var book = db.BOOKS.FirstOrDefault(n => n.BOOK_ID == CurrentBook.BOOK_ID); // get this book from the DB
             book.RATING = CurrentBook.RATING; // change its rating
             db.SaveChangesAsync().GetAwaiter(); // and save changes async
@@ -128,6 +150,14 @@ namespace Курсач.ViewModels
             {
                 if ((CurrentBook.AUTHOR == book.AUTHOR && CurrentBook.TITLE != book.TITLE) || (CurrentBook.GENRE == book.GENRE && CurrentBook.TITLE != book.TITLE))
                 {
+                    if (book.CATEGORY == "Подписка")
+                    {
+                        book.Subscription = 1;
+                    }
+                    else
+                    {
+                        book.Subscription = 0;
+                    }
                     Books.Add(book);
                 }
             }
@@ -147,30 +177,8 @@ namespace Курсач.ViewModels
 
         private void BuyTheBook(object obj)
         {
-            if (db.YOUR_BOOKS.FirstOrDefault(n => (n.BOOK_ID == (int)obj) && (n.USER_ID == currentUser.USER_ID)) == null)
-            {
-                if (currentUser.CREDIT_CARD != null)
-                {
-                    YOUR_BOOKS newBook = new YOUR_BOOKS();
-                    newBook.BOOK_ID = (int)obj;
-                    newBook.USER_ID = currentUser.USER_ID;
-                    db.YOUR_BOOKS.Add(newBook);
-                    BASKETS bookToDelete = db.BASKETS.FirstOrDefault(n => (n.USER_ID == currentUser.USER_ID) && (n.BOOK_ID == (int)obj));
-                    if(bookToDelete != null)
-                    {
-                        db.BASKETS.Remove(bookToDelete);
-                    }
-                    BOOKS yourBook = db.BOOKS.FirstOrDefault(n => n.BOOK_ID == (int)obj);
-                    db.SaveChangesAsync().GetAwaiter();
-                    Books.Remove(yourBook);
-                    string message = String.Format($"Здравствуйте, {currentUser.NAME}. Вы только что приобрели книгу \"{yourBook.TITLE}\" за {yourBook.PRICE}$. Наслаждайтесь прочтением!");
-                    MessageSender.SendEmailAsync(currentUser.EMAIL, "", message, "Покупка книги").GetAwaiter();
-                }
-                else
-                {
-                    WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new AddCreditCardVM();
-                }
-            }
+            WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new ConfirmPurchase((int)obj);
+            WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Visible";
         }
         #endregion
         //Constructor
