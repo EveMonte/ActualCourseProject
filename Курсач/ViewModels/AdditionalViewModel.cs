@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using Курсач.Methods;
 using Курсач.Singleton;
 
 namespace Курсач.ViewModels
@@ -15,7 +10,7 @@ namespace Курсач.ViewModels
         #region Data
         LIBRARYEntities db = new LIBRARYEntities();
         private ObservableCollection<BOOKS> books;
-        public ObservableCollection<BOOKS> Books
+        public ObservableCollection<BOOKS> Books // Similar books
         {
             get
             {
@@ -30,7 +25,7 @@ namespace Курсач.ViewModels
         BOOKS selectedBook;
         public BOOKS currentBook;
         USERS currentUser;
-        private BOOKS CurrentBook
+        private BOOKS CurrentBook // Which book is currently active in Additional info page
         {
             get
             {
@@ -42,7 +37,7 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("CurrentBook");
             }
         }
-        public BOOKS SelectedBook
+        public BOOKS SelectedBook // WHich book is selected in Additional Info page
         {
             get { return selectedBook; }
             set
@@ -54,11 +49,11 @@ namespace Курсач.ViewModels
         #endregion
 
         #region Commands
-        public ICommand OpenFullInfo { get; private set; }
-        public ICommand MarkCommand { get; private set; }
-        public ICommand AddToBasketCommand { get; private set; }
-        public ICommand BuyCommand { get; private set; }
-        public ICommand AddToYourBooksCommand { get; private set; }
+        public ICommand OpenFullInfo { get; private set; } // When you click on another book in similar books open its full info
+        public ICommand MarkCommand { get; private set; } // Rate the book
+        public ICommand AddToBasketCommand { get; private set; } // Adds book to your basket
+        public ICommand BuyCommand { get; private set; } // Open User control where you can confirm or cancel purchase
+        public ICommand AddToYourBooksCommand { get; private set; } // Add book to your shelf
         #endregion
 
         #region Commands' Logic
@@ -70,13 +65,16 @@ namespace Курсач.ViewModels
                 if (genre.GENRE_ID == SelectedBook.GENRE)
                     SelectedBook.Genre = genre.GENRE; //... and when we find it we write it in the notmapped property
             }
+
             SelectedBook.NUMBEROFVOICES = db.MARKS.Where(n => n.BOOK_ID == SelectedBook.BOOK_ID).Count(); //counting marks to write in notmapped property
             SelectedBook.RATING = SelectedBook.RATING;
             MARKS mark = db.MARKS.FirstOrDefault(n => (n.USER_ID == currentUser.USER_ID) && (n.BOOK_ID == SelectedBook.BOOK_ID));
             SelectedBook.Mark = mark != null ? (int)mark.MARK : 0;
             CurrentBook = SelectedBook;
-            CreateSimilarBooks();
-            if (CurrentBook.CATEGORY == "Подписка")
+
+            CreateSimilarBooks(); // create collection of similar books
+
+            if (CurrentBook.CATEGORY == "Подписка") // Manage visibility of the buttons
             {
                 CurrentBook.Subscription = 1;
                 if (currentUser.SUBSCRIPTION != null)
@@ -97,8 +95,10 @@ namespace Курсач.ViewModels
                 CurrentBook.UserWithoutSubscription = "Visible";
 
             }
-            SelectedBook = null;
-            FullInfoViewModelSingleTone.GetInstance(new FullInfoViewModel()).FullInfoViewModel.CurrentBook = CurrentBook;
+
+            SelectedBook = null; // reset selection
+
+            FullInfoViewModelSingleTone.GetInstance(new FullInfoViewModel()).FullInfoViewModel.CurrentBook = CurrentBook; // renew info on current page
         }
 
         //Add book to basket lol :)
@@ -133,11 +133,13 @@ namespace Курсач.ViewModels
                 db.MARKS.Add(mark);
                 CurrentBook.NUMBEROFVOICES++;
             }
+
             db.SaveChanges(); // save changes to DB
             CurrentBook.RATING = ((decimal)db.MARKS.Where(n => n.BOOK_ID == CurrentBook.BOOK_ID).Sum(n => n.MARK) / (decimal)db.MARKS.Where(n => n.BOOK_ID == CurrentBook.BOOK_ID).Count()); // recount rating of this book
             var book = db.BOOKS.FirstOrDefault(n => n.BOOK_ID == CurrentBook.BOOK_ID); // get this book from the DB
             book.RATING = CurrentBook.RATING; // change its rating
             db.SaveChangesAsync().GetAwaiter(); // and save changes async
+
             FullInfoViewModelSingleTone.GetInstance().FullInfoViewModel.CurrentBook = new BOOKS(); // to trigger OnPropertyChanged and update info in FullInfoUserControl
             FullInfoViewModelSingleTone.GetInstance().FullInfoViewModel.CurrentBook = CurrentBook;
         }
@@ -148,9 +150,9 @@ namespace Курсач.ViewModels
             Books = new ObservableCollection<BOOKS>(); //cleaning observable collection
             foreach (BOOKS book in db.BOOKS) //fill observable collection with new similar books
             {
-                if ((CurrentBook.AUTHOR == book.AUTHOR && CurrentBook.TITLE != book.TITLE) || (CurrentBook.GENRE == book.GENRE && CurrentBook.TITLE != book.TITLE))
+                if ((CurrentBook.AUTHOR == book.AUTHOR && CurrentBook.TITLE != book.TITLE) || (CurrentBook.GENRE == book.GENRE && CurrentBook.TITLE != book.TITLE)) // if books have the same author or the same genre add it
                 {
-                    if (book.CATEGORY == "Подписка")
+                    if (book.CATEGORY == "Подписка") // manage the visibility of red band
                     {
                         book.Subscription = 1;
                     }
@@ -162,6 +164,7 @@ namespace Курсач.ViewModels
                 }
             }
         }
+
         //Add new book to your shelf
         private void AddToYourBooks(object obj)
         {
@@ -175,18 +178,23 @@ namespace Курсач.ViewModels
             }
         }
 
-        private void BuyTheBook(object obj)
+        private void BuyTheBook(object obj) // open user control where you can confirm or cancel purchase
         {
-            WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new ConfirmPurchase((int)obj);
-            WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Visible";
+            if (db.YOUR_BOOKS.FirstOrDefault(n => (n.BOOK_ID == (int)obj) && (n.USER_ID == currentUser.USER_ID)) == null)
+            {
+                WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new ConfirmPurchase((int)obj);
+                WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Visible";
+            }
         }
         #endregion
+
         //Constructor
         public AdditionalInfoViewModel()
         {
             currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser; //get current user
             CurrentBook = FullInfoViewModelSingleTone.GetInstance().FullInfoViewModel.CurrentBook; // get current book
-            if (CurrentBook.CATEGORY == "Подписка")
+
+            if (CurrentBook.CATEGORY == "Подписка") // manage visibility of the buttons
             {
                 CurrentBook.Subscription = 1;
                 if (currentUser.SUBSCRIPTION != null)
@@ -207,7 +215,9 @@ namespace Курсач.ViewModels
                 CurrentBook.UserWithoutSubscription = "Visible";
 
             }
+
             CreateSimilarBooks();
+
             //DelegateCommand
             OpenFullInfo = new DelegateCommand(OpenFullInfoUserControl);
             MarkCommand = new DelegateCommand(Rate);

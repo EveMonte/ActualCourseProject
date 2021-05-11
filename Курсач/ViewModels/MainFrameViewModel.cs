@@ -1,23 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Курсач;
-using Курсач.Models;
-using System.Data.SQLite;
-using System.Data.Entity;
 using System.Windows;
-using System.ComponentModel;
 using System.Windows.Input;
-using Курсач.Commands;
 
 namespace Курсач.ViewModels
 {
     public class MainFrameViewModel : BaseViewModel
     {
         #region Data
-        User currentUser;
         private BaseViewModel _selectedViewModel;
         public BaseViewModel SelectedViewModel
         {
@@ -56,11 +45,11 @@ namespace Курсач.ViewModels
             if (!themeChoice)
             {
                 // определяем путь к файлу ресурсов
-                uri = new Uri("Styles\\lightTheme.xaml", UriKind.Relative);
+                uri = new Uri("Themes\\lightTheme.xaml", UriKind.Relative);
             }
             else
             {
-                uri = new Uri("Styles\\darkTheme.xaml", UriKind.Relative);
+                uri = new Uri("Themes\\darkTheme.xaml", UriKind.Relative);
             }
             // загружаем словарь ресурсов
             ResourceDictionary resourceDict = Application.LoadComponent(uri) as ResourceDictionary;

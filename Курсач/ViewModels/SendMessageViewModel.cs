@@ -50,6 +50,8 @@ namespace Курсач.ViewModels
             string message = $"Введите символьный код, расположенный ниже, в приложение:\n{generatedCode}\nНикому не давайте его!";
             MessageSender.SendEmailAsync(newUser.EMAIL, generatedCode, message, "Код подтверждения").GetAwaiter();
         }
+
+        //Constructors
         public SendMessageViewModel(USERS user)
         {
             newUser = user;
@@ -59,12 +61,6 @@ namespace Курсач.ViewModels
             generatedCode = MessageSender.GenerateCode();
             string message = $"Введите символьный код, расположенный ниже, в приложение:\n{generatedCode}\nНикому не давайте его!";
             MessageSender.SendEmailAsync(newUser.EMAIL, generatedCode, message, "Код подтверждения").GetAwaiter();
-        }
-        public SendMessageViewModel()
-        {
-            SendMessageCommand = new DelegateCommand(OpenWorkframe);
-            OpenRegistrationCommand = new DelegateCommand(OpenRegistration);
-            SendNewMessageCommand = new DelegateCommand(SendNewMessage);
         }
     }
 }

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Курсач.Singleton;
 
@@ -11,6 +7,7 @@ namespace Курсач.ViewModels
 {
     public class AddCreditCardVM : BaseViewModel
     {
+        #region Data
         [Required]
         private string creditCard;
         public string CREDIT_CARD
@@ -40,8 +37,8 @@ namespace Курсач.ViewModels
             }
         }
         [Required]
-        private int cvv;
-        public int CVV
+        private string cvv;
+        public string CVV
         {
             get
             {
@@ -53,33 +50,44 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("CVV");
             }
         }
-        private string CreditCard;
         LIBRARYEntities db = new LIBRARYEntities();
         USERS currentUser;
-        public ICommand CloseUserPageCommand { get; private set; }
-        public ICommand AddCardCommand { get; private set; }
+        #endregion
+
+        #region Commands
+        public ICommand CloseUserPageCommand { get; private set; } //Close User Control when user click arrow back or 
+        public ICommand AddCardCommand { get; private set; } // Add new card to user or change
+        #endregion
+
+        //Constructor
         public AddCreditCardVM()
         {
-            currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser;
+            currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser; //Get current user
+
+            //Delegate Command
             CloseUserPageCommand = new DelegateCommand(Close);
             AddCardCommand = new DelegateCommand(AddCard);
-            WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Visible";
+            ///////////////////////////////////////////////
+            
+            WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Visible"; //activate dark area
         }
 
-        private void AddCard(object obj)
+        #region Commands' Logic
+        private void AddCard(object obj) // Change credit card of current user in DB
         {
             var user = db.USERS.FirstOrDefault(n => n.USER_ID == currentUser.USER_ID);
             user.CREDIT_CARD = CREDIT_CARD;
             db.SaveChangesAsync().GetAwaiter();
             WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser.CREDIT_CARD = CREDIT_CARD;
-            Close(new object());
 
+            Close(obj); // Close User control
         }
 
-        private void Close(object obj)
+        private void Close(object obj) // Close user control
         {
-            WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = null;
-            WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Collapsed";
+            WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = null; //viewmodel in content control = null
+            WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Collapsed"; // deactivate dark area
         }
+        #endregion
     }
 }

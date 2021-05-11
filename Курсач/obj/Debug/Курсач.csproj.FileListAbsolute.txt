@@ -327,12 +327,9 @@ C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Pages\AdditionalInfo.b
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Pages\BasketPage.baml
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Pages\ListOfBooks.baml
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Pages\YourBooks.baml
-C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Styles\darkTheme.baml
-C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Styles\lightTheme.baml
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Templates\DarkButtonTemplate.baml
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Templates\LightButton2Template.baml
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Templates\LightButtonTemplate.baml
-C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Templates\TextBoxTemplate.baml
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\UserControls\BasketBook.baml
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\UserControls\BookUserControl.baml
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\UserControls\FullInfo.baml

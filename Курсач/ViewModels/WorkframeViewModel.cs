@@ -1,22 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Data;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
-using Курсач.Models;
 using System.IO;
 using Microsoft.Win32;
-using Курсач.Singleton;
 
 namespace Курсач.ViewModels
 {
     public class WorkframeViewModel : BaseViewModel
     {
+        #region Data
         public USERS currentUser;
         private BaseViewModel _currentPage;
         public BaseViewModel CurrentPageViewModel
@@ -82,11 +73,11 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("AddCreditCardViewModel");
             }
         }
+        #endregion
 
         #region Commands
         public ICommand AddCommand { get; private set; }
         public ICommand RemoveCommand { get; private set; }
-        public ICommand OpenFullInfo { get; private set; }
         public ICommand SaveChangesCommand { get; private set; }
         public ICommand ChangeCoverCommand { get; private set; }
         public ICommand OpenListOfBooksCommand { get; private set; }
@@ -96,7 +87,6 @@ namespace Курсач.ViewModels
         public ICommand SubscriptionCommand { get; private set; }
         #endregion
 
-        #region Command's Logic
         public WorkframeViewModel(USERS user)
         {
             currentUser = user;
@@ -112,6 +102,7 @@ namespace Курсач.ViewModels
             SubscriptionCommand = new DelegateCommand(OpenSubscription);
         }
 
+        #region Commands' Logic
         private void OpenSubscription(object obj)
         {
             CurrentPageViewModel = new SubscriptionVM();
@@ -173,17 +164,5 @@ namespace Курсач.ViewModels
             Books.Add(new BOOKS { AUTHOR = "Author", COVER = "", DESCRIPTION = "Description", GENRE = 1, TITLE = "Title", PAGES = 0, RATING = 0, CATEGORY = "Подписка", PRICE = 0, YEAR = 2021 });
         }
         #endregion
-
-        /*public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChange(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }*/
-
-        
-
     }
 }

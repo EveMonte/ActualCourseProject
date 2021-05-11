@@ -9,7 +9,6 @@
       xmlns:userControls="clr-namespace:Курсач.UserControls"
       mc:Ignorable="d" 
       Title="ListOfBooks">
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="70" />
@@ -72,6 +71,7 @@
         <ListBox Grid.Row="1"
                  ItemsSource="{Binding Books, Mode=TwoWay}"
                  SelectedItem="{Binding SelectedBook, Mode=TwoWay}"
+                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
                  Padding="150 0"
                  x:Name="listOfBooks">
             <ListBox.ItemTemplate>

@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\User\Desktop\OOP10-master\Курсач\App.xaml
-281560344365
+251687689797
 4-1064893584
-71387392187
+65-235732221
 150-1496493201
-Components\BindablePasswordBox.xaml;Pages\AdditionalInfo.xaml;Pages\BasketPage.xaml;Pages\ListOfBooks.xaml;Pages\SubscriptionPage.xaml;Pages\UserPage.xaml;Pages\YourBooks.xaml;Styles\darkTheme.xaml;Styles\lightTheme.xaml;Templates\DarkButtonTemplate.xaml;Templates\LightButton2Template.xaml;Templates\LightButtonTemplate.xaml;Templates\RedButtonTemplate.xaml;Templates\TextBoxTemplate.xaml;UserControls\AddCreditCard.xaml;UserControls\BasketBook.xaml;UserControls\BookUserControl.xaml;UserControls\ConfirmPurchase.xaml;UserControls\ConfirmSubscription.xaml;UserControls\FullInfo.xaml;UserControls\SendMessageControl.xaml;UserControls\FormControl.xaml;UserControls\RegisterControl.xaml;Themes\darkTheme.xaml;Themes\lightTheme.xaml;UserControls\YourBook.xaml;Views\MainWindow.xaml;Views\Workframe.xaml;
+Components\BindablePasswordBox.xaml;Pages\AdditionalInfo.xaml;Pages\BasketPage.xaml;Pages\ListOfBooks.xaml;Pages\SubscriptionPage.xaml;Pages\UserPage.xaml;Pages\YourBooks.xaml;Templates\DarkButtonTemplate.xaml;Templates\LightButton2Template.xaml;Templates\LightButtonTemplate.xaml;Templates\RedButtonTemplate.xaml;UserControls\AddCreditCard.xaml;UserControls\BasketBook.xaml;UserControls\BookUserControl.xaml;UserControls\ConfirmPurchase.xaml;UserControls\ConfirmSubscription.xaml;UserControls\FullInfo.xaml;UserControls\SendMessageControl.xaml;UserControls\FormControl.xaml;UserControls\RegisterControl.xaml;Themes\darkTheme.xaml;Themes\lightTheme.xaml;UserControls\YourBook.xaml;Views\MainWindow.xaml;Views\Workframe.xaml;
 
-True
+False
 

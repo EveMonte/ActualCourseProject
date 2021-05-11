@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -69,10 +66,15 @@ namespace Курсач.ViewModels
             }
         }
         #endregion
+
+        #region Commands
         public ICommand DeleteCommand { get; private set; }
         public ICommand DownloadCommand { get; private set; }
         public ICommand FindByGenreCommand { get; private set; }
         public ICommand MarkCommand { get; private set; }
+        #endregion
+
+        //Constructor
         public YourBooksViewModel()
         {
             DeleteCommand = new DelegateCommand(DeleteBook);
@@ -125,6 +127,7 @@ namespace Курсач.ViewModels
             FindByGenreCommand = new DelegateCommand(FindByGenre);
         }
 
+        #region Commands' Logic
         private void RateTheBook(object obj)
         {
             int mark = 0;
@@ -192,6 +195,7 @@ namespace Курсач.ViewModels
         {
             Books = new ObservableCollection<BOOKS>(Books.Where(n => n.GENRE == SelectedGenre.GENRE_ID));
         }
+        #endregion
 
         #region Filter
         public string Text

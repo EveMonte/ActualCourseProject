@@ -70,6 +70,7 @@
                     <TextBox Width="150"
                              Background="#F4F2EF"
                              Style="{DynamicResource MaterialDesignTextBox}"
+                             materialDesign:HintAssist.Hint="16 цифр"
                              Text="{Binding CREDIT_CARD}"
                              MaxLength="16"/>
                 </StackPanel>
@@ -88,6 +89,7 @@
                                FontSize="14"/>
                     <TextBox Width="60"
                              Style="{DynamicResource MaterialDesignTextBox}"
+                             materialDesign:HintAssist.Hint="ММ/ГГ"
                              Background="#F4F2EF"
                              Text="{Binding Validity}"/>
                 </StackPanel>
@@ -103,6 +105,7 @@
                              Style="{DynamicResource MaterialDesignTextBox}"
                              Background="#F4F2EF"
                              MaxLength="3"
+                             materialDesign:HintAssist.Hint="3 цифры"
                              Text="{Binding CVV}"/>
                 </StackPanel>
             </Grid>

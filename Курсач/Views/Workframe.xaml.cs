@@ -15,7 +15,6 @@ using System.Data.Entity;
 using System.Data.SQLite;
 using System.ComponentModel;
 using Курсач.ViewModels;
-using Курсач.Models;
 using System.IO;
 using System.Windows.Threading;
 using Курсач.Singleton;

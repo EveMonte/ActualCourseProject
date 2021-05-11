@@ -1,17 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Mail;
 using System.Runtime.InteropServices;
 using System.Security;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
-using Курсач.Commands;
 using Курсач.Methods;
-using Курсач.Models;
 using Курсач.Singleton;
 
 namespace Курсач.ViewModels
@@ -85,15 +76,19 @@ namespace Курсач.ViewModels
         }
         #endregion
 
-        public ICommand RegistrationCommand { get; private set; }
-        public ICommand OpenSignInCommand { get; private set; }
-       
+        #region Commans
+        public ICommand RegistrationCommand { get; private set; } // open form for sign on
+        public ICommand OpenSignInCommand { get; private set; } // open form for sign in
+        #endregion
+
+        //Constructor
         public RegistrationViewModel()
         {
             RegistrationCommand = new DelegateCommand(OpenSendMessage);
             OpenSignInCommand = new DelegateCommand(OpenSignIn);
         }
 
+        #region Commans' Logic
         private void OpenSendMessage(object obj)
         {
             IntPtr password1 = default(IntPtr);
@@ -131,5 +126,6 @@ namespace Курсач.ViewModels
         {
             MainWindowViewModelSingleton.GetInstance().MainFrameViewModel.SelectedViewModel = new RegisterViewModel();
         }
+        #endregion
     }
 }

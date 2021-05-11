@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Курсач.Methods;
 using Курсач.Singleton;
@@ -14,9 +11,10 @@ namespace Курсач.ViewModels
     class UserPageVM : BaseViewModel
     {
         #region 
-        USERS currentUser;
-        LIBRARYEntities db = new LIBRARYEntities();
-        private string mainCode;
+        USERS currentUser; // Current user, get from Workframe
+        LIBRARYEntities db = new LIBRARYEntities(); // DB context
+        private string mainCode; //Code which is generated here to confirm new password or email
+        /////////// User's data 
         private string secondName;
         public string SECONDNAME
         {
@@ -95,6 +93,7 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("Marks");
             }
         }
+        // secure keeping of passwords
         private SecureString oldPassword;
         public SecureString OldPassword
         {
@@ -134,6 +133,7 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("SecondPassword");
             }
         }
+        //email
         private string newEmail;
         public string NewEmail
         {
@@ -147,6 +147,7 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("NewEmail");
             }
         }
+        //Type of account (User or Admin)
         private string account;
         public string ACCOUNT
         {
@@ -160,6 +161,7 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("ACCOUNT");
             }
         }
+        //Code written by user
         private string code;
         public string Code
         {
@@ -187,23 +189,29 @@ namespace Курсач.ViewModels
             }
         }
         #endregion
-        public ICommand SendMessageCommand { get; private set; }
-        public ICommand ApplyCreditCardCommand { get; private set; }
-        public ICommand ApplyEmailCommand { get; private set; }
-        public ICommand ApplyPasswordCommand { get; private set; }
 
+        #region Commands
+        public ICommand SendMessageCommand { get; private set; } //Command which send an email with safety code to user's email
+        public ICommand ApplyCreditCardCommand { get; private set; } // Open UserControl where user fills fields with credit card's data
+        public ICommand ApplyEmailCommand { get; private set; } // Compare generated code with written code to confirm email change
+        public ICommand ApplyPasswordCommand { get; private set; } // Compare generated code with written code to confirm password change
+        #endregion
 
+        //Constructor
         public UserPageVM()
         {
+            //Delegate Command
             ApplyEmailCommand = new DelegateCommand(ApplyEmail);
             ApplyPasswordCommand = new DelegateCommand(ApplyPassword);
             ApplyCreditCardCommand = new DelegateCommand(ApplyCreditCard);
             SendMessageCommand = new DelegateCommand(SendMessage);
+            //////////////////////////////////////////////////////
+            //Get necessary info about current user
             currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser;
             SECONDNAME = currentUser.SECOND_NAME;
             NAME = currentUser.NAME;
             ACCOUNT = currentUser.ACCOUNT;
-            if (currentUser.SUBSCRIPTION == null)
+            if (currentUser.SUBSCRIPTION == null) // Check status of subscription
             {
                 Subscription = "Отсутствует";
             }
@@ -212,12 +220,14 @@ namespace Курсач.ViewModels
                 Subscription = "Действует";
             }
             CreditCard = currentUser.CREDIT_CARD;
-            YourBooks = db.YOUR_BOOKS.Where(n => n.USER_ID == currentUser.USER_ID).Count();
-            Marks = db.MARKS.Where(n => n.USER_ID == currentUser.USER_ID).Count();
+            YourBooks = db.YOUR_BOOKS.Where(n => n.USER_ID == currentUser.USER_ID).Count(); //Count books on your shelve
+            Marks = db.MARKS.Where(n => n.USER_ID == currentUser.USER_ID).Count(); //Count your marks
         }
 
-        private void ApplyPassword(object obj)
+        #region Commands' Logic
+        private void ApplyPassword(object obj) // Check passwords
         {
+            //Data
             IntPtr password1 = default(IntPtr);
             IntPtr password2 = default(IntPtr);
             IntPtr oldpassword = default(IntPtr);
@@ -225,13 +235,19 @@ namespace Курсач.ViewModels
             string insecurePassword1 = "";
             string insecurePassword2 = "";
             string hash = "";
+
+            //Try-catch block where we get unsecure password, check it, hash and set to DB
             try
             {
+                //Get unsecure passwords from SecureString
                 password1 = Marshal.SecureStringToBSTR(FirstPassword);
                 insecurePassword1 = Marshal.PtrToStringBSTR(password1);
                 password2 = Marshal.SecureStringToBSTR(SecondPassword);
                 insecurePassword2 = Marshal.PtrToStringBSTR(password2);
-                if (mainCode != Code2)
+                oldpassword = Marshal.SecureStringToBSTR(OldPassword);
+                oldinsecurePassword = Marshal.PtrToStringBSTR(oldpassword);
+
+                if (mainCode != Code2) //Check written code
                 {
                     System.Windows.Forms.MessageBox.Show("Неверный код!");
                 }
@@ -245,12 +261,12 @@ namespace Курсач.ViewModels
                 }
                 else
                 {
-
-                    currentUser.PASSWORD = insecurePassword1;
                     USERS user = db.USERS.FirstOrDefault(n => n.USER_ID == currentUser.USER_ID);
-                    SaltedHash sh = new SaltedHash(insecurePassword1);
+                    SaltedHash sh = new SaltedHash(insecurePassword1); //Hashing password
                     user.PASSWORD = sh.Hash + sh.Salt;
+                    currentUser.PASSWORD = user.PASSWORD;
                     db.SaveChangesAsync().GetAwaiter();
+                    //Reset and dispose variables
                     insecurePassword1 = "";
                     insecurePassword2 = "";
                     oldinsecurePassword = "";
@@ -259,7 +275,8 @@ namespace Курсач.ViewModels
                     OldPassword.Dispose();
                 }
             }
-            catch
+
+            catch // If we catch an exception remove variables
             {
                 insecurePassword1 = "";
                 insecurePassword2 = "";
@@ -270,7 +287,7 @@ namespace Курсач.ViewModels
             }
         }
 
-        private void ApplyEmail(object obj)
+        private void ApplyEmail(object obj) //Check email
         {
             if (mainCode != Code)
             {
@@ -288,22 +305,24 @@ namespace Курсач.ViewModels
                         System.Windows.Forms.MessageBox.Show("Пользователь с таким Email уже существует!");
                     }
                 }
+
                 currentUser.EMAIL = NewEmail;
                 db.SaveChangesAsync().GetAwaiter();
             }
 
         }
 
-        private void ApplyCreditCard(object obj)
+        private void ApplyCreditCard(object obj) // Open AddCreditCart UserControl
         {
             WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new AddCreditCardVM();
         }
 
-        private void SendMessage(object obj)
+        private void SendMessage(object obj) // Send message to user
         {
             mainCode = MessageSender.GenerateCode();
-            string message = $"С Вашей учетной записи поступил запрос на смену Email. Если это были Вы, то введите символьный код, расположенный ниже, в приложение:\n{mainCode}\nИначе свяжитесь с администрацией приложения!";
-            MessageSender.SendEmailAsync(currentUser.EMAIL, mainCode, message, "Смена Email").GetAwaiter();
+            string message = $"С Вашей учетной записи поступил запрос на смену личных данных. Если это были Вы, то введите символьный код, расположенный ниже, в приложение:\n{mainCode}\nИначе свяжитесь с администрацией приложения!";
+            MessageSender.SendEmailAsync(currentUser.EMAIL, mainCode, message, "Смена личных данных").GetAwaiter();
         }
+        #endregion
     }
 }

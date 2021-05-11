@@ -68,7 +68,6 @@
                 <ResourceDictionary Source="Templates\LightButtonTemplate.xaml" />
                 <ResourceDictionary Source="Templates\LightButton2Template.xaml" />
                 <ResourceDictionary Source="Templates\DarkButtonTemplate.xaml" />
-                <ResourceDictionary Source="Templates\TextBoxTemplate.xaml" />
                 <ResourceDictionary Source="Templates\RedButtonTemplate.xaml" />
 
             </ResourceDictionary.MergedDictionaries>

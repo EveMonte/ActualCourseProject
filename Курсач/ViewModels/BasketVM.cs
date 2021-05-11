@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -18,7 +15,7 @@ namespace Курсач.ViewModels
         #region Data
         private ObservableCollection<BOOKS> books;
 
-        public ObservableCollection<BOOKS> Books
+        public ObservableCollection<BOOKS> Books // Books in your basket
         {
             get
             {
@@ -30,7 +27,7 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("Books");
             }
         }
-        public ObservableCollection<GENRES> Genres { get; private set; }
+        public ObservableCollection<GENRES> Genres { get; private set; } // List of genres for combobox
         public IQueryable<BOOKS> coll { get; set; }
         LIBRARYEntities db = new LIBRARYEntities();
         public USERS currentUser;
@@ -71,50 +68,46 @@ namespace Курсач.ViewModels
         #endregion
 
         #region Commands
-        public ICommand DeleteCommand { get; private set; }
-        public ICommand DownloadCommand { get; private set; }
-        public ICommand MarkCommand { get; private set; }
-        public ICommand FindByGenreCommand { get; private set; }
-        public ICommand BuyCommand { get; private set; }
+        public ICommand DeleteCommand { get; private set; } // Delete book from basket
+        public ICommand MarkCommand { get; private set; } // Rate the book
+        public ICommand FindByGenreCommand { get; private set; } // find books of concrete genre
+        public ICommand BuyCommand { get; private set; } // open user control where you can confirm or cancel purchase
         #endregion
+
+        //Constructor
         public BasketVM()
         {
+            //Delegate command
             BuyCommand = new DelegateCommand(BuyTheBook);
             DeleteCommand = new DelegateCommand(DeleteBook);
             MarkCommand = new DelegateCommand(SetMark);
-            currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser;
+            ////////////////////////////////////////////
+
+            currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser; // get current user
             Books = new ObservableCollection<BOOKS>();
+
             using (LIBRARYEntities library = new LIBRARYEntities())
             {
-                string command = String.Format($"SELECT * " +
-                                               $"FROM BASKETS WHERE USER_ID = {currentUser.USER_ID}");
-                var h = (library.Database.SqlQuery<BASKETS>(command));
-                foreach (BASKETS book in h)
+                var basketBooks = db.BASKETS.Where(n => n.USER_ID == currentUser.USER_ID);
+                foreach (BASKETS book in basketBooks) // get information about books in the basket
                 {
-                    BOOKS b = library.BOOKS.Where(n => n.BOOK_ID == book.BOOK_ID).FirstOrDefault();
-                    command = String.Format($"SELECT top(1) * FROM MARKS WHERE BOOK_ID = {book.BOOK_ID} AND USER_ID = {currentUser.USER_ID}");
-                    var marks = library.Database.SqlQuery<MARKS>(command);
-                    foreach (var m in marks)
-                    {
-                        b.Mark = (int)m.MARK;
-                    }
-                    command = String.Format($"SELECT * FROM MARKS WHERE BOOK_ID = {book.BOOK_ID}");
-                    var rating = library.Database.SqlQuery<MARKS>(command);
+                    BOOKS b = library.BOOKS.Where(n => n.BOOK_ID == book.BOOK_ID).FirstOrDefault(); // for each book in the basket get its info from BOOKS
+                    var marks = db.MARKS.FirstOrDefault(n => (n.BOOK_ID == book.BOOK_ID) && (n.USER_ID == currentUser.USER_ID)); // find its user's mark
+                    if(marks != null)
+                        b.Mark = (int)marks.MARK; // set it
+                    var rating = db.MARKS.Where(n => n.BOOK_ID == book.BOOK_ID); // get all marks of this book
                     decimal sum = 0;
                     foreach (var m in rating)
                     {
                         sum += (decimal)m.MARK;
                     }
-                    b.NUMBEROFVOICES = rating.Count();
+                    b.NUMBEROFVOICES = rating.Count(); // coount it
 
                     if (b.NUMBEROFVOICES != 0)
                     {
-                        b.RATING = sum / b.NUMBEROFVOICES;
+                        b.RATING = sum / b.NUMBEROFVOICES; // get rating
                     }
-                    command = String.Format($"SELECT * " +
-                                               $"FROM GENRES WHERE GENRE_ID = {b.GENRE}");
-                    var genres = library.Database.SqlQuery<GENRES>(command);
-
+                    var genres = db.GENRES.Where(n => n.GENRE_ID == b.GENRE); // get string value of genre
                     foreach (var m in genres)
                     {
                         b.Genre = m.GENRE;
@@ -122,42 +115,26 @@ namespace Курсач.ViewModels
                     Books.Add(b);
                 }
                 library.SaveChanges();
-                Genres = new ObservableCollection<GENRES>(library.GENRES.OrderBy(n => n.GENRE));
+                Genres = new ObservableCollection<GENRES>(library.GENRES.OrderBy(n => n.GENRE)); 
             }
+
+            //Filter
             Items = CollectionViewSource.GetDefaultView(Books);
             Items.Filter = Search;
             FindByGenreCommand = new DelegateCommand(FindByGenre);
         }
 
-        private void BuyTheBook(object obj)
+        #region Commands' Logic
+        private void BuyTheBook(object obj) // buy book, if user don't have credit card let him add it
         {
             if(db.YOUR_BOOKS.FirstOrDefault(n => (n.BOOK_ID == (int)obj) && (n.USER_ID == currentUser.USER_ID)) == null)
             {
-                if (currentUser.CREDIT_CARD != null)
-                {
-                    YOUR_BOOKS newBook = new YOUR_BOOKS();
-                    newBook.BOOK_ID = (int)obj;
-                    newBook.USER_ID = currentUser.USER_ID;
-                    db.YOUR_BOOKS.Add(newBook);
-                    BASKETS bookToDelete = db.BASKETS.FirstOrDefault(n => (n.USER_ID == currentUser.USER_ID) && (n.BOOK_ID == (int)obj));
-                    if (bookToDelete != null)
-                    {
-                        db.BASKETS.Remove(bookToDelete);
-                    }
-                    BOOKS yourBook = db.BOOKS.FirstOrDefault(n => n.BOOK_ID == (int)obj);
-                    db.SaveChangesAsync().GetAwaiter();
-                    Books.Remove(yourBook);
-                    string message = String.Format($"Здравствуйте, {currentUser.NAME}. Вы только что приобрели книгу \"{yourBook.TITLE}\" за {yourBook.PRICE}$. Наслаждайтесь чтением!");
-                    MessageSender.SendEmailAsync(currentUser.EMAIL, "", message, "Покупка книги").GetAwaiter();
-                }
-                else
-                {
-                    WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new AddCreditCardVM();
-                }
-            }            
+                WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new ConfirmPurchase((int)obj);
+                WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Visible";
+            }
         }
 
-        private void SetMark(object obj)
+        private void SetMark(object obj) // rate the book
         {
             int mark = 0;
             BOOKS CurrentBook = Books.FirstOrDefault(n => n.BOOK_ID == (int)obj);
@@ -172,7 +149,6 @@ namespace Курсач.ViewModels
                         break;
                     }
                 }
-                //CurrentBook.Mark = (int)obj;
                 m.MARK = mark;
             }
             else //if there is no marks for this book we create a new one
@@ -195,14 +171,15 @@ namespace Курсач.ViewModels
             Books = newBooks;
         }
 
-        private void DeleteBook(object obj)
+        private void DeleteBook(object obj) // delete book from basket
         {
             foreach (BOOKS book in books)
             {
                 if (book.BOOK_ID == (int)obj)
                 {
-                    db.Database.ExecuteSqlCommand($"DELETE FROM BASKETS WHERE BOOK_ID = {(int)obj}");
-                    db.SaveChanges();
+                    var bookToDelete = db.BASKETS.FirstOrDefault(n => n.BOOK_ID == book.BOOK_ID);
+                    db.BASKETS.Remove(bookToDelete);
+                    db.SaveChangesAsync().GetAwaiter();
                     Books.Remove(book);
                     break;
                 }
@@ -213,13 +190,8 @@ namespace Курсач.ViewModels
         {
             Books = new ObservableCollection<BOOKS>(Books.Where(n => n.GENRE == SelectedGenre.GENRE_ID));
         }
+        #endregion
 
-        private void OpenFullInfoUserControl(object obj)
-        {
-            FullInfoViewModelSingleTone.GetInstance(new FullInfoViewModel());
-            FullInfoViewModelSingleTone.GetInstance().FullInfoViewModel.CurrentBook = SelectedBook;
-            WorkFrameSingleTone.GetInstance().WorkframeViewModel.CurrentPageViewModel = new AdditionalInfoViewModel();
-        }
         #region Filter
         public string Text
         {

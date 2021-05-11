@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Курсач.Models;
 using Курсач.Singleton;
 
 namespace Курсач.ViewModels
 {
-    class YourBookViewModel :BaseViewModel
+    class YourBookViewModel : BaseViewModel
     {
         USERS currentUser;
         private int mark;
@@ -25,10 +24,9 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("Mark");
             }                
         }
-        public static BOOKS book;
-        private Book currentBook;
+        private BOOKS currentBook;
         LIBRARYEntities db = new LIBRARYEntities();
-        public Book CurrentBook
+        public BOOKS CurrentBook
         {
             get
             {
@@ -42,7 +40,7 @@ namespace Курсач.ViewModels
         }
         public YourBookViewModel()
         {
-            currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser;
+            /*currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser;
             string command; 
             command = String.Format($"SELECT COUNT(*) FROM MARKS WHERE BOOK_ID = {book.BOOK_ID}");
             var a = db.Database.SqlQuery<int>(command);
@@ -57,7 +55,7 @@ namespace Курсач.ViewModels
             foreach (var b in marks)
             {
                 Mark = (int)b.MARK;
-            }
+            }*/
         }
 
 
