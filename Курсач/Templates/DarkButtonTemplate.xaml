@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Курсач.Templates">
     <ControlTemplate x:Key="DarkButton" TargetType="Button">
-        <Border Background="#6B3401"
+        <Border Background="{TemplateBinding Background}"
                 BorderBrush="#503115"
                 CornerRadius="5"
                 TextBlock.Foreground="White"
@@ -16,7 +16,15 @@
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Opacity" Value="0.8" />
+                <Setter Property="Effect" >
+                    <Setter.Value>
+                        <DropShadowEffect BlurRadius="3" ShadowDepth="1" Color="Black" Opacity="0.9" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Background" Value="#895d34" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="False">
+                <Setter Property="Background" Value="#6B3401" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="Opacity" Value="0.2" />

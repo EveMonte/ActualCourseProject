@@ -4,6 +4,7 @@ using Курсач.Singleton;
 using Курсач.Methods;
 using System.Security;
 using System.Runtime.InteropServices;
+using System.Windows;
 
 namespace Курсач.ViewModels
 {
@@ -75,6 +76,10 @@ namespace Курсач.ViewModels
 
                             Workframe workframe = new Workframe();
                             workframe.Show();
+                            var windows = Application.Current.Windows;
+                            foreach (Window window in windows)
+                                if (window != null && window is MainWindow)
+                                    window.Close();
                             Password.Dispose();
                             insecurePassword = null;
                             break;
@@ -88,6 +93,7 @@ namespace Курсач.ViewModels
                     }
                 }
             }
+
         }
         void OpenRegisterWindow(object obj) // Открыть UserControl с регистрацией
         {

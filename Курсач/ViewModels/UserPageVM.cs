@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security;
+using System.Windows;
 using System.Windows.Input;
 using Курсач.Methods;
 using Курсач.Singleton;
@@ -234,7 +235,6 @@ namespace Курсач.ViewModels
             string oldinsecurePassword = "";
             string insecurePassword1 = "";
             string insecurePassword2 = "";
-            string hash = "";
 
             //Try-catch block where we get unsecure password, check it, hash and set to DB
             try
@@ -285,6 +285,13 @@ namespace Курсач.ViewModels
                 SecondPassword.Dispose();
                 OldPassword.Dispose();
             }
+            MainWindow main = new MainWindow();
+            main.Show();
+            var windows = Application.Current.Windows;
+            foreach(Window window in windows)
+                if (window != null && window is Workframe)
+                    window.Close();
+
         }
 
         private void ApplyEmail(object obj) //Check email
@@ -308,6 +315,10 @@ namespace Курсач.ViewModels
 
                 currentUser.EMAIL = NewEmail;
                 db.SaveChangesAsync().GetAwaiter();
+                var window = Application.Current.Windows[0];
+                if (window != null)
+                    window.Close();
+                (new MainWindow()).Show();
             }
 
         }

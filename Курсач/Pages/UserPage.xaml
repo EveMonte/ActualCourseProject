@@ -47,8 +47,8 @@
             <materialDesign:PackIcon Kind="User"
                                      HorizontalAlignment="Stretch"
                                      VerticalAlignment="Stretch"
-                                 Width="Auto"
-                                 Height="Auto"/>
+                                     Width="100"
+                                     Height="100"/>
             <StackPanel VerticalAlignment="Center">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Фамилия: "
@@ -69,6 +69,10 @@
                                FontSize="16"/>
                 </StackPanel>
             </StackPanel>
+            <Button Content="Выйти из аккаунта"
+                    Width="200"
+                    Margin="200, 0, 0, 0"
+                    Template="{DynamicResource DarkButton}" />
         </StackPanel>
         <Grid Grid.Row="2"
               Grid.Column="1"
@@ -241,13 +245,13 @@
                                Grid.Row="0"
                                Margin="0, 0, 15, 0"/>
                     <PasswordBox Width="220"
-                                                    Grid.Row="0"
-                                                    Height="40"
-                                                    Grid.Column="1"
-                                                    VerticalAlignment="Bottom"
-                                                    HorizontalAlignment="Left"
-                                                    FontSize="16"
-                                                    >
+                                 Grid.Row="0"
+                                 Height="40"
+                                 Grid.Column="1"
+                                 VerticalAlignment="Bottom"
+                                 HorizontalAlignment="Left"
+                                 FontSize="16"
+                                 >
                         <i:Interaction.Behaviors>
                             <components:PasswordBoxBindingBehavior Password="{Binding OldPassword}"/>
                         </i:Interaction.Behaviors>

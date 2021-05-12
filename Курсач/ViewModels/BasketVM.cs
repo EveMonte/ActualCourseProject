@@ -161,7 +161,7 @@ namespace Курсач.ViewModels
                 db.MARKS.Add(newMark);
                 CurrentBook.NUMBEROFVOICES++;
             }
-            db.SaveChanges(); // save changes to DB
+            db.SaveChanges(); // save changes
             CurrentBook.RATING = ((decimal)db.MARKS.Where(n => n.BOOK_ID == CurrentBook.BOOK_ID).Sum(n => n.MARK) / (decimal)db.MARKS.Where(n => n.BOOK_ID == CurrentBook.BOOK_ID).Count()); // recount rating of this book
             var book = db.BOOKS.FirstOrDefault(n => n.BOOK_ID == CurrentBook.BOOK_ID); // get this book from the DB
             book.RATING = CurrentBook.RATING; // change its rating

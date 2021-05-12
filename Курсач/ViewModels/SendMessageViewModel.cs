@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Input;
 using Курсач.Methods;
 using Курсач.Singleton;
@@ -42,6 +43,15 @@ namespace Курсач.ViewModels
 
                 Workframe workframe = new Workframe();
                 workframe.Show();
+                foreach (Window window in Application.Current.Windows)
+                {
+                    if (window is MainWindow)
+                    {
+                        window.Close();
+                        break;
+                    }
+                }
+
             }
         }
         private void SendNewMessage(object obj)

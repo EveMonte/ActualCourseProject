@@ -19,32 +19,71 @@
             <RowDefinition Height="2*" />
             <RowDefinition Height="75" />
         </Grid.RowDefinitions>
-        <Image HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="0" Grid.Row="0" Grid.RowSpan="4" Source="{Binding COVER}" />
-        <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left">
+        <Image HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               Grid.Column="0"
+               Grid.Row="0"
+               Grid.RowSpan="4"
+               Source="{Binding COVER}" />
+        <StackPanel Grid.Row="0"
+                    Grid.Column="1"
+                    HorizontalAlignment="Stretch">
             <StackPanel Orientation="Horizontal">
-                <TextBlock FontSize="16" Margin="15, 5, 0, 0" Text="Название книги: " />
-                <TextBlock FontSize="16" Margin="0, 5, 0, 0" Text="{Binding TITLE}" />
+                <TextBlock FontSize="16"
+                           Margin="15, 5, 0, 0"
+                           Text="Название книги: " />
+                <TextBlock FontSize="16"
+                           Margin="0, 5, 0, 0"
+                           Text="{Binding TITLE}" />
             </StackPanel>
-            <TextBlock FontSize="16" Margin="15, 5, 0, 0" Text="{Binding Genre}" />
-            <StackPanel Margin="15, 5, 0, 0" Orientation="Horizontal">
-                <TextBlock FontSize="16" Text="Автор: " />
-                <TextBlock FontSize="16" Text="{Binding AUTHOR}" />
+            <TextBlock FontSize="16"
+                       Margin="15, 5, 0, 0"
+                       Text="{Binding Genre}" />
+            <StackPanel Margin="15, 5, 0, 0"
+                        Orientation="Horizontal">
+                <TextBlock FontSize="16"
+                           Text="Автор: " />
+                <TextBlock FontSize="16"
+                           Text="{Binding AUTHOR}" />
             </StackPanel>
-            <StackPanel VerticalAlignment="Center" Margin="15, 7.5, 0, 7.5" Orientation="Horizontal">
-                <TextBlock FontSize="16" Margin="0, 0, 5, 0" Text="{Binding RATING}" VerticalAlignment="Center" />
-                <materialDesign:PackIcon Margin="0, 0, 5, 0" Kind="Star" VerticalAlignment="Center" />
-                <TextBlock FontSize="16" Margin="0, 0, 5, 0" VerticalAlignment="Center" Text="{Binding NUMBEROFVOICES}" />
-                <materialDesign:RatingBar VerticalAlignment="Center" 
-                                          HorizontalAlignment="Right"
-                                          Value="{Binding Mark, Mode=TwoWay}"
-                                          Foreground="#B56F2F"/>
-                <Button Template="{DynamicResource LightButton2}"
-                        x:Name="SetMark"
-                        Margin="10 0"
-                        Command="{Binding DataContext.MarkCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
-                        CommandParameter="{Binding BOOK_ID}"
-                        Content="Поставить оценку" />
-            </StackPanel>
+            <DockPanel>
+                <StackPanel VerticalAlignment="Center"
+                            Margin="15, 7.5, 0, 7.5"
+                            DockPanel.Dock="Left"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Stretch">
+                    <TextBlock FontSize="16"
+                               Margin="0, 0, 5, 0"
+                               Text="{Binding RATING}"
+                               VerticalAlignment="Center" />
+                    <materialDesign:PackIcon Margin="0, 0, 5, 0"
+                                             Kind="Star"
+                                             VerticalAlignment="Center" />
+                    <TextBlock FontSize="16"
+                               Margin="0, 0, 5, 0"
+                               VerticalAlignment="Center"
+                               Text="{Binding NUMBEROFVOICES}" />
+                    <materialDesign:RatingBar VerticalAlignment="Center"
+                                              Value="{Binding Mark, Mode=TwoWay}"
+                                              x:Name="rating"
+                                              HorizontalAlignment="Right"
+                                              Foreground="#B56F2F"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            DockPanel.Dock="Right"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Right">
+                    <Button Template="{DynamicResource LightButton2}"
+                            x:Name="SetMark"
+                            Margin="15 0"
+                            Width="200"
+                            Command="{Binding DataContext.MarkCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                            CommandParameter="{Binding BOOK_ID}"
+                            HorizontalAlignment="Right"
+                            Content="Поставить оценку">
+                    </Button>
+                </StackPanel>
+            </DockPanel>
         </StackPanel>
         <Button Template="{DynamicResource DarkButton}"
                     Grid.Row="3"

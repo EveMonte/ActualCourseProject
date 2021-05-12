@@ -4,8 +4,7 @@
     <ControlTemplate x:Key="LightButton2" TargetType="Button">
         <Border 
                 CornerRadius="5"
-                Background="#B58252"
-
+                Background="{TemplateBinding Background}"
                 BorderBrush="#503115"
                 TextBlock.Foreground="White"
                 TextBlock.FontFamily="Tahoma"
@@ -19,7 +18,15 @@
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Opacity" Value="0.8" />
+                <Setter Property="Effect" >
+                    <Setter.Value>
+                        <DropShadowEffect BlurRadius="3" ShadowDepth="1" Color="Black" Opacity="0.9" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Background" Value="#c49b75" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="False">
+                <Setter Property="Background" Value="#B58252" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

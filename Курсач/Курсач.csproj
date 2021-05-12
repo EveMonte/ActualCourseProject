@@ -145,9 +145,6 @@
     <Compile Include="Commands\OpenRegisterControlCommand.cs" />
     <Compile Include="Commands\OpenWorkFrameCommand.cs" />
     <Compile Include="Commands\RegistrationCommand.cs" />
-    <Compile Include="Components\BindablePasswordBox.xaml.cs">
-      <DependentUpon>BindablePasswordBox.xaml</DependentUpon>
-    </Compile>
     <Compile Include="GENRES.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
@@ -181,6 +178,9 @@
     </Compile>
     <Compile Include="Pages\ListOfBooks.xaml.cs">
       <DependentUpon>ListOfBooks.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\SubscriptionPage.xaml.cs">
       <DependentUpon>SubscriptionPage.xaml</DependentUpon>
@@ -256,6 +256,7 @@
     <Compile Include="ViewModels\SendMessageViewModel.cs" />
     <Compile Include="ViewModels\DelegateCommand.cs" />
     <Compile Include="ViewModels\MainFrameViewModel.cs" />
+    <Compile Include="ViewModels\SettingsVM.cs" />
     <Compile Include="ViewModels\SubscriptionVM.cs" />
     <Compile Include="ViewModels\UserPageVM.cs" />
     <Compile Include="ViewModels\WorkframeViewModel.cs" />
@@ -267,10 +268,6 @@
     <Compile Include="YOUR_BOOKS.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
-    <Page Include="Components\BindablePasswordBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pages\AdditionalInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -280,6 +277,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\ListOfBooks.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

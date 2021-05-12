@@ -352,8 +352,6 @@ C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Курсач.exe
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Курсач.pdb
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Pages\UserPage.g.cs
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Pages\UserPage.baml
-C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Components\BindablePasswordBox.g.cs
-C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Components\BindablePasswordBox.baml
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Pages\SubscriptionPage.g.cs
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Pages\SubscriptionPage.baml
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Курсач.csprojAssemblyReference.cache
@@ -369,3 +367,5 @@ C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\UserControls\ConfirmPu
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\UserControls\ConfirmPurchase.baml
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\UserControls\ConfirmSubscription.g.cs
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\UserControls\ConfirmSubscription.baml
+C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Pages\Settings.g.cs
+C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Pages\Settings.baml

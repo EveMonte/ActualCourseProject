@@ -7,7 +7,8 @@
              xmlns:viewModel="clr-namespace:Курсач.ViewModels"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" >
-    <Grid DataContext="{Binding CurrentBook, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource GridStyle}">
+    <Grid DataContext="{Binding CurrentBook, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+          Style="{DynamicResource GridStyle}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="1.4*" />
@@ -82,6 +83,7 @@
                     <Button Template="{DynamicResource LightButton2}"
                             x:Name="SetMark"
                             Margin="15 0"
+                            Width="200"
                             Command="{Binding DataContext.MarkCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
                             CommandParameter="{Binding Value, ElementName=rating}"
                             HorizontalAlignment="Right"

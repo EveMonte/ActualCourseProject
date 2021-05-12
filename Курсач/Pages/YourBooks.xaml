@@ -14,6 +14,9 @@
             <RowDefinition Height="70" />
             <RowDefinition Height="800*" />
         </Grid.RowDefinitions>
+        <Grid Style="{DynamicResource GridMainStyle}"
+              Grid.Row="1"
+              Width="1300" />
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
@@ -24,8 +27,13 @@
             <Image Grid.Column="0"
                    Margin="0 5"
                VerticalAlignment="Center"
-               Style="{DynamicResource ImageStyle}" 
-               Source="\Media\Логотип.png" />
+               Style="{DynamicResource ImageStyle}" >
+                <Image.Effect>
+                    <DropShadowEffect BlurRadius="10"
+                                      Opacity="0.9"
+                                      ShadowDepth="2"/>
+                </Image.Effect>
+            </Image>
             <TextBox VerticalAlignment="Center"
                      Grid.Column="1"
                      x:Name="Search"

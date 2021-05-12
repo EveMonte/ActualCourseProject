@@ -22,6 +22,7 @@
         <Setter Property="Foreground" Value="Black" />
     </Style>
     <Style x:Key="ImageStyle" TargetType="Image">
-        <Setter Property="Source" Value="C:\Users\User\Desktop\Курсааааач\Media\Логотип.png" />
+        <Setter Property="Source" Value="/Media/Логотип.png" />
     </Style>
+
 </ResourceDictionary>

@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using System.IO;
 using Microsoft.Win32;
+using System;
 
 namespace Курсач.ViewModels
 {
@@ -76,13 +77,10 @@ namespace Курсач.ViewModels
         #endregion
 
         #region Commands
-        public ICommand AddCommand { get; private set; }
-        public ICommand RemoveCommand { get; private set; }
-        public ICommand SaveChangesCommand { get; private set; }
-        public ICommand ChangeCoverCommand { get; private set; }
         public ICommand OpenListOfBooksCommand { get; private set; }
         public ICommand OpenYourBooksCommand { get; private set; }
         public ICommand OpenBasketCommand { get; private set; }
+        public ICommand SettingsCommand { get; private set; }
         public ICommand OpenUserCommand { get; private set; }
         public ICommand SubscriptionCommand { get; private set; }
         #endregion
@@ -92,20 +90,22 @@ namespace Курсач.ViewModels
             currentUser = user;
             CurrentPageViewModel = new ListOfBooksViewModel(currentUser);
             OpenUserCommand = new DelegateCommand(OpenUser);
-            AddCommand = new DelegateCommand(AddBook);
-            RemoveCommand = new DelegateCommand(RemoveBook, CanRemoveBook);
-            SaveChangesCommand = new DelegateCommand(SaveBooks);
-            ChangeCoverCommand = new DelegateCommand(ChangeCover);
             OpenListOfBooksCommand = new DelegateCommand(OpenListOfBooks);
             OpenYourBooksCommand = new DelegateCommand(OpenYourBooks);
             OpenBasketCommand = new DelegateCommand(OpenBasket);
             SubscriptionCommand = new DelegateCommand(OpenSubscription);
+            SettingsCommand = new DelegateCommand(OpenSettings);
         }
+
 
         #region Commands' Logic
         private void OpenSubscription(object obj)
         {
             CurrentPageViewModel = new SubscriptionVM();
+        }
+        private void OpenSettings(object obj)
+        {
+            CurrentPageViewModel = new SettingsVM();
         }
 
         private void OpenUser(object obj)
