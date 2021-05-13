@@ -26,12 +26,12 @@ namespace Курсач.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("ru-RU")]
-        public string languageCode {
+        public global::System.Globalization.CultureInfo DefaultLanguage {
             get {
-                return ((string)(this["languageCode"]));
+                return ((global::System.Globalization.CultureInfo)(this["DefaultLanguage"]));
             }
             set {
-                this["languageCode"] = value;
+                this["DefaultLanguage"] = value;
             }
         }
     }

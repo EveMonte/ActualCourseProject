@@ -31,7 +31,7 @@
                 Grid.ColumnSpan="2"
                 Grid.RowSpan="7" />
         <TextBlock FontSize="24"
-                   Text="Кабинет Пользователя"
+                   Text="{DynamicResource m_UserAccount}"
                    Grid.Row="0"
                    Grid.ColumnSpan="4"
                    FontFamily="Tahoma"
@@ -51,26 +51,30 @@
                                      Height="100"/>
             <StackPanel VerticalAlignment="Center">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Фамилия: "
+                    <TextBlock Text="{DynamicResource m_SecondName}"
+                               Margin="0, 0, 5, 0"
                                FontSize="16"/>
                     <TextBlock Text="{Binding SECONDNAME}"
                                FontSize="16"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Имя: "
+                    <TextBlock Text="{DynamicResource m_Name}"
+                               Margin="0, 0, 5, 0"
                                FontSize="16"/>
                     <TextBlock Text="{Binding NAME}"
                                FontSize="16"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Статус: "
+                    <TextBlock Text="{DynamicResource m_Status}"
+                               Margin="0, 0, 5, 0"
                                FontSize="16"/>
                     <TextBlock Text="{Binding ACCOUNT}"
                                FontSize="16"/>
                 </StackPanel>
             </StackPanel>
-            <Button Content="Выйти из аккаунта"
+            <Button Content="{DynamicResource m_SignOut}"
                     Width="200"
+                    Command="{Binding SignOutCommand}"
                     Margin="200, 0, 0, 0"
                     Template="{DynamicResource DarkButton}" />
         </StackPanel>
@@ -90,7 +94,7 @@
                 <ColumnDefinition Width="1.25*" />
                 <ColumnDefinition Width="1.5*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Статус подписки: "
+            <TextBlock Text="{DynamicResource m_SubscriptionStatus}"
                        FontSize="16"
                        HorizontalAlignment="Right"
                        Grid.Row="0"
@@ -102,7 +106,7 @@
                        Grid.Row="0"
                        VerticalAlignment="Bottom"
                        FontSize="16"/>
-            <TextBlock Text="Номер карты: "
+            <TextBlock Text="{DynamicResource m_CardNumber2}"
                        HorizontalAlignment="Right"
                        VerticalAlignment="Bottom"
                        Grid.Column="0"
@@ -110,12 +114,12 @@
                        Grid.Row="1"
                        FontSize="16"/>
             <TextBlock Text="{Binding CreditCard, Mode=TwoWay}"
-                     Grid.Row="1"
-                     VerticalAlignment="Bottom"
-                     HorizontalAlignment="Left"
-                     Grid.Column="1"
-                     FontSize="16"/>
-            <Button Content="Изменить"
+                       Grid.Row="1"
+                       VerticalAlignment="Bottom"
+                       HorizontalAlignment="Left"
+                       Grid.Column="1"
+                       FontSize="16"/>
+            <Button Content="{DynamicResource m_Change}"
                     Template="{DynamicResource LightButton2}"
                     Grid.Column="2"
                     Grid.Row="1"
@@ -124,7 +128,7 @@
                     Command="{Binding ApplyCreditCardCommand}"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Bottom" />
-            <TextBlock Text="Количество книг на полке: "
+            <TextBlock Text="{DynamicResource m_NumberOfBooksOnTheShelf}"
                        Grid.Column="0"
                        Grid.Row="2"
                        Margin="0, 0, 15, 0"
@@ -136,7 +140,7 @@
                        VerticalAlignment="Bottom"
                        Grid.Column="1"
                        FontSize="16" />
-            <TextBlock Text="Количество оценок: "
+            <TextBlock Text="{DynamicResource m_NumberOfMarks}"
                        Grid.Column="0"
                        VerticalAlignment="Bottom"
                        Grid.Row="3"
@@ -155,7 +159,7 @@
                     Grid.ColumnSpan="2"
                     VerticalAlignment="Top"                  
                     HorizontalAlignment="Stretch">
-            <Expander Header="Изменить Email"
+            <Expander Header="{DynamicResource m_ChangeEmail}"
                       Focusable="False"
                       Background="White">
                 <Grid>
@@ -168,7 +172,7 @@
                         <RowDefinition />
                         <RowDefinition />
                     </Grid.RowDefinitions>
-                    <TextBlock Text="Введите новый Email: "
+                    <TextBlock Text="{DynamicResource m_EnterNewEmail}"
                                FontSize="16"
                                Grid.Column="0"
                                Grid.Row="0"
@@ -182,7 +186,7 @@
                              HorizontalAlignment="Left"
                              Width="220"
                              Style="{DynamicResource MaterialDesignTextBox}"/>
-                    <Button Content="Отправить код на почту"
+                    <Button Content="{DynamicResource m_SendCodeToMail}"
                             Template="{DynamicResource DarkButton}"
                             Margin="10 0"
                             Width="220"
@@ -190,7 +194,7 @@
                             HorizontalAlignment="Left"
                             Grid.Row="0"
                             Command="{Binding SendMessageCommand}"/>
-                    <TextBlock Text="Ввести код подтверждения: "
+                    <TextBlock Text="{DynamicResource m_EnterConfirmationCode}"
                                Grid.Column="0"
                                VerticalAlignment="Bottom"
                                HorizontalAlignment="Right"
@@ -207,7 +211,7 @@
                              Style="{DynamicResource MaterialDesignTextBox}" />
                     <Button Template="{DynamicResource LightButton2}"
                             Command="{Binding ApplyEmailCommand}"
-                            Content="Подтвердить"
+                            Content="{DynamicResource m_Confirm}"
                             Width="220"                         
                             Padding="0"
                             Margin="10 0"
@@ -217,7 +221,7 @@
                             Grid.Row="1"/>
                 </Grid>
             </Expander>
-            <Expander Header="Изменить Пароль"
+            <Expander Header="{DynamicResource m_ChangePassword}"
                       Background="White">
                 <Grid x:Name="passwordStk"
                       Grid.Column="1"
@@ -237,7 +241,7 @@
                         <ColumnDefinition Width="1.25*" />
                         <ColumnDefinition Width="1.5*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="Введите старый пароль: "
+                    <TextBlock Text="{DynamicResource m_EnterOldPassword}"
                                FontSize="16"
                                VerticalAlignment="Bottom"
                                HorizontalAlignment="Right"
@@ -256,7 +260,7 @@
                             <components:PasswordBoxBindingBehavior Password="{Binding OldPassword}"/>
                         </i:Interaction.Behaviors>
                     </PasswordBox>
-                    <TextBlock Text="Введите новый пароль: "
+                    <TextBlock Text="{DynamicResource m_EnterNewPassword}"
                                FontSize="16"
                                Grid.Row="1"
                                Grid.Column="0"
@@ -274,7 +278,7 @@
                             <components:PasswordBoxBindingBehavior Password="{Binding FirstPassword}"/>
                         </i:Interaction.Behaviors>
                     </PasswordBox>
-                    <TextBlock Text="Повторите новый пароль: "
+                    <TextBlock Text="{DynamicResource m_RepeatNewPassword}"
                                FontSize="16"
                                Grid.Row="2"
                                Grid.Column="0"
@@ -293,7 +297,7 @@
                         </i:Interaction.Behaviors>
                     </PasswordBox>
                     <Button Template="{DynamicResource DarkButton}"
-                            Content="Отправить код на почту"
+                            Content="{DynamicResource m_SendCodeToMail}"
                             Width="220"
                             Margin="10 0"
                             HorizontalAlignment="Left"
@@ -301,7 +305,7 @@
                             Grid.Column="2"
                             Command="{Binding SendMessageCommand}"
                             Grid.Row="2"/>
-                    <TextBlock Text="Ввести код подтверждения: "
+                    <TextBlock Text="{DynamicResource m_EnterConfirmationCode}"
                                Grid.Column="0"
                                VerticalAlignment="Bottom"
                                HorizontalAlignment="Right"
@@ -318,7 +322,7 @@
                              Style="{DynamicResource MaterialDesignTextBox}" />
                     <Button Template="{DynamicResource LightButton2}"
                             Command="{Binding ApplyPasswordCommand}"
-                            Content="Подтвердить"
+                            Content="{DynamicResource m_Confirm}"
                             Width="220"
                             Padding="0"
                             Margin="10 0"

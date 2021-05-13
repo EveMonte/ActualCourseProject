@@ -5,8 +5,12 @@
         <Setter Property="Background" Value="#F4F2EF" />
         <Setter Property="Foreground" Value="Black" />
     </Style>
+    <Style x:Key="PageStyle" TargetType="Page">
+        <Setter Property="Background" Value="#F4F2EF" />
+        <Setter Property="Foreground" Value="Black" />
+    </Style>
     <Style x:Key="TextBlockStyle" TargetType="TextBlock">
-        <Setter Property="Background"  Value="Black" />
+        <Setter Property="Foreground"  Value="Black" />
     </Style>
     <Style x:Key="LabelStyle" TargetType="Label">
         <Setter Property="Background"  Value="Black" />

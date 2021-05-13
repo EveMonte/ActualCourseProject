@@ -263,7 +263,6 @@ C:\Users\User\Desktop\OOP10-master\Курсач\bin\Debug\LibraryDataBase.db
 C:\Users\User\Desktop\OOP10-master\Курсач\bin\Debug\Курсач.exe.config
 C:\Users\User\Desktop\OOP10-master\Курсач\bin\Debug\Курсач.exe
 C:\Users\User\Desktop\OOP10-master\Курсач\bin\Debug\Курсач.pdb
-C:\Users\User\Desktop\OOP10-master\Курсач\bin\Debug\en\Курсач.resources.dll
 C:\Users\User\Desktop\OOP10-master\Курсач\bin\Debug\BouncyCastle.Crypto.dll
 C:\Users\User\Desktop\OOP10-master\Курсач\bin\Debug\EntityFramework.dll
 C:\Users\User\Desktop\OOP10-master\Курсач\bin\Debug\EntityFramework.SqlServer.dll
@@ -341,12 +340,9 @@ C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\UserControls\YourBook.
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Views\MainWindow.baml
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Views\Workframe.baml
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Курсач.g.resources
-C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Курсач.Properties.Languages.Languages.resources
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Курсач.Properties.Resources.resources
-C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Курсач.Properties.Languages.Languages.en.resources
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Курсач.csproj.GenerateResource.cache
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Курсач.csproj.CoreCompileInputs.cache
-C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\en\Курсач.resources.dll
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Курсач.csproj.CopyComplete
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Курсач.exe
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Курсач.pdb
@@ -369,3 +365,8 @@ C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\UserControls\ConfirmSu
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\UserControls\ConfirmSubscription.baml
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Pages\Settings.g.cs
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Pages\Settings.baml
+C:\Users\User\Desktop\OOP10-master\Курсач\bin\Debug\ToastNotifications.dll
+C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Resources\lang.en-En.baml
+C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Resources\lang.baml
+C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Views\AdminWindow.g.cs
+C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Views\AdminWindow.baml

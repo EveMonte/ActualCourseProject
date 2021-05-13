@@ -35,7 +35,7 @@
                                      Height="40"
                                      Width="40"/>
         </Button>
-        <TextBlock Text="Подтверждение покупки"
+        <TextBlock Text="{DynamicResource m_ConfirmationOfPurchase}"
                    Foreground="White"
                    Grid.Column="1"
                    Grid.ColumnSpan="2"
@@ -49,7 +49,7 @@
                 VerticalAlignment="Bottom"
                 Height="60"
                 FontSize="18"
-                Content="Отменить покупку"
+                Content="{DynamicResource m_CancelPurchase}"
                 Command="{Binding CancelCommand}"
                 Template="{DynamicResource LightButton}" />
         <Button Grid.Row="2"
@@ -59,7 +59,7 @@
                 FontSize="18"
                 VerticalAlignment="Bottom"
                 Command="{Binding BuyTheBookCommand}"
-                Content="Подтвердить покупку"
+                Content="{DynamicResource m_ConfirmPurchase}"
                 Template="{DynamicResource DarkButton}" />
         <TextBlock Text="{Binding InfoText}"
                    Grid.Row="1"

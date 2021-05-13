@@ -22,7 +22,7 @@
             <RowDefinition Height="1*" />
 
         </Grid.RowDefinitions>
-            <TextBlock Text="Похожие книги:"
+            <TextBlock Text="{DynamicResource m_SimilarBooks}"
                        Grid.Row="2"
                        FontSize="22"
                        HorizontalAlignment="Center"
@@ -40,7 +40,8 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border>
-                        <userControl:BookUserControl Width="130" Height="280" />
+                        <userControl:BookUserControl Width="130"
+                                                     Height="280" />
                         <Border.InputBindings>
                             <MouseBinding MouseAction="{x:Static MouseAction.LeftDoubleClick}"
                                           Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=DataContext.OpenFullInfo}" />
@@ -50,7 +51,8 @@
             </ListBox.ItemTemplate>
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Top" />
+                    <WrapPanel HorizontalAlignment="Center"
+                               VerticalAlignment="Top" />
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
         </ListBox>

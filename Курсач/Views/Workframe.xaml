@@ -8,7 +8,6 @@
         xmlns:model="clr-namespace:Курсач.ViewModels"
         xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
         mc:Ignorable="d"
-        xmlns:language="clr-namespace:Курсач.Properties.Languages"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Title="Bookварь"
         WindowState="Maximized"
@@ -45,7 +44,7 @@
                        FontSize="20"
                        Foreground="White"
                        VerticalAlignment="Center"
-                       Text="Множество бесплатных книг при покупке месячного абонемента" />
+                       Text="{DynamicResource m_SubscriptionAdvertisment}" />
             </StackPanel>
             <Grid x:Name="sidePanel"
               Grid.RowSpan="5"
@@ -112,7 +111,7 @@
                                     Command="{Binding OpenYourBooksCommand}">
                                     <StackPanel Orientation="Horizontal"
                                         VerticalAlignment="Stretch">
-                                        <materialDesign:PackIcon Kind="Books"
+                                        <materialDesign:PackIcon Kind="Bookshelf"
                                                              Width="40"
                                                              Height="40"
                                                              Margin="10,0,10,0"

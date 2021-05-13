@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:Курсач.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="280" d:DesignWidth="130">
-    <Grid Background="White" Style="{DynamicResource GridStyle}">
+    <Grid Style="{DynamicResource GridMainStyle}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
@@ -16,7 +16,11 @@
             <RowDefinition Height="20*" />
             <RowDefinition Height="60*" />
         </Grid.RowDefinitions>
-        <Image Height="200" Width="130" Grid.Column="0" Grid.Row="0" Source="{Binding COVER}" />
+        <Image Height="200"
+               Width="130"
+               Grid.Column="0"
+               Grid.Row="0"
+               Source="{Binding COVER}" />
         <Image Source="/Media/ЛентаАбонемент.png"
                VerticalAlignment="Top"
                HorizontalAlignment="Left"
@@ -28,11 +32,15 @@
                     <TextBlock Text="{Binding RATING}" />
                 </StackPanel>
             </StackPanel>
-            <TextBlock DockPanel.Dock="Right" HorizontalAlignment="Right" Text="{Binding FormattedPrice}" />
+            <TextBlock DockPanel.Dock="Right"
+                       HorizontalAlignment="Right"
+                       Text="{Binding FormattedPrice}" />
         </DockPanel>
         <StackPanel Grid.Row="2">
-            <TextBlock TextWrapping="Wrap" Text="{Binding AUTHOR}" />
-            <TextBlock TextWrapping="Wrap" Text="{Binding TITLE}" />
+            <TextBlock TextWrapping="Wrap"
+                       Text="{Binding AUTHOR}" />
+            <TextBlock TextWrapping="Wrap"
+                       Text="{Binding TITLE}" />
         </StackPanel>
     </Grid>
 </UserControl>

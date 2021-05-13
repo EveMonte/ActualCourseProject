@@ -30,8 +30,8 @@
                     HorizontalAlignment="Stretch">
             <StackPanel Orientation="Horizontal">
                 <TextBlock FontSize="16"
-                           Margin="15, 5, 0, 0"
-                           Text="Название книги: " />
+                           Margin="15, 5, 5, 0"
+                           Text="{DynamicResource m_BookTitle}" />
                 <TextBlock FontSize="16"
                            Margin="0, 5, 0, 0"
                            Text="{Binding TITLE}" />
@@ -42,7 +42,8 @@
             <StackPanel Margin="15, 5, 0, 0"
                         Orientation="Horizontal">
                 <TextBlock FontSize="16"
-                           Text="Автор: " />
+                           Margin="0, 0, 5, 0"
+                           Text="{DynamicResource m_Author}" />
                 <TextBlock FontSize="16"
                            Text="{Binding AUTHOR}" />
             </StackPanel>
@@ -80,7 +81,7 @@
                             Command="{Binding DataContext.MarkCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
                             CommandParameter="{Binding BOOK_ID}"
                             HorizontalAlignment="Right"
-                            Content="Поставить оценку">
+                            Content="{DynamicResource m_RateTheBook}">
                     </Button>
                 </StackPanel>
             </DockPanel>
@@ -90,7 +91,7 @@
                     Grid.Column="1"
                     Width="Auto"
                     Height="50"
-                    Content="Открыть"
+                    Content="{DynamicResource m_Open}"
                     Padding="0"
                 FontSize="18"
                     Command="{Binding DataContext.DownloadCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"

@@ -35,7 +35,7 @@
                                      Width="40"
                                      Height="40" />
         </Button>
-        <TextBlock Text="Добавьте банковскую карту"
+        <TextBlock Text="{DynamicResource m_AddCreditCard}"
                    Foreground="White"
                    Grid.Column="1"
                    HorizontalAlignment="Center"
@@ -63,14 +63,14 @@
                 <StackPanel Grid.Row="1"
                             Grid.ColumnSpan="2"
                             HorizontalAlignment="Right">
-                    <TextBlock Text="Номер карты"
+                    <TextBlock Text="{DynamicResource m_CardNumber}"
                                FontFamily="Tahoma"
                                Margin="0 5"
                                FontSize="14"/>
                     <TextBox Width="150"
                              Background="#F4F2EF"
                              Style="{DynamicResource MaterialDesignTextBox}"
-                             materialDesign:HintAssist.Hint="16 цифр"
+                             materialDesign:HintAssist.Hint="{DynamicResource m_16digits}"
                              Text="{Binding CREDIT_CARD}"
                              MaxLength="16"/>
                 </StackPanel>
@@ -80,7 +80,7 @@
                             VerticalAlignment="Bottom"
                             Orientation="Horizontal"
                             HorizontalAlignment="Right">
-                    <TextBlock Text="Срок действия"
+                    <TextBlock Text="{DynamicResource m_Validity}"
                                TextAlignment="Right"
                                VerticalAlignment="Center"
                                Width="100"
@@ -89,7 +89,7 @@
                                FontSize="14"/>
                     <TextBox Width="60"
                              Style="{DynamicResource MaterialDesignTextBox}"
-                             materialDesign:HintAssist.Hint="ММ/ГГ"
+                             materialDesign:HintAssist.Hint="{DynamicResource m_MM/YY}"
                              Background="#F4F2EF"
                              Text="{Binding Validity}"/>
                 </StackPanel>
@@ -105,7 +105,7 @@
                              Style="{DynamicResource MaterialDesignTextBox}"
                              Background="#F4F2EF"
                              MaxLength="3"
-                             materialDesign:HintAssist.Hint="3 цифры"
+                             materialDesign:HintAssist.Hint="{DynamicResource m_3digits}"
                              Text="{Binding CVV}"/>
                 </StackPanel>
             </Grid>
@@ -116,7 +116,7 @@
                 Width="200"
                 Height="50"
                 Command="{Binding AddCardCommand}"
-                Content="Добавить карту"
+                Content="{DynamicResource m_AddCard}"
                 FontSize="16"/>
     </Grid>
 </UserControl>

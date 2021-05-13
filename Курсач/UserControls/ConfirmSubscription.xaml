@@ -34,7 +34,7 @@
                                      Height="40"
                                      Width="40"/>
         </Button>
-        <TextBlock Text="Оформление абонемента"
+        <TextBlock Text="{DynamicResource m_RegistrationOfTheSubscription}"
                    Foreground="White"
                    Grid.Column="1"
                    Grid.ColumnSpan="2"
@@ -48,7 +48,7 @@
                 VerticalAlignment="Bottom"
                 Height="60"
                 FontSize="18"
-                Content="Отменить"
+                Content="{DynamicResource m_Cancel}"
                 Command="{Binding CancelCommand}"
                 Template="{DynamicResource LightButton}" />
         <Button Grid.Row="2"
@@ -58,7 +58,7 @@
                 FontSize="18"
                 VerticalAlignment="Bottom"
                 Command="{Binding ConfirmSubscriptionCommand}"
-                Content="Оформить абонемент"
+                Content="{DynamicResource m_Subscribe}"
                 Template="{DynamicResource DarkButton}" />
         <TextBlock Text="{Binding InfoText}"
                    Grid.Row="1"

@@ -5,7 +5,6 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Курсач.Pages"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      xmlns:language="clr-namespace:Курсач.Properties.Languages"
       xmlns:userControls="clr-namespace:Курсач.UserControls"
       mc:Ignorable="d" 
       Title="ListOfBooks">
@@ -16,7 +15,7 @@
         </Grid.RowDefinitions>
         <Grid Style="{DynamicResource GridMainStyle}"
               Grid.Row="1"
-              Width="1300" />
+              Width="1200" />
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
@@ -37,13 +36,13 @@
             <TextBox VerticalAlignment="Center"
                      Grid.Column="1"
                      x:Name="Search"
-                     materialDesign:HintAssist.Hint="{x:Static language:Languages.search}"
+                     materialDesign:HintAssist.Hint="{DynamicResource m_Filter}"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      FontSize="16"
                      MaxHeight="50"
                      Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Grid.Column="2"
-                       Text="Ваша Полка"
+                       Text="{DynamicResource m_Shelf}"
                        FontFamily="Tahoma"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
@@ -65,11 +64,11 @@
                         <DataTemplate>
                             <TextBlock Margin="0" Text="{Binding GENRE}"
                                        VerticalAlignment="Bottom"
-                                       HorizontalAlignment="Center"/>
+                                       HorizontalAlignment="Left"/>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                <Button Content="Жанр"
+                <Button Content="{DynamicResource m_Genre}"
                         VerticalAlignment="Center"
                         Template="{DynamicResource LightButton2}"
                         Command="{Binding FindByGenreCommand}"

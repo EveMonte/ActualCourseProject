@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Курсач"
-             xmlns:language="clr-namespace:Курсач.Properties.Languages"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:components="clr-namespace:Курсач.Helpers"
@@ -30,7 +29,7 @@
                          Text="{Binding SecondName}"
                          Margin="18,0,10,0"
                          HorizontalAlignment="Stretch"
-                         materialDesign:HintAssist.Hint="Фамилия"
+                         materialDesign:HintAssist.Hint="{DynamicResource m_SecondName}"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                          FontSize="16"
                          />
@@ -40,7 +39,7 @@
                          HorizontalAlignment="Stretch"
                          Text="{Binding Name}"
                          Margin="10,0,18,0"
-                         materialDesign:HintAssist.Hint="Имя"
+                         materialDesign:HintAssist.Hint="{DynamicResource m_Name}"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                          FontSize="16" />
             </Grid>
@@ -58,19 +57,19 @@
                      x:Name="password1Box"
                      Margin="18,0"
                      Style="{DynamicResource MaterialDesignFloatingHintPasswordBox}"
-                     materialDesign:HintAssist.Hint="Пароль"
+                     materialDesign:HintAssist.Hint="{DynamicResource m_Password}"
                      FontSize="16" >
             <i:Interaction.Behaviors>
                 <components:PasswordBoxBindingBehavior Password="{Binding FirstPassword}"/>
             </i:Interaction.Behaviors>
         </PasswordBox>
         <PasswordBox Grid.Row="3"
-                         MaxHeight="50"
-                         x:Name="password2Box"
-                         Margin="18,0"
+                     MaxHeight="50"
+                     x:Name="password2Box"
+                     Margin="18,0"
                      Style="{DynamicResource MaterialDesignFloatingHintPasswordBox}"
-                         materialDesign:HintAssist.Hint="Повторите пароль"
-                         FontSize="16" >
+                     materialDesign:HintAssist.Hint="{DynamicResource m_RepeatPassword}"
+                     FontSize="16" >
             <i:Interaction.Behaviors>
                 <components:PasswordBoxBindingBehavior Password="{Binding SecondPassword}"/>
             </i:Interaction.Behaviors>
@@ -82,7 +81,7 @@
                     Height="Auto"
                     Margin="15 7"
                     FontSize="20"
-                    Content="{x:Static language:Languages.createAccount}"
+                    Content="{DynamicResource m_CreateAnAccount}"
                      />
         <StackPanel Grid.Row="5">
             <Button Width="120" Padding="0"
@@ -92,7 +91,7 @@
                 <Label Cursor="Hand"
                    HorizontalAlignment="Center"
                    Margin="0,0,0,0"
-                   Content="{x:Static language:Languages.already}"
+                   Content="{DynamicResource m_AlreadyHaveAnAccount}"
                    FontSize="14"
                    Foreground="#FF1877F3" />
             </Button>

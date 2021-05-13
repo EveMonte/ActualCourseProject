@@ -29,8 +29,8 @@
                     HorizontalAlignment="Stretch">
             <StackPanel Orientation="Horizontal">
                 <TextBlock FontSize="16"
-                           Margin="15, 5, 0, 0"
-                           Text="Название книги: " />
+                           Margin="15, 5, 5, 0"
+                           Text="{DynamicResource m_BookTitle}" />
                 <TextBlock FontSize="16"
                            Margin="0, 5, 0, 0"
                            Text="{Binding TITLE}" />
@@ -41,7 +41,8 @@
             <StackPanel Margin="15, 5, 0, 0"
                         Orientation="Horizontal">
                 <TextBlock FontSize="16"
-                           Text="Автор: " />
+                           Margin="0, 0, 5, 0"
+                           Text="{DynamicResource m_Author}" />
                 <TextBlock FontSize="16"
                            Text="{Binding AUTHOR}" />
             </StackPanel>
@@ -79,7 +80,7 @@
                             Command="{Binding DataContext.MarkCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
                             CommandParameter="{Binding BOOK_ID}"
                             HorizontalAlignment="Right"
-                            Content="Поставить оценку">
+                            Content="{DynamicResource m_RateTheBook}">
                     </Button>
                 </StackPanel>
             </DockPanel>
@@ -95,15 +96,15 @@
                     Command="{Binding DataContext.BuyCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
                     CommandParameter="{Binding BOOK_ID}"
                     Padding="0"
-                    Content="Купить книгу" />
+                    Content="{DynamicResource m_BuyTheBook}" />
             <Button Template="{DynamicResource DarkButton}"
                     Width="200"
                     Margin="20, 0, 0, 0"
                     FontSize="16"
-                    Content="Удалить из корзины"
+                    Content="{DynamicResource m_RemoveFromBasket}"
                     Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
                     CommandParameter="{Binding BOOK_ID}"
-                    Height="50" />        
+                    Height="50" />
         </StackPanel>
         <TextBlock FontSize="16"
                    TextWrapping="Wrap"

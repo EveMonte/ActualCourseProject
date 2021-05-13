@@ -5,8 +5,9 @@
              xmlns:userControls="clr-namespace:Курсач.UserControls"
              xmlns:pages="clr-namespace:Курсач.Pages"
              xmlns:viewmodels="clr-namespace:Курсач.ViewModels"
-             StartupUri="Views\MainWindow.xaml"
-             ShutdownMode="OnLastWindowClose">
+             StartupUri="Views\AdminWindow.xaml"
+             ShutdownMode="OnLastWindowClose"
+             LoadCompleted="Application_LoadCompleted">
     <Application.Resources>
 
         <ResourceDictionary>
@@ -66,13 +67,16 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Blue.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Purple.xaml" />
+                
                 <ResourceDictionary Source="Themes\darkTheme.xaml" />
                 <ResourceDictionary Source="Themes\lightTheme.xaml" />
+                
                 <ResourceDictionary Source="Templates\LightButtonTemplate.xaml" />
                 <ResourceDictionary Source="Templates\LightButton2Template.xaml" />
                 <ResourceDictionary Source="Templates\DarkButtonTemplate.xaml" />
                 <ResourceDictionary Source="Templates\RedButtonTemplate.xaml" />
 
+                <ResourceDictionary Source="Resources\lang.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

@@ -73,9 +73,16 @@ namespace Курсач.ViewModels
                         {
                             currentUser = u;
                             WorkFrameSingleTone.GetInstance(new WorkframeViewModel(u)).WorkframeViewModel.currentUser = u;
-
-                            Workframe workframe = new Workframe();
-                            workframe.Show();
+                            if(u.ACCOUNT == "Admin")
+                            {
+                                AdminWindow adminWindow = new AdminWindow();
+                                adminWindow.Show();
+                            }
+                            else
+                            {
+                                Workframe workframe = new Workframe();
+                                workframe.Show();
+                            }
                             var windows = Application.Current.Windows;
                             foreach (Window window in windows)
                                 if (window != null && window is MainWindow)

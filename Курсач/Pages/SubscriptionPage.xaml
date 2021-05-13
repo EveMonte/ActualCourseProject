@@ -52,7 +52,7 @@
                    Grid.Row="0"
                    Margin="15"
                    HorizontalAlignment="Left"/>
-            <TextBlock Text="Приобретите абонемент на BookВарь и Вы получите доступ к огромной библиотеке книг всего за 8.99$/месяц"
+            <TextBlock Text="{DynamicResource m_SubscriptionTop}"
                        TextWrapping="Wrap"
                        FontSize="20"
                        FontFamily="Tahoma"
@@ -62,7 +62,7 @@
                        Margin="15"
                        Grid.Row="0"
                        />
-            <TextBlock Text="Вы можете выбрать один из двух тарифов: на месяц, либо на год. В любом случае вы получите бесплатный месяц погружения в увлекательный мир шедевров мировой литературы"
+            <TextBlock Text="{DynamicResource m_SubscriptionFreeMonth}"
                        FontSize="18"
                        FontFamily="Tahoma"
                        TextWrapping="Wrap"
@@ -98,18 +98,19 @@
                                               Opacity="0.9"/>
                         </Image.Effect>
                     </Image>
-                    <TextBlock Text="Вы можете приобрести абонемент за 8.99$ и наслаждаться целый месяц книгами, доступными для вас совершенно бесплатно..."
+                    <TextBlock Text="{DynamicResource m_SubscriptonOneMonth}"
                                TextWrapping="Wrap"
                                Grid.Column="1"
                                FontSize="20"
                                VerticalAlignment="Center"
                                TextAlignment="Justify"
+                               Margin="15"
                                HorizontalAlignment="Center"
                                Grid.Row="0"
                                FontFamily="Tahoma"/>
                     <Button Template="{DynamicResource LightButton}"
                             Command="{Binding MonthSubscriptionCommand}"
-                            Content="Приобрести подписку на месяц"
+                            Content="{DynamicResource m_SubscribeForMonth}"
                             Grid.Column="1"
                             Grid.Row="1"
                             FontSize="18"
@@ -143,17 +144,18 @@
                                               Opacity="0.9"/>
                         </Image.Effect>
                     </Image>
-                    <TextBlock Text="...А можете сэкономить более 20% и провести аж целый год в обществе любимых литературных героев всего за 85.99$"
+                    <TextBlock Text="{DynamicResource m_SubscriptionOneYear}"
                                TextWrapping="Wrap"
                                Grid.Column="1"
                                FontSize="20"
                                VerticalAlignment="Center"
                                Grid.Row="0"
+                               Margin="15"
                                TextAlignment="Justify"
                                HorizontalAlignment="Center"
                                FontFamily="Tahoma"/>
                     <Button Template="{DynamicResource LightButton}"
-                            Content="Приобрести подписку на год"
+                            Content="{DynamicResource m_SubscribeForYear}"
                             Grid.Column="1"
                             Grid.Row="1"
                             Command="{Binding YearSubscriptionCommand}"

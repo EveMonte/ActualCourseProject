@@ -196,6 +196,7 @@ namespace Курсач.ViewModels
         public ICommand ApplyCreditCardCommand { get; private set; } // Open UserControl where user fills fields with credit card's data
         public ICommand ApplyEmailCommand { get; private set; } // Compare generated code with written code to confirm email change
         public ICommand ApplyPasswordCommand { get; private set; } // Compare generated code with written code to confirm password change
+        public ICommand SignOutCommand { get; private set; } // Closes Workframe window and opens registration window
         #endregion
 
         //Constructor
@@ -206,6 +207,8 @@ namespace Курсач.ViewModels
             ApplyPasswordCommand = new DelegateCommand(ApplyPassword);
             ApplyCreditCardCommand = new DelegateCommand(ApplyCreditCard);
             SendMessageCommand = new DelegateCommand(SendMessage);
+            SignOutCommand = new DelegateCommand(OpenRegistrationWindow);
+
             //////////////////////////////////////////////////////
             //Get necessary info about current user
             currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser;
@@ -285,12 +288,7 @@ namespace Курсач.ViewModels
                 SecondPassword.Dispose();
                 OldPassword.Dispose();
             }
-            MainWindow main = new MainWindow();
-            main.Show();
-            var windows = Application.Current.Windows;
-            foreach(Window window in windows)
-                if (window != null && window is Workframe)
-                    window.Close();
+            OpenRegistrationWindow(obj);
 
         }
 
@@ -315,10 +313,7 @@ namespace Курсач.ViewModels
 
                 currentUser.EMAIL = NewEmail;
                 db.SaveChangesAsync().GetAwaiter();
-                var window = Application.Current.Windows[0];
-                if (window != null)
-                    window.Close();
-                (new MainWindow()).Show();
+                OpenRegistrationWindow(obj);
             }
 
         }
@@ -333,6 +328,14 @@ namespace Курсач.ViewModels
             mainCode = MessageSender.GenerateCode();
             string message = $"С Вашей учетной записи поступил запрос на смену личных данных. Если это были Вы, то введите символьный код, расположенный ниже, в приложение:\n{mainCode}\nИначе свяжитесь с администрацией приложения!";
             MessageSender.SendEmailAsync(currentUser.EMAIL, mainCode, message, "Смена личных данных").GetAwaiter();
+        }
+
+        public void OpenRegistrationWindow(object obj)
+        {
+            var window = Application.Current.Windows[0];
+            if (window != null)
+                window.Close();
+            (new MainWindow()).Show();
         }
         #endregion
     }

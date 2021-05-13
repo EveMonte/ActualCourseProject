@@ -6,7 +6,8 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:Курсач.Pages"
       mc:Ignorable="d" 
-      Title="Settings">
+      Title="Settings"
+      Style="{DynamicResource PageStyle}">
 
     <Grid Style="{DynamicResource GridMainStyle}">
         <Grid.RowDefinitions>
@@ -29,7 +30,8 @@
                 Grid.ColumnSpan="2"
                 Grid.RowSpan="7" />
         <TextBlock FontSize="24"
-                   Text="Настройки"
+                   Text="{DynamicResource m_Settings}"
+                   Style="{DynamicResource TextBlockStyle}"
                    Grid.Row="0"
                    Grid.ColumnSpan="4"
                    FontFamily="Tahoma"
@@ -38,6 +40,7 @@
         <Grid Grid.Row="1"
               Grid.RowSpan="4"
               Grid.Column="1"
+              Style="{DynamicResource GridStyle}"
               Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition />
@@ -54,7 +57,7 @@
                         Grid.Row="0"
                         HorizontalAlignment="Right"
                         Grid.Column="0">
-                <TextBlock Text="Сменить тему приложения"
+                <TextBlock Text="{DynamicResource m_ChangeAppTheme}"
                            FontSize="18"
                            FontFamily="Tahoma"
                            VerticalAlignment="Center"
@@ -65,17 +68,17 @@
                                          Height="25"/>
             </StackPanel>            
             <ComboBox Width="150"
-                      SelectedItem="{Binding NewTheme}"
+                      SelectedIndex="{Binding ThemeChoice}"
                       FontSize="16"
                       Grid.Column="1"
                       Grid.Row="0"
                       FontFamily="Tahoma"
                       VerticalAlignment="Center">
-                <ComboBoxItem Content="Светлая"/>
-                <ComboBoxItem Content="Темная" />
+                <ComboBoxItem Content="{DynamicResource m_Light}"/>
+                <ComboBoxItem Content="{DynamicResource m_Dark}" />
             </ComboBox>
             <Button Template="{DynamicResource LightButton2}"
-                    Content="Подтвердить"
+                    Content="{DynamicResource m_Confirm}"
                     Grid.Column="2"
                     Grid.Row="0"
                     HorizontalAlignment="Left"
@@ -85,7 +88,7 @@
                         Grid.Row="1"
                         HorizontalAlignment="Right"
                         Grid.Column="0">
-                <TextBlock Text="Сменить язык приложения"
+                <TextBlock Text="{DynamicResource m_ChangeAppLanguage}"
                        FontSize="18"
                        FontFamily="Tahoma"
                        VerticalAlignment="Center"
@@ -99,14 +102,14 @@
                       FontSize="16"
                       Grid.Row="1"
                       Grid.Column="1"
-                      SelectedItem="{Binding NewLang}"
+                      SelectedIndex="{Binding NewLang}"
                       FontFamily="Tahoma"
                       VerticalAlignment="Center">
-                <ComboBoxItem Content="Русский"/>
-                <ComboBoxItem Content="Английский" />
+                <ComboBoxItem Content="{DynamicResource m_Russian}"/>
+                <ComboBoxItem Content="{DynamicResource m_English}" />
             </ComboBox>
             <Button Template="{DynamicResource LightButton2}"
-                    Content="Подтвердить"
+                    Content="{DynamicResource m_Confirm}"
                     Grid.Column="2"
                     HorizontalAlignment="Left"
                     Grid.Row="1"
@@ -116,7 +119,7 @@
                         Grid.Row="2"
                         HorizontalAlignment="Right"
                         Grid.Column="0">
-                <TextBlock Text="О программе"
+                <TextBlock Text="{DynamicResource m_AboutApp}"
                        FontSize="18"
                        VerticalAlignment="Center"
                        FontFamily="Tahoma"
@@ -133,12 +136,12 @@
                         Grid.Column="2"
                         Grid.Row="2"
                     HorizontalAlignment="Left"
-                        Content="Открыть"/>
+                        Content="{DynamicResource m_Open}"/>
             <StackPanel Orientation="Horizontal"
                         Grid.Row="3"
                         HorizontalAlignment="Right"
                         Grid.Column="0">
-                <TextBlock Text="Выход из приложения"
+                <TextBlock Text="{DynamicResource m_ExitApp}"
                            FontSize="18"
                            Margin="0, 0, 10, 0"
                            VerticalAlignment="Center"
@@ -148,7 +151,7 @@
                                          VerticalAlignment="Center"
                                          Height="25"/>
             </StackPanel>
-            <Button Content="Выйти"
+            <Button Content="{DynamicResource m_Exit}"
                     Grid.Column="2"
                     Grid.Row="3"
                     Command="{Binding ExitCommand}"

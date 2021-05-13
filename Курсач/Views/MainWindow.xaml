@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Курсач"
         mc:Ignorable="d"
-        xmlns:language="clr-namespace:Курсач.Properties.Languages"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Title="Bookварь" WindowState="Maximized"
         Icon="C:\Users\User\Desktop\Курсааааач\Курсач\Курсач\Media\Логотип.png"
@@ -40,33 +39,49 @@
                        FontFamily="Tahoma" />
 
         </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="1"
-                    HorizontalAlignment="Center" Orientation="Vertical">
+        <StackPanel Grid.Row="1"
+                    Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    Orientation="Vertical">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0.5*" />
                     <RowDefinition Height="0.5*" />
                     <RowDefinition Height="2*" />
                 </Grid.RowDefinitions>
-                <Image Style="{DynamicResource ImageStyle}" Grid.Row="0" />
-                <TextBlock Grid.Row="1" Text="{x:Static language:Languages.recent}"
-                           TextAlignment="Center" VerticalAlignment="Bottom"
-                           FontSize="20" Margin="0,40,0,0" />
+                <Image Style="{DynamicResource ImageStyle}"
+                       Grid.Row="0" />
+                <TextBlock Grid.Row="1"
+                           Text="{DynamicResource m_Recent}"
+                           TextAlignment="Center"
+                           VerticalAlignment="Bottom"
+                           FontSize="20"
+                           Margin="0,40,0,0" />
                 <StackPanel Grid.Row="2">
-                    <materialDesign:PackIcon Kind="Account" HorizontalAlignment="Center"
-                                             Width="Auto" Height="Auto"/>
-                    <TextBlock  Text="Дмитрий" TextAlignment="Center"
-                                FontSize="18" FontFamily="Tahoma" />
+                    <materialDesign:PackIcon Kind="Account"
+                                             HorizontalAlignment="Center"
+                                             Width="Auto"
+                                             Height="Auto"/>
+                    <TextBlock  Text="Дмитрий"
+                                TextAlignment="Center"
+                                FontSize="18"
+                                FontFamily="Tahoma" />
                 </StackPanel>
             </Grid>
         </StackPanel>
-        <ContentControl Grid.Row="1" Grid.Column="3"
+        <ContentControl Grid.Row="1"
+                        Grid.Column="3"
                         Content="{Binding SelectedViewModel, Mode=TwoWay}" >
             
         </ContentControl>
-        <TextBlock TextWrapping="Wrap" Margin="0, 18, 0, 0" TextAlignment="Center" Grid.Column="3"
-                   Grid.Row="2" FontSize="18" FontFamily="Tahoma">
-            <Bold >Войти</Bold> в учетную запись пользователя или<LineBreak />администратора онлайн-библиотеки <Bold>Bookварь</Bold></TextBlock>
+        <TextBlock TextWrapping="Wrap"
+                   Margin="0, 18, 0, 0"
+                   TextAlignment="Center"
+                   Grid.Column="3"
+                   Grid.Row="2"
+                   FontSize="18"
+                   FontFamily="Tahoma" 
+                   Text="{DynamicResource m_SignInText}"/>
         <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" Background="White">
         </StackPanel>
         <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5" Style="{DynamicResource GridStyle}">
@@ -88,35 +103,40 @@
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <StackPanel HorizontalAlignment="Left" Grid.Row="0" Grid.RowSpan="3" Grid.Column="1"
+            <StackPanel HorizontalAlignment="Left"
+                        Grid.Row="0"
+                        Grid.RowSpan="3"
+                        Grid.Column="1"
                         VerticalAlignment="Center">
-                <TextBlock MaxWidth="170" Text="Bookварь©2021" Cursor="Hand"
-                           FontSize="20" FontFamily="Tahoma"  Margin="0,0,0,10" />
-                <WrapPanel>
-                    <TextBlock TextWrapping="Wrap" Text="Вкл/выкл темную тему" Margin="0, 0, 10, 0" FontSize="16"/>
-                    <ToggleButton Command="{Binding Path=ToggleCommand}" IsChecked="{Binding Path=ThemeChoice, Mode=TwoWay}"
-                                  x:Name="theme" VerticalAlignment="Bottom" HorizontalAlignment="Right"
-                                  Style="{StaticResource MaterialDesignSwitchToggleButton}"
-                          ToolTip="Сменить тему" materialDesign:ShadowAssist.ShadowDepth="Depth3">
-
-                    </ToggleButton>
-                </WrapPanel>
+                <TextBlock MaxWidth="170"
+                           Text="BookВарь©2021"
+                           Cursor="Hand"
+                           FontSize="20"
+                           FontFamily="Tahoma"
+                           Margin="0,0,0,10" />
             </StackPanel>
             <TextBlock Grid.RowSpan="3" TextWrapping="Wrap" VerticalAlignment="Center"
                        Grid.Row="0" Grid.Column="3" FontSize="20"
-                       FontFamily="Tahoma" TextAlignment="Center">
-                Приложение Bookварь доступно<LineBreak/>на всех мобильных платформах
-            </TextBlock>
-                <Image Grid.Row="1" Cursor="Hand" Grid.Column="5"
-                       HorizontalAlignment="Left" MaxHeight="45"
+                       FontFamily="Tahoma" TextAlignment="Center"
+                       Text="{DynamicResource m_Availability}" />
+            <Image Grid.Row="1"
+                   Cursor="Hand"
+                   Grid.Column="5"
+                       HorizontalAlignment="Left"
+                   MaxHeight="45"
                    VerticalAlignment="Center"
                        Source="C:\Users\User\Desktop\Курсааааач\Курсач\Курсач\Media\gugl_play.png"/>
-                <Image Cursor="Hand" Grid.Column="7"
-                       HorizontalAlignment="Left" MaxHeight="45"  Grid.Row="1"
+                <Image Cursor="Hand"
+                       Grid.Column="7"
+                       HorizontalAlignment="Left"
+                       MaxHeight="45" 
+                       Grid.Row="1"
                        VerticalAlignment="Center"
                        Source="C:\Users\User\Desktop\Курсааааач\Курсач\Курсач\Media\apple.png"/>
                 <Image Cursor="Hand" Grid.Column="9"
-                       HorizontalAlignment="Left" MaxHeight="45"  Grid.Row="1"
+                       HorizontalAlignment="Left"
+                       MaxHeight="45"
+                       Grid.Row="1"
                        VerticalAlignment="Center"
                        Source="C:\Users\User\Desktop\Курсааааач\Курсач\Курсач\Media\appGallery.png"/>
         </Grid>            

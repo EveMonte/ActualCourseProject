@@ -4,14 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Курсач"
-             xmlns:language="clr-namespace:Курсач.Properties.Languages"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:components="clr-namespace:Курсач.Helpers"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d"
              >
     <Grid>
-            <Grid VerticalAlignment="Stretch" Style="{DynamicResource GridStyle}">
+            <Grid VerticalAlignment="Stretch"
+                  Style="{DynamicResource GridStyle}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
@@ -29,18 +29,19 @@
                          x:Name="emailTextBox"
                          VerticalContentAlignment="Center"
                          Margin="18, 0,18,0"
-                         materialDesign:HintAssist.Hint="{x:Static language:Languages.enterLogin}"
-                         Style="{DynamicResource MaterialDesignFloatingHintTextBox }" FontSize="16" />
+                         materialDesign:HintAssist.Hint="{DynamicResource m_EnterLogin}"
+                         Style="{DynamicResource MaterialDesignFloatingHintTextBox }"
+                         FontSize="16" />
             <PasswordBox MaxHeight="50"
-                                                MinHeight="40"
-                                                Grid.Row="1"
-                                                Grid.ColumnSpan="4"
-                                                x:Name="passwordTextBox"
-                                                VerticalContentAlignment="Center"
+                         MinHeight="40"
+                         Grid.Row="1"
+                         Grid.ColumnSpan="4"
+                         x:Name="passwordTextBox"
+                         VerticalContentAlignment="Center"
                          Style="{DynamicResource MaterialDesignFloatingHintPasswordBox}"
-                                                materialDesign:HintAssist.Hint="{x:Static language:Languages.enterPassword}"
-                                                Margin="18,0"
-                                                FontSize="16" >
+                         materialDesign:HintAssist.Hint="{DynamicResource m_EnterPassword}"
+                         Margin="18,0"
+                         FontSize="16" >
                 <i:Interaction.Behaviors>
                     <components:PasswordBoxBindingBehavior Password="{Binding Password}"/>
                 </i:Interaction.Behaviors>
@@ -49,7 +50,7 @@
                         Grid.ColumnSpan="4"
                         Command="{Binding Path=OpenWorkFrameCommand}"
                         Template="{DynamicResource DarkButton}"
-                        Content="{x:Static language:Languages.signIn}"
+                        Content="{DynamicResource m_SignIn}"
                         Height="Auto"
                         MaxHeight="70"
                         FontSize="20"
@@ -59,28 +60,11 @@
                         Grid.ColumnSpan="4"
                         Command="{Binding Path=OpenRegisterControlCommand}"
                         Template="{DynamicResource LightButton}" 
-                        Content="{x:Static language:Languages.createAccount}"
+                        Content="{DynamicResource m_CreateAnAccount}"
                         Height="Auto"
                         FontSize="20"
                         MaxHeight="70"
                         Margin="15 10"/>
-            <!--<StackPanel Grid.Row="4" Grid.ColumnSpan="2" Cursor="Hand" Orientation="Horizontal"
-                            HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" Grid.Column="1" Width="126">
-                    <materialDesign:PackIcon Kind="Globe" VerticalAlignment="Center" MaxHeight="60" MaxWidth="60" MinHeight="30"
-                                             MinWidth="30" HorizontalAlignment="Center"/>
-                    <TextBlock VerticalAlignment="Center"  Text="{x:Static language:Languages.chooseLanguage}"
-                               FontFamily="Tahoma" FontSize="14" />
-                </StackPanel>
-               <StackPanel Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="0,0,0,10">
-                    <ComboBox SelectionChanged="ComboBox_SelectionChanged" x:Name="cmb" Height="32"
-                              MaxWidth="100" MinWidth="100" Margin="0,0,20,0"
-                              FontSize="16" FontFamily="Tahoma">
-                        <ComboBoxItem Content="{x:Static language:Languages.russian}" FontSize="14" FontFamily="Tahoma" />
-                        <ComboBoxItem Content="{x:Static language:Languages.english}" FontSize="14" FontFamily="Tahoma" />
-                    </ComboBox>
-                    <Button Click="Apply_Click" Template="{DynamicResource LightButton2}"
-                            Content="{x:Static language:Languages.apply}" />
-                </StackPanel>-->
             </Grid>
     </Grid>
 </UserControl>

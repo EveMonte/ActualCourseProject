@@ -1,0 +1,101 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:v="clr-namespace:System;assembly=mscorlib"
+                    xmlns:local="clr-namespace:Курсач.Resources">
+    <v:String x:Key="m_Recent">Последний вход</v:String>
+    <v:String x:Key="m_SignInText">Войти в учетную запись пользователя или администратора онлайн-библиотеки Bookварь</v:String>
+    <v:String x:Key="m_Availability">Приложение BookВарь доступно на всех мобильных платформах</v:String>
+    
+    <v:String x:Key="m_SubscriptionAdvertisment">Множество бесплатных книг при покупке BookВарь:абонемента</v:String>
+    <v:String x:Key="m_Main">Главная</v:String>
+    <v:String x:Key="m_Shelf">Ваша полка</v:String>
+    <v:String x:Key="m_Basket">Корзина</v:String>
+    <v:String x:Key="m_User">Пользователь</v:String>
+    <v:String x:Key="m_Subscription">Абонемент</v:String>
+    
+    <v:String x:Key="m_Settings">Настройки</v:String>
+    <v:String x:Key="m_AddCreditCard">Добавьте банковскую карту</v:String>
+    <v:String x:Key="m_CardNumber">Номер карты</v:String>
+    <v:String x:Key="m_16digits">16 цифр</v:String>
+    <v:String x:Key="m_Validity">Срок действия</v:String>
+    <v:String x:Key="m_MM/YY">ММ/ГГ</v:String>
+    <v:String x:Key="m_3digits">3 цифры</v:String>
+    <v:String x:Key="m_AddCard">Добавьте карту</v:String>
+    
+    <v:String x:Key="m_BookTitle">Название книги: </v:String>
+    <v:String x:Key="m_Author">Автор: </v:String>
+    <v:String x:Key="m_Rate">Поставить оценку</v:String>
+    <v:String x:Key="m_BuyTheBook">Купить книгу</v:String>
+    <v:String x:Key="m_RemoveFromBasket">Удалить из корзины</v:String>
+    
+    <v:String x:Key="m_Genre">Жанр</v:String>
+    <v:String x:Key="m_SimilarBooks">Похожие книги:</v:String>
+    
+    <v:String x:Key="m_ConfirmationOfPurchase">Подтверждение покупки</v:String>
+    <v:String x:Key="m_CancelPurchase">Отменить покупку</v:String>
+    <v:String x:Key="m_ConfirmPurchase">Подтвердить покупку</v:String>
+    
+    <v:String x:Key="m_RegistrationOfTheSubscription">Подтвердить покупку</v:String>
+    <v:String x:Key="m_Cancel">Отменить</v:String>
+    <v:String x:Key="m_Subscribe">Оформить абонемент</v:String>
+    
+    <v:String x:Key="m_EnterLogin">Введите Email</v:String>
+    <v:String x:Key="m_EnterPassword">Введите пароль</v:String>
+    <v:String x:Key="m_SignIn">Войти</v:String>
+    <v:String x:Key="m_CreateAnAccount">Создать аккаунт</v:String>
+    
+    <v:String x:Key="m_RateTheBook">Поставить оценку</v:String>
+    <v:String x:Key="m_AddToBasket">Добавить в корзину</v:String>
+    <v:String x:Key="m_AddToShelf">Добавить на полку</v:String>
+    
+    <v:String x:Key="m_SecondName">Фамилия:</v:String>
+    <v:String x:Key="m_Name">Имя:</v:String>
+    <v:String x:Key="m_Email">Email</v:String>
+    <v:String x:Key="m_Password">Пароль</v:String>
+    <v:String x:Key="m_RepeatPassword">Повторите пароль</v:String>
+    <v:String x:Key="m_AlreadyHaveAnAccount">Уже есть аккаунт</v:String>
+    <v:String x:Key="m_UserAccount">Кабинет пользователя</v:String>
+    <v:String x:Key="m_Status">Статус: </v:String>
+    <v:String x:Key="m_SignOut">Выйти из аккаунта</v:String>
+    <v:String x:Key="m_SubscriptionStatus">Статус подписки:</v:String>
+    <v:String x:Key="m_NumberOfBooksOnTheShelf">Количество книг на полке: </v:String>
+    <v:String x:Key="m_NumberOfMarks">Количество оценок: </v:String>
+    <v:String x:Key="m_ChangeEmail">Изменить Email: </v:String>
+    <v:String x:Key="m_EnterNewEmail">Введите новый Email: </v:String>
+    <v:String x:Key="m_SendCodeToMail">Отправить код на почту</v:String>
+    <v:String x:Key="m_EnterConfirmationCode">Ввести код подтверждения: </v:String>
+    <v:String x:Key="m_ChangePassword">Изменить пароль</v:String>
+    <v:String x:Key="m_EnterOldPassword">Введите старый пароль: </v:String>
+    <v:String x:Key="m_EnterNewPassword">Введите новый пароль: </v:String>
+    <v:String x:Key="m_RepeatNewPassword">Повторите новый пароль: </v:String>
+
+    <v:String x:Key="m_SentMessage">На вашу почту было отправлено сообщение с кодом подтверждения.</v:String>
+    <v:String x:Key="m_ConfirmAccount">Для подтверждения аккаунта необходимо ввести этот код ниже:</v:String>
+    <v:String x:Key="m_EnterSecurityCode">Введите проверочный код</v:String>
+    <v:String x:Key="m_ConfirmCode">Подтвердить код</v:String>
+    <v:String x:Key="ResendCode">Отправить код повторно</v:String>
+    <v:String x:Key="m_Back">Назад</v:String>
+    
+    <v:String x:Key="m_Filter">Введите название книги или автора</v:String>
+    <v:String x:Key="m_ChangeAppTheme">Сменить тему приложения</v:String>
+    <v:String x:Key="m_Light">Светлая</v:String>
+    <v:String x:Key="m_Dark">Темная</v:String>
+    <v:String x:Key="m_ChangeAppLanguage">Сменить язык приложения</v:String>
+    <v:String x:Key="m_Russian">Русский</v:String>
+    <v:String x:Key="m_English">Английский</v:String>
+    <v:String x:Key="m_Open">Открыть</v:String>
+    <v:String x:Key="m_ExitApp">Выход из приложения</v:String>
+    <v:String x:Key="m_Exit">Выйти</v:String>
+    <v:String x:Key="m_AboutApp">О программе</v:String>
+    <v:String x:Key="m_Confirm">Подтвердить</v:String>
+    <v:String x:Key="m_Change">Изменить</v:String>
+    <v:String x:Key="m_CardNumber2">Номер карты: </v:String>
+    
+    <v:String x:Key="m_SubscriptionTop">Приобретите абонемент на BookВарь и Вы получите доступ к огромной библиотеке книг всего за 8.99$/месяц</v:String>
+    <v:String x:Key="m_SubscriptionFreeMonth">Вы можете выбрать один из двух тарифов: на месяц, либо на год. В любом случае вы получите пробный бесплатный месяц погружения в увлекательный мир шедевров мировой литературы</v:String>
+    <v:String x:Key="m_SubscriptonOneMonth">Вы можете приобрести абонемент за 8.99$ и наслаждаться целый месяц книгами, доступными для вас совершенно бесплатно...</v:String>
+    <v:String x:Key="m_SubscribeForMonth">Приобрести подписку на месяц</v:String>
+    <v:String x:Key="m_SubscribeForYear">Приобрести подписку на год</v:String>
+    <v:String x:Key="m_SubscriptionOneYear">...А можете сэкономить более 20% и провести аж целый год в обществе любимых литературных героев всего за 85.99$</v:String>
+
+</ResourceDictionary>

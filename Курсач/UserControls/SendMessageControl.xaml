@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Курсач"
-             xmlns:language="clr-namespace:Курсач.Properties.Languages"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" >
     <Grid VerticalAlignment="Stretch"
@@ -23,23 +22,23 @@
                    HorizontalAlignment="Left"
                    VerticalAlignment="Bottom"
                    Margin="15, 0, 15, 0"
-                   Text="На вашу почту было отправлено сообщение с кодом подтверждения." />
+                   Text="{DynamicResource m_SentMessage}" />
         <TextBlock Grid.Row="1"
                    TextWrapping="Wrap"
                    FontSize="16"
                    Margin="15, 0, 15, 0"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Bottom"
-                   Text="Для подтверждения аккаунта необходимо ввести этот код ниже:" />
+                   Text="{DynamicResource m_ConfirmAccount}" />
         <TextBox Grid.Row="2"
-                     Text="{Binding Path=Code}"
-                     x:Name="codeBox"
+                 Text="{Binding Path=Code}"
+                 x:Name="codeBox"
                  Height="Auto"
                  MaxHeight="50"
-                     Margin="18,0"
-                     materialDesign:HintAssist.Hint="Введите проверочный код"
-                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                     FontSize="16">
+                 Margin="18,0"
+                 materialDesign:HintAssist.Hint="{DynamicResource m_EnterConfirmationCode}"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 FontSize="16">
                 <TextBox.Template>
                     <ControlTemplate TargetType="TextBox">
                         <TextBox Text="{Binding Path=Code, Mode=TwoWay}" />
@@ -52,7 +51,7 @@
                     Height="Auto"
                     Command="{Binding Path=SendMessageCommand}"
                     Margin="15 7"
-                    Content="Подтвердить код"
+                    Content="{DynamicResource m_ConfirmCode}"
                     FontSize="20"
                     HorizontalAlignment="Stretch"/>
         <Button Grid.Row="4"
@@ -62,7 +61,7 @@
                 Command="{Binding SendNewMessageCommand}">
             <Label Cursor="Hand"
                    HorizontalAlignment="Center"
-                   Content="Отправить код повторно"
+                   Content="{DynamicResource ResendCode}"
                    FontSize="16"
                    Foreground="#FF1877F3" />
         </Button>
@@ -73,7 +72,7 @@
                 Command="{Binding OpenRegistrationCommand}">
             <Label Cursor="Hand"
                    HorizontalAlignment="Center"
-                   Content="Назад"
+                   Content="{DynamicResource m_Back}"
                    FontSize="16"
                    Foreground="#FF1877F3" />
         </Button>
