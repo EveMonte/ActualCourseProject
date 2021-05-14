@@ -232,7 +232,6 @@ namespace Курсач.ViewModels
                 CurrentBook.Subscription = 0;
                 CurrentBook.UserWithSubscription = "Collapsed";
                 CurrentBook.UserWithoutSubscription = "Visible";
-
             }
 
             CreateSimilarBooks();

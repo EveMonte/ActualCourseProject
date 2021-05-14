@@ -69,6 +69,9 @@ namespace Курсач.ViewModels
         #region Commands
         public ICommand OpenFullInfo { get; private set; }
         public ICommand FindByGenreCommand { get; private set; }
+        public ICommand AddBookCommand { get; private set; }
+        public ICommand RemoveBookCommand { get; private set; }
+        public ICommand SaveBookCommand { get; private set; }
 
         #endregion
 
@@ -103,7 +106,6 @@ namespace Курсач.ViewModels
         //Constructor
         public ListOfBooksAdminVM()
         {
-            //User = user;
             using (LIBRARYEntities library = new LIBRARYEntities())
             {
                 Books = new ObservableCollection<BOOKS>(library.BOOKS);
@@ -122,9 +124,40 @@ namespace Курсач.ViewModels
                 book.FormattedPrice = Convert.ToString(decimal.Round(decimal.Parse(Convert.ToString(book.PRICE).Replace(".", ",")), 2)).Replace(",", ".") + '$';
             }
             OpenFullInfo = new DelegateCommand(OpenFullInfoUserControl);
+            AddBookCommand = new DelegateCommand(AddBook);
+            RemoveBookCommand = new DelegateCommand(RemoveBook, CanRemoveBook);
+            SaveBookCommand = new DelegateCommand(SaveBooks);
             Items = CollectionViewSource.GetDefaultView(Books);
             Items.Filter = Search;
             FindByGenreCommand = new DelegateCommand(FindByGenre);
+        }
+        private void SaveBooks(object obj)//Save books from datagrid to database
+        {
+            foreach (BOOKS book in Books)
+            {
+                var newBook = db.BOOKS.FirstOrDefault(n => n.BOOK_ID == book.BOOK_ID);
+                if (newBook == null)
+                    db.BOOKS.Add(book);
+                else
+                    foreach(var dbBook in db.BOOKS)
+                        if(Books.FirstOrDefault(n => n.BOOK_ID == dbBook.BOOK_ID) == null)
+                            db.BOOKS.Remove(dbBook);
+            }
+            db.SaveChangesAsync().GetAwaiter();
+
+        }
+        bool CanRemoveBook(object arg)
+        {
+            return (arg as BOOKS) != null;
+        }
+
+        void RemoveBook(object obj)//Remove selected row from datagrid
+        {
+            Books.Remove((BOOKS)obj);
+        }
+        private void AddBook(object obj) //Add new row to datagrid
+        {
+            Books.Add(new BOOKS { AUTHOR = "Author", COVER = "", DESCRIPTION = "Description", GENRE = 1, TITLE = "Title", PAGES = 0, RATING = 0, CATEGORY = "Покупка", PRICE = 0, YEAR = 2021, LINK= "",  });
         }
         #region Filter
         public string Text

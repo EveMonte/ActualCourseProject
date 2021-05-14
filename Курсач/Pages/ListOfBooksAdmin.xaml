@@ -14,6 +14,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="70" />
             <RowDefinition Height="1*" />
+            <RowDefinition Height="50" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Width="1200">
             <Grid.ColumnDefinitions>
@@ -22,9 +23,7 @@
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="2.5*" />
             </Grid.ColumnDefinitions>
-            <Image Grid.Column="0"
-                   Margin="0 5"
-                   VerticalAlignment="Center"
+            <Image Margin="0 5"
                    Style="{DynamicResource ImageStyle}" >
                 <Image.Effect>
                     <DropShadowEffect BlurRadius="10"
@@ -73,28 +72,112 @@
                         />
             </StackPanel>
         </Grid>
-        <ListBox Grid.Column="0" Grid.Row="1"
-                 Grid.ColumnSpan="4"
-                 ItemsSource="{Binding Books, Mode=TwoWay}"
+        <ScrollViewer Grid.ColumnSpan="4"
+                      Grid.Column="0"
+                      Grid.Row="1">
+            <ListBox ItemsSource="{Binding Books, Mode=TwoWay}"
                  SelectedItem="{Binding SelectedBook}"
                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                 x:Name="listOfBooks">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Border>
-                        <userControls:BookUserControl Width="130" Height="280"  />
-                        <Border.InputBindings>
-                            <MouseBinding MouseAction="{x:Static MouseAction.LeftDoubleClick}"
+                 x:Name="listOfBooks"
+                     Margin="200 0">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border>
+                            <userControls:BookUserControl Width="150" Height="330"  />
+                            <Border.InputBindings>
+                                <MouseBinding MouseAction="{x:Static MouseAction.LeftDoubleClick}"
                                           Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=DataContext.OpenFullInfo}" />
-                        </Border.InputBindings>
-                    </Border>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
+                            </Border.InputBindings>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel HorizontalAlignment="Center"  />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+        </ScrollViewer>
+        <Border Background="#B56F2F"
+                Grid.Row="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="4"/>
+        <ListBox Grid.Row="2"
+                 ScrollViewer.VerticalScrollBarVisibility="Disabled">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel HorizontalAlignment="Center"  />
+                    <WrapPanel HorizontalAlignment="Center" />
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
+            <ListBoxItem>
+                <Button Background="Transparent"
+                        BorderBrush="Transparent"
+                        Command="{Binding AddBookCommand}"
+                        Padding="0">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Add"
+                                             Width="Auto"
+                                             Height="Auto"/>
+                        <TextBlock Text="Добавить"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </ListBoxItem>
+            <ListBoxItem>
+                <Button Background="Transparent"
+                        BorderBrush="Transparent"
+                        Command="{Binding SaveBookCommand}"
+                        Padding="0">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="ContentSave"
+                                             Width="Auto"
+                                             Height="Auto"/>
+                        <TextBlock Text="Сохранить в БД"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </ListBoxItem>
+            <ListBoxItem>
+                <Button Background="Transparent"
+                        BorderBrush="Transparent"
+                        Command="{Binding RemoveBookCommand}"
+                        CommandParameter="{Binding SelectedBook}"
+                        Padding="0">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Remove"
+                                             Width="Auto"
+                                             Height="Auto"/>
+                        <TextBlock Text="Удалить"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </ListBoxItem>
+            <ListBoxItem>
+                <Button Background="Transparent"
+                        BorderBrush="Transparent"
+                        Padding="0">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Undo"
+                                             Width="Auto"
+                                             Height="Auto"/>
+                        <TextBlock Text="Отменить"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </ListBoxItem>
+            <ListBoxItem>
+                <Button Background="Transparent"
+                        BorderBrush="Transparent"
+                        Padding="0">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Redo"
+                                             Width="Auto"
+                                             Height="Auto"/>
+                        <TextBlock Text="Вернуть"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </ListBoxItem>
         </ListBox>
     </Grid>
 </Page>

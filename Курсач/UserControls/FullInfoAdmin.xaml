@@ -13,6 +13,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0"
+              Margin="200 0"
               DataContext="{Binding CurrentBook, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
               Style="{DynamicResource GridStyle}">
             <Grid.ColumnDefinitions>
