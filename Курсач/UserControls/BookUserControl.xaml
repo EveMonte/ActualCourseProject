@@ -6,18 +6,19 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:Курсач.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="280" d:DesignWidth="130">
-    <Grid Style="{DynamicResource GridMainStyle}">
+             d:DesignHeight="330" d:DesignWidth="150">
+    <Grid Style="{DynamicResource GridStyle}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="200*" />
+            <RowDefinition Height="240" />
             <RowDefinition Height="20*" />
             <RowDefinition Height="60*" />
         </Grid.RowDefinitions>
-        <Image Height="200"
-               Width="130"
+        <Image Height="250"
+               Width="150"
+               VerticalAlignment="Top"
                Grid.Column="0"
                Grid.Row="0"
                Source="{Binding COVER}" />
@@ -25,16 +26,25 @@
                VerticalAlignment="Top"
                HorizontalAlignment="Left"
                Opacity="{Binding Subscription}"/>
-        <DockPanel Grid.Row="1">
+        <DockPanel Grid.Row="1"
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Stretch">
             <StackPanel DockPanel.Dock="Left">
                 <StackPanel Orientation="Horizontal">
                     <materialDesign:PackIcon Kind="Star" Foreground="#B58252" />
                     <TextBlock Text="{Binding RATING}" />
                 </StackPanel>
             </StackPanel>
-            <TextBlock DockPanel.Dock="Right"
-                       HorizontalAlignment="Right"
-                       Text="{Binding FormattedPrice}" />
+            <StackPanel DockPanel.Dock="Right"
+                        HorizontalAlignment="Right"
+                        Orientation="Horizontal">
+                <TextBlock Text="{Binding FormattedPrice}"
+                           HorizontalAlignment="Right"/>
+                <materialDesign:PackIcon Kind="Basket"
+                                         Opacity="{Binding IsInBasket}"
+                                         HorizontalAlignment="Right"/>
+            </StackPanel>
+
         </DockPanel>
         <StackPanel Grid.Row="2">
             <TextBlock TextWrapping="Wrap"

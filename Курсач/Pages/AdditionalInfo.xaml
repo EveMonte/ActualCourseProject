@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:Курсач.Pages"
       xmlns:userControl="clr-namespace:Курсач.UserControls"
       mc:Ignorable="d" 
+      xmlns:toast="clr-namespace:ToastNotifications.Core;assembly=ToastNotifications"
       Title="AdditionalInfo">
         <Grid>
         <Grid.ColumnDefinitions>
@@ -40,8 +41,8 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border>
-                        <userControl:BookUserControl Width="130"
-                                                     Height="280" />
+                        <userControl:BookUserControl Width="150"
+                                                     Height="330" />
                         <Border.InputBindings>
                             <MouseBinding MouseAction="{x:Static MouseAction.LeftDoubleClick}"
                                           Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=DataContext.OpenFullInfo}" />

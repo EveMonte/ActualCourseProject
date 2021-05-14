@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using Курсач.Methods;
 using Курсач.Singleton;
 
 namespace Курсач.ViewModels
@@ -83,6 +84,27 @@ namespace Курсач.ViewModels
             using (LIBRARYEntities library = new LIBRARYEntities())
             {
                 Books = new ObservableCollection<BOOKS>(library.BOOKS);
+                var shelfBooks = db.YOUR_BOOKS.Where(n => n.USER_ID == user.USER_ID);
+                foreach(var book in shelfBooks)
+                {
+                    var bookToRemove = Books.FirstOrDefault(n => n.BOOK_ID == book.BOOK_ID);
+                    if (bookToRemove != null)
+                    {
+                        Books.Remove(bookToRemove);
+                    }
+                }
+                var basketBooks = db.BASKETS.Where(n => n.USER_ID == user.USER_ID);
+                foreach (var book in Books)
+                {
+                    if (basketBooks.FirstOrDefault(n => n.BOOK_ID == book.BOOK_ID) != null)
+                    {
+                        book.IsInBasket = 1;
+                    }
+                    else
+                    {
+                        book.IsInBasket = 0;
+                    }
+                }
                 Genres = new ObservableCollection<GENRES>(library.GENRES.OrderBy(n => n.GENRE));
             }
             foreach (BOOKS book in Books) //check books. If book is available by subscription, we place band
@@ -95,7 +117,7 @@ namespace Курсач.ViewModels
                 {
                     book.Subscription = 0;
                 }
-                book.FormattedPrice = Convert.ToString(decimal.Round(decimal.Parse(Convert.ToString(book.PRICE).Replace(".", ",")), 2)).Replace(",", ".") + '$';
+                book.FormattedPrice = ConvertDecimal.RemoveZeroes(book.PRICE);
             }
             OpenFullInfo = new DelegateCommand(OpenFullInfoUserControl);
             Items = CollectionViewSource.GetDefaultView(Books);

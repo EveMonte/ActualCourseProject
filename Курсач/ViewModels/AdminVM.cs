@@ -9,6 +9,7 @@ namespace Курсач.ViewModels
 {
     public class AdminVM : BaseViewModel
     {
+        public USERS currentUser;
         private BaseViewModel currentPageViewModel;
 
         public BaseViewModel CurrentPageViewModel
@@ -20,6 +21,19 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("CurrentPageViewModel");
             }
         }
+
+        private string visibility = "Collapsed";
+
+        public string Visibility
+        {
+            get { return visibility; }
+            set 
+            { 
+                visibility = value;
+                OnPropertyChanged("Visibility");
+            }
+        }
+
 
         public ICommand OpenBooksCommand { get; private set; }
         public ICommand OpenAdminsCommand { get; private set; }

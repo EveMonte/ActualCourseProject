@@ -1,6 +1,12 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
+using ToastNotifications;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Messages;
+using ToastNotifications.Position;
 using Курсач.Singleton;
 
 namespace Курсач.ViewModels
@@ -8,6 +14,7 @@ namespace Курсач.ViewModels
     public class AdditionalInfoViewModel : BaseViewModel
     {
         #region Data
+        private Notifier notifier;
         LIBRARYEntities db = new LIBRARYEntities();
         private ObservableCollection<BOOKS> books;
         public ObservableCollection<BOOKS> Books // Similar books
@@ -106,11 +113,23 @@ namespace Курсач.ViewModels
         {
             if(db.BASKETS.FirstOrDefault(n => (n.USER_ID == currentUser.USER_ID) && (n.BOOK_ID == (int)obj)) == null)
             {
-                BASKETS newBasketBook = new BASKETS();
-                newBasketBook.BOOK_ID = (int)obj;
-                newBasketBook.USER_ID = currentUser.USER_ID;
-                db.BASKETS.Add(newBasketBook);
-                db.SaveChangesAsync().GetAwaiter();
+                if (db.YOUR_BOOKS.FirstOrDefault(n => (n.USER_ID == currentUser.USER_ID) && (n.BOOK_ID == (int)obj)) == null)
+                {
+                    BASKETS newBasketBook = new BASKETS();
+                    newBasketBook.BOOK_ID = (int)obj;
+                    newBasketBook.USER_ID = currentUser.USER_ID;
+                    db.BASKETS.Add(newBasketBook);
+                    db.SaveChangesAsync().GetAwaiter();
+                    notifier.ShowSuccess("Книга успешно добавлена в корзину");
+                }
+                else
+                {
+                    notifier.ShowWarning("Вы уже приобрели эту книгу");
+                }
+            }
+            else
+            {
+                notifier.ShowWarning("Эта книга уже у вас в корзине");
             }
         }
 
@@ -217,6 +236,21 @@ namespace Курсач.ViewModels
             }
 
             CreateSimilarBooks();
+
+            notifier = new Notifier(cfg =>
+            {
+                cfg.PositionProvider = new WindowPositionProvider(
+                    parentWindow: Application.Current.MainWindow,
+                    corner: Corner.BottomRight,
+                    offsetX: 10,
+                    offsetY: 10);
+
+                cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+                    notificationLifetime: TimeSpan.FromSeconds(5),
+                    maximumNotificationCount: MaximumNotificationCount.FromCount(5));
+
+                cfg.Dispatcher = Application.Current.Dispatcher;
+            });
 
             //DelegateCommand
             OpenFullInfo = new DelegateCommand(OpenFullInfoUserControl);

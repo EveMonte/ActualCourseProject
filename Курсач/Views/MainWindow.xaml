@@ -50,7 +50,13 @@
                     <RowDefinition Height="2*" />
                 </Grid.RowDefinitions>
                 <Image Style="{DynamicResource ImageStyle}"
-                       Grid.Row="0" />
+                       Grid.Row="0" >
+                    <Image.Effect>
+                        <DropShadowEffect BlurRadius="10"
+                                          Opacity="0.9"
+                                          ShadowDepth="2"/>
+                    </Image.Effect>
+                </Image>
                 <TextBlock Grid.Row="1"
                            Text="{DynamicResource m_Recent}"
                            TextAlignment="Center"

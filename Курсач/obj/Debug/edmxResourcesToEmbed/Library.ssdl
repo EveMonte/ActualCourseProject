@@ -13,7 +13,7 @@
       <PropertyRef Name="BOOK_ID" />
     </Key>
     <Property Name="BOOK_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="TITLE" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="TITLE" Type="varchar" MaxLength="65" Nullable="false" />
     <Property Name="AUTHOR" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="GENRE" Type="int" />
     <Property Name="YEAR" Type="int" Nullable="false" />

@@ -60,7 +60,8 @@ namespace Курсач.ViewModels
             user = changedUser;
             user.ACCOUNT = changedUser.ACCOUNT;
             var sub = db.SUBSCRIPTIONS.FirstOrDefault(n => n.SUBSCRIPTION_ID == changedUser.SUBSCRIPTION);
-            if(sub != null)
+            db.SaveChanges();
+            if (sub != null)
             {
                 sub.SUBSCRIPTION_DATE = changedUser.SUBSCRIPTION_DATE;
                 sub.LENGTH = changedUser.SUBSCRIPTION_LENGTH;

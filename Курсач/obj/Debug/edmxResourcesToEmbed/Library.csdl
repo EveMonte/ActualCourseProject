@@ -15,7 +15,7 @@
       <PropertyRef Name="BOOK_ID" />
     </Key>
     <Property Name="BOOK_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="TITLE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TITLE" Type="String" MaxLength="65" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="AUTHOR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="GENRE" Type="Int32" />
     <Property Name="YEAR" Type="Int32" Nullable="false" />

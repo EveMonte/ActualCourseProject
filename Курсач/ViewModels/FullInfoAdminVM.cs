@@ -57,7 +57,10 @@ namespace Курсач.ViewModels
         private void SaveChanges(object obj)
         {
             var book = db.BOOKS.FirstOrDefault(n => n.BOOK_ID == CurrentBook.BOOK_ID);
-            book = CurrentBook;
+            book.AUTHOR = CurrentBook.AUTHOR;
+            book.TITLE = CurrentBook.TITLE;
+            book.COVER = CurrentBook.COVER;
+            book.LINK = CurrentBook.LINK;
             book.CATEGORY = CurrentBook.CATEGORY;
             db.SaveChangesAsync().GetAwaiter();
         }

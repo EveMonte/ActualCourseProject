@@ -72,14 +72,15 @@ namespace Курсач.ViewModels
                         if (SaltedHash.Verify(u.PASSWORD.Substring(44), u.PASSWORD.Substring(0, 44), insecurePassword) && u.EMAIL == Email)
                         {
                             currentUser = u;
-                            WorkFrameSingleTone.GetInstance(new WorkframeViewModel(u)).WorkframeViewModel.currentUser = u;
                             if(u.ACCOUNT == "Администратор")
                             {
+                                AdminWindowSingleTone.GetInstance(new AdminVM()).AdminVM.currentUser = u;
                                 AdminWindow adminWindow = new AdminWindow();
                                 adminWindow.Show();
                             }
                             else
                             {
+                                WorkFrameSingleTone.GetInstance(new WorkframeViewModel(u)).WorkframeViewModel.currentUser = u;
                                 Workframe workframe = new Workframe();
                                 workframe.Show();
                             }

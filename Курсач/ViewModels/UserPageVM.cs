@@ -211,7 +211,7 @@ namespace Курсач.ViewModels
 
             //////////////////////////////////////////////////////
             //Get necessary info about current user
-            currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser;
+            currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser ?? AdminWindowSingleTone.GetInstance().AdminVM.currentUser;
             SECONDNAME = currentUser.SECOND_NAME;
             NAME = currentUser.NAME;
             ACCOUNT = currentUser.ACCOUNT;
@@ -332,10 +332,12 @@ namespace Курсач.ViewModels
 
         public void OpenRegistrationWindow(object obj)
         {
-            var window = Application.Current.Windows[0];
-            if (window != null)
-                window.Close();
             (new MainWindow()).Show();
+            var windows = Application.Current.Windows;
+            foreach(Window window in windows)
+                if (window is Workframe || window is AdminWindow)
+                    window.Close();
+            
         }
         #endregion
     }

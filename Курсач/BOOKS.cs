@@ -58,5 +58,7 @@ namespace Курсач
         public string UserWithSubscription { get; set; }
         [NotMapped]
         public string FormattedPrice { get; set; }
+        [NotMapped]
+        public int IsInBasket { get; set; }
     }
 }
