@@ -73,7 +73,7 @@ namespace Курсач.ViewModels
                         {
                             currentUser = u;
                             WorkFrameSingleTone.GetInstance(new WorkframeViewModel(u)).WorkframeViewModel.currentUser = u;
-                            if(u.ACCOUNT == "Admin")
+                            if(u.ACCOUNT == "Администратор")
                             {
                                 AdminWindow adminWindow = new AdminWindow();
                                 adminWindow.Show();

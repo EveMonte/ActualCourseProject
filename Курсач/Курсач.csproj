@@ -154,7 +154,32 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Pages\ListOfBooksAdmin.xaml.cs">
+      <DependentUpon>ListOfBooksAdmin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\UsersPage.xaml.cs">
+      <DependentUpon>UsersPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AdminsPage.xaml.cs">
+      <DependentUpon>AdminsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Singleton\AdminWindowSingleTone.cs" />
+    <Compile Include="UserControls\Admin.xaml.cs">
+      <DependentUpon>Admin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\FullInfoAdmin.xaml.cs">
+      <DependentUpon>FullInfoAdmin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\User.xaml.cs">
+      <DependentUpon>User.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\AdminPageVM.cs" />
+    <Compile Include="ViewModels\AdminControlVM.cs" />
+    <Compile Include="ViewModels\AdminsVM.cs" />
     <Compile Include="ViewModels\AdminVM.cs" />
+    <Compile Include="ViewModels\FullInfoAdminVM.cs" />
+    <Compile Include="ViewModels\ListOfBooksAdminVM.cs" />
+    <Compile Include="ViewModels\UsersPageVM.cs" />
     <Compile Include="Views\AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
     </Compile>
@@ -280,6 +305,30 @@
     <Compile Include="YOUR_BOOKS.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
+    <Page Include="Pages\ListOfBooksAdmin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\UsersPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AdminsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Admin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\FullInfoAdmin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\User.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AdminWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -423,6 +472,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Library.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Library.edmx.diagram">
       <DependentUpon>Library.edmx</DependentUpon>
     </None>

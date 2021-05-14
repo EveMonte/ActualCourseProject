@@ -370,3 +370,15 @@ C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Resources\lang.en-En.b
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Resources\lang.baml
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Views\AdminWindow.g.cs
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Views\AdminWindow.baml
+C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Pages\UsersPage.g.cs
+C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Pages\UsersPage.baml
+C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Pages\AdminsPage.g.cs
+C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\UserControls\Admin.g.cs
+C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Pages\AdminsPage.baml
+C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\UserControls\Admin.baml
+C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\UserControls\User.g.cs
+C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\UserControls\User.baml
+C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Pages\ListOfBooksAdmin.g.cs
+C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Pages\ListOfBooksAdmin.baml
+C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\UserControls\FullInfoAdmin.g.cs
+C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\UserControls\FullInfoAdmin.baml

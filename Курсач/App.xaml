@@ -5,7 +5,7 @@
              xmlns:userControls="clr-namespace:Курсач.UserControls"
              xmlns:pages="clr-namespace:Курсач.Pages"
              xmlns:viewmodels="clr-namespace:Курсач.ViewModels"
-             StartupUri="Views\AdminWindow.xaml"
+             StartupUri="Views\MainWindow.xaml"
              ShutdownMode="OnLastWindowClose"
              LoadCompleted="Application_LoadCompleted">
     <Application.Resources>
@@ -61,6 +61,18 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:SettingsVM}">
                 <pages:Settings />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:AdminsVM}">
+                <pages:AdminsPage />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:UsersPageVM}">
+                <pages:UsersPage />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:ListOfBooksAdminVM}">
+                <pages:ListOfBooksAdmin />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:FullInfoAdminVM}">
+                <userControls:FullInfoAdmin />
             </DataTemplate>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />

@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Курсач.Singleton;
 using Курсач.ViewModels;
 
 namespace Курсач
@@ -24,7 +25,7 @@ namespace Курсач
         public AdminWindow()
         {
             InitializeComponent();
-            DataContext = new AdminVM();
+            DataContext = AdminWindowSingleTone.GetInstance(new AdminVM()).AdminVM;
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {

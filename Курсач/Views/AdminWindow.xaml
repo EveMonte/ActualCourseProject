@@ -91,6 +91,24 @@
                                 Command="{Binding OpenUsersCommand}">
                         <StackPanel Orientation="Horizontal"
                                         VerticalAlignment="Center">
+                            <materialDesign:PackIcon Kind="AccountGroup" Width="40" Height="40" Margin="10,0,10,0"
+                                                         VerticalAlignment="Center"/>
+                            <TextBlock Text="Пользователи" VerticalAlignment="Center" FontSize="16" />
+                        </StackPanel>
+                    </Button>
+                </ListViewItem>
+                <ListViewItem Padding="0" Height="50">
+                    <Button Background="Transparent"
+                                BorderBrush="Transparent"
+                                Padding="0"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                HorizontalContentAlignment="Left"
+                                Width="180"
+                                Height="50"
+                                Command="{Binding OpenUserCommand}">
+                        <StackPanel Orientation="Horizontal"
+                                        VerticalAlignment="Center">
                             <materialDesign:PackIcon Kind="User" Width="40" Height="40" Margin="10,0,10,0"
                                                          VerticalAlignment="Center"/>
                             <TextBlock Text="Пользователи" VerticalAlignment="Center" FontSize="16" />
