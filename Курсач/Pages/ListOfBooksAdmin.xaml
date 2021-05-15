@@ -119,6 +119,7 @@
                                              Width="Auto"
                                              Height="Auto"/>
                         <TextBlock Text="Добавить"
+                                   Margin="5 0"
                                    VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
@@ -126,13 +127,30 @@
             <ListBoxItem>
                 <Button Background="Transparent"
                         BorderBrush="Transparent"
-                        Command="{Binding SaveBookCommand}"
+                        Command="{Binding GetBooksCommand}"
                         Padding="0">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="ContentSave"
+                        <materialDesign:PackIcon Kind="TrayArrowDown"
                                              Width="Auto"
                                              Height="Auto"/>
-                        <TextBlock Text="Сохранить в БД"
+                        <TextBlock Text="Получить данные из БД"
+                                   Margin="5 0"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </ListBoxItem>
+            <ListBoxItem>
+                <Button Background="Transparent"
+                        BorderBrush="Transparent"
+                        Command="{Binding SetBooksCommand}"
+                        CommandParameter="{Binding SelectedBook}"
+                        Padding="0">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="TrayArrowUp"
+                                             Width="Auto"
+                                             Height="Auto"/>
+                        <TextBlock Text="Отправить изменения"
+                                   Margin="5 0"
                                    VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
@@ -148,10 +166,12 @@
                                              Width="Auto"
                                              Height="Auto"/>
                         <TextBlock Text="Удалить"
+                                   Margin="5 0"
                                    VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
             </ListBoxItem>
+
             <ListBoxItem>
                 <Button Background="Transparent"
                         BorderBrush="Transparent"
@@ -161,6 +181,7 @@
                                              Width="Auto"
                                              Height="Auto"/>
                         <TextBlock Text="Отменить"
+                                   Margin="5 0"
                                    VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
@@ -171,6 +192,7 @@
                         Padding="0">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Redo"
+                                                 Margin="5 0"
                                              Width="Auto"
                                              Height="Auto"/>
                         <TextBlock Text="Вернуть"

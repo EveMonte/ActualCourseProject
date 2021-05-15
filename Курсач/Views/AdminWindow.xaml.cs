@@ -25,7 +25,7 @@ namespace Курсач
         public AdminWindow()
         {
             InitializeComponent();
-            DataContext = AdminWindowSingleTone.GetInstance(new AdminVM()).AdminVM;
+            DataContext = AdminWindowSingleTone.GetInstance().AdminVM;
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {

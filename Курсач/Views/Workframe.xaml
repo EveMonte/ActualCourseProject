@@ -201,16 +201,14 @@
                     </StackPanel>
                 </DockPanel>
             </Grid>
-        <ScrollViewer Grid.Row="1"
+            <Frame NavigationUIVisibility="Hidden"
+                   Grid.Row="1"
                       Grid.Column="1"
                       Grid.ColumnSpan="4"
                       HorizontalContentAlignment="Center"
-                      HorizontalAlignment="Center"
-                      Grid.RowSpan="3">
-            <Frame NavigationUIVisibility="Hidden"
-                   Padding="200 0"
+                      HorizontalAlignment="Stretch"
+                      Grid.RowSpan="3"
                    Content="{Binding CurrentPageViewModel}" />
-        </ScrollViewer>
         <Border Background="Black"
                     Grid.ColumnSpan="6"
                     Grid.RowSpan="4"
@@ -224,9 +222,9 @@
                         Grid.ColumnSpan="4"
                         Grid.Column="1"
                         Grid.Row="1"
+                        Margin="0, 0, 18, 0"
                         Grid.RowSpan="3"
                         Width="800"
-                        Margin="0, 0, 18, 0"
                         Height="450"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center"/>

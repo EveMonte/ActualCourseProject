@@ -5,6 +5,10 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using ToastNotifications;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Messages;
+using ToastNotifications.Position;
 using Курсач.Methods;
 using Курсач.Singleton;
 
@@ -13,6 +17,8 @@ namespace Курсач.ViewModels
     class BasketVM : BaseViewModel
     {
         #region Data
+        Notifier notifier;
+
         private ObservableCollection<BOOKS> books;
 
         public ObservableCollection<BOOKS> Books // Books in your basket
@@ -83,6 +89,21 @@ namespace Курсач.ViewModels
             MarkCommand = new DelegateCommand(SetMark);
             ////////////////////////////////////////////
 
+            notifier = new Notifier(cfg =>
+            {
+                cfg.PositionProvider = new WindowPositionProvider(
+                    parentWindow: Application.Current.MainWindow,
+                    corner: Corner.BottomRight,
+                    offsetX: 10,
+                    offsetY: 10);
+
+                cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+                    notificationLifetime: TimeSpan.FromSeconds(5),
+                    maximumNotificationCount: MaximumNotificationCount.FromCount(5));
+
+                cfg.Dispatcher = Application.Current.Dispatcher;
+            });
+
             currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser; // get current user
             Books = new ObservableCollection<BOOKS>();
 
@@ -127,9 +148,22 @@ namespace Курсач.ViewModels
         #region Commands' Logic
         private void BuyTheBook(object obj) // buy book, if user don't have credit card let him add it
         {
-            if(db.YOUR_BOOKS.FirstOrDefault(n => (n.BOOK_ID == (int)obj) && (n.USER_ID == currentUser.USER_ID)) == null)
+            if (db.YOUR_BOOKS.FirstOrDefault(n => (n.BOOK_ID == (int)obj) && (n.USER_ID == currentUser.USER_ID)) == null)
             {
-                WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new ConfirmPurchase((int)obj);
+                if (db.YOUR_BOOKS.FirstOrDefault(n => (n.BOOK_ID == (int)obj) && (n.USER_ID == currentUser.USER_ID)) == null)
+                {
+                    WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new ConfirmPurchase((int)obj);
+                    WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Visible";
+                }
+                else
+                {
+                    notifier.ShowWarning("Вы уже приобрели эту книгу");
+                }
+            }
+            else
+            {
+                notifier.ShowWarning("Для того чтобы купить книгу, необходимо добавить карту");
+                WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new AddCreditCardVM();
                 WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Visible";
             }
         }

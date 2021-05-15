@@ -13,49 +13,62 @@
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="400" />
             <ColumnDefinition Width="400" />
-            <ColumnDefinition Width="1*" />
-           
+            <ColumnDefinition Width="1*" />           
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="25" />
-            <RowDefinition Height="500" />
-            <RowDefinition Height="60" />
             <RowDefinition Height="1*" />
-
         </Grid.RowDefinitions>
-            <TextBlock Text="{DynamicResource m_SimilarBooks}"
-                       Grid.Row="2"
+        <ScrollViewer Grid.Row="1"
+                      Grid.ColumnSpan="4">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="500" />
+                    <RowDefinition Height="60" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="400" />
+                    <ColumnDefinition Width="400" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <userControl:FullInfo Grid.Column="1"
+                              Grid.ColumnSpan="2"
+                              Grid.Row="0" />
+                <TextBlock Text="{DynamicResource m_SimilarBooks}"
+                       Grid.Row="1"
                        FontSize="22"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        Grid.ColumnSpan="4" />
-            <userControl:FullInfo Grid.Column="1"
-                              Grid.ColumnSpan="2"
-                              Grid.Row="1" />
-        <ListBox Grid.Row="3"
+                <ListBox Grid.Row="2"
                  Grid.ColumnSpan="4"
                  ItemsSource="{Binding Books}"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
                  SelectedItem="{Binding SelectedBook, Mode=TwoWay}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Border>
-                        <userControl:BookUserControl Width="150"
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border>
+                                <userControl:BookUserControl Width="150"
                                                      Height="330" />
-                        <Border.InputBindings>
-                            <MouseBinding MouseAction="{x:Static MouseAction.LeftDoubleClick}"
+                                <Border.InputBindings>
+                                    <MouseBinding MouseAction="{x:Static MouseAction.LeftDoubleClick}"
                                           Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=DataContext.OpenFullInfo}" />
-                        </Border.InputBindings>
-                    </Border>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel HorizontalAlignment="Center"
+                                </Border.InputBindings>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel HorizontalAlignment="Center"
                                VerticalAlignment="Top" />
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-        </ListBox>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                </ListBox>
+            </Grid>
+        </ScrollViewer>
+
     </Grid>
 </Page>

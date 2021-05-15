@@ -24,7 +24,7 @@ namespace Курсач.Pages
         public UserPage()
         {
             InitializeComponent();
-            DataContext = new UserPageVM();
+            //DataContext = new UserPageVM();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

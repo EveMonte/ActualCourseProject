@@ -195,13 +195,30 @@ namespace Курсач.ViewModels
                 db.YOUR_BOOKS.Add(newBook);
                 db.SaveChangesAsync().GetAwaiter();
             }
+            else
+            {
+                notifier.ShowWarning("Книга уже у вас на полке");
+            }
         }
 
         private void BuyTheBook(object obj) // open user control where you can confirm or cancel purchase
         {
-            if (db.YOUR_BOOKS.FirstOrDefault(n => (n.BOOK_ID == (int)obj) && (n.USER_ID == currentUser.USER_ID)) == null)
+            if (currentUser.CREDIT_CARD != null)
             {
-                WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new ConfirmPurchase((int)obj);
+                if (db.YOUR_BOOKS.FirstOrDefault(n => (n.BOOK_ID == (int)obj) && (n.USER_ID == currentUser.USER_ID)) == null)
+                {
+                    WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new ConfirmPurchase((int)obj);
+                    WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Visible";
+                }
+                else
+                {
+                    notifier.ShowWarning("Вы уже приобрели эту книгу");
+                }
+            }
+            else
+            {
+                notifier.ShowWarning("Для того чтобы купить книгу, необходимо добавить карту");
+                WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new AddCreditCardVM();
                 WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Visible";
             }
         }

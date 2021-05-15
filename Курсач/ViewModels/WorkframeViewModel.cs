@@ -110,7 +110,7 @@ namespace Курсач.ViewModels
 
         private void OpenUser(object obj)
         {
-            CurrentPageViewModel = new UserPageVM();
+            CurrentPageViewModel = new UserPageVM(currentUser);
         }
 
         private void OpenBasket(object obj)

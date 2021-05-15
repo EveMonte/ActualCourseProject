@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace Курсач.ViewModels
@@ -42,6 +45,8 @@ namespace Курсач.ViewModels
             ChangeCommand = new DelegateCommand(ChangeUser);
 
             Users = new ObservableCollection<USERS>(db.USERS.Where(n => n.ACCOUNT == "Редактор"));
+            Items = CollectionViewSource.GetDefaultView(Users);
+            Items.Filter = Search;
         }
         private void ChangeUser(object obj)
         {
@@ -80,5 +85,48 @@ namespace Курсач.ViewModels
             db.USERS.Remove(userToRemove);
             db.SaveChangesAsync().GetAwaiter();
         }
+        #region Filter
+        public string Text
+        {
+            get { return (string)GetValue(TextProperty); }
+            set { SetValue(TextProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Text.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TextProperty =
+            DependencyProperty.Register("Text", typeof(string), typeof(AdminsVM), new PropertyMetadata("", TextChanged));
+
+        private static void TextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var current = d as AdminsVM;
+            if (current != null)
+            {
+                current.Items.Filter = null;
+                current.Items.Filter = current.Search;
+            }
+        }
+
+        public ICollectionView Items
+        {
+            get { return (ICollectionView)GetValue(ItemsProperty); }
+            set { SetValue(ItemsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Text.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ItemsProperty =
+            DependencyProperty.Register("Items", typeof(ICollectionView), typeof(AdminsVM), new PropertyMetadata(null));
+        private bool Search(object obj)
+        {
+            bool result = true;
+            USERS current = obj as USERS;
+
+            if (current != null && !string.IsNullOrWhiteSpace(Text) && !current.EMAIL.ToLower().Contains(Text.ToLower()) && !current.NAME.ToLower().Contains(Text.ToLower()) && !current.SECOND_NAME.ToLower().Contains(Text.ToLower()))
+            {
+                result = false;
+            }
+            return result;
+        }
+        #endregion
+
     }
 }

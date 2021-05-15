@@ -9,7 +9,8 @@
       Title="Settings"
       Style="{DynamicResource PageStyle}">
 
-    <Grid Style="{DynamicResource GridMainStyle}">
+    <Grid Style="{DynamicResource GridMainStyle}"
+          Margin="0, 0, 18, 0">
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition Height="100" />

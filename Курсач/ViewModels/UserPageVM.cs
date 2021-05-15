@@ -200,8 +200,9 @@ namespace Курсач.ViewModels
         #endregion
 
         //Constructor
-        public UserPageVM()
+        public UserPageVM(USERS currentUser)
         {
+            this.currentUser = currentUser;
             //Delegate Command
             ApplyEmailCommand = new DelegateCommand(ApplyEmail);
             ApplyPasswordCommand = new DelegateCommand(ApplyPassword);
@@ -211,7 +212,7 @@ namespace Курсач.ViewModels
 
             //////////////////////////////////////////////////////
             //Get necessary info about current user
-            currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser ?? AdminWindowSingleTone.GetInstance().AdminVM.currentUser;
+            //currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser ?? AdminWindowSingleTone.GetInstance().AdminVM.currentUser;
             SECONDNAME = currentUser.SECOND_NAME;
             NAME = currentUser.NAME;
             ACCOUNT = currentUser.ACCOUNT;

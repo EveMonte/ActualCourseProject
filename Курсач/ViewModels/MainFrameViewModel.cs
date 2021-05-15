@@ -7,6 +7,7 @@ namespace Курсач.ViewModels
     public class MainFrameViewModel : BaseViewModel
     {
         #region Data
+        public LIBRARYEntities db = new LIBRARYEntities();
         private BaseViewModel _selectedViewModel;
         public BaseViewModel SelectedViewModel
         {

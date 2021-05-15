@@ -73,7 +73,8 @@
                         </StackPanel>
                     </Button>
                 </ListViewItem>
-                <ListViewItem Padding="0" Height="50">
+                <ListViewItem Padding="0" Height="50"
+                              Visibility="{Binding Visibility}">
                     <Button Background="Transparent"
                                 BorderBrush="Transparent"
                                 Padding="0"
@@ -136,7 +137,7 @@
                                                      Height="40"
                                                      Margin="10,0,10,0"
                                                          VerticalAlignment="Center"/>
-                            <TextBlock Text="Пользователи"
+                            <TextBlock Text="Пользователь"
                                        VerticalAlignment="Center"
                                        FontSize="16" />
                         </StackPanel>

@@ -86,6 +86,7 @@
                      FontSize="14"
                  Grid.Column="2"
                  Grid.ColumnSpan="2"
+                       VerticalAlignment="Center"
                  Text="{Binding EMAIL}" />
             <DockPanel Grid.Column="2"
                        Grid.ColumnSpan="2"

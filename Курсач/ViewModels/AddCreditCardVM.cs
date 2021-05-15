@@ -1,13 +1,21 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
+using ToastNotifications;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Position;
 using Курсач.Singleton;
+using ToastNotifications.Messages;
 
 namespace Курсач.ViewModels
 {
     public class AddCreditCardVM : BaseViewModel
     {
         #region Data
+        Notifier notifier;
+
         [Required]
         private string creditCard;
         public string CREDIT_CARD
@@ -69,6 +77,21 @@ namespace Курсач.ViewModels
             AddCardCommand = new DelegateCommand(AddCard);
             ///////////////////////////////////////////////
             
+            notifier = new Notifier(cfg =>
+            {
+                cfg.PositionProvider = new WindowPositionProvider(
+                    parentWindow: Application.Current.MainWindow,
+                    corner: Corner.BottomRight,
+                    offsetX: 10,
+                    offsetY: 10);
+
+                cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+                    notificationLifetime: TimeSpan.FromSeconds(5),
+                    maximumNotificationCount: MaximumNotificationCount.FromCount(5));
+
+                cfg.Dispatcher = Application.Current.Dispatcher;
+            });
+
             WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Visible"; //activate dark area
         }
 
@@ -81,6 +104,7 @@ namespace Курсач.ViewModels
             WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser.CREDIT_CARD = CREDIT_CARD;
 
             Close(obj); // Close User control
+            notifier.ShowSuccess("Карта успешно добавлена");
         }
 
         private void Close(object obj) // Close user control

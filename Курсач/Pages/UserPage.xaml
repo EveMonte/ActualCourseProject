@@ -9,7 +9,7 @@
       mc:Ignorable="d" 
       Title="UserPage"
       Background="#F4F2EF">
-    <Grid>
+    <Grid Margin="0, 0, 18, 0">
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition Height="1*" />

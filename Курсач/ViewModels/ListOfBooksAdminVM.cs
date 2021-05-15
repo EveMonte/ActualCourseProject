@@ -71,7 +71,8 @@ namespace Курсач.ViewModels
         public ICommand FindByGenreCommand { get; private set; }
         public ICommand AddBookCommand { get; private set; }
         public ICommand RemoveBookCommand { get; private set; }
-        public ICommand SaveBookCommand { get; private set; }
+        public ICommand GetBooksCommand { get; private set; }
+        public ICommand SetBooksCommand { get; private set; }
 
         #endregion
 
@@ -104,11 +105,11 @@ namespace Курсач.ViewModels
         #endregion
 
         //Constructor
-        public ListOfBooksAdminVM()
+        public ListOfBooksAdminVM(ObservableCollection<BOOKS> Books)
         {
+            this.Books = Books;
             using (LIBRARYEntities library = new LIBRARYEntities())
             {
-                Books = new ObservableCollection<BOOKS>(library.BOOKS);
                 Genres = new ObservableCollection<GENRES>(library.GENRES.OrderBy(n => n.GENRE));
             }
             foreach (BOOKS book in Books) //check books. If book is available by subscription, we place band
@@ -126,11 +127,18 @@ namespace Курсач.ViewModels
             OpenFullInfo = new DelegateCommand(OpenFullInfoUserControl);
             AddBookCommand = new DelegateCommand(AddBook);
             RemoveBookCommand = new DelegateCommand(RemoveBook, CanRemoveBook);
-            SaveBookCommand = new DelegateCommand(SaveBooks);
+            SetBooksCommand = new DelegateCommand(SaveBooks);
+            GetBooksCommand = new DelegateCommand(GetBooks);
             Items = CollectionViewSource.GetDefaultView(Books);
             Items.Filter = Search;
             FindByGenreCommand = new DelegateCommand(FindByGenre);
         }
+
+        private void GetBooks(object obj)
+        {
+            Books = AdminWindowSingleTone.GetInstance().AdminVM.Books = new ObservableCollection<BOOKS>(MainWindowViewModelSingleton.GetInstance().MainFrameViewModel.db.BOOKS);
+        }
+
         private void SaveBooks(object obj)//Save books from datagrid to database
         {
             foreach (BOOKS book in Books)
@@ -139,9 +147,17 @@ namespace Курсач.ViewModels
                 if (newBook == null)
                     db.BOOKS.Add(book);
                 else
-                    foreach(var dbBook in db.BOOKS)
-                        if(Books.FirstOrDefault(n => n.BOOK_ID == dbBook.BOOK_ID) == null)
-                            db.BOOKS.Remove(dbBook);
+                {
+                    newBook.AUTHOR = book.AUTHOR;
+                    newBook.TITLE = book.TITLE;
+                    newBook.COVER = book.COVER;
+                    newBook.LINK = book.LINK;
+                    newBook.CATEGORY = book.CATEGORY;
+                    newBook.PRICE = book.PRICE;
+                    newBook.GENRE = book.GENRE;
+                    newBook.DESCRIPTION = book.DESCRIPTION;
+                }
+
             }
             db.SaveChangesAsync().GetAwaiter();
 

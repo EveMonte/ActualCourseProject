@@ -14,9 +14,8 @@
             <RowDefinition Height="800*" />
         </Grid.RowDefinitions>
         <Grid Style="{DynamicResource GridMainStyle}"
-              Grid.Row="1"
-              Width="1200" />
-        <Grid Grid.Row="0">
+              Grid.Row="1" />
+        <Grid Grid.Row="0" Width="1200">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1.5*" />
@@ -75,24 +74,25 @@
                         />
             </StackPanel>
         </Grid>
-        <ListBox Grid.Row="1"
-                 ItemsSource="{Binding Books, Mode=TwoWay}"
+        <ScrollViewer Grid.Row="1">
+            <ListBox ItemsSource="{Binding Books, Mode=TwoWay}"
                  SelectedItem="{Binding SelectedBook, Mode=TwoWay}"
                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                 Padding="150 0"
+                     Margin="200 0"
                  x:Name="listOfBooks">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Border>
-                        <userControls:YourBook Height="500" Width="800" />
-                    </Border>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel HorizontalAlignment="Center"  />
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-        </ListBox>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border>
+                            <userControls:YourBook Height="500" Width="800" />
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel HorizontalAlignment="Center"  />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+        </ScrollViewer>
     </Grid>
 </Page>

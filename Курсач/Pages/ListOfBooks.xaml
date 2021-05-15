@@ -71,28 +71,30 @@
                         />
             </StackPanel>
         </Grid>
-        <ListBox Grid.Column="0" Grid.Row="1"
-                 Grid.ColumnSpan="4"
+        <ScrollViewer Grid.Column="0" Grid.Row="1"
+                 Grid.ColumnSpan="4">
+            <ListBox Margin="200 0"
                  ItemsSource="{Binding Books, Mode=TwoWay}"
                  SelectedItem="{Binding SelectedBook}"
                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
                  x:Name="listOfBooks">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Border>
-                        <userControls:BookUserControl Width="150" Height="330"  />
-                        <Border.InputBindings>
-                            <MouseBinding MouseAction="{x:Static MouseAction.LeftDoubleClick}"
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border>
+                            <userControls:BookUserControl Width="150" Height="330"  />
+                            <Border.InputBindings>
+                                <MouseBinding MouseAction="{x:Static MouseAction.LeftDoubleClick}"
                                           Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=DataContext.OpenFullInfo}" />
-                        </Border.InputBindings>
-                    </Border>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel HorizontalAlignment="Center"  />
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-        </ListBox>
+                            </Border.InputBindings>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel HorizontalAlignment="Center"  />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+        </ScrollViewer>
     </Grid>
 </Page>

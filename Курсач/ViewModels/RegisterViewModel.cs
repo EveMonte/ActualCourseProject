@@ -72,9 +72,13 @@ namespace Курсач.ViewModels
                         if (SaltedHash.Verify(u.PASSWORD.Substring(44), u.PASSWORD.Substring(0, 44), insecurePassword) && u.EMAIL == Email)
                         {
                             currentUser = u;
-                            if(u.ACCOUNT == "Администратор")
+                            if(u.ACCOUNT != "Пользователь")
                             {
-                                AdminWindowSingleTone.GetInstance(new AdminVM()).AdminVM.currentUser = u;
+                                AdminWindowSingleTone.GetInstance(new AdminVM(u));
+                                AdminWindowSingleTone.GetInstance().AdminVM.CurrentPageViewModel = new ListOfBooksAdminVM(AdminWindowSingleTone.GetInstance().AdminVM.Books);
+                                AdminWindowSingleTone.GetInstance().AdminVM.Visibility = u.ACCOUNT == "Администратор" ? "Visible" : "Collapsed";
+                                AdminWindowSingleTone.GetInstance().AdminVM.currentUser = u;
+
                                 AdminWindow adminWindow = new AdminWindow();
                                 adminWindow.Show();
                             }
