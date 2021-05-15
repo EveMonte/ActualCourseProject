@@ -44,11 +44,13 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("Password");
             }
         }
+        private string code;
         #endregion
 
         #region Commands
         public ICommand OpenRegisterControlCommand { get; private set; } // Открыть user control с формой для регистрации
         public ICommand OpenWorkFrameCommand { get; private set; } // Успешная регистрация и открытие рабочего окна
+        public ICommand ForgotPasswordCommand { get; private set; } // Успешная регистрация и открытие рабочего окна
         #endregion
 
         #region Command's Logic
@@ -116,6 +118,12 @@ namespace Курсач.ViewModels
         {
             OpenRegisterControlCommand = new DelegateCommand(OpenRegisterWindow);
             OpenWorkFrameCommand = new DelegateCommand(OpenWorkFrame);
+            ForgotPasswordCommand = new DelegateCommand(ForgotPassword);
+        }
+
+        private void ForgotPassword(object obj)
+        {
+            MainWindowViewModelSingleton.GetInstance().MainFrameViewModel.SelectedViewModel = new ForgotPasswordVM();
         }
     }
 }

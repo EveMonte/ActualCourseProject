@@ -170,6 +170,9 @@
     <Compile Include="UserControls\Admin.xaml.cs">
       <DependentUpon>Admin.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ForgotPassword.xaml.cs">
+      <DependentUpon>ForgotPassword.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\FullInfoAdmin.xaml.cs">
       <DependentUpon>FullInfoAdmin.xaml</DependentUpon>
     </Compile>
@@ -180,6 +183,7 @@
     <Compile Include="ViewModels\AdminControlVM.cs" />
     <Compile Include="ViewModels\AdminsVM.cs" />
     <Compile Include="ViewModels\AdminVM.cs" />
+    <Compile Include="ViewModels\ForgotPasswordVM.cs" />
     <Compile Include="ViewModels\FullInfoAdminVM.cs" />
     <Compile Include="ViewModels\ListOfBooksAdminVM.cs" />
     <Compile Include="ViewModels\UsersPageVM.cs" />
@@ -321,6 +325,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Admin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ForgotPassword.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

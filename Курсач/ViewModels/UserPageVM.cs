@@ -4,6 +4,10 @@ using System.Runtime.InteropServices;
 using System.Security;
 using System.Windows;
 using System.Windows.Input;
+using ToastNotifications;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Messages;
+using ToastNotifications.Position;
 using Курсач.Methods;
 using Курсач.Singleton;
 
@@ -12,6 +16,8 @@ namespace Курсач.ViewModels
     class UserPageVM : BaseViewModel
     {
         #region 
+        Notifier notifier;
+
         USERS currentUser; // Current user, get from Workframe
         LIBRARYEntities db = new LIBRARYEntities(); // DB context
         private string mainCode; //Code which is generated here to confirm new password or email
@@ -227,6 +233,21 @@ namespace Курсач.ViewModels
             CreditCard = currentUser.CREDIT_CARD;
             YourBooks = db.YOUR_BOOKS.Where(n => n.USER_ID == currentUser.USER_ID).Count(); //Count books on your shelve
             Marks = db.MARKS.Where(n => n.USER_ID == currentUser.USER_ID).Count(); //Count your marks
+
+            notifier = new Notifier(cfg =>
+            {
+                cfg.PositionProvider = new WindowPositionProvider(
+                    parentWindow: Application.Current.MainWindow,
+                    corner: Corner.BottomRight,
+                    offsetX: 10,
+                    offsetY: 10);
+
+                cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+                    notificationLifetime: TimeSpan.FromSeconds(5),
+                    maximumNotificationCount: MaximumNotificationCount.FromCount(5));
+
+                cfg.Dispatcher = Application.Current.Dispatcher;
+            });
         }
 
         #region Commands' Logic
@@ -329,10 +350,12 @@ namespace Курсач.ViewModels
             mainCode = MessageSender.GenerateCode();
             string message = $"С Вашей учетной записи поступил запрос на смену личных данных. Если это были Вы, то введите символьный код, расположенный ниже, в приложение:\n{mainCode}\nИначе свяжитесь с администрацией приложения!";
             MessageSender.SendEmailAsync(currentUser.EMAIL, mainCode, message, "Смена личных данных").GetAwaiter();
+            notifier.ShowInformation("На вашу почту был отправлен код подтверждения для смены личных данных. Проверьте сообщения и введите код в поле.")
         }
 
         public void OpenRegistrationWindow(object obj)
         {
+            
             (new MainWindow()).Show();
             var windows = Application.Current.Windows;
             foreach(Window window in windows)

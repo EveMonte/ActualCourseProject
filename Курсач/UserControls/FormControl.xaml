@@ -9,62 +9,72 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d"
              >
-    <Grid>
-            <Grid VerticalAlignment="Stretch"
+    <Grid VerticalAlignment="Stretch"
                   Style="{DynamicResource GridStyle}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="35*" />
-                    <RowDefinition Height="35*" />
-                    <RowDefinition Height="50*" />
-                    <RowDefinition Height="50*" />
-                </Grid.RowDefinitions>
-                <TextBox MaxHeight="50" Grid.Row="0" Grid.ColumnSpan="4"
-                         Text="{Binding Path=Email}"
-                         x:Name="emailTextBox"
-                         VerticalContentAlignment="Center"
-                         Margin="18, 0,18,0"
-                         materialDesign:HintAssist.Hint="{DynamicResource m_EnterLogin}"
-                         Style="{DynamicResource MaterialDesignFloatingHintTextBox }"
-                         FontSize="16" />
-            <PasswordBox MaxHeight="50"
-                         MinHeight="40"
-                         Grid.Row="1"
-                         Grid.ColumnSpan="4"
-                         x:Name="passwordTextBox"
-                         VerticalContentAlignment="Center"
-                         Style="{DynamicResource MaterialDesignFloatingHintPasswordBox}"
-                         materialDesign:HintAssist.Hint="{DynamicResource m_EnterPassword}"
-                         Margin="18,0"
-                         FontSize="16" >
-                <i:Interaction.Behaviors>
-                    <components:PasswordBoxBindingBehavior Password="{Binding Password}"/>
-                </i:Interaction.Behaviors>
-            </PasswordBox>
-            <Button Grid.Row="2"
-                        Grid.ColumnSpan="4"
-                        Command="{Binding Path=OpenWorkFrameCommand}"
-                        Template="{DynamicResource DarkButton}"
-                        Content="{DynamicResource m_SignIn}"
-                        Height="Auto"
-                        MaxHeight="70"
-                        FontSize="20"
-                        Margin="15 10"/>
-                <Button x:Name="createAccount"
-                        Grid.Row="3"
-                        Grid.ColumnSpan="4"
-                        Command="{Binding Path=OpenRegisterControlCommand}"
-                        Template="{DynamicResource LightButton}" 
-                        Content="{DynamicResource m_CreateAnAccount}"
-                        Height="Auto"
-                        FontSize="20"
-                        MaxHeight="70"
-                        Margin="15 10"/>
-            </Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35*" />
+            <RowDefinition Height="35*" />
+            <RowDefinition Height="50*" />
+            <RowDefinition Height="50*" />
+            <RowDefinition Height="25*" />
+        </Grid.RowDefinitions>
+        <TextBox MaxHeight="50" Grid.Row="0" Grid.ColumnSpan="4"
+                 Text="{Binding Path=Email}"
+                 x:Name="emailTextBox"
+                 VerticalContentAlignment="Center"
+                 Margin="18, 0,18,0"
+                 materialDesign:HintAssist.Hint="{DynamicResource m_EnterLogin}"
+                 Style="{DynamicResource MaterialDesignFloatingHintTextBox }"
+                 FontSize="16" />
+        <PasswordBox MaxHeight="50"
+                     MinHeight="40"
+                     Grid.Row="1"
+                     Grid.ColumnSpan="4"
+                     x:Name="passwordTextBox"
+                     VerticalContentAlignment="Center"
+                     Style="{DynamicResource MaterialDesignFloatingHintPasswordBox}"
+                     materialDesign:HintAssist.Hint="{DynamicResource m_EnterPassword}"
+                     Margin="18,0"
+                     FontSize="16" >
+            <i:Interaction.Behaviors>
+                <components:PasswordBoxBindingBehavior Password="{Binding Password}"/>
+            </i:Interaction.Behaviors>
+        </PasswordBox>
+        <Button Grid.Row="2"
+                Grid.ColumnSpan="4"
+                Command="{Binding Path=OpenWorkFrameCommand}"
+                Template="{DynamicResource DarkButton}"
+                Content="{DynamicResource m_SignIn}"
+                Height="Auto"
+                MaxHeight="70"
+                FontSize="20"
+                Margin="15 10"/>
+        <Button x:Name="createAccount"
+                Grid.Row="3"
+                Grid.ColumnSpan="4"
+                Command="{Binding Path=OpenRegisterControlCommand}"
+                Template="{DynamicResource LightButton}" 
+                Content="{DynamicResource m_CreateAnAccount}"
+                Height="Auto"
+                FontSize="20"
+                MaxHeight="70"
+                Margin="15 10"/>
+        <Button Background="Transparent"
+                BorderBrush="Transparent"
+                Grid.Row="4"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                Padding="0"
+                Command="{Binding ForgotPasswordCommand}">
+            <TextBlock Text="Забыли пароль?"
+                       FontSize="14"
+                       Foreground="#FF1877F3"/>
+        </Button>
     </Grid>
 </UserControl>

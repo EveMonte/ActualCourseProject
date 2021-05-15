@@ -383,3 +383,5 @@ C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Pages\ListOfBooksAdmin
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\UserControls\FullInfoAdmin.g.cs
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\UserControls\FullInfoAdmin.baml
 C:\Users\User\Desktop\OOP10-master\Курсач\bin\Debug\ToastNotifications.Messages.dll
+C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\UserControls\ForgotPassword.g.cs
+C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\UserControls\ForgotPassword.baml

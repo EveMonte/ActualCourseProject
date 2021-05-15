@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -69,14 +71,16 @@ namespace Курсач.ViewModels
         }
         public ICommand ConfirmCommand { get; private set; }
         public ICommand RemoveCommand { get; private set; }
+        public ICommand ChangeCoverCommand { get; private set; }
         public FullInfoAdminVM(BOOKS currentBook, ObservableCollection<USERS> users)
         {
             CurrentBook = currentBook;
             Users = new ObservableCollection<USERS>(users);
             Genres = new ObservableCollection<GENRES>(db.GENRES.OrderBy(n => n.GENRE));
-
+            SelectedGenre = Genres.FirstOrDefault(n => n.GENRE_ID == CurrentBook.GENRE);
             ConfirmCommand = new DelegateCommand(SaveChanges);
             RemoveCommand = new DelegateCommand(RemoveBook);
+            ChangeCoverCommand = new DelegateCommand(ChangeCover);
 
             notifier = new Notifier(cfg =>
             {
@@ -94,29 +98,36 @@ namespace Курсач.ViewModels
             });
         }
 
+        private void ChangeCover(object obj)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg|All files (*.*)|*.*";
+            openFileDialog.InitialDirectory = @"C:\Users\User\Desktop\Курсааааач\Media";
+            if (openFileDialog.ShowDialog() == true)
+                CurrentBook.COVER = Path.GetFullPath(openFileDialog.FileName);
+        }
+
         private void RemoveBook(object obj)
         {
             var book = db.BOOKS.FirstOrDefault(n => n.BOOK_ID == CurrentBook.BOOK_ID);
-            db.BOOKS.Remove(book);
-            db.SaveChangesAsync().GetAwaiter();
             AdminWindowSingleTone.GetInstance().AdminVM.CurrentPageViewModel = new ListOfBooksAdminVM(AdminWindowSingleTone.GetInstance().AdminVM.Books);
-            notifier.ShowSuccess("Изменения успешно сохранены");
+            AdminWindowSingleTone.GetInstance().AdminVM.Books.Remove(book);
+            notifier.ShowSuccess("Книга успешно удалена");
         }
 
         private void SaveChanges(object obj)
         {
-            var book = db.BOOKS.FirstOrDefault(n => n.BOOK_ID == CurrentBook.BOOK_ID);
+            /*BOOKS book = new BOOKS();
             book.AUTHOR = CurrentBook.AUTHOR;
             book.TITLE = CurrentBook.TITLE;
             book.COVER = CurrentBook.COVER;
             book.LINK = CurrentBook.LINK;
             book.CATEGORY = CurrentBook.CATEGORY;
             book.PRICE = CurrentBook.PRICE;
-            book.GENRE = db.GENRES.FirstOrDefault(n => n.GENRE == SelectedGenre.GENRE).GENRE_ID;
-            db.SaveChangesAsync().GetAwaiter();
+            book.DESCRIPTION = CurrentBook.DESCRIPTION;*/
+            CurrentBook.GENRE = db.GENRES.FirstOrDefault(n => n.GENRE == SelectedGenre.GENRE).GENRE_ID;
             AdminWindowSingleTone.GetInstance().AdminVM.CurrentPageViewModel = new ListOfBooksAdminVM(AdminWindowSingleTone.GetInstance().AdminVM.Books);
-            notifier.ShowSuccess("Книга успешно удалена");
-
+            notifier.ShowSuccess("Изменения успешно сохранены");
         }
     }
 }
