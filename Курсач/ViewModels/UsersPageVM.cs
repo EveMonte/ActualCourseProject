@@ -92,6 +92,24 @@ namespace Курсач.ViewModels
             db.BASKETS.RemoveRange(basket);
             var sub = db.SUBSCRIPTIONS.FirstOrDefault(n => n.SUBSCRIPTION_ID == userToRemove.SUBSCRIPTION);
             db.YOUR_BOOKS.RemoveRange(shelf);
+            var marks = db.MARKS.Where(n => n.USER_ID == userToRemove.USER_ID);
+            var newMarks = db.MARKS.Where(n => n.USER_ID != userToRemove.USER_ID);
+            foreach (var mark in marks)
+            {
+                var book = db.BOOKS.FirstOrDefault(n => n.BOOK_ID == mark.BOOK_ID);
+                if(book != null)
+                {
+                    int? sum = 0;
+                    foreach (MARKS newMark in newMarks.Where(n => n.BOOK_ID == book.BOOK_ID))
+                    {
+                        sum += newMark.MARK;
+                    }
+                    int count = newMarks.Where(n => n.BOOK_ID == book.BOOK_ID).Count();
+                    book.RATING = count != 0 ? (decimal)sum / (decimal)count : 0;
+                }
+
+            }
+            db.MARKS.RemoveRange(marks);
             db.USERS.Remove(userToRemove);
             db.SaveChangesAsync().GetAwaiter();
         }

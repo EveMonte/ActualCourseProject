@@ -342,6 +342,7 @@ namespace Курсач.ViewModels
 
         private void ApplyCreditCard(object obj) // Open AddCreditCart UserControl
         {
+
             WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new AddCreditCardVM();
         }
 
@@ -350,7 +351,7 @@ namespace Курсач.ViewModels
             mainCode = MessageSender.GenerateCode();
             string message = $"С Вашей учетной записи поступил запрос на смену личных данных. Если это были Вы, то введите символьный код, расположенный ниже, в приложение:\n{mainCode}\nИначе свяжитесь с администрацией приложения!";
             MessageSender.SendEmailAsync(currentUser.EMAIL, mainCode, message, "Смена личных данных").GetAwaiter();
-            notifier.ShowInformation("На вашу почту был отправлен код подтверждения для смены личных данных. Проверьте сообщения и введите код в поле.")
+            notifier.ShowInformation("На вашу почту был отправлен код подтверждения для смены личных данных. Проверьте сообщения и введите код в поле.");
         }
 
         public void OpenRegistrationWindow(object obj)
@@ -361,7 +362,6 @@ namespace Курсач.ViewModels
             foreach(Window window in windows)
                 if (window is Workframe || window is AdminWindow)
                     window.Close();
-            
         }
         #endregion
     }

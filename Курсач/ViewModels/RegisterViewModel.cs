@@ -5,6 +5,10 @@ using Курсач.Methods;
 using System.Security;
 using System.Runtime.InteropServices;
 using System.Windows;
+using ToastNotifications;
+using ToastNotifications.Position;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Messages;
 
 namespace Курсач.ViewModels
 {
@@ -13,6 +17,8 @@ namespace Курсач.ViewModels
         #region Data
         SaltedHash sh;
         USERS currentUser;
+        Notifier notifier;
+
         public USERS CurrentUser
         {
             get
@@ -64,17 +70,17 @@ namespace Курсач.ViewModels
             using (LIBRARYEntities db = new LIBRARYEntities())
             {
                 var users = db.USERS;
+                bool flag;
                 foreach (USERS u in users)
                 {
                     try
                     {
                         passwordBSTR = Marshal.SecureStringToBSTR(password);
                         insecurePassword = Marshal.PtrToStringBSTR(passwordBSTR);
-
                         if (SaltedHash.Verify(u.PASSWORD.Substring(44), u.PASSWORD.Substring(0, 44), insecurePassword) && u.EMAIL == Email)
                         {
                             currentUser = u;
-                            if(u.ACCOUNT != "Пользователь")
+                            if (u.ACCOUNT != "Пользователь")
                             {
                                 AdminWindowSingleTone.GetInstance(new AdminVM(u));
                                 AdminWindowSingleTone.GetInstance().AdminVM.CurrentPageViewModel = new ListOfBooksAdminVM(AdminWindowSingleTone.GetInstance().AdminVM.Books);
@@ -87,6 +93,7 @@ namespace Курсач.ViewModels
                             else
                             {
                                 WorkFrameSingleTone.GetInstance(new WorkframeViewModel(u)).WorkframeViewModel.currentUser = u;
+                                WorkFrameSingleTone.GetInstance().WorkframeViewModel.CurrentPageViewModel = new ListOfBooksViewModel(u);
                                 Workframe workframe = new Workframe();
                                 workframe.Show();
                             }
@@ -98,6 +105,8 @@ namespace Курсач.ViewModels
                             insecurePassword = null;
                             break;
                         }
+                        else
+                            notifier.ShowWarning("Такого пользователя не существует.\nПроверьте правильность введенных данных.");
                     }
 
                     catch
@@ -107,7 +116,6 @@ namespace Курсач.ViewModels
                     }
                 }
             }
-
         }
         void OpenRegisterWindow(object obj) // Открыть UserControl с регистрацией
         {
@@ -119,6 +127,21 @@ namespace Курсач.ViewModels
             OpenRegisterControlCommand = new DelegateCommand(OpenRegisterWindow);
             OpenWorkFrameCommand = new DelegateCommand(OpenWorkFrame);
             ForgotPasswordCommand = new DelegateCommand(ForgotPassword);
+
+            notifier = new Notifier(cfg =>
+            {
+                cfg.PositionProvider = new WindowPositionProvider(
+                    parentWindow: Application.Current.MainWindow,
+                    corner: Corner.BottomRight,
+                    offsetX: 10,
+                    offsetY: 10);
+
+                cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+                    notificationLifetime: TimeSpan.FromSeconds(5),
+                    maximumNotificationCount: MaximumNotificationCount.FromCount(5));
+
+                cfg.Dispatcher = Application.Current.Dispatcher;
+            });
         }
 
         private void ForgotPassword(object obj)

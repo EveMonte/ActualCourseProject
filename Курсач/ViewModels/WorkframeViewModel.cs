@@ -23,19 +23,7 @@ namespace Курсач.ViewModels
                 OnPropertyChanged(nameof(CurrentPageViewModel));
             }
         }
-        private BaseViewModel _selectedViewModel;
-        public BaseViewModel SelectedViewModel
-        {
-            get
-            {
-                return _selectedViewModel;
-            }
-            set
-            {
-                _selectedViewModel = value;
-                OnPropertyChanged(nameof(SelectedViewModel));
-            }
-        }
+
         BOOKS selectedBook;
         //object selectedBook;
         public ObservableCollection<BOOKS> Books { get; private set; }
@@ -101,6 +89,8 @@ namespace Курсач.ViewModels
         #region Commands' Logic
         private void OpenSubscription(object obj)
         {
+            //prevVM = CurrentPafeViewModel;
+            //CurrentPageV...  = new ...VM
             CurrentPageViewModel = new SubscriptionVM();
         }
         private void OpenSettings(object obj)
@@ -128,41 +118,6 @@ namespace Курсач.ViewModels
             CurrentPageViewModel = new ListOfBooksViewModel(currentUser);
         }
 
-        private void SaveBooks(object obj)//Save books from datagrid to database
-        {
-            using (LIBRARYEntities db = new LIBRARYEntities())
-            {
-                var users = db.USERS;
-                db.BOOKS.RemoveRange(db.BOOKS);
-                foreach (BOOKS book in Books)
-                {
-                    db.BOOKS.Add(book);
-                }
-                db.SaveChanges();
-            }
-        }
-
-        bool CanRemoveBook(object arg)
-        {
-            return (arg as BOOKS) != null;
-        }
-
-        void RemoveBook(object obj)//Remove selected row from datagrid
-        {
-            Books.Remove((BOOKS)obj);
-        }
-        void ChangeCover(object obj)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg|All files (*.*)|*.*";
-            openFileDialog.InitialDirectory = @"C:\Users\User\Desktop\Курсааааач\Media";
-            if (openFileDialog.ShowDialog() == true)
-                selectedBook.COVER = Path.GetFullPath(openFileDialog.FileName);
-        }
-        private void AddBook(object obj) //Add new row to datagrid
-        {
-            Books.Add(new BOOKS { AUTHOR = "Author", COVER = "", DESCRIPTION = "Description", GENRE = 1, TITLE = "Title", PAGES = 0, RATING = 0, CATEGORY = "Подписка", PRICE = 0, YEAR = 2021 });
-        }
         #endregion
     }
 }

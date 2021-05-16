@@ -51,7 +51,7 @@ namespace Курсач.ViewModels
                         break;
                     }
                 }
-
+                MainWindowViewModelSingleton.GetInstance().MainFrameViewModel.SelectedViewModel = new RegisterViewModel();
             }
         }
         private void SendNewMessage(object obj)

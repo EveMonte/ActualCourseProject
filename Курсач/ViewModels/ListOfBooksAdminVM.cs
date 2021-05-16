@@ -136,7 +136,9 @@ namespace Курсач.ViewModels
 
         private void GetBooks(object obj)
         {
-            Books = AdminWindowSingleTone.GetInstance().AdminVM.Books = new ObservableCollection<BOOKS>(MainWindowViewModelSingleton.GetInstance().MainFrameViewModel.db.BOOKS);
+            Books = new ObservableCollection<BOOKS>(db.BOOKS);
+            AdminWindowSingleTone.GetInstance().AdminVM.Books = Books;
+            AdminWindowSingleTone.GetInstance().AdminVM.CurrentPageViewModel = new ListOfBooksAdminVM(Books);
         }
 
         private void SaveBooks(object obj)//Save books from datagrid to database

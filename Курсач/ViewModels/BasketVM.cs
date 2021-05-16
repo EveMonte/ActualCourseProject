@@ -34,7 +34,6 @@ namespace Курсач.ViewModels
             }
         }
         public ObservableCollection<GENRES> Genres { get; private set; } // List of genres for combobox
-        public IQueryable<BOOKS> coll { get; set; }
         LIBRARYEntities db = new LIBRARYEntities();
         public USERS currentUser;
         private int mark;
@@ -148,7 +147,7 @@ namespace Курсач.ViewModels
         #region Commands' Logic
         private void BuyTheBook(object obj) // buy book, if user don't have credit card let him add it
         {
-            if (db.YOUR_BOOKS.FirstOrDefault(n => (n.BOOK_ID == (int)obj) && (n.USER_ID == currentUser.USER_ID)) == null)
+            if (db.USERS.FirstOrDefault(n => n.USER_ID == currentUser.USER_ID).CREDIT_CARD != null)
             {
                 if (db.YOUR_BOOKS.FirstOrDefault(n => (n.BOOK_ID == (int)obj) && (n.USER_ID == currentUser.USER_ID)) == null)
                 {

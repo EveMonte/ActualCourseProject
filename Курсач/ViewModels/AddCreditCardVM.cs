@@ -70,7 +70,13 @@ namespace Курсач.ViewModels
         //Constructor
         public AddCreditCardVM()
         {
-            currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser; //Get current user
+            if(WorkFrameSingleTone.GetInstance().WorkframeViewModel != null)
+            {
+                currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser;
+                WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Visible";
+            }
+            else
+                currentUser = AdminWindowSingleTone.GetInstance().AdminVM.currentUser;
 
             //Delegate Command
             CloseUserPageCommand = new DelegateCommand(Close);
@@ -92,7 +98,7 @@ namespace Курсач.ViewModels
                 cfg.Dispatcher = Application.Current.Dispatcher;
             });
 
-            WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Visible"; //activate dark area
+             //activate dark area
         }
 
         #region Commands' Logic
@@ -101,16 +107,25 @@ namespace Курсач.ViewModels
             var user = db.USERS.FirstOrDefault(n => n.USER_ID == currentUser.USER_ID);
             user.CREDIT_CARD = CREDIT_CARD;
             db.SaveChangesAsync().GetAwaiter();
-            WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser.CREDIT_CARD = CREDIT_CARD;
-
+            if (WorkFrameSingleTone.GetInstance().WorkframeViewModel != null)
+            {
+                WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser.CREDIT_CARD = CREDIT_CARD;
+            }
+            else
+            {
+                AdminWindowSingleTone.GetInstance().AdminVM.currentUser.CREDIT_CARD = CREDIT_CARD;
+            }
             Close(obj); // Close User control
             notifier.ShowSuccess("Карта успешно добавлена");
         }
 
         private void Close(object obj) // Close user control
         {
-            WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = null; //viewmodel in content control = null
-            WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Collapsed"; // deactivate dark area
+            if (WorkFrameSingleTone.GetInstance().WorkframeViewModel != null)
+            {
+                WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = null; //viewmodel in content control = null
+                WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Collapsed"; // deactivate dark area
+            }
         }
         #endregion
     }

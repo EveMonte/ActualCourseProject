@@ -1,9 +1,15 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Security;
+using System.Windows;
 using System.Windows.Input;
+using ToastNotifications;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Messages;
+using ToastNotifications.Position;
 using Курсач.Methods;
 using Курсач.Singleton;
+using System.Linq;
 
 namespace Курсач.ViewModels
 {
@@ -11,6 +17,8 @@ namespace Курсач.ViewModels
     {
         #region Data
         SaltedHash sh;
+        LIBRARYEntities db = new LIBRARYEntities();
+        Notifier notifier;
         private BaseViewModel _selectedViewModel;
         public BaseViewModel SelectedViewModel
         {
@@ -86,6 +94,21 @@ namespace Курсач.ViewModels
         {
             RegistrationCommand = new DelegateCommand(OpenSendMessage);
             OpenSignInCommand = new DelegateCommand(OpenSignIn);
+
+            notifier = new Notifier(cfg =>
+            {
+                cfg.PositionProvider = new WindowPositionProvider(
+                    parentWindow: Application.Current.MainWindow,
+                    corner: Corner.BottomRight,
+                    offsetX: 10,
+                    offsetY: 10);
+
+                cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+                    notificationLifetime: TimeSpan.FromSeconds(5),
+                    maximumNotificationCount: MaximumNotificationCount.FromCount(5));
+
+                cfg.Dispatcher = Application.Current.Dispatcher;
+            });
         }
 
         #region Commans' Logic
@@ -98,14 +121,30 @@ namespace Курсач.ViewModels
             string hash = "";
             try
             {
+                if (db.USERS.FirstOrDefault(n => n.EMAIL == Email) == null)
+                    notifier.ShowWarning("Пользователь с таким Email уже существует");
                 password1 = Marshal.SecureStringToBSTR(FirstPassword);
                 insecurePassword1 = Marshal.PtrToStringBSTR(password1);
                 password2 = Marshal.SecureStringToBSTR(SecondPassword);
                 insecurePassword2 = Marshal.PtrToStringBSTR(password2);
                 sh = new SaltedHash(insecurePassword1);
-                if (insecurePassword1 == insecurePassword2 && insecurePassword1.Length > 6)
-                    hash += sh.Hash + sh.Salt;
-                else return;
+                if (insecurePassword1.Length > 6)
+                {
+                    if(insecurePassword1 == insecurePassword2)
+                    {
+                        hash += sh.Hash + sh.Salt;
+                    }
+                    else
+                    {
+                        notifier.ShowWarning("Введенные пароли должны совпадать");
+                        return;
+                    }
+                }    
+                else
+                {
+                    notifier.ShowWarning("Длина пароля должна быть более шести символов!");
+                    return;
+                }
                 insecurePassword1 = "";
                 insecurePassword2 = "";
                 FirstPassword.Dispose();

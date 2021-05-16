@@ -54,21 +54,6 @@ namespace Курсач.ViewModels
             var user = db.USERS.FirstOrDefault(n => n.USER_ID == changedUser.USER_ID);
             user = changedUser;
             user.ACCOUNT = changedUser.ACCOUNT;
-            var sub = db.SUBSCRIPTIONS.FirstOrDefault(n => n.SUBSCRIPTION_ID == changedUser.SUBSCRIPTION);
-            db.SaveChanges();
-            if (sub != null)
-            {
-                sub.SUBSCRIPTION_DATE = changedUser.SUBSCRIPTION_DATE;
-                sub.LENGTH = changedUser.SUBSCRIPTION_LENGTH;
-            }
-            else
-            {
-                SUBSCRIPTIONS subscr = new SUBSCRIPTIONS();
-                subscr.SUBSCRIPTION_DATE = changedUser.SUBSCRIPTION_DATE;
-                subscr.LENGTH = changedUser.SUBSCRIPTION_LENGTH;
-                db.SUBSCRIPTIONS.Add(subscr);
-                changedUser.SUBSCRIPTION = subscr.SUBSCRIPTION_ID;
-            }
             db.SaveChangesAsync().GetAwaiter();
         }
 
@@ -82,6 +67,8 @@ namespace Курсач.ViewModels
             db.BASKETS.RemoveRange(basket);
             var sub = db.SUBSCRIPTIONS.FirstOrDefault(n => n.SUBSCRIPTION_ID == userToRemove.SUBSCRIPTION);
             db.YOUR_BOOKS.RemoveRange(shelf);
+            var marks = db.MARKS.Where(n => n.USER_ID == userToRemove.USER_ID);
+            var newMarks = db.MARKS.RemoveRange(marks);
             db.USERS.Remove(userToRemove);
             db.SaveChangesAsync().GetAwaiter();
         }
