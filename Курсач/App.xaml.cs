@@ -15,6 +15,7 @@ namespace Курсач
     /// </summary>
     public partial class App : Application
     {
+		public static LIBRARYEntities db = new LIBRARYEntities();
 		private static List<CultureInfo> m_Languages = new List<CultureInfo>();
 
 		public static List<CultureInfo> Languages

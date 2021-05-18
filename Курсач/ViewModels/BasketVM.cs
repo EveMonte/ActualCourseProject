@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -88,10 +89,18 @@ namespace Курсач.ViewModels
             MarkCommand = new DelegateCommand(SetMark);
             ////////////////////////////////////////////
 
+            MainWindow thisWin = null;
+            foreach (Window win in Application.Current.Windows)
+            {
+                if (win is MainWindow)
+                {
+                    thisWin = win as MainWindow;
+                }
+            }
             notifier = new Notifier(cfg =>
             {
                 cfg.PositionProvider = new WindowPositionProvider(
-                    parentWindow: Application.Current.MainWindow,
+                    parentWindow: thisWin,
                     corner: Corner.BottomRight,
                     offsetX: 10,
                     offsetY: 10);
@@ -212,7 +221,7 @@ namespace Курсач.ViewModels
                 {
                     var bookToDelete = db.BASKETS.FirstOrDefault(n => n.BOOK_ID == book.BOOK_ID);
                     db.BASKETS.Remove(bookToDelete);
-                    db.SaveChangesAsync().GetAwaiter();
+                    db.SaveChanges();
                     Books.Remove(book);
                     break;
                 }

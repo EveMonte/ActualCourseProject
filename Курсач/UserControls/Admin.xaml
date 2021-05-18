@@ -64,19 +64,14 @@
                 <ComboBoxItem Content="Пользователь" />
                 <ComboBoxItem Content="Редактор" />
             </ComboBox>
-            <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                 materialDesign:HintAssist.Hint="{DynamicResource m_SecondName}"
-                 Grid.Row="1"
+            <TextBlock Grid.Row="1"
                  Grid.Column="2"
-                     VerticalContentAlignment="Bottom"
                      FontSize="14"
                  Grid.ColumnSpan="2"
                  Text="{Binding SECOND_NAME}" />
-            <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                 materialDesign:HintAssist.Hint="{DynamicResource m_Name}"
+            <TextBlock materialDesign:HintAssist.Hint="{DynamicResource m_Name}"
                  Grid.Row="2"
                      FontSize="14"
-                     VerticalContentAlignment="Bottom"
                  Grid.Column="2"
                  Grid.ColumnSpan="2"
                  Text="{Binding NAME}" />

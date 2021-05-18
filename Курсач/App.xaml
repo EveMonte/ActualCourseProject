@@ -53,11 +53,8 @@
             <DataTemplate DataType="{x:Type viewmodels:WorkframeViewModel}">
                 <local:Workframe />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:ConfirmPurchase}">
+            <DataTemplate DataType="{x:Type viewmodels:BaseDialogWindowVM}">
                 <userControls:ConfirmPurchase />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:ConfirmSubscriptionVM}">
-                <userControls:ConfirmSubscription />
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:SettingsVM}">
                 <pages:Settings />

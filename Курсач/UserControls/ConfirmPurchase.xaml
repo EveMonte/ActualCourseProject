@@ -7,7 +7,8 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Style="{DynamicResource GridMainStyle}">
+    <Grid Style="{DynamicResource GridMainStyle}"
+          DataContext="{Binding CurrentVM}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50" />
             <ColumnDefinition Width="1*" />
@@ -58,7 +59,7 @@
                 Height="60"
                 FontSize="18"
                 VerticalAlignment="Bottom"
-                Command="{Binding BuyTheBookCommand}"
+                Command="{Binding BuyCommand}"
                 Content="{DynamicResource m_ConfirmPurchase}"
                 Template="{DynamicResource DarkButton}" />
         <TextBlock Text="{Binding InfoText}"

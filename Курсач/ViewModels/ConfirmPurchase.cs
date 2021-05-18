@@ -16,7 +16,6 @@ namespace Курсач.ViewModels
         #region Data
         Notifier notifier;
 
-        LIBRARYEntities db = new LIBRARYEntities();
         private string infoText; //Text in dialog window
         public string InfoText
         {
@@ -36,20 +35,26 @@ namespace Курсач.ViewModels
         #endregion
 
         #region Commands
-        public ICommand BuyTheBookCommand { get; private set; } // Confirm purchase
+        public ICommand BuyCommand { get; private set; } // Confirm purchase
         public ICommand CancelCommand { get; private set; } // cancel dialog window
         #endregion
 
         //Constructor
         public ConfirmPurchase(int book_id)
         {
-            currentBook = db.BOOKS.FirstOrDefault(n => n.BOOK_ID == book_id); //get data
-            currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser;
+            Workframe thisWin = null;
+            foreach (Window win in Application.Current.Windows)
+            {
+                if (win is Workframe)
+                {
+                    thisWin = win as Workframe;
+                }
+            }
 
             notifier = new Notifier(cfg =>
             {
                 cfg.PositionProvider = new WindowPositionProvider(
-                    parentWindow: Application.Current.MainWindow,
+                    parentWindow: thisWin,
                     corner: Corner.BottomRight,
                     offsetX: 10,
                     offsetY: 10);
@@ -61,8 +66,18 @@ namespace Курсач.ViewModels
                 cfg.Dispatcher = Application.Current.Dispatcher;
             });
 
+            try
+            {
+                currentBook = App.db.BOOKS.FirstOrDefault(n => n.BOOK_ID == book_id); //get data
+            }
+            catch(Exception ex)
+            {
+                notifier.ShowError($"Произошла ошибка.\n{ex.Message}\nИзвините за причиненные неудобства");
+            }
+            currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser;
+
             //Delegate command
-            BuyTheBookCommand = new DelegateCommand(BuyTheBook);
+            BuyCommand = new DelegateCommand(BuyTheBook);
             CancelCommand = new DelegateCommand(Cancel);
             ////////////////////////////////////////////
 
@@ -78,25 +93,33 @@ namespace Курсач.ViewModels
 
         private void BuyTheBook(object obj) // buy the book
         {
-
-
-            YOUR_BOOKS newBook = new YOUR_BOOKS();
-            newBook.BOOK_ID = currentBook.BOOK_ID;
-            newBook.USER_ID = currentUser.USER_ID;
-            db.YOUR_BOOKS.Add(newBook);
-
-            BASKETS bookToDelete = db.BASKETS.FirstOrDefault(n => (n.USER_ID == currentUser.USER_ID) && (n.BOOK_ID == currentBook.BOOK_ID));
-
-            if (bookToDelete != null)
+            try
             {
-                db.BASKETS.Remove(bookToDelete);
-            }
+                YOUR_BOOKS newBook = new YOUR_BOOKS();
+                newBook.BOOK_ID = currentBook.BOOK_ID;
+                newBook.USER_ID = currentUser.USER_ID;
+                App.db.YOUR_BOOKS.Add(newBook);
 
-            BOOKS yourBook = db.BOOKS.FirstOrDefault(n => n.BOOK_ID == currentBook.BOOK_ID);
-            db.SaveChangesAsync().GetAwaiter();
-            string message = String.Format($"Здравствуйте, {currentUser.NAME}. Вы только что приобрели книгу \"{yourBook.TITLE}\" за {ConvertDecimal.RemoveZeroes(yourBook.PRICE)}. Наслаждайтесь прочтением!");
-            MessageSender.SendEmailAsync(currentUser.EMAIL, "", message, "Покупка книги").GetAwaiter();
-            Cancel(obj);
+                BASKETS bookToDelete = App.db.BASKETS.FirstOrDefault(n => (n.USER_ID == currentUser.USER_ID) && (n.BOOK_ID == currentBook.BOOK_ID));
+
+                if (bookToDelete != null)
+                {
+                    App.db.BASKETS.Remove(bookToDelete);
+                }
+
+                BOOKS yourBook = App.db.BOOKS.FirstOrDefault(n => n.BOOK_ID == currentBook.BOOK_ID);
+                App.db.SaveChangesAsync().GetAwaiter();
+                string message = String.Format($"Здравствуйте, {currentUser.NAME}. Вы только что приобрели книгу \"{yourBook.TITLE}\" за {ConvertDecimal.RemoveZeroes(yourBook.PRICE)}. Наслаждайтесь прочтением!");
+                MessageSender.SendEmailAsync(currentUser.EMAIL, "", message, "Покупка книги").GetAwaiter();
+                Cancel(obj);
+                notifier.ShowSuccess("Книга добавлена на полку");
+            }
+            catch(Exception ex)
+            {
+                notifier.ShowError($"Произошла ошабка.\n" +
+                    $"{ex.Message}" +
+                    $"\nИзвините за причиненные неудобства");
+            }
         }
 
     }

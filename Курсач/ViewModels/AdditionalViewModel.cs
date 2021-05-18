@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using ToastNotifications;
@@ -111,7 +112,8 @@ namespace Курсач.ViewModels
         //Add book to basket lol :)
         private void AddBookToBasket(object obj)
         {
-            if(db.BASKETS.FirstOrDefault(n => (n.USER_ID == currentUser.USER_ID) && (n.BOOK_ID == (int)obj)) == null)
+
+            if (db.BASKETS.FirstOrDefault(n => (n.USER_ID == currentUser.USER_ID) && (n.BOOK_ID == (int)obj)) == null)
             {
                 if (db.YOUR_BOOKS.FirstOrDefault(n => (n.USER_ID == currentUser.USER_ID) && (n.BOOK_ID == (int)obj)) == null)
                 {
@@ -120,16 +122,38 @@ namespace Курсач.ViewModels
                     newBasketBook.USER_ID = currentUser.USER_ID;
                     db.BASKETS.Add(newBasketBook);
                     db.SaveChangesAsync().GetAwaiter();
-                    notifier.ShowSuccess("Книга успешно добавлена в корзину");
+                    try
+                    {
+                        notifier.ShowSuccess("Книга успешно добавлена в корзину");
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Windows.Forms.MessageBox.Show(ex.Message);
+                    }
                 }
                 else
                 {
-                    notifier.ShowWarning("Вы уже приобрели эту книгу");
+                    try
+                    {
+
+                        notifier.ShowWarning("Вы уже приобрели эту книгу");
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Windows.Forms.MessageBox.Show(ex.Message);
+                    }
                 }
             }
             else
             {
-                notifier.ShowWarning("Эта книга уже у вас в корзине");
+                try
+                {
+                    notifier.ShowWarning("Эта книга уже у вас в корзине");
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show(ex.Message);
+                }
             }
         }
 
@@ -197,7 +221,15 @@ namespace Курсач.ViewModels
             }
             else
             {
-                notifier.ShowWarning("Книга уже у вас на полке");
+                try
+                {
+                    notifier.ShowWarning("Книга уже у вас на полке");
+
+                }
+                catch(Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show(ex.Message);
+                }
             }
         }
 
@@ -207,7 +239,7 @@ namespace Курсач.ViewModels
             {
                 if (db.YOUR_BOOKS.FirstOrDefault(n => (n.BOOK_ID == (int)obj) && (n.USER_ID == currentUser.USER_ID)) == null)
                 {
-                    WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new ConfirmPurchase((int)obj);
+                    WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new BaseDialogWindowVM(new ConfirmPurchase((int)obj));
                     WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Visible";
                 }
                 else
@@ -252,21 +284,28 @@ namespace Курсач.ViewModels
             }
 
             CreateSimilarBooks();
-
-            notifier = new Notifier(cfg =>
+            Workframe thisWin = null;
+            foreach (Window win in Application.Current.Windows)
             {
-                cfg.PositionProvider = new WindowPositionProvider(
-                    parentWindow: Application.Current.MainWindow,
-                    corner: Corner.BottomRight,
-                    offsetX: 10,
-                    offsetY: 10);
+                if (win is Workframe)
+                {
+                    thisWin = win as Workframe;
+                }
+            }
+            notifier = new Notifier(cfg =>
+                    {
+                        cfg.PositionProvider = new WindowPositionProvider(
+                                parentWindow: thisWin,
+                            corner: Corner.BottomRight,
+                            offsetX: 10,
+                            offsetY: 10);
 
-                cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
-                    notificationLifetime: TimeSpan.FromSeconds(5),
-                    maximumNotificationCount: MaximumNotificationCount.FromCount(5));
+                        cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+                            notificationLifetime: TimeSpan.FromSeconds(5),
+                            maximumNotificationCount: MaximumNotificationCount.FromCount(5));
 
-                cfg.Dispatcher = Application.Current.Dispatcher;
-            });
+                        cfg.Dispatcher = Application.Current.Dispatcher;
+                    });
 
             //DelegateCommand
             OpenFullInfo = new DelegateCommand(OpenFullInfoUserControl);

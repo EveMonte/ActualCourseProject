@@ -15,9 +15,9 @@
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="460*"/>
-            <ColumnDefinition Width="200*"/>
-            <ColumnDefinition Width="388*"/>
+            <ColumnDefinition Width="360*"/>
+            <ColumnDefinition Width="350*"/>
+            <ColumnDefinition Width="360*"/>
             <ColumnDefinition Width="450*"/>
             <ColumnDefinition Width="428*"/>
         </Grid.ColumnDefinitions>
@@ -39,25 +39,17 @@
                        FontFamily="Tahoma" />
 
         </StackPanel>
-        <StackPanel Grid.Row="1"
+
+                <Image Grid.Row="1"
                     Grid.Column="1"
-                    HorizontalAlignment="Center"
-                    Orientation="Vertical">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="0.5*" />
-                    <RowDefinition Height="0.5*" />
-                    <RowDefinition Height="2*" />
-                </Grid.RowDefinitions>
-                <Image Style="{DynamicResource ImageStyle}"
-                       Grid.Row="0" >
+                       Style="{DynamicResource ImageStyle}" >
                     <Image.Effect>
                         <DropShadowEffect BlurRadius="10"
                                           Opacity="0.9"
                                           ShadowDepth="2"/>
                     </Image.Effect>
                 </Image>
-                <TextBlock Grid.Row="1"
+                <!--<TextBlock Grid.Row="1"
                            Text="{DynamicResource m_Recent}"
                            TextAlignment="Center"
                            VerticalAlignment="Bottom"
@@ -72,9 +64,7 @@
                                 TextAlignment="Center"
                                 FontSize="18"
                                 FontFamily="Tahoma" />
-                </StackPanel>
-            </Grid>
-        </StackPanel>
+                </StackPanel>-->
         <ContentControl Grid.Row="1"
                         Grid.Column="3"
                         Content="{Binding SelectedViewModel, Mode=TwoWay}" >

@@ -318,18 +318,18 @@ namespace Курсач.ViewModels
         {
             if (mainCode != Code)
             {
-                System.Windows.Forms.MessageBox.Show("Неверный код!");
+                notifier.ShowWarning("Неверный код!");
             }
             else if (NewEmail != currentUser.EMAIL)
             {
-                System.Windows.Forms.MessageBox.Show("Старый и новый Email не должны совпадать!");
+                notifier.ShowWarning("Старый и новый Email не должны совпадать!");
             }
             else {
                 foreach (USERS user in db.USERS)
                 {
                     if(user.EMAIL == NewEmail)
                     {
-                        System.Windows.Forms.MessageBox.Show("Пользователь с таким Email уже существует!");
+                        notifier.ShowWarning("Пользователь с таким Email уже существует!");
                     }
                 }
 

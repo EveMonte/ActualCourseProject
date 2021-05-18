@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using Курсач.Methods;
 using Курсач.Singleton;
 
 namespace Курсач.ViewModels
@@ -16,7 +17,6 @@ namespace Курсач.ViewModels
     {
         #region Data
         private USERS User = new USERS();
-        LIBRARYEntities db = new LIBRARYEntities();
         private ObservableCollection<BOOKS> books;
         public ObservableCollection<BOOKS> Books
         {
@@ -84,19 +84,19 @@ namespace Курсач.ViewModels
 
         private void OpenFullInfoUserControl(object obj) // Open page with extended info
         {
-            foreach (GENRES genre in db.GENRES.ToList()) //we are looking for our book in GENRES...
+            foreach (GENRES genre in App.db.GENRES.ToList()) //we are looking for our book in GENRES...
             {
                 if (genre.GENRE_ID == SelectedBook.GENRE)
                     SelectedBook.Genre = genre.GENRE; //... and when we find it we write it in the notmapped property
             }
-            SelectedBook.NUMBEROFVOICES = db.MARKS.Where(n => n.BOOK_ID == SelectedBook.BOOK_ID).Count(); //counting marks to write in notmapped property
-            MARKS mark = db.MARKS.FirstOrDefault(n => (n.USER_ID == User.USER_ID) && (n.BOOK_ID == SelectedBook.BOOK_ID));
+            SelectedBook.NUMBEROFVOICES = App.db.MARKS.Where(n => n.BOOK_ID == SelectedBook.BOOK_ID).Count(); //counting marks to write in notmapped property
+            MARKS mark = App.db.MARKS.FirstOrDefault(n => (n.USER_ID == User.USER_ID) && (n.BOOK_ID == SelectedBook.BOOK_ID));
             SelectedBook.Mark = mark != null ? (int)mark.MARK : 0;
-            var baskets = db.BASKETS.Where(n => n.BOOK_ID == SelectedBook.BOOK_ID);
+            var baskets = App.db.BASKETS.Where(n => n.BOOK_ID == SelectedBook.BOOK_ID);
             Users = new ObservableCollection<USERS>();
             foreach (var basket in baskets)
             {
-                foreach (var user in db.USERS.Where(n => n.USER_ID == basket.USER_ID))
+                foreach (var user in App.db.USERS.Where(n => n.USER_ID == basket.USER_ID))
                     Users.Add(user);
             }
             AdminWindowSingleTone.GetInstance().AdminVM.CurrentPageViewModel = new FullInfoAdminVM(SelectedBook, Users);
@@ -122,7 +122,7 @@ namespace Курсач.ViewModels
                 {
                     book.Subscription = 0;
                 }
-                book.FormattedPrice = Convert.ToString(decimal.Round(decimal.Parse(Convert.ToString(book.PRICE).Replace(".", ",")), 2)).Replace(",", ".") + '$';
+                book.FormattedPrice = ConvertDecimal.RemoveZeroes(book.PRICE);
             }
             OpenFullInfo = new DelegateCommand(OpenFullInfoUserControl);
             AddBookCommand = new DelegateCommand(AddBook);
@@ -136,33 +136,48 @@ namespace Курсач.ViewModels
 
         private void GetBooks(object obj)
         {
-            Books = new ObservableCollection<BOOKS>(db.BOOKS);
+            Books = new ObservableCollection<BOOKS>(App.db.BOOKS);
             AdminWindowSingleTone.GetInstance().AdminVM.Books = Books;
             AdminWindowSingleTone.GetInstance().AdminVM.CurrentPageViewModel = new ListOfBooksAdminVM(Books);
         }
 
-        private void SaveBooks(object obj)//Save books from datagrid to database
+        private void SaveBooks(object obj)//Save books to database
         {
-            foreach (BOOKS book in Books)
+            try
             {
-                var newBook = db.BOOKS.FirstOrDefault(n => n.BOOK_ID == book.BOOK_ID);
-                if (newBook == null)
-                    db.BOOKS.Add(book);
-                else
+                List<BOOKS> listToDelete = new List<BOOKS>();
+                foreach (BOOKS book in Books)
                 {
-                    newBook.AUTHOR = book.AUTHOR;
-                    newBook.TITLE = book.TITLE;
-                    newBook.COVER = book.COVER;
-                    newBook.LINK = book.LINK;
-                    newBook.CATEGORY = book.CATEGORY;
-                    newBook.PRICE = book.PRICE;
-                    newBook.GENRE = book.GENRE;
-                    newBook.DESCRIPTION = book.DESCRIPTION;
+                    var newBook = App.db.BOOKS.FirstOrDefault(n => n.BOOK_ID == book.BOOK_ID);
+                    if (newBook == null)
+                        App.db.BOOKS.Add(book);
+                    else
+                    {
+                        newBook.AUTHOR = book.AUTHOR;
+                        newBook.TITLE = book.TITLE;
+                        newBook.COVER = book.COVER;
+                        newBook.LINK = book.LINK;
+                        newBook.CATEGORY = book.CATEGORY;
+                        newBook.PRICE = book.PRICE;
+                        newBook.GENRE = book.GENRE;
+                        newBook.DESCRIPTION = book.DESCRIPTION;
+                    }
                 }
+                foreach (BOOKS book in App.db.BOOKS)
+                {
+                    if (Books.FirstOrDefault(n => n.BOOK_ID == book.BOOK_ID) == null)
+                    {
+                        listToDelete.Add(book);
+                    }
+                }
+                App.db.BOOKS.RemoveRange(listToDelete);
+                listToDelete = null;
+                App.db.SaveChangesAsync().GetAwaiter();
+            }
+            catch
+            {
 
             }
-            db.SaveChangesAsync().GetAwaiter();
-
         }
         bool CanRemoveBook(object arg)
         {

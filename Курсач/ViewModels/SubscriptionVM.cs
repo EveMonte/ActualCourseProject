@@ -25,7 +25,7 @@ namespace Курсач.ViewModels
         {
             if(currentUser.CREDIT_CARD != null)
             {
-                WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new ConfirmSubscriptionVM(1);
+                WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new BaseDialogWindowVM(new ConfirmSubscriptionVM(1));
                 WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Visible";
             }
             else
@@ -38,7 +38,7 @@ namespace Курсач.ViewModels
         {
             if (currentUser.CREDIT_CARD != null)
             {
-                WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new ConfirmSubscriptionVM(12);
+                WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new BaseDialogWindowVM(new ConfirmSubscriptionVM(12));
                 WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Visible";
             }
             else

@@ -38,10 +38,19 @@ namespace Курсач.ViewModels
             SendNewMessageCommand = new DelegateCommand(SendMessage);
             SendMessageCommand = new DelegateCommand(SendMessage);
 
+            MainWindow thisWin = null;
+            foreach (Window win in Application.Current.Windows)
+            {
+                if (win is MainWindow)
+                {
+                    thisWin = win as MainWindow;
+                }
+            }
+
             notifier = new Notifier(cfg =>
             {
                 cfg.PositionProvider = new WindowPositionProvider(
-                    parentWindow: Application.Current.MainWindow,
+                    parentWindow: thisWin,
                     corner: Corner.BottomRight,
                     offsetX: 10,
                     offsetY: 10);
@@ -60,19 +69,28 @@ namespace Курсач.ViewModels
             string message = String.Format($"С Вашего аккаунта поступил запрос на восстановление пароля. Если он" +
                 $" поступил не от вас, то незамедлительно свяжитесь с администрацией BookВарь.\nЕсли это Ваш запрос," +
                 $" то введите код, расположенный ниже, в качестве пароля во время следующего Вашего входа. При входе в приложение сразу поменяйти пароль!\n{Code}");
-            var user = MainWindowViewModelSingleton.GetInstance().MainFrameViewModel.db.USERS.FirstOrDefault(n => n.EMAIL == Email);
-            if (user != null)
+            try
             {
-                MessageSender.SendEmailAsync(Email, Code, message, "Восстановление пароля").GetAwaiter();
-                SaltedHash sh = new SaltedHash(Code);
-                user.PASSWORD = sh.Hash + sh.Salt;
-                MainWindowViewModelSingleton.GetInstance().MainFrameViewModel.db.SaveChangesAsync().GetAwaiter();
-                notifier.ShowSuccess("Сообщение отправлено. Проверьте Вашу почту");
-                MainWindowViewModelSingleton.GetInstance().MainFrameViewModel.SelectedViewModel = new RegisterViewModel();
+                var user = MainWindowViewModelSingleton.GetInstance().MainFrameViewModel.db.USERS.FirstOrDefault(n => n.EMAIL == Email);
+                if (user != null)
+                {
+                    MessageSender.SendEmailAsync(Email, Code, message, "Восстановление пароля").GetAwaiter();
+                    SaltedHash sh = new SaltedHash(Code);
+                    user.PASSWORD = sh.Hash + sh.Salt;
+                    App.db.SaveChangesAsync().GetAwaiter();
+                    notifier.ShowSuccess("Сообщение отправлено. Проверьте Вашу почту");
+                    MainWindowViewModelSingleton.GetInstance().MainFrameViewModel.SelectedViewModel = new RegisterViewModel();
+                }
+                else
+                {
+                    notifier.ShowWarning("Пользователя с таким email не существует.\nПроверьте правильность написания email и повторите попытку");
+                }
             }
-            else
+            catch(Exception ex)
             {
-                notifier.ShowWarning("Пользователя с таким email не существует.\nПроверьте правильность написания email и повторите попытку");
+                notifier.ShowError($"Произошла ошибка\n" +
+                    $"{ex.Message}" +
+                    $"\nИзвините за причиненные неудобства");
             }
         }
 

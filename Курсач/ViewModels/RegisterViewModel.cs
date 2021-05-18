@@ -69,11 +69,10 @@ namespace Курсач.ViewModels
             // immediately use insecurePassword (in local variable) value after decrypting it:
             using (LIBRARYEntities db = new LIBRARYEntities())
             {
-                var users = db.USERS;
-                bool flag;
-                foreach (USERS u in users)
+                try
                 {
-                    try
+                    var users = db.USERS;
+                    foreach (USERS u in users)
                     {
                         passwordBSTR = Marshal.SecureStringToBSTR(password);
                         insecurePassword = Marshal.PtrToStringBSTR(passwordBSTR);
@@ -108,12 +107,11 @@ namespace Курсач.ViewModels
                         else
                             notifier.ShowWarning("Такого пользователя не существует.\nПроверьте правильность введенных данных.");
                     }
-
-                    catch
-                    {
-                        insecurePassword = "";
-                        Password.Dispose();
-                    }
+                }
+                catch
+                {
+                    insecurePassword = "";
+                    Password.Dispose();
                 }
             }
         }
@@ -128,10 +126,19 @@ namespace Курсач.ViewModels
             OpenWorkFrameCommand = new DelegateCommand(OpenWorkFrame);
             ForgotPasswordCommand = new DelegateCommand(ForgotPassword);
 
+            MainWindow thisWin = null;
+            foreach (Window win in Application.Current.Windows)
+            {
+                if (win is MainWindow)
+                {
+                    thisWin = win as MainWindow;
+                }
+            }
+
             notifier = new Notifier(cfg =>
             {
                 cfg.PositionProvider = new WindowPositionProvider(
-                    parentWindow: Application.Current.MainWindow,
+                    parentWindow: thisWin,
                     corner: Corner.BottomRight,
                     offsetX: 10,
                     offsetY: 10);
@@ -141,7 +148,7 @@ namespace Курсач.ViewModels
                     maximumNotificationCount: MaximumNotificationCount.FromCount(5));
 
                 cfg.Dispatcher = Application.Current.Dispatcher;
-            });
+            });            
         }
 
         private void ForgotPassword(object obj)

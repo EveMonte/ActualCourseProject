@@ -361,8 +361,6 @@ C:\Users\User\Desktop\OOP10-master\Курсач\bin\Debug\ru\EntityFramework.res
 C:\Users\User\Desktop\OOP10-master\Курсач\bin\Debug\ru\EntityFramework.SqlServer.resources.dll
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\UserControls\ConfirmPurchase.g.cs
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\UserControls\ConfirmPurchase.baml
-C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\UserControls\ConfirmSubscription.g.cs
-C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\UserControls\ConfirmSubscription.baml
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Pages\Settings.g.cs
 C:\Users\User\Desktop\OOP10-master\Курсач\obj\Debug\Pages\Settings.baml
 C:\Users\User\Desktop\OOP10-master\Курсач\bin\Debug\ToastNotifications.dll

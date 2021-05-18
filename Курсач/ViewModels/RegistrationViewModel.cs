@@ -94,7 +94,14 @@ namespace Курсач.ViewModels
         {
             RegistrationCommand = new DelegateCommand(OpenSendMessage);
             OpenSignInCommand = new DelegateCommand(OpenSignIn);
-
+            MainWindow thisWin = null;
+            foreach (Window win in Application.Current.Windows)
+            {
+                if (win is MainWindow)
+                {
+                    thisWin = win as MainWindow;
+                }
+            }
             notifier = new Notifier(cfg =>
             {
                 cfg.PositionProvider = new WindowPositionProvider(
@@ -121,8 +128,11 @@ namespace Курсач.ViewModels
             string hash = "";
             try
             {
-                if (db.USERS.FirstOrDefault(n => n.EMAIL == Email) == null)
+                if (db.USERS.FirstOrDefault(n => n.EMAIL == Email) != null)
+                {
                     notifier.ShowWarning("Пользователь с таким Email уже существует");
+                    return;
+                }
                 password1 = Marshal.SecureStringToBSTR(FirstPassword);
                 insecurePassword1 = Marshal.PtrToStringBSTR(password1);
                 password2 = Marshal.SecureStringToBSTR(SecondPassword);
@@ -150,8 +160,9 @@ namespace Курсач.ViewModels
                 FirstPassword.Dispose();
                 SecondPassword.Dispose();
             }
-            catch
+            catch(Exception ex)
             {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
                 insecurePassword1 = "";
                 insecurePassword2 = "";
                 FirstPassword.Dispose();
