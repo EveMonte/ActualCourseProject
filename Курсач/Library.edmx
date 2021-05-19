@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="Хранилище LIBRARYModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ADVERTISEMENT">
+          <Key>
+            <PropertyRef Name="ADV_ID" />
+          </Key>
+          <Property Name="ADV_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IMAGE_SOURCE" Type="varchar" MaxLength="150" />
+          <Property Name="LINK" Type="varchar" MaxLength="150" />
+        </EntityType>
         <EntityType Name="BASKETS">
           <Key>
             <PropertyRef Name="BASKET_ID" />
@@ -18,7 +26,7 @@
             <PropertyRef Name="BOOK_ID" />
           </Key>
           <Property Name="BOOK_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TITLE" Type="varchar" MaxLength="65" Nullable="false" />
+          <Property Name="TITLE" Type="varchar" MaxLength="65" />
           <Property Name="AUTHOR" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="GENRE" Type="int" />
           <Property Name="YEAR" Type="int" Nullable="false" />
@@ -28,7 +36,7 @@
           <Property Name="RATING" Type="numeric" Precision="3" Scale="2" Nullable="false" />
           <Property Name="PAGES" Type="int" Nullable="false" />
           <Property Name="DESCRIPTION" Type="nvarchar" MaxLength="800" Nullable="false" />
-		  <Property Name="LINK" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="LINK" Type="varchar" MaxLength="150" />
         </EntityType>
         <EntityType Name="GENRES">
           <Key>
@@ -52,7 +60,7 @@
           </Key>
           <Property Name="SUBSCRIPTION_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SUBSCRIPTION_DATE" Type="datetime" Nullable="false" />
-		  <Property Name="LENGTH" Type="int" Nullable="true" />
+          <Property Name="LENGTH" Type="int" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -182,6 +190,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Хранилище LIBRARYModelContainer">
+          <EntitySet Name="ADVERTISEMENT" EntityType="Self.ADVERTISEMENT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BASKETS" EntityType="Self.BASKETS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BOOKS" EntityType="Self.BOOKS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GENRES" EntityType="Self.GENRES" Schema="dbo" store:Type="Tables" />
@@ -228,6 +237,14 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="LIBRARYModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ADVERTISEMENT">
+          <Key>
+            <PropertyRef Name="ADV_ID" />
+          </Key>
+          <Property Name="ADV_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IMAGE_SOURCE" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="LINK" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="BASKETS">
           <Key>
             <PropertyRef Name="BASKET_ID" />
@@ -243,17 +260,17 @@
             <PropertyRef Name="BOOK_ID" />
           </Key>
           <Property Name="BOOK_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TITLE" Type="String" MaxLength="65" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TITLE" Type="String" MaxLength="65" FixedLength="false" Unicode="false" />
           <Property Name="AUTHOR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="GENRE" Type="Int32" />
           <Property Name="YEAR" Type="Int32" Nullable="false" />
-          <Property Name="PRICE" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="PRICE" Type="Decimal" Precision="10" Scale="4" Nullable="false" />
           <Property Name="COVER" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CATEGORY" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="RATING" Type="Decimal" Precision="3" Scale="2" Nullable="false" />
           <Property Name="PAGES" Type="Int32" Nullable="false" />
           <Property Name="DESCRIPTION" Type="String" MaxLength="800" FixedLength="false" Unicode="true" Nullable="false" />
-		  <Property Name="LINK" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LINK" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="BASKETS" Relationship="Self.BASKETS_BOOK_ID_FK" FromRole="BOOKS" ToRole="BASKETS" />
           <NavigationProperty Name="YOUR_BOOKS" Relationship="Self.BOOK_ID_FK" FromRole="BOOKS" ToRole="YOUR_BOOKS" />
           <NavigationProperty Name="GENRES" Relationship="Self.GENRE_FK" FromRole="BOOKS" ToRole="GENRES" />
@@ -284,7 +301,7 @@
           </Key>
           <Property Name="SUBSCRIPTION_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SUBSCRIPTION_DATE" Type="DateTime" Nullable="false" Precision="3" />
-		  <Property Name="LENGTH" Type="Int32" Nullable="true" />
+          <Property Name="LENGTH" Type="Int32" />
           <NavigationProperty Name="USERS" Relationship="Self.SUBSCRIPTION_FK" FromRole="SUBSCRIPTIONS" ToRole="USERS" />
         </EntityType>
         <EntityType Name="sysdiagrams">
@@ -421,6 +438,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="LIBRARYEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ADVERTISEMENT" EntityType="Self.ADVERTISEMENT" />
           <EntitySet Name="BASKETS" EntityType="Self.BASKETS" />
           <EntitySet Name="BOOKS" EntityType="Self.BOOKS" />
           <EntitySet Name="GENRES" EntityType="Self.GENRES" />
@@ -468,6 +486,15 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Хранилище LIBRARYModelContainer" CdmEntityContainer="LIBRARYEntities">
+          <EntitySetMapping Name="ADVERTISEMENT">
+            <EntityTypeMapping TypeName="LIBRARYModel.ADVERTISEMENT">
+              <MappingFragment StoreEntitySet="ADVERTISEMENT">
+                <ScalarProperty Name="ADV_ID" ColumnName="ADV_ID" />
+                <ScalarProperty Name="IMAGE_SOURCE" ColumnName="IMAGE_SOURCE" />
+                <ScalarProperty Name="LINK" ColumnName="LINK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="BASKETS">
             <EntityTypeMapping TypeName="LIBRARYModel.BASKETS">
               <MappingFragment StoreEntitySet="BASKETS">
@@ -491,7 +518,7 @@
                 <ScalarProperty Name="RATING" ColumnName="RATING" />
                 <ScalarProperty Name="PAGES" ColumnName="PAGES" />
                 <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
-				<ScalarProperty Name="LINK" ColumnName="LINK" />
+                <ScalarProperty Name="LINK" ColumnName="LINK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -518,7 +545,7 @@
               <MappingFragment StoreEntitySet="SUBSCRIPTIONS">
                 <ScalarProperty Name="SUBSCRIPTION_ID" ColumnName="SUBSCRIPTION_ID" />
                 <ScalarProperty Name="SUBSCRIPTION_DATE" ColumnName="SUBSCRIPTION_DATE" />
-				<ScalarProperty Name="LENGTH" ColumnName="LENGTH" />
+                <ScalarProperty Name="LENGTH" ColumnName="LENGTH" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -21,8 +21,9 @@
                 <ColumnDefinition Width="2.5*" />
             </Grid.ColumnDefinitions>
             <Image Grid.Column="0"
-                   Margin="0 5"
-                   VerticalAlignment="Center"
+                   Margin="0, 5, 0, 0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Bottom"
                    Style="{DynamicResource ImageStyle}" >
                 <Image.Effect>
                     <DropShadowEffect BlurRadius="10"
@@ -46,6 +47,7 @@
                        FontSize="24"/>
             <StackPanel Orientation="Horizontal"
                         Grid.Column="3"
+                        Margin="0, 0, 20, 0"
                         HorizontalAlignment="Right">
                 <ComboBox 
                           Padding="0"
@@ -73,12 +75,25 @@
         </Grid>
         <ScrollViewer Grid.Column="0" Grid.Row="1"
                  Grid.ColumnSpan="4">
-            <StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="150"/>
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
                 <Image Source="{Binding ImageSourceUp}"
+                       Grid.Row="0"
+                       Margin="300 15"
+                       Width="Auto"
+                       Height="Auto"
                        Opacity="{Binding OpacityAnimationUp}"/>
                 <Image Source="{Binding ImageSourceDown}"
+                       Grid.Row="0"
+                       Margin="300 15"
+                       Width="Auto"
+                       Height="Auto"
                        Opacity="{Binding OpacityAnimationDown}"/>
                 <ListBox Margin="200 0"
+                         Grid.Row="1"
                  ItemsSource="{Binding Books, Mode=TwoWay}"
                  SelectedItem="{Binding SelectedBook}"
                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
@@ -100,7 +115,7 @@
                         </ItemsPanelTemplate>
                     </ListBox.ItemsPanel>
                 </ListBox>
-            </StackPanel>
+            </Grid>
         </ScrollViewer>
     </Grid>
 </Page>

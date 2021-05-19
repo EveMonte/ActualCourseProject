@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -14,7 +15,6 @@ namespace Курсач.ViewModels
     {
         #region Data
         private USERS User = new USERS();
-        LIBRARYEntities db = new LIBRARYEntities();
         private ObservableCollection<BOOKS> books;
         public ObservableCollection<BOOKS> Books
         {
@@ -50,9 +50,9 @@ namespace Курсач.ViewModels
             }
         }
 
-        private int opacityAnimationUp;
+        private double opacityAnimationUp = 1;
 
-        public int OpacityAnimationUp
+        public double OpacityAnimationUp
         {
             get { return opacityAnimationUp; }
             set 
@@ -62,9 +62,9 @@ namespace Курсач.ViewModels
             }
         }
 
-        private int opacityAnimationDown;
+        private double opacityAnimationDown = 0;
 
-        public int OpacityAnimationDown
+        public double OpacityAnimationDown
         {
             get { return opacityAnimationDown; }
             set
@@ -86,6 +86,9 @@ namespace Курсач.ViewModels
             }
         }
 
+        bool animation = true;
+        int phase = 0;
+
         private string imageSourceDown;
 
         public string ImageSourceDown
@@ -98,7 +101,7 @@ namespace Курсач.ViewModels
             }
         }
 
-
+        List<ADVERTISEMENT> ListOfAdvertisement;
         #endregion
 
         #region Commands
@@ -114,13 +117,13 @@ namespace Курсач.ViewModels
 
         private void OpenFullInfoUserControl(object obj) // Open page with extended info
         {
-            foreach (GENRES genre in db.GENRES.ToList()) //we are looking for our book in GENRES...
+            foreach (GENRES genre in App.db.GENRES.ToList()) //we are looking for our book in GENRES...
             {
                 if (genre.GENRE_ID == SelectedBook.GENRE)
                     SelectedBook.Genre = genre.GENRE; //... and when we find it we write it in the notmapped property
             }
-            SelectedBook.NUMBEROFVOICES = db.MARKS.Where(n => n.BOOK_ID == SelectedBook.BOOK_ID).Count(); //counting marks to write in notmapped property
-            MARKS mark = db.MARKS.FirstOrDefault(n => (n.USER_ID == User.USER_ID) && (n.BOOK_ID == SelectedBook.BOOK_ID));
+            SelectedBook.NUMBEROFVOICES = App.db.MARKS.Where(n => n.BOOK_ID == SelectedBook.BOOK_ID).Count(); //counting marks to write in notmapped property
+            MARKS mark = App.db.MARKS.FirstOrDefault(n => (n.USER_ID == User.USER_ID) && (n.BOOK_ID == SelectedBook.BOOK_ID));
             SelectedBook.Mark = mark != null ? (int)mark.MARK : 0;
             FullInfoViewModelSingleTone.GetInstance(new FullInfoViewModel()).FullInfoViewModel.CurrentBook = SelectedBook;
             WorkFrameSingleTone.GetInstance().WorkframeViewModel.CurrentPageViewModel = new AdditionalInfoViewModel();
@@ -134,7 +137,7 @@ namespace Курсач.ViewModels
             using (LIBRARYEntities library = new LIBRARYEntities())
             {
                 Books = new ObservableCollection<BOOKS>(library.BOOKS);
-                var shelfBooks = db.YOUR_BOOKS.Where(n => n.USER_ID == user.USER_ID);
+                var shelfBooks = App.db.YOUR_BOOKS.Where(n => n.USER_ID == user.USER_ID);
                 foreach(var book in shelfBooks)
                 {
                     var bookToRemove = Books.FirstOrDefault(n => n.BOOK_ID == book.BOOK_ID);
@@ -143,7 +146,7 @@ namespace Курсач.ViewModels
                         Books.Remove(bookToRemove);
                     }
                 }
-                var basketBooks = db.BASKETS.Where(n => n.USER_ID == user.USER_ID);
+                var basketBooks = App.db.BASKETS.Where(n => n.USER_ID == user.USER_ID);
                 foreach (var book in Books)
                 {
                     if (basketBooks.FirstOrDefault(n => n.BOOK_ID == book.BOOK_ID) != null)
@@ -174,16 +177,56 @@ namespace Курсач.ViewModels
             Items.Filter = Search;
             FindByGenreCommand = new DelegateCommand(FindByGenre);
 
+            ListOfAdvertisement = App.db.ADVERTISEMENT.ToList();
+
+            ImageSourceUp = ListOfAdvertisement[0].IMAGE_SOURCE;
+            ImageSourceDown = ListOfAdvertisement[1].IMAGE_SOURCE;
+
+
             System.Windows.Threading.DispatcherTimer timer = new System.Windows.Threading.DispatcherTimer();
 
             timer.Tick += new EventHandler(timerTick);
-            timer.Interval = new TimeSpan(0, 0, 5);
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 2);
             timer.Start();
         }
 
         private void timerTick(object sender, EventArgs e)
         {
+            if (animation)
+            {
+                if(phase >= 50)
+                {
+                    if (OpacityAnimationUp < 0.05)
+                    {
+                        phase = 0;
+                        animation = !animation;
+                    }
+                    else
+                    {
+                        OpacityAnimationUp -= 0.05;
+                        OpacityAnimationDown += 0.05;
 
+                    }
+                }
+            }
+            else
+            {
+                if (phase >= 50)
+                {
+                    if (OpacityAnimationUp > 0.95)
+                    {
+                        phase = 0;
+                        animation = !animation;
+                    }
+                    else
+                    {
+                        OpacityAnimationUp += 0.05;
+                        OpacityAnimationDown -= 0.05;
+                    }
+                }
+            }
+            phase++;
+            Console.WriteLine(phase);
         }
         #region Filter
         public string Text

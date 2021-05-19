@@ -158,40 +158,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Pages\ListOfBooksAdmin.xaml.cs">
-      <DependentUpon>ListOfBooksAdmin.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\UsersPage.xaml.cs">
-      <DependentUpon>UsersPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\AdminsPage.xaml.cs">
-      <DependentUpon>AdminsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Singleton\AdminWindowSingleTone.cs" />
-    <Compile Include="UserControls\Admin.xaml.cs">
-      <DependentUpon>Admin.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ForgotPassword.xaml.cs">
-      <DependentUpon>ForgotPassword.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\FullInfoAdmin.xaml.cs">
-      <DependentUpon>FullInfoAdmin.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\User.xaml.cs">
-      <DependentUpon>User.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Validation\IsNotEmpty.cs" />
-    <Compile Include="ViewModels\AdminPageVM.cs" />
-    <Compile Include="ViewModels\AdminControlVM.cs" />
-    <Compile Include="ViewModels\AdminsVM.cs" />
-    <Compile Include="ViewModels\AdminVM.cs" />
-    <Compile Include="ViewModels\BaseDialogWindowVM.cs" />
-    <Compile Include="ViewModels\ForgotPasswordVM.cs" />
-    <Compile Include="ViewModels\FullInfoAdminVM.cs" />
-    <Compile Include="ViewModels\ListOfBooksAdminVM.cs" />
-    <Compile Include="ViewModels\UsersPageVM.cs" />
-    <Compile Include="Views\AdminWindow.xaml.cs">
-      <DependentUpon>AdminWindow.xaml</DependentUpon>
+    <Compile Include="ADVERTISEMENT.cs">
+      <DependentUpon>Library.tt</DependentUpon>
     </Compile>
     <Compile Include="BASKETS.cs">
       <DependentUpon>Library.tt</DependentUpon>
@@ -199,13 +167,9 @@
     <Compile Include="BOOKS.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
-    <Compile Include="Commands\OpenRegisterControlCommand.cs" />
-    <Compile Include="Commands\OpenWorkFrameCommand.cs" />
-    <Compile Include="Commands\RegistrationCommand.cs" />
     <Compile Include="GENRES.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\PasswordBoxBindingBehavior.cs" />
     <Compile Include="Library.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -224,6 +188,54 @@
     <Compile Include="MARKS.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ListOfBooksAdmin.xaml.cs">
+      <DependentUpon>ListOfBooksAdmin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\UsersPage.xaml.cs">
+      <DependentUpon>UsersPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AdminsPage.xaml.cs">
+      <DependentUpon>AdminsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Singleton\AdminWindowSingleTone.cs" />
+    <Compile Include="SUBSCRIPTIONS.cs">
+      <DependentUpon>Library.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagrams.cs">
+      <DependentUpon>Library.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Admin.xaml.cs">
+      <DependentUpon>Admin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ForgotPassword.xaml.cs">
+      <DependentUpon>ForgotPassword.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\FullInfoAdmin.xaml.cs">
+      <DependentUpon>FullInfoAdmin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\User.xaml.cs">
+      <DependentUpon>User.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="USERS.cs">
+      <DependentUpon>Library.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Validation\IsNotEmpty.cs" />
+    <Compile Include="ViewModels\AdminPageVM.cs" />
+    <Compile Include="ViewModels\AdminControlVM.cs" />
+    <Compile Include="ViewModels\AdminsVM.cs" />
+    <Compile Include="ViewModels\AdminVM.cs" />
+    <Compile Include="ViewModels\BaseDialogWindowVM.cs" />
+    <Compile Include="ViewModels\ForgotPasswordVM.cs" />
+    <Compile Include="ViewModels\FullInfoAdminVM.cs" />
+    <Compile Include="ViewModels\ListOfBooksAdminVM.cs" />
+    <Compile Include="ViewModels\UsersPageVM.cs" />
+    <Compile Include="Views\AdminWindow.xaml.cs">
+      <DependentUpon>AdminWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Commands\OpenRegisterControlCommand.cs" />
+    <Compile Include="Commands\OpenWorkFrameCommand.cs" />
+    <Compile Include="Commands\RegistrationCommand.cs" />
+    <Compile Include="Helpers\PasswordBoxBindingBehavior.cs" />
     <Compile Include="Methods\ConvertDecimal.cs" />
     <Compile Include="Methods\MessageSender.cs" />
     <Compile Include="Methods\SaltedHash.cs" />
@@ -251,12 +263,6 @@
     <Compile Include="Singleton\FullInfoViewModelSingleTone.cs" />
     <Compile Include="Singleton\MainWindowViewModelSingleton.cs" />
     <Compile Include="Singleton\WorkFrameSingleTone.cs" />
-    <Compile Include="SUBSCRIPTIONS.cs">
-      <DependentUpon>Library.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sysdiagrams.cs">
-      <DependentUpon>Library.tt</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\AddCreditCard.xaml.cs">
       <DependentUpon>AddCreditCard.xaml</DependentUpon>
     </Compile>
@@ -280,9 +286,6 @@
     </Compile>
     <Compile Include="UserControls\YourBook.xaml.cs">
       <DependentUpon>YourBook.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="USERS.cs">
-      <DependentUpon>Library.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AddCreditCardVM.cs" />
     <Compile Include="ViewModels\AdditionalViewModel.cs" />
@@ -475,16 +478,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="ClassDiagram2.cd" />
     <EntityDeploy Include="Library.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Library.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="ClassDiagram2.cd" />
     <None Include="Library.edmx.diagram">
       <DependentUpon>Library.edmx</DependentUpon>
-    </None>
-    <None Include="LibraryDataBase.db">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -507,16 +507,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Library.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Library.edmx</DependentUpon>
-      <LastGenOutput>Library.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Library.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Library.edmx</DependentUpon>
-      <LastGenOutput>Library.cs</LastGenOutput>
-    </Content>
     <Resource Include="Media\ЛентаАбонемент.png" />
     <Resource Include="Media\АбонементОбводка.png" />
     <Resource Include="Media\BookварьАбонемент.png" />
@@ -534,6 +524,18 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Library.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Library.edmx</DependentUpon>
+      <LastGenOutput>Library.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Library.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Library.edmx</DependentUpon>
+      <LastGenOutput>Library.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" />

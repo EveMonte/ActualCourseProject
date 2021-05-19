@@ -25,6 +25,7 @@ namespace Курсач
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<ADVERTISEMENT> ADVERTISEMENT { get; set; }
         public virtual DbSet<BASKETS> BASKETS { get; set; }
         public virtual DbSet<BOOKS> BOOKS { get; set; }
         public virtual DbSet<GENRES> GENRES { get; set; }

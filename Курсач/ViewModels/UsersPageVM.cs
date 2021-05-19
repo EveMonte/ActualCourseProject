@@ -51,7 +51,7 @@ namespace Курсач.ViewModels
                 if(sub != null)
                 {
                     user.SUBSCRIPTION_DATE = sub.SUBSCRIPTION_DATE;
-                    user.SUBSCRIPTION_LENGTH = sub.LENGTH;
+                    user.SUBSCRIPTION_LENGTH = (int)sub.LENGTH;
                 }
             }
             Items = CollectionViewSource.GetDefaultView(Users);

@@ -12,19 +12,10 @@ namespace Курсач
     using System;
     using System.Collections.Generic;
     
-    public partial class SUBSCRIPTIONS
+    public partial class ADVERTISEMENT
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SUBSCRIPTIONS()
-        {
-            this.USERS = new HashSet<USERS>();
-        }
-    
-        public int SUBSCRIPTION_ID { get; set; }
-        public System.DateTime SUBSCRIPTION_DATE { get; set; }
-        public Nullable<int> LENGTH { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<USERS> USERS { get; set; }
+        public int ADV_ID { get; set; }
+        public string IMAGE_SOURCE { get; set; }
+        public string LINK { get; set; }
     }
 }

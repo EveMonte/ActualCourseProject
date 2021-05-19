@@ -4,12 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="3a841ae3b5c54696ad2aa8b6d257f5fc" Name="Diagram1">
+      <Diagram DiagramId="90fa412dbb7c4caab98597b739138c57" Name="Diagram1">
+        <EntityTypeShape EntityType="LIBRARYModel.ADVERTISEMENT" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="LIBRARYModel.BASKETS" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="LIBRARYModel.BOOKS" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="LIBRARYModel.GENRES" Width="1.5" PointX="0.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LIBRARYModel.BOOKS" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LIBRARYModel.GENRES" Width="1.5" PointX="0.75" PointY="9.125" IsExpanded="true" />
         <EntityTypeShape EntityType="LIBRARYModel.MARKS" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="LIBRARYModel.SUBSCRIPTIONS" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LIBRARYModel.SUBSCRIPTIONS" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
         <EntityTypeShape EntityType="LIBRARYModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="LIBRARYModel.USERS" Width="1.5" PointX="3" PointY="3.375" IsExpanded="true" />
         <EntityTypeShape EntityType="LIBRARYModel.YOUR_BOOKS" Width="1.5" PointX="5.25" PointY="7" IsExpanded="true" />
