@@ -82,7 +82,8 @@
                 <ResourceDictionary Source="pack://application:,,,/ToastNotifications.Messages;component/Themes/Default.xaml" />
                 <ResourceDictionary Source="Themes\darkTheme.xaml" />
                 <ResourceDictionary Source="Themes\lightTheme.xaml" />
-                
+                <ResourceDictionary Source="Templates\ErrorMessage.xaml" />
+
                 <ResourceDictionary Source="Templates\LightButtonTemplate.xaml" />
                 <ResourceDictionary Source="Templates\LightButton2Template.xaml" />
                 <ResourceDictionary Source="Templates\DarkButtonTemplate.xaml" />

@@ -196,7 +196,7 @@ namespace Курсач.ViewModels
             {
                 if(phase >= 50)
                 {
-                    if (OpacityAnimationUp < 0.05)
+                    if (OpacityAnimationUp < 0.02)
                     {
                         phase = 0;
                         animation = !animation;
@@ -205,7 +205,6 @@ namespace Курсач.ViewModels
                     {
                         OpacityAnimationUp -= 0.05;
                         OpacityAnimationDown += 0.05;
-
                     }
                 }
             }
@@ -213,7 +212,7 @@ namespace Курсач.ViewModels
             {
                 if (phase >= 50)
                 {
-                    if (OpacityAnimationUp > 0.95)
+                    if (OpacityAnimationUp > 0.98)
                     {
                         phase = 0;
                         animation = !animation;
@@ -226,7 +225,6 @@ namespace Курсач.ViewModels
                 }
             }
             phase++;
-            Console.WriteLine(phase);
         }
         #region Filter
         public string Text

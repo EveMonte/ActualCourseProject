@@ -55,10 +55,10 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="2.6*" />
+                    <RowDefinition Height="2.6*" />
+                    <RowDefinition Height="1*" />
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="1"
                             Grid.ColumnSpan="2"
@@ -72,7 +72,10 @@
                              Style="{DynamicResource MaterialDesignTextBox}"
                              materialDesign:HintAssist.Hint="{DynamicResource m_16digits}"
                              Text="{Binding CREDIT_CARD}"
+                             Margin="0, 0, 0, 12"
                              MaxLength="16"/>
+                    <TextBlock Text="{Binding CardNumberValidation}"
+                               Style="{DynamicResource ErrorMessage}" />
                 </StackPanel>
                 <StackPanel Grid.Row="2"
                             Grid.Column="0"
@@ -87,26 +90,35 @@
                                Margin="10 0"
                                FontFamily="Tahoma"
                                FontSize="14"/>
-                    <TextBox Width="60"
+                    <StackPanel>
+                        <TextBox Width="60"
                              Style="{DynamicResource MaterialDesignTextBox}"
                              materialDesign:HintAssist.Hint="{DynamicResource m_MM/YY}"
                              Background="#F4F2EF"
                              Text="{Binding Validity}"/>
+                        <TextBlock Style="{DynamicResource ErrorMessage}"
+                                   Text="{Binding ValidityValidation}" />
+                    </StackPanel>
                 </StackPanel>
                 <StackPanel Grid.Row="2"
-                            Grid.Column="3"
-                            HorizontalAlignment="Left">
+                            Grid.Column="2"
+                            Grid.ColumnSpan="2"
+                            HorizontalAlignment="Center">
                     <TextBlock Text="CVC/CVV"
                                FontFamily="Tahoma"
                                FontSize="14"
+                               HorizontalAlignment="Center"
                                Margin="0 5"
                                />
                     <TextBox Width="60"
                              Style="{DynamicResource MaterialDesignTextBox}"
                              Background="#F4F2EF"
                              MaxLength="3"
+                             Margin="0, 0, 0, 12"
                              materialDesign:HintAssist.Hint="{DynamicResource m_3digits}"
                              Text="{Binding CVV}"/>
+                    <TextBlock Style="{DynamicResource ErrorMessage}"
+                               Text="{Binding CVVValidation}" />
                 </StackPanel>
             </Grid>
         </Border>

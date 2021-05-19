@@ -17,7 +17,7 @@ namespace Курсач.ViewModels
         #region Data
         Notifier notifier;
 
-        private string creditCard;
+        private string creditCard = "";
         public string CREDIT_CARD
         {
             get
@@ -30,7 +30,7 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("CREDIT_CARD");
             }
         }
-        private string validity;
+        private string validity = "";
         public string Validity
         {
             get
@@ -43,7 +43,7 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("Validity");
             }
         }
-        private string cvv;
+        private string cvv = "";
         public string CVV
         {
             get
@@ -56,6 +56,44 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("CVV");
             }
         }
+
+        private string cardNumberValidation;
+
+        public string CardNumberValidation
+        {
+            get { return cardNumberValidation; }
+            set 
+            { 
+                cardNumberValidation = value;
+                OnPropertyChanged("CardNumberValidation");
+            }
+        }
+
+        private string validityValidation;
+
+        public string ValidityValidation
+        {
+            get { return validityValidation; }
+            set 
+            { 
+                validityValidation = value;
+                OnPropertyChanged("ValidityValidation");
+            }
+        }
+
+        private string cvvValidation;
+
+        public string CVVValidation
+        {
+            get { return cvvValidation; }
+            set 
+            { 
+                cvvValidation = value;
+                OnPropertyChanged("CVVValidation");
+            }
+        }
+
+
         USERS currentUser;
         #endregion
 
@@ -119,18 +157,30 @@ namespace Курсач.ViewModels
                 var user = App.db.USERS.FirstOrDefault(n => n.USER_ID == currentUser.USER_ID);
                 if (!creditCardNumber.IsMatch(CREDIT_CARD))
                 {
-                    notifier.ShowWarning("Номер карты не корректен!");
+                    CardNumberValidation = "Номер карты не корректен!";
                     flag = false;
+                }
+                else
+                {
+                    CardNumberValidation = "";
                 }
                 if (!creditCardCVV.IsMatch(CVV))
                 {
-                    notifier.ShowWarning("Введенный CVV не корректен!");
+                    CVVValidation = "Введенный CVV не корректен!";
                     flag = false;
+                }
+                else
+                {
+                    CVVValidation = "";
                 }
                 if (!creditCardValidity.IsMatch(Validity))
                 {
-                    notifier.ShowWarning("Срок действия карты не корректен!");
+                    ValidityValidation = "Срок действия карты не корректен!";
                     flag = false;
+                }
+                else
+                {
+                    ValidityValidation = "";
                 }
                 if (!flag)
                 {
