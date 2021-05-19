@@ -69,8 +69,26 @@ namespace Курсач.ViewModels
             // immediately use insecurePassword (in local variable) value after decrypting it:
             using (LIBRARYEntities db = new LIBRARYEntities())
             {
+                bool flag = true;
                 try
                 {
+                    if(Email == null || Email == "")
+                    {
+                        notifier.ShowWarning("Поле для Email не должно быть пустым!");
+                        if (Password == null)
+                        {
+                            notifier.ShowWarning("Поле для пароля не должно быть пустым!");
+                        }
+                        return;
+                    }
+                    else
+                    {
+                        if(Password == null)
+                        {
+                            notifier.ShowWarning("Поле для пароля не должно быть пустым!");
+                            return;
+                        }
+                    }
                     var users = db.USERS;
                     foreach (USERS u in users)
                     {
@@ -78,6 +96,7 @@ namespace Курсач.ViewModels
                         insecurePassword = Marshal.PtrToStringBSTR(passwordBSTR);
                         if (SaltedHash.Verify(u.PASSWORD.Substring(44), u.PASSWORD.Substring(0, 44), insecurePassword) && u.EMAIL == Email)
                         {
+                            flag = false;
                             currentUser = u;
                             if (u.ACCOUNT != "Пользователь")
                             {
@@ -104,8 +123,11 @@ namespace Курсач.ViewModels
                             insecurePassword = null;
                             break;
                         }
-                        else
-                            notifier.ShowWarning("Такого пользователя не существует.\nПроверьте правильность введенных данных.");
+                    }
+                    if (flag)
+                    {
+                        notifier.ShowWarning("Пользователя с таким Email или паролем не существует." +
+                            "\nПроверьте правильность введенных данных");
                     }
                 }
                 catch

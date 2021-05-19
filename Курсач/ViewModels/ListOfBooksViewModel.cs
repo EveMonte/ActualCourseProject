@@ -49,6 +49,56 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("SelectedBook");
             }
         }
+
+        private int opacityAnimationUp;
+
+        public int OpacityAnimationUp
+        {
+            get { return opacityAnimationUp; }
+            set 
+            { 
+                opacityAnimationUp = value;
+                OnPropertyChanged("OpacityAnimationUp");
+            }
+        }
+
+        private int opacityAnimationDown;
+
+        public int OpacityAnimationDown
+        {
+            get { return opacityAnimationDown; }
+            set
+            {
+                opacityAnimationDown = value;
+                OnPropertyChanged("OpacityAnimationDown");
+            }
+        }
+
+        private string imageSourceUp;
+
+        public string ImageSourceUp
+        {
+            get { return imageSourceUp; }
+            set 
+            { 
+                imageSourceUp = value;
+                OnPropertyChanged("ImageSourceUp");
+            }
+        }
+
+        private string imageSourceDown;
+
+        public string ImageSourceDown
+        {
+            get { return imageSourceDown; }
+            set
+            {
+                imageSourceDown = value;
+                OnPropertyChanged("ImageSourceDown");
+            }
+        }
+
+
         #endregion
 
         #region Commands
@@ -123,6 +173,17 @@ namespace Курсач.ViewModels
             Items = CollectionViewSource.GetDefaultView(Books);
             Items.Filter = Search;
             FindByGenreCommand = new DelegateCommand(FindByGenre);
+
+            System.Windows.Threading.DispatcherTimer timer = new System.Windows.Threading.DispatcherTimer();
+
+            timer.Tick += new EventHandler(timerTick);
+            timer.Interval = new TimeSpan(0, 0, 5);
+            timer.Start();
+        }
+
+        private void timerTick(object sender, EventArgs e)
+        {
+
         }
         #region Filter
         public string Text

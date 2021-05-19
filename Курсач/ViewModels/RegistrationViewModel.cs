@@ -10,6 +10,8 @@ using ToastNotifications.Position;
 using Курсач.Methods;
 using Курсач.Singleton;
 using System.Linq;
+using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace Курсач.ViewModels
 {
@@ -52,6 +54,7 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("SecondPassword");
             }
         }
+        [Required(ErrorMessage ="Поле Email не может быть пустым")]
         public string email;
         public string Email
         {
@@ -121,6 +124,7 @@ namespace Курсач.ViewModels
         #region Commans' Logic
         private void OpenSendMessage(object obj)
         {
+
             IntPtr password1 = default(IntPtr);
             IntPtr password2 = default(IntPtr);
             string insecurePassword1 = "";

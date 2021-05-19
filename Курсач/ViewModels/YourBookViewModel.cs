@@ -10,7 +10,6 @@ namespace Курсач.ViewModels
 {
     class YourBookViewModel : BaseViewModel
     {
-        USERS currentUser;
         private int mark;
         public int Mark
         {

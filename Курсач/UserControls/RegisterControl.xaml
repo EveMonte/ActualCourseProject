@@ -18,22 +18,26 @@
             <RowDefinition Height="0.6*" />
         </Grid.RowDefinitions>
 
-            <Grid HorizontalAlignment="Stretch" Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <TextBox x:Name="secondNameTextBox"
+        <Grid HorizontalAlignment="Stretch" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="secondNameTextBox"
                          MaxHeight="50"
                          Grid.Column="0"
                          Text="{Binding SecondName}"
                          Margin="18,0,10,0"
+                         SelectionBrush="Red"
                          HorizontalAlignment="Stretch"
+                         CaretBrush="Red"
                          materialDesign:HintAssist.Hint="{DynamicResource m_SecondName}"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         FontSize="16"
-                         />
-                <TextBox x:Name="nameTextBox"
+                         FontSize="16" Background="Transparent" MaxLines="1"
+                         >
+
+            </TextBox>
+            <TextBox x:Name="nameTextBox"
                          MaxHeight="50"
                          Grid.Column="1"
                          HorizontalAlignment="Stretch"
@@ -42,12 +46,13 @@
                          materialDesign:HintAssist.Hint="{DynamicResource m_Name}"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                          FontSize="16" />
-            </Grid>
+        </Grid>
 
         <TextBox Grid.Row="1"
                  MaxHeight="50"
                  x:Name="emailTextBox"
                  Text="{Binding Email}"
+                 
                  Margin="18,0"
                  materialDesign:HintAssist.Hint="Email"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -88,13 +93,13 @@
                     Background="Transparent"
                     BorderBrush="Transparent"
                     Command="{Binding OpenSignInCommand}">
-                <Label Cursor="Hand"
+                <TextBlock Cursor="Hand"
                    HorizontalAlignment="Center"
                    Margin="0,0,0,0"
-                   Content="{DynamicResource m_AlreadyHaveAnAccount}"
+                   Text="{DynamicResource m_AlreadyHaveAnAccount}"
                    FontSize="14"
                    Foreground="#FF1877F3" />
             </Button>
-        </StackPanel>      
+        </StackPanel>
     </Grid>
 </UserControl>

@@ -19,7 +19,6 @@ namespace Курсач.ViewModels
         Notifier notifier;
 
         USERS currentUser; // Current user, get from Workframe
-        LIBRARYEntities db = new LIBRARYEntities(); // DB context
         private string mainCode; //Code which is generated here to confirm new password or email
         /////////// User's data 
         private string secondName;
@@ -198,11 +197,13 @@ namespace Курсач.ViewModels
         #endregion
 
         #region Commands
-        public ICommand SendMessageCommand { get; private set; } //Command which send an email with safety code to user's email
+        public ICommand SendPasswordMessageCommand { get; private set; } //Command which send an email with safety code to user's email
+        public ICommand SendEmailMessageCommand { get; private set; } //Command which send an email with safety code to user's email
         public ICommand ApplyCreditCardCommand { get; private set; } // Open UserControl where user fills fields with credit card's data
         public ICommand ApplyEmailCommand { get; private set; } // Compare generated code with written code to confirm email change
         public ICommand ApplyPasswordCommand { get; private set; } // Compare generated code with written code to confirm password change
         public ICommand SignOutCommand { get; private set; } // Closes Workframe window and opens registration window
+
         #endregion
 
         //Constructor
@@ -213,7 +214,8 @@ namespace Курсач.ViewModels
             ApplyEmailCommand = new DelegateCommand(ApplyEmail);
             ApplyPasswordCommand = new DelegateCommand(ApplyPassword);
             ApplyCreditCardCommand = new DelegateCommand(ApplyCreditCard);
-            SendMessageCommand = new DelegateCommand(SendMessage);
+            SendPasswordMessageCommand = new DelegateCommand(ValidatePasswords);
+            SendEmailMessageCommand = new DelegateCommand(ValidateEmail);
             SignOutCommand = new DelegateCommand(OpenRegistrationWindow);
 
             //////////////////////////////////////////////////////
@@ -231,8 +233,17 @@ namespace Курсач.ViewModels
                 Subscription = "Действует";
             }
             CreditCard = currentUser.CREDIT_CARD;
-            YourBooks = db.YOUR_BOOKS.Where(n => n.USER_ID == currentUser.USER_ID).Count(); //Count books on your shelve
-            Marks = db.MARKS.Where(n => n.USER_ID == currentUser.USER_ID).Count(); //Count your marks
+            YourBooks = App.db.YOUR_BOOKS.Where(n => n.USER_ID == currentUser.USER_ID).Count(); //Count books on your shelve
+            Marks = App.db.MARKS.Where(n => n.USER_ID == currentUser.USER_ID).Count(); //Count your marks
+
+            Workframe thisWin = null;
+            foreach (Window win in Application.Current.Windows)
+            {
+                if (win is Workframe)
+                {
+                    thisWin = win as Workframe;
+                }
+            }
 
             notifier = new Notifier(cfg =>
             {
@@ -248,6 +259,81 @@ namespace Курсач.ViewModels
 
                 cfg.Dispatcher = Application.Current.Dispatcher;
             });
+        }
+
+        private void ValidateEmail(object obj)
+        {
+            if(NewEmail == null || NewEmail == "")
+            {
+                notifier.ShowWarning("Поле для ввода нового Email не должно быть пустым!");
+                return;
+            }
+            else if(NewEmail == currentUser.EMAIL)
+            {
+                notifier.ShowWarning("Старый и новый Email не должны совпадать");
+                return;
+            }
+            else 
+            { 
+                foreach (USERS user in App.db.USERS)
+                {
+                    if (user.EMAIL == NewEmail)
+                    {
+                        notifier.ShowWarning("Пользователь с таким Email уже существует!");
+                        return;
+                    }
+                    else
+                    {
+                        SendMessage();
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void ValidatePasswords(object obj)
+        {
+            IntPtr password1 = default(IntPtr);
+            IntPtr password2 = default(IntPtr);
+            IntPtr oldpassword = default(IntPtr);
+            string oldinsecurePassword = "";
+            string insecurePassword1 = "";
+            string insecurePassword2 = "";
+
+            //Try-catch block where we get unsecure password, check it, hash and set to DB
+            try
+            {
+                //Get unsecure passwords from SecureString
+                password1 = Marshal.SecureStringToBSTR(FirstPassword);
+                insecurePassword1 = Marshal.PtrToStringBSTR(password1);
+                password2 = Marshal.SecureStringToBSTR(SecondPassword);
+                insecurePassword2 = Marshal.PtrToStringBSTR(password2);
+                oldpassword = Marshal.SecureStringToBSTR(OldPassword);
+                oldinsecurePassword = Marshal.PtrToStringBSTR(oldpassword);
+                if(insecurePassword1 == null || insecurePassword1 == "" || insecurePassword2 == null || insecurePassword2 == "" || oldinsecurePassword == null || oldinsecurePassword == "")
+                {
+                    notifier.ShowWarning("Поля для ввода паролей не должны быть пустыми");
+                    return;
+                }
+                else if (SaltedHash.Verify(currentUser.PASSWORD.Substring(44), currentUser.PASSWORD.Substring(0, 44), insecurePassword1) && insecurePassword1 != oldinsecurePassword)
+                {
+                    notifier.ShowWarning("Старый и новый пароль не должны совпадать!");
+                    return;
+                }
+                else if (insecurePassword1 != insecurePassword2)
+                {
+                    notifier.ShowWarning("Введенные пароли должны совпадать!");
+                    return;
+                }
+                else
+                {
+                    SendMessage();
+                }
+            }
+            catch(Exception ex)
+            {
+                notifier.ShowError(ex.Message);
+            }
         }
 
         #region Commands' Logic
@@ -274,25 +360,19 @@ namespace Курсач.ViewModels
 
                 if (mainCode != Code2) //Check written code
                 {
-                    System.Windows.Forms.MessageBox.Show("Неверный код!");
-                }
-                else if (SaltedHash.Verify(currentUser.PASSWORD.Substring(44), currentUser.PASSWORD.Substring(0, 44), insecurePassword1) && insecurePassword1 != oldinsecurePassword)
-                {
-                    System.Windows.Forms.MessageBox.Show("Старый и новый пароль не должны совпадать!");
-                }
-                else if (insecurePassword1 != insecurePassword2)
-                {
-                    System.Windows.Forms.MessageBox.Show("Введенные пароли должны совпадать!");
+                    notifier.ShowWarning("Неверный код!");
                 }
                 else
                 {
-                    USERS user = db.USERS.FirstOrDefault(n => n.USER_ID == currentUser.USER_ID);
+                    USERS user = App.db.USERS.FirstOrDefault(n => n.USER_ID == currentUser.USER_ID);
                     SaltedHash sh = new SaltedHash(insecurePassword1); //Hashing password
                     user.PASSWORD = sh.Hash + sh.Salt;
                     currentUser.PASSWORD = user.PASSWORD;
-                    db.SaveChangesAsync().GetAwaiter();
+                    App.db.SaveChangesAsync().GetAwaiter();
+
                     //Reset and dispose variables
                     insecurePassword1 = "";
+
                     insecurePassword2 = "";
                     oldinsecurePassword = "";
                     FirstPassword.Dispose();
@@ -311,7 +391,6 @@ namespace Курсач.ViewModels
                 OldPassword.Dispose();
             }
             OpenRegistrationWindow(obj);
-
         }
 
         private void ApplyEmail(object obj) //Check email
@@ -319,34 +398,41 @@ namespace Курсач.ViewModels
             if (mainCode != Code)
             {
                 notifier.ShowWarning("Неверный код!");
+                return;
             }
-            else if (NewEmail != currentUser.EMAIL)
+            else if (NewEmail == String.Empty || NewEmail == "")
+            {
+                notifier.ShowWarning("Поле для ввода нового Email не должно быть пустым!");
+                return;
+            }
+            else if (NewEmail == currentUser.EMAIL)
             {
                 notifier.ShowWarning("Старый и новый Email не должны совпадать!");
+                return;
             }
-            else {
-                foreach (USERS user in db.USERS)
+            else 
+            {
+                foreach (USERS user in App.db.USERS)
                 {
                     if(user.EMAIL == NewEmail)
                     {
                         notifier.ShowWarning("Пользователь с таким Email уже существует!");
+                        return;
                     }
                 }
 
                 currentUser.EMAIL = NewEmail;
-                db.SaveChangesAsync().GetAwaiter();
+                App.db.SaveChangesAsync().GetAwaiter();
                 OpenRegistrationWindow(obj);
             }
-
         }
 
         private void ApplyCreditCard(object obj) // Open AddCreditCart UserControl
         {
-
             WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new AddCreditCardVM();
         }
 
-        private void SendMessage(object obj) // Send message to user
+        private void SendMessage() // Send message to user
         {
             mainCode = MessageSender.GenerateCode();
             string message = $"С Вашей учетной записи поступил запрос на смену личных данных. Если это были Вы, то введите символьный код, расположенный ниже, в приложение:\n{mainCode}\nИначе свяжитесь с администрацией приложения!";
@@ -354,9 +440,8 @@ namespace Курсач.ViewModels
             notifier.ShowInformation("На вашу почту был отправлен код подтверждения для смены личных данных. Проверьте сообщения и введите код в поле.");
         }
 
-        public void OpenRegistrationWindow(object obj)
-        {
-            
+        public void OpenRegistrationWindow(object obj) // Выйти в окно регистрации
+        {            
             (new MainWindow()).Show();
             var windows = Application.Current.Windows;
             foreach(Window window in windows)

@@ -8,6 +8,7 @@ using ToastNotifications.Lifetime;
 using ToastNotifications.Position;
 using Курсач.Singleton;
 using ToastNotifications.Messages;
+using System.Text.RegularExpressions;
 
 namespace Курсач.ViewModels
 {
@@ -16,7 +17,6 @@ namespace Курсач.ViewModels
         #region Data
         Notifier notifier;
 
-        [Required]
         private string creditCard;
         public string CREDIT_CARD
         {
@@ -30,7 +30,6 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("CREDIT_CARD");
             }
         }
-        [Required]
         private string validity;
         public string Validity
         {
@@ -44,7 +43,6 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("Validity");
             }
         }
-        [Required]
         private string cvv;
         public string CVV
         {
@@ -58,7 +56,6 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("CVV");
             }
         }
-        LIBRARYEntities db = new LIBRARYEntities();
         USERS currentUser;
         #endregion
 
@@ -82,11 +79,20 @@ namespace Курсач.ViewModels
             CloseUserPageCommand = new DelegateCommand(Close);
             AddCardCommand = new DelegateCommand(AddCard);
             ///////////////////////////////////////////////
-            
+
+            Workframe thisWin = null;
+            foreach (Window win in Application.Current.Windows)
+            {
+                if (win is Workframe)
+                {
+                    thisWin = win as Workframe;
+                }
+            }
+
             notifier = new Notifier(cfg =>
             {
                 cfg.PositionProvider = new WindowPositionProvider(
-                    parentWindow: Application.Current.MainWindow,
+                    parentWindow: thisWin,
                     corner: Corner.BottomRight,
                     offsetX: 10,
                     offsetY: 10);
@@ -104,16 +110,46 @@ namespace Курсач.ViewModels
         #region Commands' Logic
         private void AddCard(object obj) // Change credit card of current user in DB
         {
-            var user = db.USERS.FirstOrDefault(n => n.USER_ID == currentUser.USER_ID);
-            user.CREDIT_CARD = CREDIT_CARD;
-            db.SaveChangesAsync().GetAwaiter();
-            if (WorkFrameSingleTone.GetInstance().WorkframeViewModel != null)
+            try
             {
-                WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser.CREDIT_CARD = CREDIT_CARD;
+                bool flag = true;
+                Regex creditCardNumber = new Regex(@"\d{16}");
+                Regex creditCardCVV = new Regex(@"\d{3}");
+                Regex creditCardValidity = new Regex(@"^(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})$");
+                var user = App.db.USERS.FirstOrDefault(n => n.USER_ID == currentUser.USER_ID);
+                if (!creditCardNumber.IsMatch(CREDIT_CARD))
+                {
+                    notifier.ShowWarning("Номер карты не корректен!");
+                    flag = false;
+                }
+                if (!creditCardCVV.IsMatch(CVV))
+                {
+                    notifier.ShowWarning("Введенный CVV не корректен!");
+                    flag = false;
+                }
+                if (!creditCardValidity.IsMatch(Validity))
+                {
+                    notifier.ShowWarning("Срок действия карты не корректен!");
+                    flag = false;
+                }
+                if (!flag)
+                {
+                    return;
+                }
+                user.CREDIT_CARD = CREDIT_CARD;
+                App.db.SaveChangesAsync().GetAwaiter();
+                if (WorkFrameSingleTone.GetInstance().WorkframeViewModel != null)
+                {
+                    WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser.CREDIT_CARD = CREDIT_CARD;
+                }
+                else
+                {
+                    AdminWindowSingleTone.GetInstance().AdminVM.currentUser.CREDIT_CARD = CREDIT_CARD;
+                }
             }
-            else
+            catch(Exception ex)
             {
-                AdminWindowSingleTone.GetInstance().AdminVM.currentUser.CREDIT_CARD = CREDIT_CARD;
+                notifier.ShowError(ex.Message);
             }
             Close(obj); // Close User control
             notifier.ShowSuccess("Карта успешно добавлена");

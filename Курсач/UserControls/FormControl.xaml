@@ -67,6 +67,7 @@
                 Margin="15 10"/>
         <Button Background="Transparent"
                 BorderBrush="Transparent"
+                VerticalAlignment="Top"
                 Grid.Row="4"
                 Grid.Column="1"
                 Grid.ColumnSpan="2"

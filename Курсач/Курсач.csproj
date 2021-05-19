@@ -180,6 +180,7 @@
     <Compile Include="UserControls\User.xaml.cs">
       <DependentUpon>User.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Validation\IsNotEmpty.cs" />
     <Compile Include="ViewModels\AdminPageVM.cs" />
     <Compile Include="ViewModels\AdminControlVM.cs" />
     <Compile Include="ViewModels\AdminsVM.cs" />

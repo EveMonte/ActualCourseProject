@@ -186,7 +186,7 @@
                             Grid.Column="2"
                             HorizontalAlignment="Left"
                             Grid.Row="0"
-                            Command="{Binding SendMessageCommand}"/>
+                            Command="{Binding SendEmailMessageCommand}"/>
                     <TextBlock Text="{DynamicResource m_EnterConfirmationCode}"
                                Grid.Column="0"
                                VerticalAlignment="Bottom"
@@ -247,8 +247,7 @@
                                  Grid.Column="1"
                                  VerticalAlignment="Bottom"
                                  HorizontalAlignment="Left"
-                                 FontSize="16"
-                                 >
+                                 FontSize="16">
                         <i:Interaction.Behaviors>
                             <components:PasswordBoxBindingBehavior Password="{Binding OldPassword}"/>
                         </i:Interaction.Behaviors>
@@ -296,7 +295,9 @@
                             HorizontalAlignment="Left"
                             VerticalAlignment="Bottom"
                             Grid.Column="2"
-                            Command="{Binding SendMessageCommand}"
+                            x:Name="PasswordBtn"
+                            Command="{Binding SendPasswordMessageCommand}"
+                            CommandParameter="{Binding }"
                             Grid.Row="2"/>
                     <TextBlock Text="{DynamicResource m_EnterConfirmationCode}"
                                Grid.Column="0"

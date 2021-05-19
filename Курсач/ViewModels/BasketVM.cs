@@ -130,7 +130,7 @@ namespace Курсач.ViewModels
                     {
                         sum += (decimal)m.MARK;
                     }
-                    b.NUMBEROFVOICES = rating.Count(); // coount it
+                    b.NUMBEROFVOICES = rating.Count(); // count it
 
                     if (b.NUMBEROFVOICES != 0)
                     {
