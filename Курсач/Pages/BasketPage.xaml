@@ -68,10 +68,17 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                <Button Content="{DynamicResource m_Genre}"
+                <Button Content="Поиск"
                         VerticalAlignment="Center"
                         Template="{DynamicResource LightButton2}"
                         Command="{Binding FindByGenreCommand}"
+                        />
+                <Button Content="Очистить фильтр"
+                        VerticalAlignment="Center"
+                        Width="150"
+                        Margin="15, 0, 0, 0"
+                        Template="{DynamicResource LightButton}"
+                        Command="{Binding ClearCommand}"
                         />
             </StackPanel>
         </Grid>

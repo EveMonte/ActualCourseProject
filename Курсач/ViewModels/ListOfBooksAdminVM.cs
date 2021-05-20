@@ -73,13 +73,18 @@ namespace Курсач.ViewModels
         public ICommand RemoveBookCommand { get; private set; }
         public ICommand GetBooksCommand { get; private set; }
         public ICommand SetBooksCommand { get; private set; }
+        public ICommand ClearCommand { get; private set; }
+
 
         #endregion
 
         #region Commands' Logic
         private void FindByGenre(object obj)
         {
+            string newText = new string(Text.ToCharArray());
             Books = new ObservableCollection<BOOKS>(Books.Where(n => n.GENRE == SelectedGenre.GENRE_ID));
+            Items = CollectionViewSource.GetDefaultView(Books);
+            Items.Filter = Search;
         }
 
         private void OpenFullInfoUserControl(object obj) // Open page with extended info
@@ -129,9 +134,45 @@ namespace Курсач.ViewModels
             RemoveBookCommand = new DelegateCommand(RemoveBook, CanRemoveBook);
             SetBooksCommand = new DelegateCommand(SaveBooks);
             GetBooksCommand = new DelegateCommand(GetBooks);
+            ClearCommand = new DelegateCommand(ClearFilter);
+
             Items = CollectionViewSource.GetDefaultView(Books);
             Items.Filter = Search;
             FindByGenreCommand = new DelegateCommand(FindByGenre);
+        }
+
+        private void ClearFilter(object obj) //удалить все фильтры
+        {
+            Text = "";
+            try
+            {
+                Books = new ObservableCollection<BOOKS>(App.db.BOOKS);
+                var shelfBooks = App.db.YOUR_BOOKS.Where(n => n.USER_ID == App.currentUser.USER_ID);
+                foreach (var book in shelfBooks)
+                {
+                    var bookToRemove = Books.FirstOrDefault(n => n.BOOK_ID == book.BOOK_ID);
+                    if (bookToRemove != null)
+                    {
+                        Books.Remove(bookToRemove);
+                    }
+                }
+                var basketBooks = App.db.BASKETS.Where(n => n.USER_ID == App.currentUser.USER_ID);
+                foreach (var book in Books)
+                {
+                    if (basketBooks.FirstOrDefault(n => n.BOOK_ID == book.BOOK_ID) != null)
+                    {
+                        book.IsInBasket = 1;
+                    }
+                    else
+                    {
+                        book.IsInBasket = 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+            }
         }
 
         private void GetBooks(object obj)

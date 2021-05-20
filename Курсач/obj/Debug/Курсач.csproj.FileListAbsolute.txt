@@ -513,3 +513,5 @@ C:\Users\User\Desktop\Курсааааач\Последняя версия\Ку�
 C:\Users\User\Desktop\Курсааааач\Последняя версия\Курсач\obj\Debug\UserControls\Advertisement.g.cs
 C:\Users\User\Desktop\Курсааааач\Последняя версия\Курсач\obj\Debug\Pages\Advertisements.baml
 C:\Users\User\Desktop\Курсааааач\Последняя версия\Курсач\obj\Debug\UserControls\Advertisement.baml
+C:\Users\User\Desktop\Курсааааач\Последняя версия\Курсач\obj\Debug\UserControls\AppInfo.g.cs
+C:\Users\User\Desktop\Курсааааач\Последняя версия\Курсач\obj\Debug\UserControls\AppInfo.baml

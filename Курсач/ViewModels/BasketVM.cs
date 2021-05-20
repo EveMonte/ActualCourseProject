@@ -78,6 +78,9 @@ namespace Курсач.ViewModels
         public ICommand MarkCommand { get; private set; } // Rate the book
         public ICommand FindByGenreCommand { get; private set; } // find books of concrete genre
         public ICommand BuyCommand { get; private set; } // open user control where you can confirm or cancel purchase
+        public ICommand ClearCommand { get; private set; }
+
+
         #endregion
 
         //Constructor
@@ -87,6 +90,8 @@ namespace Курсач.ViewModels
             BuyCommand = new DelegateCommand(BuyTheBook);
             DeleteCommand = new DelegateCommand(DeleteBook);
             MarkCommand = new DelegateCommand(SetMark);
+            ClearCommand = new DelegateCommand(ClearFilter);
+
             ////////////////////////////////////////////
 
             MainWindow thisWin = null;
@@ -154,6 +159,40 @@ namespace Курсач.ViewModels
         }
 
         #region Commands' Logic
+
+        private void ClearFilter(object obj) //удалить все фильтры
+        {
+            Text = "";
+            try
+            {
+                Books = new ObservableCollection<BOOKS>(App.db.BOOKS);
+                var shelfBooks = App.db.YOUR_BOOKS.Where(n => n.USER_ID == App.currentUser.USER_ID);
+                foreach (var book in shelfBooks)
+                {
+                    var bookToRemove = Books.FirstOrDefault(n => n.BOOK_ID == book.BOOK_ID);
+                    if (bookToRemove != null)
+                    {
+                        Books.Remove(bookToRemove);
+                    }
+                }
+                var basketBooks = App.db.BASKETS.Where(n => n.USER_ID == App.currentUser.USER_ID);
+                foreach (var book in Books)
+                {
+                    if (basketBooks.FirstOrDefault(n => n.BOOK_ID == book.BOOK_ID) != null)
+                    {
+                        book.IsInBasket = 1;
+                    }
+                    else
+                    {
+                        book.IsInBasket = 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+            }
+        }
         private void BuyTheBook(object obj) // buy book, if user don't have credit card let him add it
         {
             if (db.USERS.FirstOrDefault(n => n.USER_ID == currentUser.USER_ID).CREDIT_CARD != null)
@@ -231,6 +270,8 @@ namespace Курсач.ViewModels
         private void FindByGenre(object obj)
         {
             Books = new ObservableCollection<BOOKS>(Books.Where(n => n.GENRE == SelectedGenre.GENRE_ID));
+            Items = CollectionViewSource.GetDefaultView(Books);
+            Items.Filter = Search;
         }
         #endregion
 

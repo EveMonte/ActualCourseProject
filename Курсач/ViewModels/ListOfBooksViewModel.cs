@@ -113,11 +113,9 @@ namespace Курсач.ViewModels
         #region Commands' Logic
         private void FindByGenre(object obj)
         {
-            string newText = new string(Text.ToCharArray());
             Books = new ObservableCollection<BOOKS>(Books.Where(n => n.GENRE == SelectedGenre.GENRE_ID));
             Items = CollectionViewSource.GetDefaultView(Books);
             Items.Filter = Search;
-            //Text += "";
         }
 
         private void OpenFullInfoUserControl(object obj) // Open page with extended info

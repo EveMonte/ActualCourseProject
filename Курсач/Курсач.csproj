@@ -213,6 +213,9 @@
     <Compile Include="UserControls\Advertisement.xaml.cs">
       <DependentUpon>Advertisement.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\AppInfo.xaml.cs">
+      <DependentUpon>AppInfo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ForgotPassword.xaml.cs">
       <DependentUpon>ForgotPassword.xaml</DependentUpon>
     </Compile>
@@ -225,7 +228,6 @@
     <Compile Include="USERS.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
-    <Compile Include="Validation\IsNotEmpty.cs" />
     <Compile Include="ViewModels\AdminPageVM.cs" />
     <Compile Include="ViewModels\AdminControlVM.cs" />
     <Compile Include="ViewModels\AdminsVM.cs" />
@@ -347,6 +349,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Advertisement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\AppInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

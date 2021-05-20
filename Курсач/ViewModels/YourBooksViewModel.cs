@@ -72,6 +72,8 @@ namespace Курсач.ViewModels
         public ICommand DownloadCommand { get; private set; }
         public ICommand FindByGenreCommand { get; private set; }
         public ICommand MarkCommand { get; private set; }
+        public ICommand ClearCommand { get; private set; }
+
         #endregion
 
         //Constructor
@@ -80,6 +82,8 @@ namespace Курсач.ViewModels
             DeleteCommand = new DelegateCommand(DeleteBook);
             DownloadCommand = new DelegateCommand(DownloadBook);
             MarkCommand = new DelegateCommand(RateTheBook);
+            ClearCommand = new DelegateCommand(ClearFilter);
+
             currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser;
             Books = new ObservableCollection<BOOKS>();
             using (LIBRARYEntities library = new LIBRARYEntities())
@@ -128,6 +132,40 @@ namespace Курсач.ViewModels
         }
 
         #region Commands' Logic
+
+        private void ClearFilter(object obj) //удалить все фильтры
+        {
+            Text = "";
+            try
+            {
+                Books = new ObservableCollection<BOOKS>(App.db.BOOKS);
+                var shelfBooks = App.db.YOUR_BOOKS.Where(n => n.USER_ID == App.currentUser.USER_ID);
+                foreach (var book in shelfBooks)
+                {
+                    var bookToRemove = Books.FirstOrDefault(n => n.BOOK_ID == book.BOOK_ID);
+                    if (bookToRemove != null)
+                    {
+                        Books.Remove(bookToRemove);
+                    }
+                }
+                var basketBooks = App.db.BASKETS.Where(n => n.USER_ID == App.currentUser.USER_ID);
+                foreach (var book in Books)
+                {
+                    if (basketBooks.FirstOrDefault(n => n.BOOK_ID == book.BOOK_ID) != null)
+                    {
+                        book.IsInBasket = 1;
+                    }
+                    else
+                    {
+                        book.IsInBasket = 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+            }
+        }
         private void RateTheBook(object obj)
         {
             int mark = 0;
@@ -194,6 +232,8 @@ namespace Курсач.ViewModels
         private void FindByGenre(object obj)
         {
             Books = new ObservableCollection<BOOKS>(Books.Where(n => n.GENRE == SelectedGenre.GENRE_ID));
+            Items = CollectionViewSource.GetDefaultView(Books);
+            Items.Filter = Search;
         }
         #endregion
 
