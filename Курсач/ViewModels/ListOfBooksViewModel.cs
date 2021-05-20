@@ -55,8 +55,8 @@ namespace Курсач.ViewModels
         public double OpacityAnimationUp
         {
             get { return opacityAnimationUp; }
-            set 
-            { 
+            set
+            {
                 opacityAnimationUp = value;
                 OnPropertyChanged("OpacityAnimationUp");
             }
@@ -79,8 +79,8 @@ namespace Курсач.ViewModels
         public string ImageSourceUp
         {
             get { return imageSourceUp; }
-            set 
-            { 
+            set
+            {
                 imageSourceUp = value;
                 OnPropertyChanged("ImageSourceUp");
             }
@@ -107,12 +107,17 @@ namespace Курсач.ViewModels
         #region Commands
         public ICommand OpenFullInfo { get; private set; }
         public ICommand FindByGenreCommand { get; private set; }
+        public ICommand ClearCommand { get; private set; }
         #endregion
 
         #region Commands' Logic
         private void FindByGenre(object obj)
         {
+            string newText = new string(Text.ToCharArray());
             Books = new ObservableCollection<BOOKS>(Books.Where(n => n.GENRE == SelectedGenre.GENRE_ID));
+            Items = CollectionViewSource.GetDefaultView(Books);
+            Items.Filter = Search;
+            //Text += "";
         }
 
         private void OpenFullInfoUserControl(object obj) // Open page with extended info
@@ -134,11 +139,11 @@ namespace Курсач.ViewModels
         public ListOfBooksViewModel(USERS user)
         {
             User = user;
-            using (LIBRARYEntities library = new LIBRARYEntities())
+            try 
             {
-                Books = new ObservableCollection<BOOKS>(library.BOOKS);
+                Books = new ObservableCollection<BOOKS>(App.db.BOOKS);
                 var shelfBooks = App.db.YOUR_BOOKS.Where(n => n.USER_ID == user.USER_ID);
-                foreach(var book in shelfBooks)
+                foreach (var book in shelfBooks)
                 {
                     var bookToRemove = Books.FirstOrDefault(n => n.BOOK_ID == book.BOOK_ID);
                     if (bookToRemove != null)
@@ -158,7 +163,11 @@ namespace Курсач.ViewModels
                         book.IsInBasket = 0;
                     }
                 }
-                Genres = new ObservableCollection<GENRES>(library.GENRES.OrderBy(n => n.GENRE));
+                Genres = new ObservableCollection<GENRES>(App.db.GENRES.OrderBy(n => n.GENRE));
+            }
+            catch(Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
             }
             foreach (BOOKS book in Books) //check books. If book is available by subscription, we place band
             {
@@ -176,6 +185,7 @@ namespace Курсач.ViewModels
             Items = CollectionViewSource.GetDefaultView(Books);
             Items.Filter = Search;
             FindByGenreCommand = new DelegateCommand(FindByGenre);
+            ClearCommand = new DelegateCommand(ClearFilter);
 
             ListOfAdvertisement = App.db.ADVERTISEMENT.ToList();
 
@@ -186,15 +196,49 @@ namespace Курсач.ViewModels
             System.Windows.Threading.DispatcherTimer timer = new System.Windows.Threading.DispatcherTimer();
 
             timer.Tick += new EventHandler(timerTick);
-            timer.Interval = new TimeSpan(0, 0, 0, 0, 2);
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 5);
             timer.Start();
+        }
+
+        private void ClearFilter(object obj) //удалить все фильтры
+        {
+            Text = "";
+            try
+            {
+                Books = new ObservableCollection<BOOKS>(App.db.BOOKS);
+                var shelfBooks = App.db.YOUR_BOOKS.Where(n => n.USER_ID == App.currentUser.USER_ID);
+                foreach (var book in shelfBooks)
+                {
+                    var bookToRemove = Books.FirstOrDefault(n => n.BOOK_ID == book.BOOK_ID);
+                    if (bookToRemove != null)
+                    {
+                        Books.Remove(bookToRemove);
+                    }
+                }
+                var basketBooks = App.db.BASKETS.Where(n => n.USER_ID == App.currentUser.USER_ID);
+                foreach (var book in Books)
+                {
+                    if (basketBooks.FirstOrDefault(n => n.BOOK_ID == book.BOOK_ID) != null)
+                    {
+                        book.IsInBasket = 1;
+                    }
+                    else
+                    {
+                        book.IsInBasket = 0;
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+            }
         }
 
         private void timerTick(object sender, EventArgs e)
         {
             if (animation)
             {
-                if(phase >= 50)
+                if(phase >= 200)
                 {
                     if (OpacityAnimationUp < 0.02)
                     {
@@ -210,7 +254,7 @@ namespace Курсач.ViewModels
             }
             else
             {
-                if (phase >= 50)
+                if (phase >= 200)
                 {
                     if (OpacityAnimationUp > 0.98)
                     {

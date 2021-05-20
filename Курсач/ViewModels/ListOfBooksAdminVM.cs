@@ -190,7 +190,7 @@ namespace Курсач.ViewModels
         }
         private void AddBook(object obj) //Add new row to datagrid
         {
-            Books.Add(new BOOKS { AUTHOR = "Author", COVER = "", DESCRIPTION = "Description", GENRE = 1, TITLE = "Title", PAGES = 0, RATING = 0, CATEGORY = "Покупка", PRICE = 0, YEAR = 2021, LINK= "",  });
+            Books.Add(new BOOKS());
         }
         #region Filter
         public string Text

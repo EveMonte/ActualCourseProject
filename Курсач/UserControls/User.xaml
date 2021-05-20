@@ -10,30 +10,19 @@
         <Grid  Style="{DynamicResource GridStyle}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="15" />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
+                <RowDefinition Height="1.5*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
                 <RowDefinition Height="15" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="15" />
-                <ColumnDefinition Width="0.5*" />
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="15" />
             </Grid.ColumnDefinitions>
-            <materialDesign:PackIcon Kind="User"
-                                     VerticalAlignment="Stretch"
-                                     HorizontalAlignment="Center"
-                                     Margin="0, 0, 15, 0"
-                                     Width="Auto"
-                                     Height="Auto"
-                                     Grid.RowSpan="5"
-                                     Grid.Column="1"/>
-            <DockPanel Grid.Row="6"
+            <DockPanel Grid.Row="4"
                        Grid.Column="1"
                     Grid.ColumnSpan="4"
                     HorizontalAlignment="Stretch"
@@ -58,45 +47,45 @@
             <ComboBox SelectedValuePath="Content"
                       SelectedIndex="0"
                       SelectedValue="{Binding ACCOUNT, Mode=TwoWay}"
-                  Grid.Column="2"
+                  Grid.Column="1"
+                      Width="200"
                       FontSize="14"
                       VerticalAlignment="Bottom"
                   Grid.ColumnSpan="2"
-                  Grid.Row="5">
+                  Grid.Row="2">
                 <ComboBoxItem Content="Пользователь" />
                 <ComboBoxItem Content="Редактор" />
             </ComboBox>
-            <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                 materialDesign:HintAssist.Hint="{DynamicResource m_SecondName}"
-                 Grid.Row="1"
-                 Grid.Column="2"
-                     VerticalContentAlignment="Bottom"
-                     FontSize="14"
-                 Grid.ColumnSpan="2"
+            <StackPanel Grid.Row="1"
+                        Grid.Column="1"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Grid.ColumnSpan="2">
+                <materialDesign:PackIcon Kind="User"
+                                     Width="Auto"
+                                     Height="Auto"/>
+                <StackPanel>
+                    <TextBlock FontSize="16"
                  Text="{Binding SECOND_NAME}" />
-            <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                 materialDesign:HintAssist.Hint="{DynamicResource m_Name}"
-                 Grid.Row="2"
-                     FontSize="14"
-                     VerticalContentAlignment="Bottom"
-                 Grid.Column="2"
-                 Grid.ColumnSpan="2"
+                    <TextBlock FontSize="16"
                  Text="{Binding NAME}" />
-            <TextBlock Grid.Row="3"
-                     FontSize="14"
-                 Grid.Column="2"
-                 Grid.ColumnSpan="2"
+                    <TextBlock FontSize="16"
                        VerticalAlignment="Center"
                  Text="{Binding EMAIL}" />
-            <DockPanel Grid.Column="2"
+                </StackPanel>
+            </StackPanel>                
+
+            <DockPanel Grid.Column="1"
                        Grid.ColumnSpan="2"
-                       Grid.Row="4">
+                       HorizontalAlignment="Center"
+                       Grid.Row="3">
                 <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                          DockPanel.Dock="Left"
                  materialDesign:HintAssist.Hint="Дата оформления"
                      VerticalContentAlignment="Bottom"
                  Grid.Row="4"
                      FontSize="14"
+                         Margin="0, 0, 20, 0"
                  Grid.Column="2"
                  Grid.ColumnSpan="2"
                          Width="140"

@@ -12,6 +12,7 @@ using Курсач.Singleton;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Курсач.ViewModels
 {
@@ -34,7 +35,7 @@ namespace Курсач.ViewModels
                 OnPropertyChanged(nameof(SelectedViewModel));
             }
         }
-        public SecureString firstPassword;
+        public SecureString firstPassword = new SecureString();
         public SecureString FirstPassword
         {
             get { return firstPassword; }
@@ -44,7 +45,7 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("FirstPassword");
             }
         }
-        public SecureString secondPassword;
+        public SecureString secondPassword = new SecureString();
         public SecureString SecondPassword
         {
             get { return secondPassword; }
@@ -85,9 +86,71 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("Name");
             }
         }
+
+        private string passwordValidation;
+
+        public string PasswordValidation
+        {
+            get { return passwordValidation; }
+            set 
+            { 
+                passwordValidation = value;
+                OnPropertyChanged("PasswordValidation");
+            }
+        }
+
+        private string secondPasswordValidation;
+
+        public string SecondPasswordValidation
+        {
+            get { return secondPasswordValidation; }
+            set 
+            { 
+                secondPasswordValidation = value;
+                OnPropertyChanged("SecondPasswordValidation");
+            }
+        }
+
+        private string secondNameValidation;
+
+        public string SecondNameValidation
+        {
+            get { return secondNameValidation; }
+            set 
+            { 
+                secondNameValidation = value;
+                OnPropertyChanged("SecondNameValidation");
+            }
+        }
+
+        private string nameValidation;
+
+        public string NameValidation
+        {
+            get { return nameValidation; }
+            set 
+            {
+                nameValidation = value;
+                OnPropertyChanged("NameValidation");
+            }
+        }
+
+        private string emailValidation;
+
+        public string EmailValidation
+        {
+            get { return emailValidation; }
+            set 
+            { 
+                emailValidation = value;
+                OnPropertyChanged("EmailValidation");
+            }
+        }
+
+
         #endregion
 
-        #region Commans
+        #region Commands
         public ICommand RegistrationCommand { get; private set; } // open form for sign on
         public ICommand OpenSignInCommand { get; private set; } // open form for sign in
         #endregion
@@ -121,10 +184,11 @@ namespace Курсач.ViewModels
             });
         }
 
-        #region Commans' Logic
+        #region Commands' Logic
         private void OpenSendMessage(object obj)
         {
-
+            bool flag = true;
+            Regex complexPassword = new Regex("(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}");
             IntPtr password1 = default(IntPtr);
             IntPtr password2 = default(IntPtr);
             string insecurePassword1 = "";
@@ -132,45 +196,97 @@ namespace Курсач.ViewModels
             string hash = "";
             try
             {
-                if (db.USERS.FirstOrDefault(n => n.EMAIL == Email) != null)
+                if (App.db.USERS.FirstOrDefault(n => n.EMAIL == Email) != null)
                 {
                     notifier.ShowWarning("Пользователь с таким Email уже существует");
                     return;
                 }
+                
                 password1 = Marshal.SecureStringToBSTR(FirstPassword);
                 insecurePassword1 = Marshal.PtrToStringBSTR(password1);
                 password2 = Marshal.SecureStringToBSTR(SecondPassword);
                 insecurePassword2 = Marshal.PtrToStringBSTR(password2);
                 sh = new SaltedHash(insecurePassword1);
-                if (insecurePassword1.Length > 6)
+                if (!complexPassword.IsMatch(insecurePassword1))
                 {
-                    if(insecurePassword1 == insecurePassword2)
-                    {
-                        hash += sh.Hash + sh.Salt;
-                    }
-                    else
-                    {
-                        notifier.ShowWarning("Введенные пароли должны совпадать");
-                        return;
-                    }
-                }    
+                    PasswordValidation = "Пароль должен быть в длину более 6 символов, содержать цифры, спец символы, латинские буквы в верхнем и нижнем регистре";
+                    flag = false;
+                }
                 else
                 {
-                    notifier.ShowWarning("Длина пароля должна быть более шести символов!");
-                    return;
+                    PasswordValidation = "";
                 }
+
+                if (insecurePassword1 != insecurePassword2)
+                {
+                    SecondPasswordValidation = "Введенные пароли должны совпадать";
+                    flag = false;
+                }
+                else
+                    SecondPasswordValidation = "";
+
+                if(Email == null || Email == "")
+                {
+                    EmailValidation = "Это поле не должно быть пустым";
+                    flag = false;
+                }
+                else
+                {
+                    EmailValidation = "";
+                }
+
+                if (SecondName == null || SecondName == "")
+                {
+                    SecondNameValidation = "Это поле не должно быть пустым";
+                    flag = false;
+                }
+                else
+                {
+                    SecondNameValidation = "";
+                }
+
+                if (Name == null || Name == "")
+                {
+                    NameValidation = "Это поле не должно быть пустым";
+                    flag = false;
+                }
+                else
+                {
+                    NameValidation = "";
+                }
+
+                if (!flag) return;
+
+                if (insecurePassword1 == insecurePassword2 && flag)
+                {
+                    hash += sh.Hash + sh.Salt;
+                    SecondPasswordValidation = "";
+                }
+
                 insecurePassword1 = "";
                 insecurePassword2 = "";
-                FirstPassword.Dispose();
-                SecondPassword.Dispose();
+                if(FirstPassword != null)
+                {
+                    FirstPassword.Dispose();
+                }
+                if (SecondPassword != null)
+                {
+                    SecondPassword.Dispose();        
+                }
             }
             catch(Exception ex)
             {
                 System.Windows.Forms.MessageBox.Show(ex.Message);
                 insecurePassword1 = "";
                 insecurePassword2 = "";
-                FirstPassword.Dispose();
-                SecondPassword.Dispose();
+                if (FirstPassword != null)
+                {
+                    FirstPassword.Dispose();
+                }
+                if (SecondPassword != null)
+                {
+                    SecondPassword.Dispose();
+                }
             }
             MainWindowViewModelSingleton.GetInstance().MainFrameViewModel.SelectedViewModel = new SendMessageViewModel(new USERS { ACCOUNT = "Пользователь", EMAIL = Email, NAME = Name, PASSWORD = hash, SECOND_NAME = SecondName });
 

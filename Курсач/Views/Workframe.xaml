@@ -133,7 +133,7 @@
                                     Command="{Binding OpenBasketCommand}">
                                     <StackPanel Orientation="Horizontal"
                                         VerticalAlignment="Center">
-                                        <materialDesign:PackIcon Kind="Basket"
+                                        <materialDesign:PackIcon Kind="CartVariant"
                                                                  Width="40"
                                                                  Height="40"
                                                                  Margin="10,0,10,0"

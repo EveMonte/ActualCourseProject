@@ -49,14 +49,28 @@ namespace Курсач.ViewModels
             }
         }
 
+        private ObservableCollection<ADVERTISEMENT> ads;
+
+        public ObservableCollection<ADVERTISEMENT> Ads
+        {
+            get { return ads; }
+            set 
+            { 
+                ads = value;
+                OnPropertyChanged("Ads");
+            }
+        }
+
 
         public ICommand OpenBooksCommand { get; private set; }
         public ICommand OpenAdminsCommand { get; private set; }
         public ICommand OpenUsersCommand { get; private set; }
         public ICommand OpenUserCommand { get; private set; }
         public ICommand OpenSettingsCommand { get; private set; }
+        public ICommand OpenAdvertisementCommand { get; private set; }
         public AdminVM(USERS currentUser)
         {
+            Ads = new ObservableCollection<ADVERTISEMENT>(App.db.ADVERTISEMENT);
             Books = new ObservableCollection<BOOKS>(MainWindowViewModelSingleton.GetInstance().MainFrameViewModel.db.BOOKS);
             this.currentUser = currentUser;
             if (currentUser.ACCOUNT == "Администратор")
@@ -66,7 +80,13 @@ namespace Курсач.ViewModels
             OpenUsersCommand = new DelegateCommand(OpenUsers);
             OpenUserCommand = new DelegateCommand(OpenUser);
             OpenSettingsCommand = new DelegateCommand(OpenSettings);
+            OpenAdvertisementCommand = new DelegateCommand(OpenAds);
             CurrentPageViewModel = new ListOfBooksAdminVM(Books);
+        }
+
+        private void OpenAds(object obj)
+        {
+            CurrentPageViewModel = new AdvertismentsVM(Ads);
         }
 
         private void OpenUser(object obj)

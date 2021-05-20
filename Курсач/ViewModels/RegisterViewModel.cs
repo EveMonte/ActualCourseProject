@@ -104,6 +104,7 @@ namespace Курсач.ViewModels
                                 AdminWindowSingleTone.GetInstance().AdminVM.CurrentPageViewModel = new ListOfBooksAdminVM(AdminWindowSingleTone.GetInstance().AdminVM.Books);
                                 AdminWindowSingleTone.GetInstance().AdminVM.Visibility = u.ACCOUNT == "Администратор" ? "Visible" : "Collapsed";
                                 AdminWindowSingleTone.GetInstance().AdminVM.currentUser = u;
+                                App.currentUser = u;
 
                                 AdminWindow adminWindow = new AdminWindow();
                                 adminWindow.Show();
@@ -112,6 +113,8 @@ namespace Курсач.ViewModels
                             {
                                 WorkFrameSingleTone.GetInstance(new WorkframeViewModel(u)).WorkframeViewModel.currentUser = u;
                                 WorkFrameSingleTone.GetInstance().WorkframeViewModel.CurrentPageViewModel = new ListOfBooksViewModel(u);
+                                App.currentUser = u;
+
                                 Workframe workframe = new Workframe();
                                 workframe.Show();
                             }

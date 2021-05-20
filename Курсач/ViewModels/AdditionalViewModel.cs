@@ -16,7 +16,6 @@ namespace Курсач.ViewModels
     {
         #region Data
         private Notifier notifier;
-        LIBRARYEntities db = new LIBRARYEntities();
         private ObservableCollection<BOOKS> books;
         public ObservableCollection<BOOKS> Books // Similar books
         {
@@ -68,17 +67,24 @@ namespace Курсач.ViewModels
         //change book to another
         private void OpenFullInfoUserControl(object obj)
         {
-            foreach (GENRES genre in db.GENRES.ToList()) //we are looking for our book in GENRES...
+            try
             {
-                if (genre.GENRE_ID == SelectedBook.GENRE)
-                    SelectedBook.Genre = genre.GENRE; //... and when we find it we write it in the notmapped property
-            }
+                foreach (GENRES genre in App.db.GENRES.ToList()) //we are looking for our book in GENRES...
+                {
+                    if (genre.GENRE_ID == SelectedBook.GENRE)
+                        SelectedBook.Genre = genre.GENRE; //... and when we find it we write it in the notmapped property
+                }
 
-            SelectedBook.NUMBEROFVOICES = db.MARKS.Where(n => n.BOOK_ID == SelectedBook.BOOK_ID).Count(); //counting marks to write in notmapped property
-            SelectedBook.RATING = SelectedBook.RATING;
-            MARKS mark = db.MARKS.FirstOrDefault(n => (n.USER_ID == currentUser.USER_ID) && (n.BOOK_ID == SelectedBook.BOOK_ID));
-            SelectedBook.Mark = mark != null ? (int)mark.MARK : 0;
-            CurrentBook = SelectedBook;
+                SelectedBook.NUMBEROFVOICES = App.db.MARKS.Where(n => n.BOOK_ID == SelectedBook.BOOK_ID).Count(); //counting marks to write in notmapped property
+                SelectedBook.RATING = SelectedBook.RATING;
+                MARKS mark = App.db.MARKS.FirstOrDefault(n => (n.USER_ID == currentUser.USER_ID) && (n.BOOK_ID == SelectedBook.BOOK_ID));
+                SelectedBook.Mark = mark != null ? (int)mark.MARK : 0;
+                CurrentBook = SelectedBook;
+            }
+            catch (Exception ex)
+            {
+                notifier.ShowError(ex.Message);
+            }
 
             CreateSimilarBooks(); // create collection of similar books
 
@@ -112,55 +118,47 @@ namespace Курсач.ViewModels
         //Add book to basket lol :)
         private void AddBookToBasket(object obj)
         {
-
-            if (db.BASKETS.FirstOrDefault(n => (n.USER_ID == currentUser.USER_ID) && (n.BOOK_ID == (int)obj)) == null)
+            try
             {
-                if (db.YOUR_BOOKS.FirstOrDefault(n => (n.USER_ID == currentUser.USER_ID) && (n.BOOK_ID == (int)obj)) == null)
+                if (App.db.BASKETS.FirstOrDefault(n => (n.USER_ID == currentUser.USER_ID) && (n.BOOK_ID == (int)obj)) == null)
                 {
-                    BASKETS newBasketBook = new BASKETS();
-                    newBasketBook.BOOK_ID = (int)obj;
-                    newBasketBook.USER_ID = currentUser.USER_ID;
-                    db.BASKETS.Add(newBasketBook);
-                    db.SaveChangesAsync().GetAwaiter();
-                    try
+                    if (App.db.YOUR_BOOKS.FirstOrDefault(n => (n.USER_ID == currentUser.USER_ID) && (n.BOOK_ID == (int)obj)) == null)
                     {
-                        notifier.ShowSuccess("Книга успешно добавлена в корзину");
+                        BASKETS newBasketBook = new BASKETS();
+                        newBasketBook.BOOK_ID = (int)obj;
+                        newBasketBook.USER_ID = currentUser.USER_ID;
+                        App.db.BASKETS.Add(newBasketBook);
+                        App.db.SaveChangesAsync().GetAwaiter();
+                        try
+                        {
+                            notifier.ShowSuccess("Книга успешно добавлена в корзину");
+                        }
+                        catch (Exception ex)
+                        {
+                            System.Windows.Forms.MessageBox.Show(ex.Message);
+                        }
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        System.Windows.Forms.MessageBox.Show(ex.Message);
+                        notifier.ShowWarning("Вы уже приобрели эту книгу");
                     }
                 }
                 else
                 {
-                    try
-                    {
-
-                        notifier.ShowWarning("Вы уже приобрели эту книгу");
-                    }
-                    catch (Exception ex)
-                    {
-                        System.Windows.Forms.MessageBox.Show(ex.Message);
-                    }
-                }
-            }
-            else
-            {
-                try
-                {
                     notifier.ShowWarning("Эта книга уже у вас в корзине");
                 }
-                catch (Exception ex)
-                {
-                    System.Windows.Forms.MessageBox.Show(ex.Message);
-                }
+            }
+            catch (Exception ex)
+            {
+                notifier.ShowError(ex.Message);
             }
         }
 
         //Rate the book
         private void Rate(object obj)
         {
-            MARKS m = db.MARKS.Where(n => (n.BOOK_ID == CurrentBook.BOOK_ID) && (n.USER_ID == currentUser.USER_ID)).FirstOrDefault();
+            try { 
+            MARKS m = App.db.MARKS.Where(n => (n.BOOK_ID == CurrentBook.BOOK_ID) && (n.USER_ID == currentUser.USER_ID)).FirstOrDefault();
             if (m != null) //if our current user already rated this book we change value of its mark
             {
                 CurrentBook.Mark = (int)obj;
@@ -173,15 +171,20 @@ namespace Курсач.ViewModels
                 mark.MARK = (int)obj;
                 CurrentBook.Mark = (int)obj;
                 mark.USER_ID = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser.USER_ID;
-                db.MARKS.Add(mark);
+                App.db.MARKS.Add(mark);
                 CurrentBook.NUMBEROFVOICES++;
             }
 
-            db.SaveChanges(); // save changes to DB
-            CurrentBook.RATING = ((decimal)db.MARKS.Where(n => n.BOOK_ID == CurrentBook.BOOK_ID).Sum(n => n.MARK) / (decimal)db.MARKS.Where(n => n.BOOK_ID == CurrentBook.BOOK_ID).Count()); // recount rating of this book
-            var book = db.BOOKS.FirstOrDefault(n => n.BOOK_ID == CurrentBook.BOOK_ID); // get this book from the DB
+            App.db.SaveChanges(); // save changes to DB
+            CurrentBook.RATING = ((decimal)App.db.MARKS.Where(n => n.BOOK_ID == CurrentBook.BOOK_ID).Sum(n => n.MARK) / (decimal)App.db.MARKS.Where(n => n.BOOK_ID == CurrentBook.BOOK_ID).Count()); // recount rating of this book
+            var book = App.db.BOOKS.FirstOrDefault(n => n.BOOK_ID == CurrentBook.BOOK_ID); // get this book from the DB
             book.RATING = CurrentBook.RATING; // change its rating
-            db.SaveChangesAsync().GetAwaiter(); // and save changes async
+            App.db.SaveChangesAsync().GetAwaiter(); // and save changes async
+            }
+            catch(Exception ex)
+            {
+                notifier.ShowError(ex.Message);
+            }
 
             FullInfoViewModelSingleTone.GetInstance().FullInfoViewModel.CurrentBook = new BOOKS(); // to trigger OnPropertyChanged and update info in FullInfoUserControl
             FullInfoViewModelSingleTone.GetInstance().FullInfoViewModel.CurrentBook = CurrentBook;
@@ -191,7 +194,7 @@ namespace Курсач.ViewModels
         private void CreateSimilarBooks()
         {
             Books = new ObservableCollection<BOOKS>(); //cleaning observable collection
-            foreach (BOOKS book in db.BOOKS) //fill observable collection with new similar books
+            foreach (BOOKS book in App.db.BOOKS) //fill observable collection with new similar books
             {
                 if ((CurrentBook.AUTHOR == book.AUTHOR && CurrentBook.TITLE != book.TITLE) || (CurrentBook.GENRE == book.GENRE && CurrentBook.TITLE != book.TITLE)) // if books have the same author or the same genre add it
                 {
@@ -211,13 +214,13 @@ namespace Курсач.ViewModels
         //Add new book to your shelf
         private void AddToYourBooks(object obj)
         {
-            if(db.YOUR_BOOKS.FirstOrDefault(n => (n.USER_ID == currentUser.USER_ID) && (n.BOOK_ID == (int)obj)) == null)
+            if(App.db.YOUR_BOOKS.FirstOrDefault(n => (n.USER_ID == currentUser.USER_ID) && (n.BOOK_ID == (int)obj)) == null)
             {
                 YOUR_BOOKS newBook = new YOUR_BOOKS();
                 newBook.BOOK_ID = (int)obj;
                 newBook.USER_ID = currentUser.USER_ID;
-                db.YOUR_BOOKS.Add(newBook);
-                db.SaveChangesAsync().GetAwaiter();
+                App.db.YOUR_BOOKS.Add(newBook);
+                App.db.SaveChangesAsync().GetAwaiter();
             }
             else
             {
@@ -237,7 +240,7 @@ namespace Курсач.ViewModels
         {
             if (currentUser.CREDIT_CARD != null)
             {
-                if (db.YOUR_BOOKS.FirstOrDefault(n => (n.BOOK_ID == (int)obj) && (n.USER_ID == currentUser.USER_ID)) == null)
+                if (App.db.YOUR_BOOKS.FirstOrDefault(n => (n.BOOK_ID == (int)obj) && (n.USER_ID == currentUser.USER_ID)) == null)
                 {
                     WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new BaseDialogWindowVM(new ConfirmPurchase((int)obj));
                     WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Visible";

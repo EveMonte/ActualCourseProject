@@ -40,7 +40,7 @@
                         Orientation="Horizontal">
                 <TextBlock Text="{Binding FormattedPrice}"
                            HorizontalAlignment="Right"/>
-                <materialDesign:PackIcon Kind="Basket"
+                <materialDesign:PackIcon Kind="CartVariant"
                                          Opacity="{Binding IsInBasket}"
                                          HorizontalAlignment="Right"/>
             </StackPanel>

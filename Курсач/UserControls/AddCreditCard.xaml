@@ -49,10 +49,10 @@
                 Grid.Row="1" >
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
+                    <ColumnDefinition Width="1.25*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*" />
@@ -81,24 +81,27 @@
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
                             VerticalAlignment="Bottom"
-                            Orientation="Horizontal"
+                            Orientation="Vertical"
                             HorizontalAlignment="Right">
-                    <TextBlock Text="{DynamicResource m_Validity}"
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{DynamicResource m_Validity}"
                                TextAlignment="Right"
-                               VerticalAlignment="Center"
-                               Width="100"
-                               Margin="10 0"
+                               VerticalAlignment="Top"
+                               Width="80"
+                               TextWrapping="Wrap"
+                               Margin="0, 0, 10, 0"
                                FontFamily="Tahoma"
                                FontSize="14"/>
-                    <StackPanel>
                         <TextBox Width="60"
-                             Style="{DynamicResource MaterialDesignTextBox}"
-                             materialDesign:HintAssist.Hint="{DynamicResource m_MM/YY}"
-                             Background="#F4F2EF"
+                                Style="{DynamicResource MaterialDesignTextBox}"
+                                materialDesign:HintAssist.Hint="{DynamicResource m_MM/YY}"
+                                Background="#F4F2EF"
+                                 Height="25"
+                                 VerticalContentAlignment="Bottom"
                              Text="{Binding Validity}"/>
-                        <TextBlock Style="{DynamicResource ErrorMessage}"
-                                   Text="{Binding ValidityValidation}" />
                     </StackPanel>
+                    <TextBlock Style="{DynamicResource ErrorMessage}"
+                                   Text="{Binding ValidityValidation}" />
                 </StackPanel>
                 <StackPanel Grid.Row="2"
                             Grid.Column="2"

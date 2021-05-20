@@ -10,29 +10,18 @@
         <Grid  Style="{DynamicResource GridStyle}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="15" />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition Height="0.5*" />
-                <RowDefinition />
+                <RowDefinition Height="1.5*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1.5*" />
                 <RowDefinition Height="15" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="15" />
-                <ColumnDefinition Width="0.5*" />
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="15" />
             </Grid.ColumnDefinitions>
-            <materialDesign:PackIcon Kind="User"
-                                     VerticalAlignment="Stretch"
-                                     HorizontalAlignment="Center"
-                                     Margin="0, 0, 15, 0"
-                                     Width="Auto"
-                                     Height="Auto"
-                                     Grid.RowSpan="5"
-                                     Grid.Column="1"/>
-            <DockPanel Grid.Row="5"
+            <DockPanel Grid.Row="3"
                        Grid.Column="1"
                     Grid.ColumnSpan="4"
                     HorizontalAlignment="Stretch"
@@ -56,31 +45,35 @@
             <ComboBox SelectedValuePath="Content"
                       SelectedIndex="0"
                       SelectedValue="{Binding ACCOUNT, Mode=TwoWay}"
-                  Grid.Column="2"
+                  Grid.Column="1"
+                      Width="200"
                       FontSize="14"
                       VerticalAlignment="Bottom"
                   Grid.ColumnSpan="2"
-                  Grid.Row="4">
+                  Grid.Row="2">
                 <ComboBoxItem Content="Пользователь" />
                 <ComboBoxItem Content="Редактор" />
             </ComboBox>
-            <TextBlock Grid.Row="1"
-                 Grid.Column="2"
-                     FontSize="14"
-                 Grid.ColumnSpan="2"
+            <StackPanel Orientation="Horizontal"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        HorizontalAlignment="Center">
+                <materialDesign:PackIcon Kind="AccountTie"
+                                         Width="Auto"
+                                         Height="Auto"/>
+                <StackPanel>
+                    <TextBlock FontSize="16"
                  Text="{Binding SECOND_NAME}" />
-            <TextBlock materialDesign:HintAssist.Hint="{DynamicResource m_Name}"
-                 Grid.Row="2"
-                     FontSize="14"
-                 Grid.Column="2"
-                 Grid.ColumnSpan="2"
-                 Text="{Binding NAME}" />
-            <TextBlock Grid.Row="3"
+                    <TextBlock materialDesign:HintAssist.Hint="{DynamicResource m_Name}"
                      FontSize="16"
-                 Grid.Column="2"
+                 Text="{Binding NAME}" />
+                    <TextBlock FontSize="16"
                        VerticalAlignment="Center"
-                 Grid.ColumnSpan="2"
                  Text="{Binding EMAIL}" />
+                </StackPanel>
+            </StackPanel>
+
         </Grid>
     </Border>
 </UserControl>

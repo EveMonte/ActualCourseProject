@@ -86,7 +86,7 @@
                             <userControls:BookUserControl Width="150" Height="330"  />
                             <Border.InputBindings>
                                 <MouseBinding MouseAction="{x:Static MouseAction.LeftDoubleClick}"
-                                          Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=DataContext.OpenFullInfo}" />
+                                              Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=DataContext.OpenFullInfo}" />
                             </Border.InputBindings>
                         </Border>
                     </DataTemplate>
@@ -167,35 +167,6 @@
                                              Height="Auto"/>
                         <TextBlock Text="Удалить"
                                    Margin="5 0"
-                                   VerticalAlignment="Center"/>
-                    </StackPanel>
-                </Button>
-            </ListBoxItem>
-
-            <ListBoxItem>
-                <Button Background="Transparent"
-                        BorderBrush="Transparent"
-                        Padding="0">
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Undo"
-                                             Width="Auto"
-                                             Height="Auto"/>
-                        <TextBlock Text="Отменить"
-                                   Margin="5 0"
-                                   VerticalAlignment="Center"/>
-                    </StackPanel>
-                </Button>
-            </ListBoxItem>
-            <ListBoxItem>
-                <Button Background="Transparent"
-                        BorderBrush="Transparent"
-                        Padding="0">
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Redo"
-                                                 Margin="5 0"
-                                             Width="Auto"
-                                             Height="Auto"/>
-                        <TextBlock Text="Вернуть"
                                    VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
