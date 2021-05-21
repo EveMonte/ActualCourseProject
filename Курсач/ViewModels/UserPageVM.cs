@@ -203,6 +203,7 @@ namespace Курсач.ViewModels
         public ICommand ApplyEmailCommand { get; private set; } // Compare generated code with written code to confirm email change
         public ICommand ApplyPasswordCommand { get; private set; } // Compare generated code with written code to confirm password change
         public ICommand SignOutCommand { get; private set; } // Closes Workframe window and opens registration window
+        public ICommand AboutAppCommand { get; private set; } // Open user control with About app
 
         #endregion
 

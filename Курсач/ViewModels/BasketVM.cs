@@ -201,6 +201,7 @@ namespace Курсач.ViewModels
                 {
                     WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new ConfirmPurchase((int)obj);
                     WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Visible";
+                    WorkFrameSingleTone.GetInstance().WorkframeViewModel.Blur = 3;
                 }
                 else
                 {
@@ -212,6 +213,7 @@ namespace Курсач.ViewModels
                 notifier.ShowWarning("Для того чтобы купить книгу, необходимо добавить карту");
                 WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new AddCreditCardVM();
                 WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Visible";
+                WorkFrameSingleTone.GetInstance().WorkframeViewModel.Blur = 3;
             }
         }
 

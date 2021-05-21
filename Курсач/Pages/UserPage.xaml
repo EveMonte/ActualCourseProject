@@ -37,45 +37,15 @@
                    FontFamily="Tahoma"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"/>
-
-        <StackPanel Orientation="Horizontal"
-                    HorizontalAlignment="Center"
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    Grid.ColumnSpan="2"
-                    >
-            <materialDesign:PackIcon Kind="User"
-                                     HorizontalAlignment="Stretch"
-                                     VerticalAlignment="Stretch"
-                                     Width="100"
-                                     Height="100"/>
-            <StackPanel VerticalAlignment="Center">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{DynamicResource m_SecondName}"
-                               Margin="0, 0, 5, 0"
-                               FontSize="16"/>
-                    <TextBlock Text="{Binding SECONDNAME}"
-                               FontSize="16"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{DynamicResource m_Name}"
-                               Margin="0, 0, 5, 0"
-                               FontSize="16"/>
-                    <TextBlock Text="{Binding NAME}"
-                               FontSize="16"/>
-                </StackPanel>
-            </StackPanel>
-            <Button Content="{DynamicResource m_SignOut}"
-                    Width="200"
-                    Command="{Binding SignOutCommand}"
-                    Margin="200, 0, 0, 0"
-                    Template="{DynamicResource DarkButton}" />
-        </StackPanel>
-        <Grid Grid.Row="2"
+        <Grid Grid.Row="1"
+              Grid.RowSpan="2"
               Grid.Column="1"
               HorizontalAlignment="Stretch"
               Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
@@ -87,16 +57,52 @@
                 <ColumnDefinition Width="1.25*" />
                 <ColumnDefinition Width="1.5*" />
             </Grid.ColumnDefinitions>
+            <materialDesign:PackIcon Kind="User"
+                                     Grid.Row="0"
+                                     Grid.RowSpan="3"
+                                     HorizontalAlignment="Stretch"
+                                     VerticalAlignment="Stretch"
+                                     Width="100"
+                                     Height="100"/>
+                    <TextBlock Text="{DynamicResource m_SecondName}"
+                               Grid.Row="1"
+                               Grid.Column="0"
+                               HorizontalAlignment="Right"
+                               Margin="0, 0, 15, 0"
+                               FontSize="16"/>
+                    <TextBlock Text="{Binding SECONDNAME}"
+                               Grid.Column="1"
+                               Grid.Row="1"
+                               FontSize="16"/>
+                    <TextBlock Text="{DynamicResource m_Name}"
+                               Grid.Row="2"
+                               Grid.Column="0"
+                               HorizontalAlignment="Right"
+                               Margin="0, 0, 15, 0"
+                               FontSize="16"/>
+                    <TextBlock Text="{Binding NAME}"
+                               Grid.Column="1"
+                               Grid.Row="2"
+                               FontSize="16"/>
+            <Button Content="{DynamicResource m_SignOut}"
+                    Width="220"
+                    HorizontalAlignment="Left"
+                    Margin="10 0"
+                    VerticalAlignment="Bottom"
+                    Grid.Column="2"
+                    Grid.Row="1"
+                    Command="{Binding SignOutCommand}"
+                    Template="{DynamicResource DarkButton}" />
             <TextBlock Text="{DynamicResource m_SubscriptionStatus}"
                        FontSize="16"
                        HorizontalAlignment="Right"
-                       Grid.Row="0"
+                       Grid.Row="3"
                        Margin="0, 0, 15, 0"
                        VerticalAlignment="Bottom"
                        Grid.Column="0"/>
             <TextBlock Text="{Binding Subscription, Mode=TwoWay}"
                        Grid.Column="1"
-                       Grid.Row="0"
+                       Grid.Row="3"
                        VerticalAlignment="Bottom"
                        FontSize="16"/>
             <TextBlock Text="{DynamicResource m_CardNumber2}"
@@ -104,10 +110,10 @@
                        VerticalAlignment="Bottom"
                        Grid.Column="0"
                        Margin="0, 0, 15, 0"
-                       Grid.Row="1"
+                       Grid.Row="4"
                        FontSize="16"/>
             <TextBlock Text="{Binding CreditCard, Mode=TwoWay}"
-                       Grid.Row="1"
+                       Grid.Row="4"
                        VerticalAlignment="Bottom"
                        HorizontalAlignment="Left"
                        Grid.Column="1"
@@ -115,7 +121,7 @@
             <Button Content="{DynamicResource m_Change}"
                     Template="{DynamicResource LightButton2}"
                     Grid.Column="2"
-                    Grid.Row="1"
+                    Grid.Row="4"
                     Width="220"
                     Margin="10 0"
                     Command="{Binding ApplyCreditCardCommand}"
@@ -123,25 +129,25 @@
                     VerticalAlignment="Bottom" />
             <TextBlock Text="{DynamicResource m_NumberOfBooksOnTheShelf}"
                        Grid.Column="0"
-                       Grid.Row="2"
+                       Grid.Row="5"
                        Margin="0, 0, 15, 0"
                        VerticalAlignment="Bottom"
                        HorizontalAlignment="Right"
                        FontSize="16" />
             <TextBlock Text="{Binding YourBooks, Mode=TwoWay}"
-                       Grid.Row="2"
+                       Grid.Row="5"
                        VerticalAlignment="Bottom"
                        Grid.Column="1"
                        FontSize="16" />
             <TextBlock Text="{DynamicResource m_NumberOfMarks}"
                        Grid.Column="0"
                        VerticalAlignment="Bottom"
-                       Grid.Row="3"
+                       Grid.Row="6"
                        Margin="0, 0, 15, 0"
                        HorizontalAlignment="Right"
                        FontSize="16" />
             <TextBlock Text="{Binding Marks, Mode=TwoWay}"
-                       Grid.Row="3"
+                       Grid.Row="6"
                        VerticalAlignment="Bottom"
                        Grid.Column="1"
                        FontSize="16" />

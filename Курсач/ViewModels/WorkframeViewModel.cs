@@ -62,6 +62,19 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("AddCreditCardViewModel");
             }
         }
+
+        private int blur;
+
+        public int Blur
+        {
+            get { return blur; }
+            set 
+            { 
+                blur = value;
+                OnPropertyChanged("Blur");
+            }
+        }
+
         #endregion
 
         #region Commands
@@ -71,6 +84,7 @@ namespace Курсач.ViewModels
         public ICommand SettingsCommand { get; private set; }
         public ICommand OpenUserCommand { get; private set; }
         public ICommand SubscriptionCommand { get; private set; }
+        public ICommand CloseCommand { get; private set; }
         #endregion
 
         public WorkframeViewModel(USERS user)
@@ -83,14 +97,21 @@ namespace Курсач.ViewModels
             OpenBasketCommand = new DelegateCommand(OpenBasket);
             SubscriptionCommand = new DelegateCommand(OpenSubscription);
             SettingsCommand = new DelegateCommand(OpenSettings);
+            CloseCommand = new DelegateCommand(Close);
         }
 
 
         #region Commands' Logic
+
+        private void Close(object obj)
+        {
+            AddCreditCardViewModel = null;
+            Visibility = "Collapsed";
+            Blur = 0;
+        }
+
         private void OpenSubscription(object obj)
         {
-            //prevVM = CurrentPafeViewModel;
-            //CurrentPageV...  = new ...VM
             CurrentPageViewModel = new SubscriptionVM();
         }
         private void OpenSettings(object obj)

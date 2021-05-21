@@ -88,7 +88,7 @@ namespace Курсач.ViewModels
         {
             WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = null;
             WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Collapsed";
-
+            WorkFrameSingleTone.GetInstance().WorkframeViewModel.Blur = 0;
         }
 
         private void BuyTheBook(object obj) // buy the book

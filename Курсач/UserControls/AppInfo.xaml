@@ -44,20 +44,29 @@
                    FontSize="18"
                    Grid.Row="0" />
         <TextBlock Grid.Row="1"
+                   Grid.RowSpan="2"
                    Grid.Column="1"
                    Grid.ColumnSpan="2"
                    FontSize="18"
                    Margin="0, 25, 0, 0"
                    TextWrapping="Wrap"
-                   VerticalAlignment="Top"
-                   TextAlignment="Center" >   
+                   VerticalAlignment="Center"
+                   TextAlignment="Justify" >   
             <StackPanel Width="700">
                 <TextBlock FontSize="16"
                            TextWrapping="Wrap"
                            FontFamily="Tahoma">
                     Программное средство BookВарь разработано в рамках курсового проекта по Объектно-ориентированному программированию.
                     Данное приложение представляет собой книжный подписочный сервис, в котором пользователи могут покупать книги, добавлять их
-                    в корзину, выставлять оценки. Редакторы могут управлять пользователями и рекламой.
+                    в корзину, выставлять оценки. Редакторы могут управлять пользователями, рекламой и редактировать данные о книгах.
+                    <LineBreak />
+                    Разработчик - 
+                    <Hyperlink NavigateUri="https://vk.com/lpevemonte">Савельев Дмитрий</Hyperlink>, 2 курс, 1 группа
+                    <LineBreak />
+                    Обратная связь - 
+                    <Hyperlink NavigateUri="https://bookvar.official@gmail.com/">bookvar.official@gmail.com</Hyperlink>
+                    <LineBreak />
+                    BookВарь©2021
                 </TextBlock>                           
             </StackPanel>
         </TextBlock>

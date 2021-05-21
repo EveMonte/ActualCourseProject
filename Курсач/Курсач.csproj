@@ -233,6 +233,7 @@
     <Compile Include="ViewModels\AdminsVM.cs" />
     <Compile Include="ViewModels\AdminVM.cs" />
     <Compile Include="ViewModels\AdvertismentsVM.cs" />
+    <Compile Include="ViewModels\AppInfoVM.cs" />
     <Compile Include="ViewModels\BaseDialogWindowVM.cs" />
     <Compile Include="ViewModels\ForgotPasswordVM.cs" />
     <Compile Include="ViewModels\FullInfoAdminVM.cs" />

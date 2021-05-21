@@ -45,6 +45,9 @@
                        Foreground="White"
                        VerticalAlignment="Center"
                        Text="{DynamicResource m_SubscriptionAdvertisment}" />
+            <StackPanel.Effect>
+                <BlurEffect Radius="{Binding Blur}" />
+            </StackPanel.Effect>
             </StackPanel>
             <Grid x:Name="sidePanel"
               Grid.RowSpan="5"
@@ -200,24 +203,34 @@
                         </ListView>
                     </StackPanel>
                 </DockPanel>
-            </Grid>
-            <Frame NavigationUIVisibility="Hidden"
+            <Grid.Effect>
+                <BlurEffect Radius="{Binding Blur}" />
+            </Grid.Effect>
+        </Grid>
+        <Frame NavigationUIVisibility="Hidden"
                    Grid.Row="1"
                       Grid.Column="1"
                       Grid.ColumnSpan="4"
                       HorizontalContentAlignment="Center"
                       HorizontalAlignment="Stretch"
                       Grid.RowSpan="3"
-                   Content="{Binding CurrentPageViewModel}" />
-        <Border Background="Black"
-                    Grid.ColumnSpan="6"
-                    Grid.RowSpan="4"
+                   Content="{Binding CurrentPageViewModel}">
+            <Frame.Effect>
+                <BlurEffect Radius="{Binding Blur}" />
+            </Frame.Effect>
+        </Frame>
+        <Button Grid.ColumnSpan="6"
+                Background="Black"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Width="Auto"
+                Height="Auto"
+                Opacity="0.2"
                 Visibility="{Binding Visibility}"
-                Opacity="0.2">
-            <Border.Effect>
-                <BlurEffect Radius="5"  />
-            </Border.Effect>
-        </Border>
+                BorderBrush="Transparent"
+                Padding="0"
+                Command="{Binding CloseCommand}"
+                Grid.RowSpan="4" />
         <ContentControl Content="{Binding AddCreditCardViewModel}"
                         Grid.ColumnSpan="4"
                         Grid.Column="1"

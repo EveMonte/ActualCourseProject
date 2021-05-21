@@ -109,6 +109,7 @@ namespace Курсач.ViewModels
             {
                 currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser;
                 WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Visible";
+                WorkFrameSingleTone.GetInstance().WorkframeViewModel.Blur = 3;
             }
             else
                 currentUser = AdminWindowSingleTone.GetInstance().AdminVM.currentUser;
