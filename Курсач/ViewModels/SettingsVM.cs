@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Курсач.Singleton;
 
 namespace Курсач.ViewModels
 {
@@ -38,14 +39,21 @@ namespace Курсач.ViewModels
         public ICommand ChangeLangCommand { get; private set; }
         public ICommand ChangeThemeCommand { get; private set; }
         public ICommand ExitCommand { get; private set; }
+        public ICommand OpenInfoCommand { get; private set; }
         public SettingsVM()
         {
             ChangeLangCommand = new DelegateCommand(ChangeLanguage);
             ChangeThemeCommand = new DelegateCommand(ChangeTheme);
             ExitCommand = new DelegateCommand(ExitApp);
+            OpenInfoCommand = new DelegateCommand(OpenInfo);
             CultureInfo currLang = App.Language;
 
             //Заполняем меню смены языка:
+        }
+
+        private void OpenInfo(object obj)
+        {
+            WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new AppInfoVM();
         }
 
         private void ExitApp(object obj)

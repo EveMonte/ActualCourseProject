@@ -138,27 +138,11 @@ namespace Курсач.ViewModels
             Text = "";
             try
             {
-                Books = new ObservableCollection<BOOKS>(App.db.BOOKS);
-                var shelfBooks = App.db.YOUR_BOOKS.Where(n => n.USER_ID == App.currentUser.USER_ID);
-                foreach (var book in shelfBooks)
+                var basketBooks = App.db.YOUR_BOOKS.Where(n => n.USER_ID == currentUser.USER_ID);
+                Books = new ObservableCollection<BOOKS>();
+                foreach (var book in basketBooks)
                 {
-                    var bookToRemove = Books.FirstOrDefault(n => n.BOOK_ID == book.BOOK_ID);
-                    if (bookToRemove != null)
-                    {
-                        Books.Remove(bookToRemove);
-                    }
-                }
-                var basketBooks = App.db.BASKETS.Where(n => n.USER_ID == App.currentUser.USER_ID);
-                foreach (var book in Books)
-                {
-                    if (basketBooks.FirstOrDefault(n => n.BOOK_ID == book.BOOK_ID) != null)
-                    {
-                        book.IsInBasket = 1;
-                    }
-                    else
-                    {
-                        book.IsInBasket = 0;
-                    }
+                    Books.Add(App.db.BOOKS.FirstOrDefault(n => n.BOOK_ID == book.BOOK_ID));
                 }
             }
             catch (Exception ex)

@@ -63,7 +63,7 @@ namespace Курсач.ViewModels
             }
         }
 
-        private int blur;
+        private int blur = 0;
 
         public int Blur
         {

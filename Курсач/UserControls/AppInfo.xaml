@@ -6,8 +6,7 @@
              xmlns:local="clr-namespace:Курсач.UserControls" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Style="{DynamicResource GridMainStyle}"
-          DataContext="{Binding CurrentVM}">
+    <Grid Style="{DynamicResource GridMainStyle}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50" />
             <ColumnDefinition Width="1*" />

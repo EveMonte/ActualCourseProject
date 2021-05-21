@@ -13,7 +13,7 @@
             <ColumnDefinition Width="10" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1.6*" />
+            <RowDefinition Height="1.9*" />
             <RowDefinition Height="2*" />
             <RowDefinition Height="2*" />
             <RowDefinition Height="75" />
@@ -32,6 +32,8 @@
                            Margin="15, 5, 5, 0"
                            Text="{DynamicResource m_BookTitle}" />
                 <TextBlock FontSize="16"
+                           TextWrapping="Wrap"
+                           Width="300"
                            Margin="0, 5, 0, 0"
                            Text="{Binding TITLE}" />
             </StackPanel>

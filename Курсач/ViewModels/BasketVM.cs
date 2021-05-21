@@ -165,32 +165,16 @@ namespace Курсач.ViewModels
             Text = "";
             try
             {
-                Books = new ObservableCollection<BOOKS>(App.db.BOOKS);
-                var shelfBooks = App.db.YOUR_BOOKS.Where(n => n.USER_ID == App.currentUser.USER_ID);
-                foreach (var book in shelfBooks)
+                var basketBooks = App.db.BASKETS.Where(n => n.USER_ID == currentUser.USER_ID);
+                Books = new ObservableCollection<BOOKS>();
+                foreach(var book in basketBooks)
                 {
-                    var bookToRemove = Books.FirstOrDefault(n => n.BOOK_ID == book.BOOK_ID);
-                    if (bookToRemove != null)
-                    {
-                        Books.Remove(bookToRemove);
-                    }
-                }
-                var basketBooks = App.db.BASKETS.Where(n => n.USER_ID == App.currentUser.USER_ID);
-                foreach (var book in Books)
-                {
-                    if (basketBooks.FirstOrDefault(n => n.BOOK_ID == book.BOOK_ID) != null)
-                    {
-                        book.IsInBasket = 1;
-                    }
-                    else
-                    {
-                        book.IsInBasket = 0;
-                    }
+                    Books.Add(App.db.BOOKS.FirstOrDefault(n => n.BOOK_ID == book.BOOK_ID));
                 }
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
+                notifier.ShowError(ex.Message);
             }
         }
         private void BuyTheBook(object obj) // buy book, if user don't have credit card let him add it
@@ -199,9 +183,7 @@ namespace Курсач.ViewModels
             {
                 if (db.YOUR_BOOKS.FirstOrDefault(n => (n.BOOK_ID == (int)obj) && (n.USER_ID == currentUser.USER_ID)) == null)
                 {
-                    WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new ConfirmPurchase((int)obj);
-                    WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Visible";
-                    WorkFrameSingleTone.GetInstance().WorkframeViewModel.Blur = 3;
+                    WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new BaseDialogWindowVM(new ConfirmPurchase((int)obj));
                 }
                 else
                 {
@@ -211,9 +193,7 @@ namespace Курсач.ViewModels
             else
             {
                 notifier.ShowWarning("Для того чтобы купить книгу, необходимо добавить карту");
-                WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new AddCreditCardVM();
-                WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Visible";
-                WorkFrameSingleTone.GetInstance().WorkframeViewModel.Blur = 3;
+                WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new BaseDialogWindowVM(new AddCreditCardVM());
             }
         }
 
@@ -256,16 +236,27 @@ namespace Курсач.ViewModels
 
         private void DeleteBook(object obj) // delete book from basket
         {
-            foreach (BOOKS book in books)
+            try
             {
-                if (book.BOOK_ID == (int)obj)
+                BASKETS basketToDelete = new BASKETS();
+                BOOKS bookToDelete = new BOOKS();
+                foreach (BOOKS book in books)
                 {
-                    var bookToDelete = db.BASKETS.FirstOrDefault(n => n.BOOK_ID == book.BOOK_ID);
-                    db.BASKETS.Remove(bookToDelete);
-                    db.SaveChanges();
-                    Books.Remove(book);
-                    break;
+                    if (book.BOOK_ID == (int)obj)
+                    {
+                        basketToDelete = db.BASKETS.FirstOrDefault(n => n.BOOK_ID == book.BOOK_ID);
+                        bookToDelete = book;
+                        break;
+
+                    }
                 }
+                db.BASKETS.Remove(basketToDelete);
+                db.SaveChangesAsync().GetAwaiter();
+                Books.Remove(bookToDelete);
+            }
+            catch(Exception ex)
+            {
+                notifier.ShowError(ex.Message);
             }
         }
 

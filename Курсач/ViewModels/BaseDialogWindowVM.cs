@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Курсач.Singleton;
 
 namespace Курсач.ViewModels
 {
@@ -22,6 +23,9 @@ namespace Курсач.ViewModels
         public BaseDialogWindowVM(BaseViewModel vm)
         {
             CurrentVM = vm;
+            WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Visible";
+            WorkFrameSingleTone.GetInstance().WorkframeViewModel.Blur = 3;
+
         }
     }
 }
