@@ -65,12 +65,12 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                <Button Content="Поиск"
+                <Button Content="{DynamicResource m_Search}"
                         VerticalAlignment="Center"
                         Template="{DynamicResource LightButton2}"
                         Command="{Binding FindByGenreCommand}"
                         />
-                <Button Content="Очистить фильтр"
+                <Button Content="{DynamicResource m_ClearFilter}"
                         VerticalAlignment="Center"
                         Width="150"
                         Margin="15, 0, 0, 0"
@@ -125,7 +125,7 @@
                         <materialDesign:PackIcon Kind="Add"
                                              Width="Auto"
                                              Height="Auto"/>
-                        <TextBlock Text="Добавить"
+                        <TextBlock Text="{DynamicResource m_Add}"
                                    Margin="5 0"
                                    VerticalAlignment="Center"/>
                     </StackPanel>
@@ -140,7 +140,7 @@
                         <materialDesign:PackIcon Kind="TrayArrowDown"
                                              Width="Auto"
                                              Height="Auto"/>
-                        <TextBlock Text="Получить данные из БД"
+                        <TextBlock Text="{DynamicResource m_GetData}"
                                    Margin="5 0"
                                    VerticalAlignment="Center"/>
                     </StackPanel>
@@ -156,7 +156,7 @@
                         <materialDesign:PackIcon Kind="TrayArrowUp"
                                              Width="Auto"
                                              Height="Auto"/>
-                        <TextBlock Text="Отправить изменения"
+                        <TextBlock Text="{DynamicResource m_SendData}"
                                    Margin="5 0"
                                    VerticalAlignment="Center"/>
                     </StackPanel>
@@ -172,7 +172,7 @@
                         <materialDesign:PackIcon Kind="Remove"
                                              Width="Auto"
                                              Height="Auto"/>
-                        <TextBlock Text="Удалить"
+                        <TextBlock Text="{DynamicResource m_Remove}"
                                    Margin="5 0"
                                    VerticalAlignment="Center"/>
                     </StackPanel>

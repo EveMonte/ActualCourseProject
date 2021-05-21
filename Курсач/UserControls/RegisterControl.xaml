@@ -33,9 +33,11 @@
                          SelectionBrush="Red"
                          HorizontalAlignment="Stretch"
                          CaretBrush="Red"
-                         materialDesign:HintAssist.Hint="{DynamicResource m_SecondName}"
+                         materialDesign:HintAssist.Hint="{DynamicResource m_SecondNameShort}"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         FontSize="16" Background="Transparent" MaxLines="1">
+                         FontSize="16"
+                         Background="Transparent"
+                         MaxLines="1">
 
                 </TextBox>
                 <TextBlock Style="{DynamicResource ErrorMessage}"
@@ -50,7 +52,7 @@
                          HorizontalAlignment="Stretch"
                          Text="{Binding Name}"
                          Margin="10,0,18,0"
-                         materialDesign:HintAssist.Hint="{DynamicResource m_Name}"
+                         materialDesign:HintAssist.Hint="{DynamicResource m_NameShort}"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                          FontSize="16" />
                 <TextBlock Style="{DynamicResource ErrorMessage}"
@@ -63,8 +65,7 @@
             <TextBox Grid.Row="1"
                  MaxHeight="50"
                  x:Name="emailTextBox"
-                 Text="{Binding Email}"
-                 
+                 Text="{Binding Email}"                 
                  Margin="18,0"
                  materialDesign:HintAssist.Hint="Email"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"

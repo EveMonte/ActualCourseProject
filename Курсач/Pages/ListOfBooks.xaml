@@ -66,12 +66,12 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                <Button Content="Поиск"
+                <Button Content="{DynamicResource m_Search}"
                         VerticalAlignment="Center"
                         Template="{DynamicResource LightButton2}"
                         Command="{Binding FindByGenreCommand}"
                         />
-                <Button Content="Очистить фильтр"
+                <Button Content="{DynamicResource m_ClearFilter}"
                         VerticalAlignment="Center"
                         Width="150"
                         Margin="15, 0, 0, 0"

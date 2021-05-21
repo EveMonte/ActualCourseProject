@@ -37,7 +37,7 @@
         <DockPanel HorizontalAlignment="Stretch"
                     Grid.Row="1"
                     Grid.Column="2">
-            <Button Content="Удалить"
+            <Button Content="{DynamicResource m_Remove}"
                     DockPanel.Dock="Right"
                     FontSize="16"
                     HorizontalAlignment="Right"

@@ -45,7 +45,7 @@
                                                          Kind="Menu"/>
                                 <TextBlock VerticalAlignment="Center"
                                            FontSize="16"
-                                           Text="Меню" />
+                                           Text="{DynamicResource m_Menu}" />
                             </StackPanel>
                         </Button>
                     </StackPanel>
@@ -91,7 +91,7 @@
                                                      Height="40"
                                                      Margin="10,0,10,0"
                                                          VerticalAlignment="Center"/>
-                            <TextBlock Text="Редакторы"
+                            <TextBlock Text="{DynamicResource m_Editors}"
                                        VerticalAlignment="Center"
                                        FontSize="16" />
                         </StackPanel>
@@ -114,7 +114,7 @@
                                                      Height="40"
                                                      Margin="10,0,10,0"
                                                          VerticalAlignment="Center"/>
-                            <TextBlock Text="Пользователи"
+                            <TextBlock Text="{DynamicResource m_Users}"
                                        VerticalAlignment="Center"
                                        FontSize="16" />
                         </StackPanel>
@@ -137,7 +137,7 @@
                                                      Height="40"
                                                      Margin="10,0,10,0"
                                                          VerticalAlignment="Center"/>
-                            <TextBlock Text="Пользователь"
+                            <TextBlock Text="{DynamicResource m_User}"
                                        VerticalAlignment="Center"
                                        FontSize="16" />
                         </StackPanel>
@@ -160,7 +160,7 @@
                                                      Height="40"
                                                      Margin="10,0,10,0"
                                                          VerticalAlignment="Center"/>
-                            <TextBlock Text="Реклама"
+                            <TextBlock Text="{DynamicResource m_Advertisement}"
                                        VerticalAlignment="Center"
                                        FontSize="16" />
                         </StackPanel>
@@ -183,7 +183,7 @@
                                                      Height="40"
                                                      Margin="10,0,10,0"
                                                      VerticalAlignment="Center"/>
-                            <TextBlock Text="Настройки"
+                            <TextBlock Text="{DynamicResource m_Settings}"
                                        VerticalAlignment="Center"
                                        FontSize="16" />
                         </StackPanel>

@@ -11,7 +11,11 @@
     <v:String x:Key="m_Shelf">Ваша полка</v:String>
     <v:String x:Key="m_Basket">Корзина</v:String>
     <v:String x:Key="m_User">Пользователь</v:String>
+    <v:String x:Key="m_Users">Пользователи</v:String>
+    <v:String x:Key="m_Editors">Редакторы</v:String>
     <v:String x:Key="m_Subscription">Абонемент</v:String>
+    <v:String x:Key="m_Advertisement">Реклама</v:String>
+    <v:String x:Key="m_Menu">Меню</v:String>    
     
     <v:String x:Key="m_Settings">Настройки</v:String>
     <v:String x:Key="m_AddCreditCard">Добавьте банковскую карту</v:String>
@@ -97,5 +101,19 @@
     <v:String x:Key="m_SubscribeForMonth">Приобрести подписку на месяц</v:String>
     <v:String x:Key="m_SubscribeForYear">Приобрести подписку на год</v:String>
     <v:String x:Key="m_SubscriptionOneYear">...А можете сэкономить более 20% и провести аж целый год в обществе любимых литературных героев всего за 85.99$</v:String>
+
+    <v:String x:Key="m_IfYouForgotYourPassword">Если вы забыли пароль, то введите ваш email в текстовое поле ниже. Мы отправим вам на почту новый пароль с помощью которого вы сможете войти и сменить пароль.</v:String>
+    <v:String x:Key="m_NameShort">Имя</v:String>
+    <v:String x:Key="m_SecondNameShort">Фамилия</v:String>
+    <v:String x:Key="m_Search">Поиск</v:String>
+    <v:String x:Key="m_ClearFilter">Очистить фильтр</v:String>
+    <v:String x:Key="m_ForgotPassword">Забыли пароль</v:String>
+    <v:String x:Key="m_Add">Добавить</v:String>
+    <v:String x:Key="m_Remove">Удалить</v:String>
+    <v:String x:Key="m_SearchByEmail">Поиск по Email либо другим личным данным</v:String>
+    <v:String x:Key="m_Duration">Продожительность</v:String>
+    <v:String x:Key="m_DaysLeft">Осталось дней</v:String>
+    <v:String x:Key="m_GetData">Получить данные из БД</v:String>
+    <v:String x:Key="m_SendData">Отправить изменения</v:String>
 
 </ResourceDictionary>

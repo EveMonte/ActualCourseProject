@@ -34,7 +34,7 @@
                                      Height="40"
                                      Width="40"/>
         </Button>
-        <TextBlock Text="О программе"
+        <TextBlock Text="{DynamicResource m_AboutApp}"
                    Foreground="White"
                    Grid.Column="1"
                    Grid.ColumnSpan="2"

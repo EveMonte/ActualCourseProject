@@ -212,6 +212,7 @@ namespace Курсач.ViewModels
             {
                 WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = null; //viewmodel in content control = null
                 WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Collapsed"; // deactivate dark area
+                WorkFrameSingleTone.GetInstance().WorkframeViewModel.Blur = 0; // deactivate dark area
             }
         }
         #endregion

@@ -73,7 +73,7 @@
                 Grid.ColumnSpan="2"
                 Padding="0"
                 Command="{Binding ForgotPasswordCommand}">
-            <TextBlock Text="Забыли пароль?"
+            <TextBlock Text="{DynamicResource m_ForgotPassword}"
                        FontSize="14"
                        Foreground="#FF1877F3"/>
         </Button>

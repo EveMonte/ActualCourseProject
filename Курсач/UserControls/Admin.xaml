@@ -51,8 +51,8 @@
                       VerticalAlignment="Bottom"
                   Grid.ColumnSpan="2"
                   Grid.Row="2">
-                <ComboBoxItem Content="Пользователь" />
-                <ComboBoxItem Content="Редактор" />
+                <ComboBoxItem Content="{DynamicResource m_User}" />
+                <ComboBoxItem Content="{DynamicResource m_Editors}" />
             </ComboBox>
             <StackPanel Orientation="Horizontal"
                         Grid.Row="1"
@@ -73,7 +73,6 @@
                  Text="{Binding EMAIL}" />
                 </StackPanel>
             </StackPanel>
-
         </Grid>
     </Border>
 </UserControl>

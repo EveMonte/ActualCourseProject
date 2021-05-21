@@ -18,18 +18,19 @@ namespace Курсач.ViewModels
 {
     public class FullInfoAdminVM : BaseViewModel
     {
-        /*private ObservableCollection<GENRES> genres;
-
-        public ObservableCollection<GENRES> Genres
+        private ObservableCollection<GENRES> genres;
+        public ObservableCollection<GENRES> Genres 
         {
-            get { return genres; }
-            set 
-            { 
+            get
+            {
+                return genres;
+            }
+            set
+            {
                 genres = value;
                 OnPropertyChanged("Genres");
             }
-        }*/
-        public ObservableCollection<GENRES> Genres { get; private set; }
+        }
         GENRES selectedGenre;
         public GENRES SelectedGenre
         {
@@ -69,9 +70,24 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("Users");
             }
         }
+        private string newGenre;
+
+        public string NewGenre
+        {
+            get { return newGenre; }
+            set 
+            { 
+                newGenre = value;
+                OnPropertyChanged("NewGenre");
+            }
+        }
+
+
         public ICommand ConfirmCommand { get; private set; }
         public ICommand RemoveCommand { get; private set; }
         public ICommand ChangeCoverCommand { get; private set; }
+        public ICommand AddNewGenreCommand { get; private set; }
+        public ICommand RemoveGenreCommand { get; private set; }
         public FullInfoAdminVM(BOOKS currentBook, ObservableCollection<USERS> users)
         {
             CurrentBook = currentBook;
@@ -81,6 +97,8 @@ namespace Курсач.ViewModels
             ConfirmCommand = new DelegateCommand(SaveChanges);
             RemoveCommand = new DelegateCommand(RemoveBook);
             ChangeCoverCommand = new DelegateCommand(ChangeCover);
+            AddNewGenreCommand = new DelegateCommand(AddNewGenre);
+            RemoveGenreCommand = new DelegateCommand(RemoveGenre);
 
             notifier = new Notifier(cfg =>
             {
@@ -96,6 +114,45 @@ namespace Курсач.ViewModels
 
                 cfg.Dispatcher = Application.Current.Dispatcher;
             });
+        }
+
+        private void RemoveGenre(object obj)
+        {
+            try
+            {
+                GENRES genreToRemove = App.db.GENRES.FirstOrDefault(n => n.GENRE_ID == (int)obj);
+                foreach(BOOKS book in App.db.BOOKS.Where(n => n.GENRE == genreToRemove.GENRE_ID))
+                {
+                    book.GENRE = null;
+                }
+                App.db.GENRES.Remove(genreToRemove);
+                Genres.Remove(genreToRemove);
+                App.db.SaveChangesAsync().GetAwaiter();
+            }
+            catch(Exception ex)
+            {
+                notifier.ShowError(ex.Message);
+            }
+        }
+
+        private void AddNewGenre(object obj)
+        {
+            try
+            {
+                GENRES newGenre = new GENRES();
+                newGenre.GENRE = NewGenre;
+                if (App.db.GENRES.FirstOrDefault(n => n.GENRE == NewGenre) == null)
+                {
+                    App.db.GENRES.Add(newGenre);
+                    App.db.SaveChangesAsync().GetAwaiter();
+                    Genres.Add(newGenre);
+                    NewGenre = "";
+                }
+            }
+            catch(Exception ex)
+            {
+                notifier.ShowError(ex.Message);
+            }
         }
 
         private void ChangeCover(object obj)
@@ -117,14 +174,6 @@ namespace Курсач.ViewModels
 
         private void SaveChanges(object obj)
         {
-            /*BOOKS book = new BOOKS();
-            book.AUTHOR = CurrentBook.AUTHOR;
-            book.TITLE = CurrentBook.TITLE;
-            book.COVER = CurrentBook.COVER;
-            book.LINK = CurrentBook.LINK;
-            book.CATEGORY = CurrentBook.CATEGORY;
-            book.PRICE = CurrentBook.PRICE;
-            book.DESCRIPTION = CurrentBook.DESCRIPTION;*/
             CurrentBook.GENRE = db.GENRES.FirstOrDefault(n => n.GENRE == SelectedGenre.GENRE).GENRE_ID;
             AdminWindowSingleTone.GetInstance().AdminVM.CurrentPageViewModel = new ListOfBooksAdminVM(AdminWindowSingleTone.GetInstance().AdminVM.Books);
             notifier.ShowSuccess("Изменения успешно сохранены");

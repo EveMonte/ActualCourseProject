@@ -75,7 +75,7 @@
                                                                  Width="40"
                                                                  Height="40"
                                                                  Kind="Menu"/>
-                                            <TextBlock VerticalAlignment="Center" FontSize="16" Text="Меню" />
+                                            <TextBlock VerticalAlignment="Center" FontSize="16" Text="{DynamicResource m_Menu}" />
                                         </StackPanel>
                                     </Button>
                                 </StackPanel>
@@ -97,7 +97,7 @@
                                                              Height="40"
                                                              Margin="10,0,10,0"
                                                              VerticalAlignment="Center"/>
-                                        <TextBlock Text="Главная"
+                                        <TextBlock Text="{DynamicResource m_Main}"
                                                VerticalAlignment="Center"
                                                FontSize="16" />
                                     </StackPanel>
@@ -119,7 +119,7 @@
                                                              Height="40"
                                                              Margin="10,0,10,0"
                                                              VerticalAlignment="Center"/>
-                                        <TextBlock Text="Ваша Полка"
+                                        <TextBlock Text="{DynamicResource m_Shelf}"
                                                VerticalAlignment="Center"
                                                FontSize="16" />
                                     </StackPanel>
@@ -141,7 +141,7 @@
                                                                  Height="40"
                                                                  Margin="10,0,10,0"
                                                                  VerticalAlignment="Center"/>
-                                        <TextBlock Text="Корзина"
+                                        <TextBlock Text="{DynamicResource m_Basket}"
                                                    VerticalAlignment="Center"
                                                    FontSize="16" />
                                     </StackPanel>
@@ -161,7 +161,7 @@
                                         VerticalAlignment="Center">
                                         <materialDesign:PackIcon Kind="User" Width="40" Height="40" Margin="10,0,10,0"
                                                          VerticalAlignment="Center"/>
-                                        <TextBlock Text="Пользователь" VerticalAlignment="Center" FontSize="16" />
+                                        <TextBlock Text="{DynamicResource m_User}" VerticalAlignment="Center" FontSize="16" />
                                     </StackPanel>
                                 </Button>
                             </ListViewItem>
@@ -179,7 +179,7 @@
                                         VerticalAlignment="Center">
                                         <materialDesign:PackIcon Kind="Crown"  Width="40" Height="40" Margin="10,0,10,0"
                                                          VerticalAlignment="Center"/>
-                                        <TextBlock Text="Абонемент" VerticalAlignment="Center" FontSize="16" />
+                                        <TextBlock Text="{DynamicResource m_Subscription}" VerticalAlignment="Center" FontSize="16" />
                                     </StackPanel>
                                 </Button>
                             </ListViewItem>
@@ -196,7 +196,7 @@
                                         VerticalAlignment="Center">
                                         <materialDesign:PackIcon Kind="Settings" Width="40" Height="40" Margin="10,0,10,0"
                                                          VerticalAlignment="Center"/>
-                                        <TextBlock Text="Настройки" VerticalAlignment="Center" FontSize="16" />
+                                        <TextBlock Text="{DynamicResource m_Settings}" VerticalAlignment="Center" FontSize="16" />
                                     </StackPanel>
                                 </Button>
                             </ListViewItem>

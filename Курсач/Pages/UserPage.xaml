@@ -5,7 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:Курсач.Pages"
-      xmlns:i="http://schemas.microsoft.com/xaml/behaviors" xmlns:components="clr-namespace:Курсач.Helpers"
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:components="clr-namespace:Курсач.Helpers"
       mc:Ignorable="d" 
       Title="UserPage"
       Background="#F4F2EF">

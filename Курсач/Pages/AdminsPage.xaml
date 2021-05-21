@@ -34,7 +34,7 @@
             <TextBox VerticalAlignment="Center"
                      Grid.Column="1"
                      x:Name="Search"
-                     materialDesign:HintAssist.Hint="Поиск по Email либо личным данным"
+                     materialDesign:HintAssist.Hint="{DynamicResource m_SearchByEmail}"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      FontSize="16"
                      MaxHeight="50"
