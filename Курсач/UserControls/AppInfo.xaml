@@ -8,16 +8,16 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Style="{DynamicResource GridMainStyle}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="40" />
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="40" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
+            <RowDefinition Height="40" />
             <RowDefinition Height="2*" />
             <RowDefinition Height="1*" />
-            <RowDefinition Height="50" />
+            <RowDefinition Height="40" />
         </Grid.RowDefinitions>
         <Border Background="#B56F2F"
                 Grid.Row="0"
@@ -31,8 +31,8 @@
                 Grid.Row="0">
             <materialDesign:PackIcon Kind="ArrowBack"
                                      Foreground="White"
-                                     Height="40"
-                                     Width="40"/>
+                                     Height="30"
+                                     Width="30"/>
         </Button>
         <TextBlock Text="{DynamicResource m_AboutApp}"
                    Foreground="White"

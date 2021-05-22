@@ -99,6 +99,7 @@ namespace Курсач.ViewModels
         #region Commands
         public ICommand CloseUserPageCommand { get; private set; } //Close User Control when user click arrow back or 
         public ICommand AddCardCommand { get; private set; } // Add new card to user or change
+        public ICommand RemoveCardCommand { get; private set; } // Add new card to user or change
         #endregion
 
         //Constructor
@@ -119,6 +120,7 @@ namespace Курсач.ViewModels
             //Delegate Command
             CloseUserPageCommand = new DelegateCommand(Close);
             AddCardCommand = new DelegateCommand(AddCard);
+            RemoveCardCommand = new DelegateCommand(RemoveCard);
             ///////////////////////////////////////////////
             Window thisWin = null;
             if(App.currentUser.ACCOUNT == "Пользователь")
@@ -157,6 +159,12 @@ namespace Курсач.ViewModels
                 cfg.Dispatcher = Application.Current.Dispatcher;
             });
 
+        }
+
+        private void RemoveCard(object obj)
+        {
+            App.currentUser.CREDIT_CARD = null;
+            Close(obj);
         }
 
         #region Commands' Logic
@@ -219,12 +227,14 @@ namespace Курсач.ViewModels
                 WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = null; //viewmodel in content control = null
                 WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Collapsed"; // deactivate dark area
                 WorkFrameSingleTone.GetInstance().WorkframeViewModel.Blur = 0; // deactivate dark area
+                WorkFrameSingleTone.GetInstance().WorkframeViewModel.CurrentPageViewModel = new UserPageVM();
             }
             else
             {
                 AdminWindowSingleTone.GetInstance().AdminVM.AddCreditCardViewModel = null;
                 AdminWindowSingleTone.GetInstance().AdminVM.Visibility = "Collapsed"; // deactivate dark area
                 AdminWindowSingleTone.GetInstance().AdminVM.Blur = 0; // deactivate dark area
+                AdminWindowSingleTone.GetInstance().AdminVM.CurrentPageViewModel = new UserPageVM();
             }
         }
         #endregion

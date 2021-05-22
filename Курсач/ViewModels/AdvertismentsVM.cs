@@ -6,13 +6,19 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
+using ToastNotifications;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Messages;
+using ToastNotifications.Position;
 using Курсач.Singleton;
 
 namespace Курсач.ViewModels
 {
     public class AdvertismentsVM : BaseViewModel
     {
+        Notifier notifier;
         private ObservableCollection<ADVERTISEMENT> ads;
 
         public ObservableCollection<ADVERTISEMENT> Ads
@@ -39,6 +45,30 @@ namespace Курсач.ViewModels
             AddAdvCommand = new DelegateCommand(AddAdv);
             GetAdsCommand = new DelegateCommand(GetAds);
             SetAdsCommand = new DelegateCommand(SetAds);
+
+            Workframe thisWin = null;
+            foreach (Window win in Application.Current.Windows)
+            {
+                if (win is Workframe)
+                {
+                    thisWin = win as Workframe;
+                }
+            }
+
+            notifier = new Notifier(cfg =>
+            {
+                cfg.PositionProvider = new WindowPositionProvider(
+                    parentWindow: Application.Current.MainWindow,
+                    corner: Corner.BottomRight,
+                    offsetX: 10,
+                    offsetY: 10);
+
+                cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+                    notificationLifetime: TimeSpan.FromSeconds(5),
+                    maximumNotificationCount: MaximumNotificationCount.FromCount(5));
+
+                cfg.Dispatcher = Application.Current.Dispatcher;
+            });
         }
 
         private void SetAds(object obj)
@@ -70,7 +100,7 @@ namespace Курсач.ViewModels
             }
             catch(Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
+                notifier.ShowError(ex.Message);
             }
         }
 
@@ -94,7 +124,7 @@ namespace Курсач.ViewModels
             }
             catch(Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
+                notifier.ShowError(ex.Message);
             }
         }
 
@@ -108,10 +138,11 @@ namespace Курсач.ViewModels
                 openFileDialog.InitialDirectory = @"C:\Users\User\Desktop\Курсааааач\Media";
                 if (openFileDialog.ShowDialog() == true)
                     currentAds.IMAGE_SOURCE = Path.GetFullPath(openFileDialog.FileName);
+                AdminWindowSingleTone.GetInstance().AdminVM.CurrentPageViewModel = new AdvertismentsVM(Ads);
             }
             catch(Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
+                notifier.ShowError(ex.Message);
             }
         }
     }

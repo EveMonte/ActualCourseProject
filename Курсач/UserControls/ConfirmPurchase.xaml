@@ -6,20 +6,20 @@
              xmlns:local="clr-namespace:Курсач.UserControls"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="400" d:DesignWidth="600">
     <Grid Style="{DynamicResource GridMainStyle}"
           DataContext="{Binding CurrentVM}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="40" />
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="40" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
+            <RowDefinition Height="40" />
             <RowDefinition Height="2*" />
             <RowDefinition Height="1*" />
-            <RowDefinition Height="50" />
+            <RowDefinition Height="40" />
         </Grid.RowDefinitions>
         <Border Background="#B56F2F"
                 Grid.Row="0"
@@ -33,8 +33,8 @@
                 Grid.Row="0">
             <materialDesign:PackIcon Kind="ArrowBack"
                                      Foreground="White"
-                                     Height="40"
-                                     Width="40"/>
+                                     Height="30"
+                                     Width="30"/>
         </Button>
         <TextBlock Text="{DynamicResource m_ConfirmationOfPurchase}"
                    Foreground="White"
@@ -46,18 +46,18 @@
                    Grid.Row="0" />
         <Button Grid.Row="2"
                 Grid.Column="1"
-                Width="250"
+                Width="200"
                 VerticalAlignment="Bottom"
-                Height="60"
-                FontSize="18"
+                Height="50"
+                FontSize="16"
                 Content="{DynamicResource m_CancelPurchase}"
                 Command="{Binding CancelCommand}"
                 Template="{DynamicResource LightButton}" />
         <Button Grid.Row="2"
                 Grid.Column="2"
-                Width="250"
-                Height="60"
-                FontSize="18"
+                Width="200"
+                Height="50"
+                FontSize="16"
                 VerticalAlignment="Bottom"
                 Command="{Binding BuyCommand}"
                 Content="{DynamicResource m_ConfirmPurchase}"

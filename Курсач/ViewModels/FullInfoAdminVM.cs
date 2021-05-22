@@ -161,6 +161,7 @@ namespace Курсач.ViewModels
             openFileDialog.InitialDirectory = @"C:\Users\User\Desktop\Курсааааач\Media";
             if (openFileDialog.ShowDialog() == true)
                 CurrentBook.COVER = Path.GetFullPath(openFileDialog.FileName);
+            AdminWindowSingleTone.GetInstance().AdminVM.CurrentPageViewModel = new FullInfoAdminVM(CurrentBook, Users);
         }
 
         private void RemoveBook(object obj)
@@ -173,7 +174,10 @@ namespace Курсач.ViewModels
 
         private void SaveChanges(object obj)
         {
-            CurrentBook.GENRE = App.db.GENRES.FirstOrDefault(n => n.GENRE == SelectedGenre.GENRE).GENRE_ID;
+            if (SelectedGenre != null)
+            {
+                CurrentBook.GENRE = App.db.GENRES.FirstOrDefault(n => n.GENRE == SelectedGenre.GENRE).GENRE_ID;
+            }
             AdminWindowSingleTone.GetInstance().AdminVM.CurrentPageViewModel = new ListOfBooksAdminVM(AdminWindowSingleTone.GetInstance().AdminVM.Books);
             notifier.ShowSuccess("Изменения успешно сохранены");
         }

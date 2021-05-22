@@ -117,37 +117,35 @@ namespace Курсач.ViewModels
 
             Books = new ObservableCollection<BOOKS>();
 
-            using (LIBRARYEntities library = new LIBRARYEntities())
+            var basketBooks = App.db.BASKETS.Where(n => n.USER_ID == App.currentUser.USER_ID);
+            foreach (BASKETS book in basketBooks) // get information about books in the basket
             {
-                var basketBooks = App.db.BASKETS.Where(n => n.USER_ID == App.currentUser.USER_ID);
-                foreach (BASKETS book in basketBooks) // get information about books in the basket
+                BOOKS b = App.db.BOOKS.Where(n => n.BOOK_ID == book.BOOK_ID).FirstOrDefault(); // for each book in the basket get its info from BOOKS
+                var marks = App.db.MARKS.FirstOrDefault(n => (n.BOOK_ID == book.BOOK_ID) && (n.USER_ID == App.currentUser.USER_ID)); // find its user's mark
+                if (marks != null)
+                    b.Mark = (int)marks.MARK; // set it
+                var rating = App.db.MARKS.Where(n => n.BOOK_ID == book.BOOK_ID); // get all marks of this book
+                decimal sum = 0;
+                foreach (var m in rating)
                 {
-                    BOOKS b = library.BOOKS.Where(n => n.BOOK_ID == book.BOOK_ID).FirstOrDefault(); // for each book in the basket get its info from BOOKS
-                    var marks = App.db.MARKS.FirstOrDefault(n => (n.BOOK_ID == book.BOOK_ID) && (n.USER_ID == App.currentUser.USER_ID)); // find its user's mark
-                    if(marks != null)
-                        b.Mark = (int)marks.MARK; // set it
-                    var rating = App.db.MARKS.Where(n => n.BOOK_ID == book.BOOK_ID); // get all marks of this book
-                    decimal sum = 0;
-                    foreach (var m in rating)
-                    {
-                        sum += (decimal)m.MARK;
-                    }
-                    b.NUMBEROFVOICES = rating.Count(); // count it
-
-                    if (b.NUMBEROFVOICES != 0)
-                    {
-                        b.RATING = sum / b.NUMBEROFVOICES; // get rating
-                    }
-                    var genres = App.db.GENRES.Where(n => n.GENRE_ID == b.GENRE); // get string value of genre
-                    foreach (var m in genres)
-                    {
-                        b.Genre = m.GENRE;
-                    }
-                    Books.Add(b);
+                    sum += (decimal)m.MARK;
                 }
-                library.SaveChanges();
-                Genres = new ObservableCollection<GENRES>(library.GENRES.OrderBy(n => n.GENRE)); 
+                b.NUMBEROFVOICES = rating.Count(); // count it
+
+                if (b.NUMBEROFVOICES != 0)
+                {
+                    b.RATING = sum / b.NUMBEROFVOICES; // get rating
+                }
+                var genres = App.db.GENRES.Where(n => n.GENRE_ID == b.GENRE); // get string value of genre
+                foreach (var m in genres)
+                {
+                    b.Genre = m.GENRE;
+                }
+                Books.Add(b);
             }
+            App.db.SaveChanges();
+            Genres = new ObservableCollection<GENRES>(App.db.GENRES.OrderBy(n => n.GENRE));
+
 
             //Filter
             Items = CollectionViewSource.GetDefaultView(Books);
