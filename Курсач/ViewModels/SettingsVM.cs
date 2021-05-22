@@ -53,7 +53,9 @@ namespace Курсач.ViewModels
 
         private void OpenInfo(object obj)
         {
-            WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new AppInfoVM();
+            if (App.currentUser.ACCOUNT == "Пользователь")
+                WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new AppInfoVM();
+            else AdminWindowSingleTone.GetInstance().AdminVM.AddCreditCardViewModel = new AppInfoVM();
         }
 
         private void ExitApp(object obj)

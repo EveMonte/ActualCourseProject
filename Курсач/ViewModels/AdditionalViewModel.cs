@@ -31,7 +31,6 @@ namespace Курсач.ViewModels
         }
         BOOKS selectedBook;
         public BOOKS currentBook;
-        USERS currentUser;
         private BOOKS CurrentBook // Which book is currently active in Additional info page
         {
             get
@@ -77,7 +76,7 @@ namespace Курсач.ViewModels
 
                 SelectedBook.NUMBEROFVOICES = App.db.MARKS.Where(n => n.BOOK_ID == SelectedBook.BOOK_ID).Count(); //counting marks to write in notmapped property
                 SelectedBook.RATING = SelectedBook.RATING;
-                MARKS mark = App.db.MARKS.FirstOrDefault(n => (n.USER_ID == currentUser.USER_ID) && (n.BOOK_ID == SelectedBook.BOOK_ID));
+                MARKS mark = App.db.MARKS.FirstOrDefault(n => (n.USER_ID == App.currentUser.USER_ID) && (n.BOOK_ID == SelectedBook.BOOK_ID));
                 SelectedBook.Mark = mark != null ? (int)mark.MARK : 0;
                 CurrentBook = SelectedBook;
             }
@@ -91,7 +90,7 @@ namespace Курсач.ViewModels
             if (CurrentBook.CATEGORY == "Подписка") // Manage visibility of the buttons
             {
                 CurrentBook.Subscription = 1;
-                if (currentUser.SUBSCRIPTION != null)
+                if (App.currentUser.SUBSCRIPTION != null)
                 {
                     CurrentBook.UserWithSubscription = "Visible";
                     CurrentBook.UserWithoutSubscription = "Collapsed";
@@ -120,13 +119,13 @@ namespace Курсач.ViewModels
         {
             try
             {
-                if (App.db.BASKETS.FirstOrDefault(n => (n.USER_ID == currentUser.USER_ID) && (n.BOOK_ID == (int)obj)) == null)
+                if (App.db.BASKETS.FirstOrDefault(n => (n.USER_ID == App.currentUser.USER_ID) && (n.BOOK_ID == (int)obj)) == null)
                 {
-                    if (App.db.YOUR_BOOKS.FirstOrDefault(n => (n.USER_ID == currentUser.USER_ID) && (n.BOOK_ID == (int)obj)) == null)
+                    if (App.db.YOUR_BOOKS.FirstOrDefault(n => (n.USER_ID == App.currentUser.USER_ID) && (n.BOOK_ID == (int)obj)) == null)
                     {
                         BASKETS newBasketBook = new BASKETS();
                         newBasketBook.BOOK_ID = (int)obj;
-                        newBasketBook.USER_ID = currentUser.USER_ID;
+                        newBasketBook.USER_ID = App.currentUser.USER_ID;
                         App.db.BASKETS.Add(newBasketBook);
                         App.db.SaveChangesAsync().GetAwaiter();
                         try
@@ -158,7 +157,7 @@ namespace Курсач.ViewModels
         private void Rate(object obj)
         {
             try { 
-            MARKS m = App.db.MARKS.Where(n => (n.BOOK_ID == CurrentBook.BOOK_ID) && (n.USER_ID == currentUser.USER_ID)).FirstOrDefault();
+            MARKS m = App.db.MARKS.Where(n => (n.BOOK_ID == CurrentBook.BOOK_ID) && (n.USER_ID == App.currentUser.USER_ID)).FirstOrDefault();
             if (m != null) //if our current user already rated this book we change value of its mark
             {
                 CurrentBook.Mark = (int)obj;
@@ -170,7 +169,7 @@ namespace Курсач.ViewModels
                 mark.BOOK_ID = CurrentBook.BOOK_ID;
                 mark.MARK = (int)obj;
                 CurrentBook.Mark = (int)obj;
-                mark.USER_ID = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser.USER_ID;
+                mark.USER_ID = App.currentUser.USER_ID;
                 App.db.MARKS.Add(mark);
                 CurrentBook.NUMBEROFVOICES++;
             }
@@ -214,11 +213,11 @@ namespace Курсач.ViewModels
         //Add new book to your shelf
         private void AddToYourBooks(object obj)
         {
-            if(App.db.YOUR_BOOKS.FirstOrDefault(n => (n.USER_ID == currentUser.USER_ID) && (n.BOOK_ID == (int)obj)) == null)
+            if(App.db.YOUR_BOOKS.FirstOrDefault(n => (n.USER_ID == App.currentUser.USER_ID) && (n.BOOK_ID == (int)obj)) == null)
             {
                 YOUR_BOOKS newBook = new YOUR_BOOKS();
                 newBook.BOOK_ID = (int)obj;
-                newBook.USER_ID = currentUser.USER_ID;
+                newBook.USER_ID = App.currentUser.USER_ID;
                 App.db.YOUR_BOOKS.Add(newBook);
                 App.db.SaveChangesAsync().GetAwaiter();
             }
@@ -238,9 +237,9 @@ namespace Курсач.ViewModels
 
         private void BuyTheBook(object obj) // open user control where you can confirm or cancel purchase
         {
-            if (currentUser.CREDIT_CARD != null)
+            if (App.currentUser.CREDIT_CARD != null)
             {
-                if (App.db.YOUR_BOOKS.FirstOrDefault(n => (n.BOOK_ID == (int)obj) && (n.USER_ID == currentUser.USER_ID)) == null)
+                if (App.db.YOUR_BOOKS.FirstOrDefault(n => (n.BOOK_ID == (int)obj) && (n.USER_ID == App.currentUser.USER_ID)) == null)
                 {
                     WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new BaseDialogWindowVM(new ConfirmPurchase((int)obj));
                     WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Visible";
@@ -264,13 +263,12 @@ namespace Курсач.ViewModels
         //Constructor
         public AdditionalInfoViewModel()
         {
-            currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser; //get current user
             CurrentBook = FullInfoViewModelSingleTone.GetInstance().FullInfoViewModel.CurrentBook; // get current book
 
             if (CurrentBook.CATEGORY == "Подписка") // manage visibility of the buttons
             {
                 CurrentBook.Subscription = 1;
-                if (currentUser.SUBSCRIPTION != null)
+                if (App.currentUser.SUBSCRIPTION != null)
                 {
                     CurrentBook.UserWithSubscription = "Visible";
                     CurrentBook.UserWithoutSubscription = "Collapsed";

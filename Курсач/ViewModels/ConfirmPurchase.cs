@@ -30,7 +30,6 @@ namespace Курсач.ViewModels
             }
         }
         private BOOKS currentBook;
-        private USERS currentUser;
 
         #endregion
 
@@ -74,7 +73,6 @@ namespace Курсач.ViewModels
             {
                 notifier.ShowError($"Произошла ошибка.\n{ex.Message}\nИзвините за причиненные неудобства");
             }
-            currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser;
 
             //Delegate command
             BuyCommand = new DelegateCommand(BuyTheBook);
@@ -97,10 +95,10 @@ namespace Курсач.ViewModels
             {
                 YOUR_BOOKS newBook = new YOUR_BOOKS();
                 newBook.BOOK_ID = currentBook.BOOK_ID;
-                newBook.USER_ID = currentUser.USER_ID;
+                newBook.USER_ID = App.currentUser.USER_ID;
                 App.db.YOUR_BOOKS.Add(newBook);
 
-                BASKETS bookToDelete = App.db.BASKETS.FirstOrDefault(n => (n.USER_ID == currentUser.USER_ID) && (n.BOOK_ID == currentBook.BOOK_ID));
+                BASKETS bookToDelete = App.db.BASKETS.FirstOrDefault(n => (n.USER_ID == App.currentUser.USER_ID) && (n.BOOK_ID == currentBook.BOOK_ID));
 
                 if (bookToDelete != null)
                 {
@@ -109,8 +107,8 @@ namespace Курсач.ViewModels
 
                 BOOKS yourBook = App.db.BOOKS.FirstOrDefault(n => n.BOOK_ID == currentBook.BOOK_ID);
                 App.db.SaveChangesAsync().GetAwaiter();
-                string message = String.Format($"Здравствуйте, {currentUser.NAME}. Вы только что приобрели книгу \"{yourBook.TITLE}\" за {ConvertDecimal.RemoveZeroes(yourBook.PRICE)}. Наслаждайтесь прочтением!");
-                MessageSender.SendEmailAsync(currentUser.EMAIL, "", message, "Покупка книги").GetAwaiter();
+                string message = String.Format($"Здравствуйте, {App.currentUser.NAME}. Вы только что приобрели книгу \"{yourBook.TITLE}\" за {ConvertDecimal.RemoveZeroes(yourBook.PRICE)}. Наслаждайтесь прочтением!");
+                MessageSender.SendEmailAsync(App.currentUser.EMAIL, "", message, "Покупка книги").GetAwaiter();
                 Cancel(obj);
                 notifier.ShowSuccess("Книга добавлена на полку");
             }

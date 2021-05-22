@@ -43,7 +43,7 @@
                         />
             </DockPanel>
             <ComboBox SelectedValuePath="Content"
-                      SelectedIndex="0"
+                      SelectedIndex="1"
                       SelectedValue="{Binding ACCOUNT, Mode=TwoWay}"
                   Grid.Column="1"
                       Width="200"

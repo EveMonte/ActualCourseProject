@@ -11,8 +11,9 @@
     <Grid Style="{DynamicResource GridMainStyle}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="0.5*" />
             <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="0.5*" />
             <ColumnDefinition Width="50" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -22,7 +23,7 @@
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
         <Border Background="#B56F2F"
-                Grid.ColumnSpan="4"/>
+                Grid.ColumnSpan="5"/>
         <Button Grid.Column="0"
                 Padding="0"
                 Width="Auto"
@@ -41,9 +42,9 @@
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    FontSize="18"
-                   Grid.ColumnSpan="2" />
+                   Grid.ColumnSpan="3" />
         <Border Background="White"
-                Grid.Column="1"
+                Grid.Column="2"
                 Margin="0, 25, 0, 0"
                 CornerRadius="15"
                 Grid.Row="1" >

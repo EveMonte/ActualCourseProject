@@ -20,7 +20,6 @@ namespace Курсач.ViewModels
     {
         #region Data
         SaltedHash sh;
-        LIBRARYEntities db = new LIBRARYEntities();
         Notifier notifier;
         private BaseViewModel _selectedViewModel;
         public BaseViewModel SelectedViewModel
@@ -55,7 +54,6 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("SecondPassword");
             }
         }
-        [Required(ErrorMessage ="Поле Email не может быть пустым")]
         public string email;
         public string Email
         {

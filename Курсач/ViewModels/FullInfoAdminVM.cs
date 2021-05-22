@@ -43,7 +43,6 @@ namespace Курсач.ViewModels
         }
 
         private Notifier notifier;
-        LIBRARYEntities db = new LIBRARYEntities();
         private BOOKS currentBook;
         public BOOKS CurrentBook
         {
@@ -92,7 +91,7 @@ namespace Курсач.ViewModels
         {
             CurrentBook = currentBook;
             Users = new ObservableCollection<USERS>(users);
-            Genres = new ObservableCollection<GENRES>(db.GENRES.OrderBy(n => n.GENRE));
+            Genres = new ObservableCollection<GENRES>(App.db.GENRES.OrderBy(n => n.GENRE));
             SelectedGenre = Genres.FirstOrDefault(n => n.GENRE_ID == CurrentBook.GENRE);
             ConfirmCommand = new DelegateCommand(SaveChanges);
             RemoveCommand = new DelegateCommand(RemoveBook);
@@ -166,7 +165,7 @@ namespace Курсач.ViewModels
 
         private void RemoveBook(object obj)
         {
-            var book = db.BOOKS.FirstOrDefault(n => n.BOOK_ID == CurrentBook.BOOK_ID);
+            var book = App.db.BOOKS.FirstOrDefault(n => n.BOOK_ID == CurrentBook.BOOK_ID);
             AdminWindowSingleTone.GetInstance().AdminVM.CurrentPageViewModel = new ListOfBooksAdminVM(AdminWindowSingleTone.GetInstance().AdminVM.Books);
             AdminWindowSingleTone.GetInstance().AdminVM.Books.Remove(book);
             notifier.ShowSuccess("Книга успешно удалена");
@@ -174,7 +173,7 @@ namespace Курсач.ViewModels
 
         private void SaveChanges(object obj)
         {
-            CurrentBook.GENRE = db.GENRES.FirstOrDefault(n => n.GENRE == SelectedGenre.GENRE).GENRE_ID;
+            CurrentBook.GENRE = App.db.GENRES.FirstOrDefault(n => n.GENRE == SelectedGenre.GENRE).GENRE_ID;
             AdminWindowSingleTone.GetInstance().AdminVM.CurrentPageViewModel = new ListOfBooksAdminVM(AdminWindowSingleTone.GetInstance().AdminVM.Books);
             notifier.ShowSuccess("Изменения успешно сохранены");
         }

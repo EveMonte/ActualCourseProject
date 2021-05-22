@@ -9,7 +9,6 @@ namespace Курсач.ViewModels
     public class SendMessageViewModel : BaseViewModel
     {
         public USERS newUser;
-        LIBRARYEntities db;
         public string code;
         public string Code
         {
@@ -36,10 +35,9 @@ namespace Курсач.ViewModels
         {
             if (code == generatedCode)
             {
-                db = new LIBRARYEntities();
-                db.USERS.Add(newUser);
-                db.SaveChanges();
-                WorkFrameSingleTone.GetInstance(new WorkframeViewModel(newUser));
+                App.db.USERS.Add(newUser);
+                App.db.SaveChangesAsync().GetAwaiter();
+                WorkFrameSingleTone.GetInstance(new WorkframeViewModel());
 
                 Workframe workframe = new Workframe();
                 workframe.Show();

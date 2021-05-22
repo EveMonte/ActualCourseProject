@@ -25,12 +25,7 @@ namespace Курсач.Pages
         public ListOfBooks()
         {
             InitializeComponent();
-            DataContext = new ListOfBooksViewModel(WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser);
-        }
-
-        private void Button_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            //listOfBooks.Items.Refresh();
+            DataContext = new ListOfBooksViewModel();
         }
     }
 }

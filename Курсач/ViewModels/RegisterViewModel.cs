@@ -67,78 +67,75 @@ namespace Курсач.ViewModels
 
 
             // immediately use insecurePassword (in local variable) value after decrypting it:
-            using (LIBRARYEntities db = new LIBRARYEntities())
+
+            bool flag = true;
+            try
             {
-                bool flag = true;
-                try
+                if (Email == null || Email == "")
                 {
-                    if(Email == null || Email == "")
+                    notifier.ShowWarning("Поле для Email не должно быть пустым!");
+                    if (Password == null)
                     {
-                        notifier.ShowWarning("Поле для Email не должно быть пустым!");
-                        if (Password == null)
-                        {
-                            notifier.ShowWarning("Поле для пароля не должно быть пустым!");
-                        }
+                        notifier.ShowWarning("Поле для пароля не должно быть пустым!");
+                    }
+                    return;
+                }
+                else
+                {
+                    if (Password == null)
+                    {
+                        notifier.ShowWarning("Поле для пароля не должно быть пустым!");
                         return;
                     }
-                    else
+                }
+                var users = App.db.USERS;
+                foreach (USERS u in users)
+                {
+                    passwordBSTR = Marshal.SecureStringToBSTR(password);
+                    insecurePassword = Marshal.PtrToStringBSTR(passwordBSTR);
+                    if (SaltedHash.Verify(u.PASSWORD.Substring(44), u.PASSWORD.Substring(0, 44), insecurePassword) && u.EMAIL == Email)
                     {
-                        if(Password == null)
+                        flag = false;
+                        currentUser = u;
+                        App.currentUser = u;
+                        if (u.ACCOUNT != "Пользователь")
                         {
-                            notifier.ShowWarning("Поле для пароля не должно быть пустым!");
-                            return;
+                            AdminWindowSingleTone.GetInstance(new AdminVM());
+                            AdminWindowSingleTone.GetInstance().AdminVM.CurrentPageViewModel = new ListOfBooksAdminVM(AdminWindowSingleTone.GetInstance().AdminVM.Books);
+                            AdminWindowSingleTone.GetInstance().AdminVM.ButtonVisibility = u.ACCOUNT == "Администратор" ? "Visible" : "Collapsed";
+                            AdminWindow adminWindow = new AdminWindow();
+                            adminWindow.Show();
                         }
-                    }
-                    var users = db.USERS;
-                    foreach (USERS u in users)
-                    {
-                        passwordBSTR = Marshal.SecureStringToBSTR(password);
-                        insecurePassword = Marshal.PtrToStringBSTR(passwordBSTR);
-                        if (SaltedHash.Verify(u.PASSWORD.Substring(44), u.PASSWORD.Substring(0, 44), insecurePassword) && u.EMAIL == Email)
+                        else
                         {
-                            flag = false;
-                            currentUser = u;
-                            if (u.ACCOUNT != "Пользователь")
-                            {
-                                AdminWindowSingleTone.GetInstance(new AdminVM(u));
-                                AdminWindowSingleTone.GetInstance().AdminVM.CurrentPageViewModel = new ListOfBooksAdminVM(AdminWindowSingleTone.GetInstance().AdminVM.Books);
-                                AdminWindowSingleTone.GetInstance().AdminVM.Visibility = u.ACCOUNT == "Администратор" ? "Visible" : "Collapsed";
-                                AdminWindowSingleTone.GetInstance().AdminVM.currentUser = u;
-                                App.currentUser = u;
-
-                                AdminWindow adminWindow = new AdminWindow();
-                                adminWindow.Show();
-                            }
-                            else
-                            {
-                                WorkFrameSingleTone.GetInstance(new WorkframeViewModel(u)).WorkframeViewModel.currentUser = u;
-                                WorkFrameSingleTone.GetInstance().WorkframeViewModel.CurrentPageViewModel = new ListOfBooksViewModel(u);
-                                App.currentUser = u;
-
-                                Workframe workframe = new Workframe();
-                                workframe.Show();
-                            }
-                            var windows = Application.Current.Windows;
-                            foreach (Window window in windows)
-                                if (window != null && window is MainWindow)
-                                    window.Close();
-                            Password.Dispose();
-                            insecurePassword = null;
-                            break;
+                            App.currentUser = u;
+                            WorkFrameSingleTone.GetInstance(new WorkframeViewModel());
+                            WorkFrameSingleTone.GetInstance().WorkframeViewModel.CurrentPageViewModel = new ListOfBooksViewModel();
+                            Workframe workframe = new Workframe();
+                            workframe.Show();
                         }
-                    }
-                    if (flag)
-                    {
-                        notifier.ShowWarning("Пользователя с таким Email или паролем не существует." +
-                            "\nПроверьте правильность введенных данных");
+
+                        var windows = Application.Current.Windows;
+                        foreach (Window window in windows)
+                            if (window != null && window is MainWindow)
+                                window.Close();
+                        Password.Dispose();
+                        insecurePassword = null;
+                        break;
                     }
                 }
-                catch
+                if (flag)
                 {
-                    insecurePassword = "";
-                    Password.Dispose();
+                    notifier.ShowWarning("Пользователя с таким Email или паролем не существует." +
+                        "\nПроверьте правильность введенных данных");
                 }
             }
+            catch
+            {
+                insecurePassword = "";
+                Password.Dispose();
+            }
+
         }
         void OpenRegisterWindow(object obj) // Открыть UserControl с регистрацией
         {

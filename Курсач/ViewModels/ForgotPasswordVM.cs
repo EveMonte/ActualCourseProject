@@ -71,7 +71,7 @@ namespace Курсач.ViewModels
                 $" то введите код, расположенный ниже, в качестве пароля во время следующего Вашего входа. При входе в приложение сразу поменяйти пароль!\n{Code}");
             try
             {
-                var user = MainWindowViewModelSingleton.GetInstance().MainFrameViewModel.db.USERS.FirstOrDefault(n => n.EMAIL == Email);
+                var user = App.db.USERS.FirstOrDefault(n => n.EMAIL == Email);
                 if (user != null)
                 {
                     MessageSender.SendEmailAsync(Email, Code, message, "Восстановление пароля").GetAwaiter();

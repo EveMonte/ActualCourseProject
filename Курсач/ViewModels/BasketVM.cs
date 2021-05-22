@@ -35,8 +35,6 @@ namespace Курсач.ViewModels
             }
         }
         public ObservableCollection<GENRES> Genres { get; private set; } // List of genres for combobox
-        LIBRARYEntities db = new LIBRARYEntities();
-        public USERS currentUser;
         private int mark;
         public int Mark
         {
@@ -68,7 +66,7 @@ namespace Курсач.ViewModels
             set
             {
                 selectedBook = value;
-                OnPropertyChanged("SelectedBook");
+                OnPropertyChanged("SelecteApp.dbook");
             }
         }
         #endregion
@@ -94,12 +92,12 @@ namespace Курсач.ViewModels
 
             ////////////////////////////////////////////
 
-            MainWindow thisWin = null;
+            Workframe thisWin = null;
             foreach (Window win in Application.Current.Windows)
             {
-                if (win is MainWindow)
+                if (win is Workframe)
                 {
-                    thisWin = win as MainWindow;
+                    thisWin = win as Workframe;
                 }
             }
             notifier = new Notifier(cfg =>
@@ -117,19 +115,18 @@ namespace Курсач.ViewModels
                 cfg.Dispatcher = Application.Current.Dispatcher;
             });
 
-            currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser; // get current user
             Books = new ObservableCollection<BOOKS>();
 
             using (LIBRARYEntities library = new LIBRARYEntities())
             {
-                var basketBooks = db.BASKETS.Where(n => n.USER_ID == currentUser.USER_ID);
+                var basketBooks = App.db.BASKETS.Where(n => n.USER_ID == App.currentUser.USER_ID);
                 foreach (BASKETS book in basketBooks) // get information about books in the basket
                 {
                     BOOKS b = library.BOOKS.Where(n => n.BOOK_ID == book.BOOK_ID).FirstOrDefault(); // for each book in the basket get its info from BOOKS
-                    var marks = db.MARKS.FirstOrDefault(n => (n.BOOK_ID == book.BOOK_ID) && (n.USER_ID == currentUser.USER_ID)); // find its user's mark
+                    var marks = App.db.MARKS.FirstOrDefault(n => (n.BOOK_ID == book.BOOK_ID) && (n.USER_ID == App.currentUser.USER_ID)); // find its user's mark
                     if(marks != null)
                         b.Mark = (int)marks.MARK; // set it
-                    var rating = db.MARKS.Where(n => n.BOOK_ID == book.BOOK_ID); // get all marks of this book
+                    var rating = App.db.MARKS.Where(n => n.BOOK_ID == book.BOOK_ID); // get all marks of this book
                     decimal sum = 0;
                     foreach (var m in rating)
                     {
@@ -141,7 +138,7 @@ namespace Курсач.ViewModels
                     {
                         b.RATING = sum / b.NUMBEROFVOICES; // get rating
                     }
-                    var genres = db.GENRES.Where(n => n.GENRE_ID == b.GENRE); // get string value of genre
+                    var genres = App.db.GENRES.Where(n => n.GENRE_ID == b.GENRE); // get string value of genre
                     foreach (var m in genres)
                     {
                         b.Genre = m.GENRE;
@@ -165,7 +162,7 @@ namespace Курсач.ViewModels
             Text = "";
             try
             {
-                var basketBooks = App.db.BASKETS.Where(n => n.USER_ID == currentUser.USER_ID);
+                var basketBooks = App.db.BASKETS.Where(n => n.USER_ID == App.currentUser.USER_ID);
                 Books = new ObservableCollection<BOOKS>();
                 foreach(var book in basketBooks)
                 {
@@ -179,9 +176,9 @@ namespace Курсач.ViewModels
         }
         private void BuyTheBook(object obj) // buy book, if user don't have credit card let him add it
         {
-            if (db.USERS.FirstOrDefault(n => n.USER_ID == currentUser.USER_ID).CREDIT_CARD != null)
+            if (App.db.USERS.FirstOrDefault(n => n.USER_ID == App.currentUser.USER_ID).CREDIT_CARD != null)
             {
-                if (db.YOUR_BOOKS.FirstOrDefault(n => (n.BOOK_ID == (int)obj) && (n.USER_ID == currentUser.USER_ID)) == null)
+                if (App.db.YOUR_BOOKS.FirstOrDefault(n => (n.BOOK_ID == (int)obj) && (n.USER_ID == App.currentUser.USER_ID)) == null)
                 {
                     WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new BaseDialogWindowVM(new ConfirmPurchase((int)obj));
                 }
@@ -201,7 +198,7 @@ namespace Курсач.ViewModels
         {
             int mark = 0;
             BOOKS CurrentBook = Books.FirstOrDefault(n => n.BOOK_ID == (int)obj);
-            MARKS m = db.MARKS.Where(n => (n.BOOK_ID == (int)obj) && (n.USER_ID == currentUser.USER_ID)).FirstOrDefault();
+            MARKS m = App.db.MARKS.Where(n => (n.BOOK_ID == (int)obj) && (n.USER_ID == App.currentUser.USER_ID)).FirstOrDefault();
             if (m != null) //if our current user already rated this book we change value of its mark
             {
                 foreach (BOOKS b in Books)
@@ -220,15 +217,15 @@ namespace Курсач.ViewModels
                 newMark.BOOK_ID = (int)obj;
                 newMark.MARK = CurrentBook.Mark;
                 CurrentBook.Mark = (int)obj;
-                newMark.USER_ID = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser.USER_ID;
-                db.MARKS.Add(newMark);
+                newMark.USER_ID = App.currentUser.USER_ID;
+                App.db.MARKS.Add(newMark);
                 CurrentBook.NUMBEROFVOICES++;
             }
-            db.SaveChanges(); // save changes
-            CurrentBook.RATING = ((decimal)db.MARKS.Where(n => n.BOOK_ID == CurrentBook.BOOK_ID).Sum(n => n.MARK) / (decimal)db.MARKS.Where(n => n.BOOK_ID == CurrentBook.BOOK_ID).Count()); // recount rating of this book
-            var book = db.BOOKS.FirstOrDefault(n => n.BOOK_ID == CurrentBook.BOOK_ID); // get this book from the DB
+            App.db.SaveChanges(); // save changes
+            CurrentBook.RATING = ((decimal)App.db.MARKS.Where(n => n.BOOK_ID == CurrentBook.BOOK_ID).Sum(n => n.MARK) / (decimal)App.db.MARKS.Where(n => n.BOOK_ID == CurrentBook.BOOK_ID).Count()); // recount rating of this book
+            var book = App.db.BOOKS.FirstOrDefault(n => n.BOOK_ID == CurrentBook.BOOK_ID); // get this book from the App.db
             book.RATING = CurrentBook.RATING; // change its rating
-            db.SaveChangesAsync().GetAwaiter(); // and save changes async
+            App.db.SaveChangesAsync().GetAwaiter(); // and save changes async
             ObservableCollection<BOOKS> newBooks = Books;
             Books = new ObservableCollection<BOOKS>();
             Books = newBooks;
@@ -244,14 +241,14 @@ namespace Курсач.ViewModels
                 {
                     if (book.BOOK_ID == (int)obj)
                     {
-                        basketToDelete = db.BASKETS.FirstOrDefault(n => n.BOOK_ID == book.BOOK_ID);
+                        basketToDelete = App.db.BASKETS.FirstOrDefault(n => n.BOOK_ID == book.BOOK_ID);
                         bookToDelete = book;
                         break;
 
                     }
                 }
-                db.BASKETS.Remove(basketToDelete);
-                db.SaveChangesAsync().GetAwaiter();
+                App.db.BASKETS.Remove(basketToDelete);
+                App.db.SaveChangesAsync().GetAwaiter();
                 Books.Remove(bookToDelete);
             }
             catch(Exception ex)

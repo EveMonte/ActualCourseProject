@@ -6,6 +6,10 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using ToastNotifications;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Messages;
+using ToastNotifications.Position;
 using Курсач.Methods;
 using Курсач.Singleton;
 
@@ -14,7 +18,7 @@ namespace Курсач.ViewModels
     public class ListOfBooksViewModel : BaseViewModel
     {
         #region Data
-        private USERS User = new USERS();
+        Notifier notifier;
         private ObservableCollection<BOOKS> books;
         public ObservableCollection<BOOKS> Books
         {
@@ -100,6 +104,8 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("ImageSourceDown");
             }
         }
+        private int currentIndex = -1;
+        private int count = 0;
 
         List<ADVERTISEMENT> ListOfAdvertisement;
         #endregion
@@ -126,7 +132,7 @@ namespace Курсач.ViewModels
                     SelectedBook.Genre = genre.GENRE; //... and when we find it we write it in the notmapped property
             }
             SelectedBook.NUMBEROFVOICES = App.db.MARKS.Where(n => n.BOOK_ID == SelectedBook.BOOK_ID).Count(); //counting marks to write in notmapped property
-            MARKS mark = App.db.MARKS.FirstOrDefault(n => (n.USER_ID == User.USER_ID) && (n.BOOK_ID == SelectedBook.BOOK_ID));
+            MARKS mark = App.db.MARKS.FirstOrDefault(n => (n.USER_ID == App.currentUser.USER_ID) && (n.BOOK_ID == SelectedBook.BOOK_ID));
             SelectedBook.Mark = mark != null ? (int)mark.MARK : 0;
             FullInfoViewModelSingleTone.GetInstance(new FullInfoViewModel()).FullInfoViewModel.CurrentBook = SelectedBook;
             WorkFrameSingleTone.GetInstance().WorkframeViewModel.CurrentPageViewModel = new AdditionalInfoViewModel();
@@ -134,13 +140,35 @@ namespace Курсач.ViewModels
         #endregion
 
         //Constructor
-        public ListOfBooksViewModel(USERS user)
+        public ListOfBooksViewModel()
         {
-            User = user;
+            Workframe thisWin = null;
+            foreach (Window win in Application.Current.Windows)
+            {
+                if (win is Workframe)
+                {
+                    thisWin = win as Workframe;
+                }
+            }
+
+            notifier = new Notifier(cfg =>
+            {
+                cfg.PositionProvider = new WindowPositionProvider(
+                    parentWindow: thisWin,
+                    corner: Corner.BottomRight,
+                    offsetX: 10,
+                    offsetY: 10);
+
+                cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+                    notificationLifetime: TimeSpan.FromSeconds(5),
+                    maximumNotificationCount: MaximumNotificationCount.FromCount(5));
+
+                cfg.Dispatcher = Application.Current.Dispatcher;
+            });
             try 
             {
                 Books = new ObservableCollection<BOOKS>(App.db.BOOKS);
-                var shelfBooks = App.db.YOUR_BOOKS.Where(n => n.USER_ID == user.USER_ID);
+                var shelfBooks = App.db.YOUR_BOOKS.Where(n => n.USER_ID == App.currentUser.USER_ID);
                 foreach (var book in shelfBooks)
                 {
                     var bookToRemove = Books.FirstOrDefault(n => n.BOOK_ID == book.BOOK_ID);
@@ -149,7 +177,7 @@ namespace Курсач.ViewModels
                         Books.Remove(bookToRemove);
                     }
                 }
-                var basketBooks = App.db.BASKETS.Where(n => n.USER_ID == user.USER_ID);
+                var basketBooks = App.db.BASKETS.Where(n => n.USER_ID == App.currentUser.USER_ID);
                 foreach (var book in Books)
                 {
                     if (basketBooks.FirstOrDefault(n => n.BOOK_ID == book.BOOK_ID) != null)
@@ -165,7 +193,7 @@ namespace Курсач.ViewModels
             }
             catch(Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
+                notifier.ShowError(ex.Message);
             }
             foreach (BOOKS book in Books) //check books. If book is available by subscription, we place band
             {
@@ -186,16 +214,21 @@ namespace Курсач.ViewModels
             ClearCommand = new DelegateCommand(ClearFilter);
 
             ListOfAdvertisement = App.db.ADVERTISEMENT.ToList();
+            if(ListOfAdvertisement.Count() > 1)
+            {
+                ImageSourceUp = ListOfAdvertisement[0].IMAGE_SOURCE;
+                ImageSourceDown = ListOfAdvertisement[1].IMAGE_SOURCE;
 
-            ImageSourceUp = ListOfAdvertisement[0].IMAGE_SOURCE;
-            ImageSourceDown = ListOfAdvertisement[1].IMAGE_SOURCE;
+                System.Windows.Threading.DispatcherTimer timer = new System.Windows.Threading.DispatcherTimer();
 
-
-            System.Windows.Threading.DispatcherTimer timer = new System.Windows.Threading.DispatcherTimer();
-
-            timer.Tick += new EventHandler(timerTick);
-            timer.Interval = new TimeSpan(0, 0, 0, 0, 5);
-            timer.Start();
+                count = ListOfAdvertisement.Count();
+                currentIndex = 1;
+                timer.Tick += new EventHandler(timerTick);
+                timer.Interval = new TimeSpan(0, 0, 0, 0, 8);
+                timer.Start();
+            }
+            else
+                ImageSourceUp = ListOfAdvertisement[0].IMAGE_SOURCE;
         }
 
         private void ClearFilter(object obj) //удалить все фильтры
@@ -228,7 +261,7 @@ namespace Курсач.ViewModels
             }
             catch(Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
+                notifier.ShowError(ex.Message);
             }
         }
 
@@ -241,6 +274,16 @@ namespace Курсач.ViewModels
                     if (OpacityAnimationUp < 0.02)
                     {
                         phase = 0;
+                        if(currentIndex == count - 1)
+                        {
+                            ImageSourceUp = ListOfAdvertisement[0].IMAGE_SOURCE;
+                            currentIndex = 0;
+                        }
+                        else
+                        {
+                            currentIndex++;
+                            ImageSourceUp = ListOfAdvertisement[currentIndex].IMAGE_SOURCE;
+                        }
                         animation = !animation;
                     }
                     else
@@ -257,6 +300,16 @@ namespace Курсач.ViewModels
                     if (OpacityAnimationUp > 0.98)
                     {
                         phase = 0;
+                        if (currentIndex == count - 1)
+                        {
+                            ImageSourceDown = ListOfAdvertisement[0].IMAGE_SOURCE;
+                            currentIndex = 0;
+                        }
+                        else
+                        {
+                            currentIndex++;
+                            ImageSourceDown = ListOfAdvertisement[currentIndex].IMAGE_SOURCE;
+                        }
                         animation = !animation;
                     }
                     else

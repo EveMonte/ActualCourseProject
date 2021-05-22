@@ -30,7 +30,6 @@ namespace Курсач.ViewModels
         public ObservableCollection<GENRES> Genres { get; private set; }
         public IQueryable<BOOKS> coll { get; set; }
         LIBRARYEntities db = new LIBRARYEntities();
-        public USERS currentUser;
         private int mark;
         public int Mark
         {
@@ -84,53 +83,39 @@ namespace Курсач.ViewModels
             MarkCommand = new DelegateCommand(RateTheBook);
             ClearCommand = new DelegateCommand(ClearFilter);
 
-            currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser;
             Books = new ObservableCollection<BOOKS>();
-            using (LIBRARYEntities library = new LIBRARYEntities())
+            var h = App.db.YOUR_BOOKS.Where(n => n.USER_ID == App.currentUser.USER_ID);
+            foreach (YOUR_BOOKS book in h)
             {
-                string command = String.Format($"SELECT * " +
-                                               $"FROM YOUR_BOOKS WHERE USER_ID = {currentUser.USER_ID}");
-                var h = (library.Database.SqlQuery<YOUR_BOOKS>(command));
-                foreach(YOUR_BOOKS book in h)
+                BOOKS b = App.db.BOOKS.Where(n => n.BOOK_ID == book.BOOK_ID).FirstOrDefault();
+                var mark = App.db.MARKS.FirstOrDefault(n => n.USER_ID == App.currentUser.USER_ID && n.BOOK_ID == book.BOOK_ID);
+                if(mark != null)
+                    b.Mark = (int)mark.MARK;
+                var rating = App.db.MARKS.Where(n => n.BOOK_ID == book.BOOK_ID);
+                decimal sum = 0;
+                foreach (var m in rating)
                 {
-                    BOOKS b = library.BOOKS.Where(n => n.BOOK_ID == book.BOOK_ID).FirstOrDefault();
-                    command = String.Format($"SELECT top(1) * FROM MARKS WHERE BOOK_ID = {book.BOOK_ID} AND USER_ID = {currentUser.USER_ID}");
-                    var marks = library.Database.SqlQuery<MARKS>(command);
-                    foreach (var m in marks)
-                    {
-                        b.Mark = (int)m.MARK;
-                    }
-                    command = String.Format($"SELECT * FROM MARKS WHERE BOOK_ID = {book.BOOK_ID}");
-                    var rating = library.Database.SqlQuery<MARKS>(command);
-                    decimal sum = 0;
-                    foreach (var m in rating)
-                    {
-                        sum += (decimal)m.MARK;
-                    }
-                    b.NUMBEROFVOICES = rating.Count();
-
-                    if (b.NUMBEROFVOICES != 0)
-                    {
-                        b.RATING = sum / b.NUMBEROFVOICES;
-                    }
-                    command = String.Format($"SELECT * " +
-                                               $"FROM GENRES WHERE GENRE_ID = {b.GENRE}");
-                    var genres = library.Database.SqlQuery<GENRES>(command);
-
-                    foreach (var m in genres)
-                    {
-                        b.Genre = m.GENRE;
-                    }                     
-                    Books.Add(b);
+                    sum += (decimal)m.MARK;
                 }
-                library.SaveChanges();
-                Genres = new ObservableCollection<GENRES>(library.GENRES.OrderBy(n => n.GENRE));
+                b.NUMBEROFVOICES = rating.Count();
+
+                if (b.NUMBEROFVOICES != 0)
+                {
+                    b.RATING = sum / b.NUMBEROFVOICES;
+                }
+                var genre = App.db.GENRES.FirstOrDefault(n => n.GENRE_ID == b.GENRE);
+
+                    b.Genre = genre.GENRE;
+                Books.Add(b);
             }
+            Genres = new ObservableCollection<GENRES>(App.db.GENRES.OrderBy(n => n.GENRE));
+
+            App.db.SaveChangesAsync().GetAwaiter();
+            
             Items = CollectionViewSource.GetDefaultView(Books);
             Items.Filter = Search;
             FindByGenreCommand = new DelegateCommand(FindByGenre);
         }
-
         #region Commands' Logic
 
         private void ClearFilter(object obj) //удалить все фильтры
@@ -138,7 +123,7 @@ namespace Курсач.ViewModels
             Text = "";
             try
             {
-                var basketBooks = App.db.YOUR_BOOKS.Where(n => n.USER_ID == currentUser.USER_ID);
+                var basketBooks = App.db.YOUR_BOOKS.Where(n => n.USER_ID == App.currentUser.USER_ID);
                 Books = new ObservableCollection<BOOKS>();
                 foreach (var book in basketBooks)
                 {
@@ -154,7 +139,7 @@ namespace Курсач.ViewModels
         {
             int mark = 0;
             BOOKS CurrentBook = Books.FirstOrDefault(n => n.BOOK_ID == (int)obj);
-            MARKS m = db.MARKS.Where(n => (n.BOOK_ID == (int)obj) && (n.USER_ID == currentUser.USER_ID)).FirstOrDefault();
+            MARKS m = db.MARKS.Where(n => (n.BOOK_ID == (int)obj) && (n.USER_ID == App.currentUser.USER_ID)).FirstOrDefault();
             if (m != null) //if our current user already rated this book we change value of its mark
             {
                 foreach (BOOKS b in Books)
@@ -173,7 +158,7 @@ namespace Курсач.ViewModels
                 newMark.BOOK_ID = (int)obj;
                 newMark.MARK = CurrentBook.Mark;
                 CurrentBook.Mark = (int)obj;
-                newMark.USER_ID = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser.USER_ID;
+                newMark.USER_ID = App.currentUser.USER_ID;
                 db.MARKS.Add(newMark);
                 CurrentBook.NUMBEROFVOICES++;
             }

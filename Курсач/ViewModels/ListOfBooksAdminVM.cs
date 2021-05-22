@@ -16,7 +16,6 @@ namespace Курсач.ViewModels
     public class ListOfBooksAdminVM : BaseViewModel
     {
         #region Data
-        private USERS User = new USERS();
         private ObservableCollection<BOOKS> books;
         public ObservableCollection<BOOKS> Books
         {
@@ -95,7 +94,7 @@ namespace Курсач.ViewModels
                     SelectedBook.Genre = genre.GENRE; //... and when we find it we write it in the notmapped property
             }
             SelectedBook.NUMBEROFVOICES = App.db.MARKS.Where(n => n.BOOK_ID == SelectedBook.BOOK_ID).Count(); //counting marks to write in notmapped property
-            MARKS mark = App.db.MARKS.FirstOrDefault(n => (n.USER_ID == User.USER_ID) && (n.BOOK_ID == SelectedBook.BOOK_ID));
+            MARKS mark = App.db.MARKS.FirstOrDefault(n => (n.USER_ID == App.currentUser.USER_ID) && (n.BOOK_ID == SelectedBook.BOOK_ID));
             SelectedBook.Mark = mark != null ? (int)mark.MARK : 0;
             var baskets = App.db.BASKETS.Where(n => n.BOOK_ID == SelectedBook.BOOK_ID);
             Users = new ObservableCollection<USERS>();

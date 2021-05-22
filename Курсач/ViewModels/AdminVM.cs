@@ -11,7 +11,19 @@ namespace Курсач.ViewModels
 {
     public class AdminVM : BaseViewModel
     {
-        public USERS currentUser;
+        private BaseViewModel addCreditCardViewModel;
+        public BaseViewModel AddCreditCardViewModel
+        {
+            get
+            {
+                return addCreditCardViewModel;
+            }
+            set
+            {
+                addCreditCardViewModel = value;
+                OnPropertyChanged("AddCreditCardViewModel");
+            }
+        }
         private ObservableCollection<BOOKS> books;
         public ObservableCollection<BOOKS> Books
         {
@@ -49,6 +61,30 @@ namespace Курсач.ViewModels
             }
         }
 
+        private string buttonVisibility = "Collapsed";
+
+        public string ButtonVisibility
+        {
+            get { return buttonVisibility; }
+            set
+            {
+                buttonVisibility = value;
+                OnPropertyChanged("ButtonVisibility");
+            }
+        }
+
+        private int blur = 0;
+        public int Blur
+        {
+            get { return blur; }
+            set
+            {
+                blur = value;
+                OnPropertyChanged("Blur");
+            }
+        }
+
+
         private ObservableCollection<ADVERTISEMENT> ads;
 
         public ObservableCollection<ADVERTISEMENT> Ads
@@ -61,20 +97,19 @@ namespace Курсач.ViewModels
             }
         }
 
-
         public ICommand OpenBooksCommand { get; private set; }
         public ICommand OpenAdminsCommand { get; private set; }
         public ICommand OpenUsersCommand { get; private set; }
         public ICommand OpenUserCommand { get; private set; }
         public ICommand OpenSettingsCommand { get; private set; }
         public ICommand OpenAdvertisementCommand { get; private set; }
-        public AdminVM(USERS currentUser)
+        public ICommand CloseCommand { get; private set; }
+        public AdminVM()
         {
             Ads = new ObservableCollection<ADVERTISEMENT>(App.db.ADVERTISEMENT);
-            Books = new ObservableCollection<BOOKS>(MainWindowViewModelSingleton.GetInstance().MainFrameViewModel.db.BOOKS);
-            this.currentUser = currentUser;
-            if (currentUser.ACCOUNT == "Администратор")
-                Visibility = "Visible";
+            Books = new ObservableCollection<BOOKS>(App.db.BOOKS);
+            if (App.currentUser.ACCOUNT == "Администратор")
+                ButtonVisibility = "Visible";
             OpenBooksCommand = new DelegateCommand(OpenBooks);
             OpenAdminsCommand = new DelegateCommand(OpenAdmins);
             OpenUsersCommand = new DelegateCommand(OpenUsers);
@@ -82,6 +117,8 @@ namespace Курсач.ViewModels
             OpenSettingsCommand = new DelegateCommand(OpenSettings);
             OpenAdvertisementCommand = new DelegateCommand(OpenAds);
             CurrentPageViewModel = new ListOfBooksAdminVM(Books);
+            CloseCommand = new DelegateCommand(Close);
+
         }
 
         private void OpenAds(object obj)
@@ -91,7 +128,7 @@ namespace Курсач.ViewModels
 
         private void OpenUser(object obj)
         {
-            CurrentPageViewModel = new UserPageVM(currentUser);
+            CurrentPageViewModel = new UserPageVM();
         }
 
         private void OpenSettings(object obj)
@@ -108,7 +145,12 @@ namespace Курсач.ViewModels
         {
             CurrentPageViewModel = new AdminsVM();
         }
-
+        private void Close(object obj)
+        {
+            AddCreditCardViewModel = null;
+            Visibility = "Collapsed";
+            Blur = 0;
+        }
         private void OpenBooks(object obj)
         {
             CurrentPageViewModel = new ListOfBooksAdminVM(Books);

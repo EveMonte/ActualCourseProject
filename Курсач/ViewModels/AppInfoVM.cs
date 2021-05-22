@@ -15,14 +15,20 @@ namespace Курсач.ViewModels
         public AppInfoVM()
         {
             CancelCommand = new DelegateCommand(Cancel);
-            WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Visible";
-            WorkFrameSingleTone.GetInstance().WorkframeViewModel.Blur = 3;
+            if(App.currentUser.ACCOUNT == "Пользователь")
+            {
+                WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Visible";
+                WorkFrameSingleTone.GetInstance().WorkframeViewModel.Blur = 3;
+            }
         }
         private void Cancel(object obj) // cancel dialog window
         {
-            WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = null;
-            WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Collapsed";
-            WorkFrameSingleTone.GetInstance().WorkframeViewModel.Blur = 0;
+            if (App.currentUser.ACCOUNT == "Пользователь")
+            {
+                WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = null;
+                WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Collapsed";
+                WorkFrameSingleTone.GetInstance().WorkframeViewModel.Blur = 0;
+            }
         }
 
     }

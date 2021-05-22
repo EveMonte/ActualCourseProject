@@ -13,7 +13,6 @@ namespace Курсач.ViewModels
 {
     public class UsersPageVM : BaseViewModel
     {
-        LIBRARYEntities db = new LIBRARYEntities();
         private ObservableCollection<USERS> users;
 
         public ObservableCollection<USERS> Users
@@ -44,10 +43,10 @@ namespace Курсач.ViewModels
         {
             RemoveCommand = new DelegateCommand(RemoveUser);
             ChangeCommand = new DelegateCommand(ChangeUser);
-            Users = new ObservableCollection<USERS>(db.USERS.Where(n => n.ACCOUNT == "Пользователь"));
+            Users = new ObservableCollection<USERS>(App.db.USERS.Where(n => n.ACCOUNT == "Пользователь"));
             foreach(USERS user in Users)
             {
-                SUBSCRIPTIONS sub = db.SUBSCRIPTIONS.FirstOrDefault(n => n.SUBSCRIPTION_ID == user.SUBSCRIPTION);
+                SUBSCRIPTIONS sub = App.db.SUBSCRIPTIONS.FirstOrDefault(n => n.SUBSCRIPTION_ID == user.SUBSCRIPTION);
                 if(sub != null)
                 {
                     user.SUBSCRIPTION_DATE = sub.SUBSCRIPTION_DATE;
@@ -61,11 +60,11 @@ namespace Курсач.ViewModels
         private void ChangeUser(object obj)
         {
             USERS changedUser = Users.FirstOrDefault(n => n.USER_ID == (int)obj);
-            var user = db.USERS.FirstOrDefault(n => n.USER_ID == changedUser.USER_ID);
+            var user = App.db.USERS.FirstOrDefault(n => n.USER_ID == changedUser.USER_ID);
             user = changedUser;
             user.ACCOUNT = changedUser.ACCOUNT;
-            var sub = db.SUBSCRIPTIONS.FirstOrDefault(n => n.SUBSCRIPTION_ID == changedUser.SUBSCRIPTION);
-            db.SaveChanges();
+            var sub = App.db.SUBSCRIPTIONS.FirstOrDefault(n => n.SUBSCRIPTION_ID == changedUser.SUBSCRIPTION);
+            App.db.SaveChanges();
             if (sub != null)
             {
                 sub.SUBSCRIPTION_DATE = changedUser.SUBSCRIPTION_DATE;
@@ -76,27 +75,27 @@ namespace Курсач.ViewModels
                 SUBSCRIPTIONS subscr = new SUBSCRIPTIONS();
                 subscr.SUBSCRIPTION_DATE = changedUser.SUBSCRIPTION_DATE;
                 subscr.LENGTH = changedUser.SUBSCRIPTION_LENGTH;
-                db.SUBSCRIPTIONS.Add(subscr);
+                App.db.SUBSCRIPTIONS.Add(subscr);
                 changedUser.SUBSCRIPTION = subscr.SUBSCRIPTION_ID;
             }
-            db.SaveChangesAsync().GetAwaiter();
+            App.db.SaveChangesAsync().GetAwaiter();
         }
 
         private void RemoveUser(object obj)
         {
-            USERS userToRemove = db.USERS.FirstOrDefault(n => n.USER_ID == (int)obj);
+            USERS userToRemove = App.db.USERS.FirstOrDefault(n => n.USER_ID == (int)obj);
             Users.Remove(userToRemove);
-            var shelf = db.YOUR_BOOKS.Where(n => n.USER_ID == userToRemove.USER_ID);
-            db.YOUR_BOOKS.RemoveRange(shelf);
-            var basket = db.BASKETS.Where(n => n.USER_ID == userToRemove.USER_ID);
-            db.BASKETS.RemoveRange(basket);
-            var sub = db.SUBSCRIPTIONS.FirstOrDefault(n => n.SUBSCRIPTION_ID == userToRemove.SUBSCRIPTION);
-            db.YOUR_BOOKS.RemoveRange(shelf);
-            var marks = db.MARKS.Where(n => n.USER_ID == userToRemove.USER_ID);
-            var newMarks = db.MARKS.Where(n => n.USER_ID != userToRemove.USER_ID);
+            var shelf = App.db.YOUR_BOOKS.Where(n => n.USER_ID == userToRemove.USER_ID);
+            App.db.YOUR_BOOKS.RemoveRange(shelf);
+            var basket = App.db.BASKETS.Where(n => n.USER_ID == userToRemove.USER_ID);
+            App.db.BASKETS.RemoveRange(basket);
+            var sub = App.db.SUBSCRIPTIONS.FirstOrDefault(n => n.SUBSCRIPTION_ID == userToRemove.SUBSCRIPTION);
+            App.db.YOUR_BOOKS.RemoveRange(shelf);
+            var marks = App.db.MARKS.Where(n => n.USER_ID == userToRemove.USER_ID);
+            var newMarks = App.db.MARKS.Where(n => n.USER_ID != userToRemove.USER_ID);
             foreach (var mark in marks)
             {
-                var book = db.BOOKS.FirstOrDefault(n => n.BOOK_ID == mark.BOOK_ID);
+                var book = App.db.BOOKS.FirstOrDefault(n => n.BOOK_ID == mark.BOOK_ID);
                 if(book != null)
                 {
                     int? sum = 0;
@@ -109,9 +108,9 @@ namespace Курсач.ViewModels
                 }
 
             }
-            db.MARKS.RemoveRange(marks);
-            db.USERS.Remove(userToRemove);
-            db.SaveChangesAsync().GetAwaiter();
+            App.db.MARKS.RemoveRange(marks);
+            App.db.USERS.Remove(userToRemove);
+            App.db.SaveChangesAsync().GetAwaiter();
         }
         #region Filter
         public string Text

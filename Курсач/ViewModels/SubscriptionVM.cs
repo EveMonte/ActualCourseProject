@@ -6,8 +6,6 @@ namespace Курсач.ViewModels
     public class SubscriptionVM : BaseViewModel
     {
         #region Data & Commands
-        LIBRARYEntities db = new LIBRARYEntities();
-        private USERS currentUser;
         public ICommand YearSubscriptionCommand { get; private set; }
         public ICommand MonthSubscriptionCommand { get; private set; }
         #endregion
@@ -15,7 +13,6 @@ namespace Курсач.ViewModels
         //Constructor
         public SubscriptionVM()
         {
-            currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser;
             YearSubscriptionCommand = new DelegateCommand(YearSubscription);
             MonthSubscriptionCommand = new DelegateCommand(MonthSubscription);
         }
@@ -23,7 +20,7 @@ namespace Курсач.ViewModels
         #region Commands' Logic
         private void MonthSubscription(object obj)
         {
-            if(currentUser.CREDIT_CARD != null)
+            if(App.currentUser.CREDIT_CARD != null)
             {
                 WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new BaseDialogWindowVM(new ConfirmSubscriptionVM(1));
                 WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Visible";
@@ -36,7 +33,7 @@ namespace Курсач.ViewModels
 
         private void YearSubscription(object obj)
         {
-            if (currentUser.CREDIT_CARD != null)
+            if (App.currentUser.CREDIT_CARD != null)
             {
                 WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new BaseDialogWindowVM(new ConfirmSubscriptionVM(12));
                 WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Visible";

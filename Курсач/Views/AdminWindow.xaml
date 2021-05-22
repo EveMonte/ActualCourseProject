@@ -8,6 +8,7 @@
         mc:Ignorable="d"
         Title="Bookварь (for admins)"
         WindowState="Maximized"
+        Icon="C:\Users\User\Desktop\Курсааааач\Курсач\Курсач\Media\Логотип.png"
         MinWidth="1410" MinHeight="780">
     <Grid Style="{DynamicResource GridMainStyle}">
         <Grid.ColumnDefinitions>
@@ -74,7 +75,7 @@
                     </Button>
                 </ListViewItem>
                 <ListViewItem Padding="0" Height="50"
-                              Visibility="{Binding Visibility}">
+                              Visibility="{Binding ButtonVisibility}">
                     <Button Background="Transparent"
                                 BorderBrush="Transparent"
                                 Padding="0"
@@ -190,8 +191,11 @@
                     </Button>
                 </ListViewItem>
             </ListView>
+            <Grid.Effect>
+                <BlurEffect Radius="{Binding Blur}" />
+            </Grid.Effect>
         </Grid>
-            <Frame Grid.Row="1"
+        <Frame Grid.Row="1"
                       Grid.Column="1"
                       Grid.ColumnSpan="4"
                       HorizontalContentAlignment="Center"
@@ -199,6 +203,32 @@
                       Grid.RowSpan="3"
                 NavigationUIVisibility="Hidden"
                    Padding="0 0"
-                   Content="{Binding CurrentPageViewModel}" />
+                   Content="{Binding CurrentPageViewModel}" >
+            <Frame.Effect>
+                <BlurEffect Radius="{Binding Blur}" />
+            </Frame.Effect>
+        </Frame>
+        <Button Grid.ColumnSpan="6"
+                Background="Black"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Width="Auto"
+                Height="Auto"
+                Opacity="0.2"
+                Visibility="{Binding Visibility}"
+                BorderBrush="Transparent"
+                Padding="0"
+                Command="{Binding CloseCommand}"
+                Grid.RowSpan="4" />
+        <ContentControl Content="{Binding AddCreditCardViewModel}"
+                        Grid.ColumnSpan="4"
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        Margin="0, 0, 18, 0"
+                        Grid.RowSpan="3"
+                        Width="800"
+                        Height="450"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"/>
     </Grid>
 </Window>

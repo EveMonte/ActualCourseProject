@@ -15,10 +15,9 @@ namespace Курсач.ViewModels
 {
     class UserPageVM : BaseViewModel
     {
-        #region 
+        #region Data
         Notifier notifier;
 
-        USERS currentUser; // Current user, get from Workframe
         private string mainCode; //Code which is generated here to confirm new password or email
         /////////// User's data 
         private string secondName;
@@ -208,9 +207,8 @@ namespace Курсач.ViewModels
         #endregion
 
         //Constructor
-        public UserPageVM(USERS currentUser)
+        public UserPageVM()
         {
-            this.currentUser = currentUser;
             //Delegate Command
             ApplyEmailCommand = new DelegateCommand(ApplyEmail);
             ApplyPasswordCommand = new DelegateCommand(ApplyPassword);
@@ -221,11 +219,10 @@ namespace Курсач.ViewModels
 
             //////////////////////////////////////////////////////
             //Get necessary info about current user
-            //currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser ?? AdminWindowSingleTone.GetInstance().AdminVM.currentUser;
-            SECONDNAME = currentUser.SECOND_NAME;
-            NAME = currentUser.NAME;
-            ACCOUNT = currentUser.ACCOUNT;
-            if (currentUser.SUBSCRIPTION == null) // Check status of subscription
+            SECONDNAME = App.currentUser.SECOND_NAME;
+            NAME = App.currentUser.NAME;
+            ACCOUNT = App.currentUser.ACCOUNT;
+            if (App.currentUser.SUBSCRIPTION == null) // Check status of subscription
             {
                 Subscription = "Отсутствует";
             }
@@ -233,9 +230,9 @@ namespace Курсач.ViewModels
             {
                 Subscription = "Действует";
             }
-            CreditCard = currentUser.CREDIT_CARD;
-            YourBooks = App.db.YOUR_BOOKS.Where(n => n.USER_ID == currentUser.USER_ID).Count(); //Count books on your shelve
-            Marks = App.db.MARKS.Where(n => n.USER_ID == currentUser.USER_ID).Count(); //Count your marks
+            CreditCard = App.currentUser.CREDIT_CARD;
+            YourBooks = App.db.YOUR_BOOKS.Where(n => n.USER_ID == App.currentUser.USER_ID).Count(); //Count books on your shelve
+            Marks = App.db.MARKS.Where(n => n.USER_ID == App.currentUser.USER_ID).Count(); //Count your marks
 
             Workframe thisWin = null;
             foreach (Window win in Application.Current.Windows)
@@ -269,7 +266,7 @@ namespace Курсач.ViewModels
                 notifier.ShowWarning("Поле для ввода нового Email не должно быть пустым!");
                 return;
             }
-            else if(NewEmail == currentUser.EMAIL)
+            else if(NewEmail == App.currentUser.EMAIL)
             {
                 notifier.ShowWarning("Старый и новый Email не должны совпадать");
                 return;
@@ -316,7 +313,7 @@ namespace Курсач.ViewModels
                     notifier.ShowWarning("Поля для ввода паролей не должны быть пустыми");
                     return;
                 }
-                else if (SaltedHash.Verify(currentUser.PASSWORD.Substring(44), currentUser.PASSWORD.Substring(0, 44), insecurePassword1) && insecurePassword1 != oldinsecurePassword)
+                else if (SaltedHash.Verify(App.currentUser.PASSWORD.Substring(44), App.currentUser.PASSWORD.Substring(0, 44), insecurePassword1) && insecurePassword1 != oldinsecurePassword)
                 {
                     notifier.ShowWarning("Старый и новый пароль не должны совпадать!");
                     return;
@@ -365,10 +362,10 @@ namespace Курсач.ViewModels
                 }
                 else
                 {
-                    USERS user = App.db.USERS.FirstOrDefault(n => n.USER_ID == currentUser.USER_ID);
+                    USERS user = App.db.USERS.FirstOrDefault(n => n.USER_ID == App.currentUser.USER_ID);
                     SaltedHash sh = new SaltedHash(insecurePassword1); //Hashing password
                     user.PASSWORD = sh.Hash + sh.Salt;
-                    currentUser.PASSWORD = user.PASSWORD;
+                    App.currentUser.PASSWORD = user.PASSWORD;
                     App.db.SaveChangesAsync().GetAwaiter();
 
                     //Reset and dispose variables
@@ -406,7 +403,7 @@ namespace Курсач.ViewModels
                 notifier.ShowWarning("Поле для ввода нового Email не должно быть пустым!");
                 return;
             }
-            else if (NewEmail == currentUser.EMAIL)
+            else if (NewEmail == App.currentUser.EMAIL)
             {
                 notifier.ShowWarning("Старый и новый Email не должны совпадать!");
                 return;
@@ -422,7 +419,7 @@ namespace Курсач.ViewModels
                     }
                 }
 
-                currentUser.EMAIL = NewEmail;
+                App.currentUser.EMAIL = NewEmail;
                 App.db.SaveChangesAsync().GetAwaiter();
                 OpenRegistrationWindow(obj);
             }
@@ -430,14 +427,17 @@ namespace Курсач.ViewModels
 
         private void ApplyCreditCard(object obj) // Open AddCreditCart UserControl
         {
-            WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new AddCreditCardVM();
+            if (App.currentUser.ACCOUNT == "Пользователь")
+                WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new AddCreditCardVM();
+            else
+                AdminWindowSingleTone.GetInstance().AdminVM.AddCreditCardViewModel = new AddCreditCardVM();
         }
 
         private void SendMessage() // Send message to user
         {
             mainCode = MessageSender.GenerateCode();
             string message = $"С Вашей учетной записи поступил запрос на смену личных данных. Если это были Вы, то введите символьный код, расположенный ниже, в приложение:\n{mainCode}\nИначе свяжитесь с администрацией приложения!";
-            MessageSender.SendEmailAsync(currentUser.EMAIL, mainCode, message, "Смена личных данных").GetAwaiter();
+            MessageSender.SendEmailAsync(App.currentUser.EMAIL, mainCode, message, "Смена личных данных").GetAwaiter();
             notifier.ShowInformation("На вашу почту был отправлен код подтверждения для смены личных данных. Проверьте сообщения и введите код в поле.");
         }
 

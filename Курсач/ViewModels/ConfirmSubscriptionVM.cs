@@ -27,7 +27,6 @@ namespace Курсач.ViewModels
                 OnPropertyChanged("InfoText");
             }
         }
-        private USERS currentUser;
         private Notifier notifier;
         private int Month; // length of subscription
 
@@ -66,7 +65,6 @@ namespace Курсач.ViewModels
             });
 
             Month = type; // set length
-            currentUser = WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser; // get current user
 
             //Delegate command
             BuyCommand = new DelegateCommand(BuyTheSubscription);
@@ -89,14 +87,14 @@ namespace Курсач.ViewModels
         {
             try
             {
-                var a = App.db.SUBSCRIPTIONS.FirstOrDefault(n => n.SUBSCRIPTION_ID == currentUser.SUBSCRIPTION);
-                if (App.db.SUBSCRIPTIONS.Where(n => n.SUBSCRIPTION_ID == currentUser.SUBSCRIPTION).FirstOrDefault() == null)
+                var a = App.db.SUBSCRIPTIONS.FirstOrDefault(n => n.SUBSCRIPTION_ID == App.currentUser.SUBSCRIPTION);
+                if (App.db.SUBSCRIPTIONS.Where(n => n.SUBSCRIPTION_ID == App.currentUser.SUBSCRIPTION).FirstOrDefault() == null)
                 {
                     SUBSCRIPTIONS sub = new SUBSCRIPTIONS();
                     sub.SUBSCRIPTION_DATE = DateTime.Now;
                     sub.LENGTH = ++Month;
                     App.db.SUBSCRIPTIONS.Add(sub);
-                    USERS user = App.db.USERS.Where(n => n.USER_ID == currentUser.USER_ID).FirstOrDefault();
+                    USERS user = App.db.USERS.Where(n => n.USER_ID == App.currentUser.USER_ID).FirstOrDefault();
                     user.SUBSCRIPTION = sub.SUBSCRIPTION_ID;
                     App.db.SaveChanges();
                     sub = null;
@@ -113,14 +111,14 @@ namespace Курсач.ViewModels
                     App.db.SaveChanges();
                 }
 
-                WorkFrameSingleTone.GetInstance().WorkframeViewModel.currentUser.SUBSCRIPTION = App.db.USERS.FirstOrDefault(n => n.USER_ID == currentUser.USER_ID).SUBSCRIPTION;
+                App.currentUser.SUBSCRIPTION = App.db.USERS.FirstOrDefault(n => n.USER_ID == App.currentUser.USER_ID).SUBSCRIPTION;
 
                 string money = Month < 3 ? "8.99" : "85.99";
 
-                string message = String.Format($"Здравствуйте, {currentUser.NAME}. " +
+                string message = String.Format($"Здравствуйте, {App.currentUser.NAME}. " +
                     $"Вы только что оформили BookВарь:абонемент  за {money}$. " +
                     $"Наслаждайтесь прочтением множества книг доступных по подписке целый(ых) {Month} месяц(ев)!");
-                MessageSender.SendEmailAsync(currentUser.EMAIL, "", message, "Оформление подписки").GetAwaiter();
+                MessageSender.SendEmailAsync(App.currentUser.EMAIL, "", message, "Оформление подписки").GetAwaiter();
                 notifier.ShowSuccess("Подписка успешно оформлена");
             }
             catch(Exception ex)

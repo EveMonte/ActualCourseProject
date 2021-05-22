@@ -9,7 +9,6 @@ namespace Курсач.ViewModels
     public class WorkframeViewModel : BaseViewModel
     {
         #region Data
-        public USERS currentUser;
         private BaseViewModel _currentPage;
         public BaseViewModel CurrentPageViewModel
         {
@@ -25,7 +24,6 @@ namespace Курсач.ViewModels
         }
 
         BOOKS selectedBook;
-        //object selectedBook;
         public ObservableCollection<BOOKS> Books { get; private set; }
         public BOOKS SelectedBook
         {
@@ -87,10 +85,9 @@ namespace Курсач.ViewModels
         public ICommand CloseCommand { get; private set; }
         #endregion
 
-        public WorkframeViewModel(USERS user)
+        public WorkframeViewModel()
         {
-            currentUser = user;
-            CurrentPageViewModel = new ListOfBooksViewModel(currentUser);
+            CurrentPageViewModel = new ListOfBooksViewModel();
             OpenUserCommand = new DelegateCommand(OpenUser);
             OpenListOfBooksCommand = new DelegateCommand(OpenListOfBooks);
             OpenYourBooksCommand = new DelegateCommand(OpenYourBooks);
@@ -99,7 +96,6 @@ namespace Курсач.ViewModels
             SettingsCommand = new DelegateCommand(OpenSettings);
             CloseCommand = new DelegateCommand(Close);
         }
-
 
         #region Commands' Logic
 
@@ -121,7 +117,7 @@ namespace Курсач.ViewModels
 
         private void OpenUser(object obj)
         {
-            CurrentPageViewModel = new UserPageVM(currentUser);
+            CurrentPageViewModel = new UserPageVM();
         }
 
         private void OpenBasket(object obj)
@@ -136,7 +132,7 @@ namespace Курсач.ViewModels
 
         private void OpenListOfBooks(object obj)
         {
-            CurrentPageViewModel = new ListOfBooksViewModel(currentUser);
+            CurrentPageViewModel = new ListOfBooksViewModel();
         }
 
         #endregion
