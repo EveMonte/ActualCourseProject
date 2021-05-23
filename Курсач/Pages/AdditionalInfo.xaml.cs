@@ -24,7 +24,6 @@ namespace Курсач.Pages
         public AdditionalInfo()
         {
             InitializeComponent();
-            //DataContext = new AdditionalInfoViewModel();
         }
     }
 }

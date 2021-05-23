@@ -18,7 +18,6 @@ namespace Курсач.ViewModels
     class BasketVM : BaseViewModel
     {
         #region Data
-        Notifier notifier;
 
         private ObservableCollection<BOOKS> books;
 
@@ -92,29 +91,6 @@ namespace Курсач.ViewModels
 
             ////////////////////////////////////////////
 
-            Workframe thisWin = null;
-            foreach (Window win in Application.Current.Windows)
-            {
-                if (win is Workframe)
-                {
-                    thisWin = win as Workframe;
-                }
-            }
-            notifier = new Notifier(cfg =>
-            {
-                cfg.PositionProvider = new WindowPositionProvider(
-                    parentWindow: thisWin,
-                    corner: Corner.BottomRight,
-                    offsetX: 10,
-                    offsetY: 10);
-
-                cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
-                    notificationLifetime: TimeSpan.FromSeconds(5),
-                    maximumNotificationCount: MaximumNotificationCount.FromCount(5));
-
-                cfg.Dispatcher = Application.Current.Dispatcher;
-            });
-
             Books = new ObservableCollection<BOOKS>();
 
             var basketBooks = App.db.BASKETS.Where(n => n.USER_ID == App.currentUser.USER_ID);
@@ -169,7 +145,7 @@ namespace Курсач.ViewModels
             }
             catch (Exception ex)
             {
-                notifier.ShowError(ex.Message);
+                App.notifier.ShowError(ex.Message);
             }
         }
         private void BuyTheBook(object obj) // buy book, if user don't have credit card let him add it
@@ -182,12 +158,12 @@ namespace Курсач.ViewModels
                 }
                 else
                 {
-                    notifier.ShowWarning("Вы уже приобрели эту книгу");
+                    App.notifier.ShowWarning("Вы уже приобрели эту книгу");
                 }
             }
             else
             {
-                notifier.ShowWarning("Для того чтобы купить книгу, необходимо добавить карту");
+                App.notifier.ShowWarning("Для того чтобы купить книгу, необходимо добавить карту");
                 WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new BaseDialogWindowVM(new AddCreditCardVM());
             }
         }
@@ -251,7 +227,7 @@ namespace Курсач.ViewModels
             }
             catch(Exception ex)
             {
-                notifier.ShowError(ex.Message);
+                App.notifier.ShowError(ex.Message);
             }
         }
 

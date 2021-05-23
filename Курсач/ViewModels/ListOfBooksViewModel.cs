@@ -143,7 +143,6 @@ namespace Курсач.ViewModels
         {
             try 
             {
-                App.CreateNotifier();
                 Books = new ObservableCollection<BOOKS>(App.db.BOOKS);
                 var shelfBooks = App.db.YOUR_BOOKS.Where(n => n.USER_ID == App.currentUser.USER_ID);
                 foreach (var book in shelfBooks)
@@ -201,7 +200,7 @@ namespace Курсач.ViewModels
                 count = ListOfAdvertisement.Count();
                 currentIndex = 1;
                 timer.Tick += new EventHandler(timerTick);
-                timer.Interval = new TimeSpan(0, 0, 0, 0, 8);
+                timer.Interval = new TimeSpan(0, 0, 1);
                 timer.Start();
             }
             else

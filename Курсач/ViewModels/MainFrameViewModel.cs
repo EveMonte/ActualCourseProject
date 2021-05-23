@@ -31,7 +31,6 @@ namespace Курсач.ViewModels
         public ICommand RegistrationCommand { get; private set; } // Команда открытия user control'а с формой регистрации
         #endregion
 
-
         //Конструктор
         public MainFrameViewModel()
         {

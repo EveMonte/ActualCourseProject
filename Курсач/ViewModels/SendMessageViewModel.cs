@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
+using ToastNotifications.Messages;
 using Курсач.Methods;
 using Курсач.Singleton;
 
@@ -41,6 +42,7 @@ namespace Курсач.ViewModels
                     App.db.SaveChangesAsync().GetAwaiter();
                     App.currentUser = newUser;
                     Workframe workframe = new Workframe();
+                    App.CreateNotifier(workframe);
                     workframe.Show();
                     WorkFrameSingleTone.GetInstance(new WorkframeViewModel());
                     var windows = Application.Current.Windows;
@@ -48,12 +50,15 @@ namespace Курсач.ViewModels
                         if (window != null && window is MainWindow)
                             window.Close();
                 }
-                else return;
+                else 
+                {
+                    App.notifier.ShowWarning("Неправильный код");
+                }
             }
             
             catch(Exception ex)
             {
-                
+                App.notifier.ShowError(ex.Message);
             }
         }
         private void SendNewMessage(object obj)

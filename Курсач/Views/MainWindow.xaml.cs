@@ -15,10 +15,5 @@ namespace Курсач
             DataContext = MainWindowViewModelSingleton.GetInstance(new MainFrameViewModel()).MainFrameViewModel;
             InitializeComponent();
         }
-
-        private void Apply_Click(object sender, RoutedEventArgs e)
-        {
-            Environment.Exit(0);
-        }
     }
 }

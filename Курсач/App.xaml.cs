@@ -30,21 +30,12 @@ namespace Курсач
 				return m_Languages;
 			}
 		}
-		public static void CreateNotifier()
+		public static void CreateNotifier(Window window)
         {
-			Workframe thisWin = null;
-			foreach (Window win in Application.Current.Windows)
-			{
-				if (win is Workframe)
-				{
-					thisWin = win as Workframe;
-				}
-			}
-
 			notifier = new Notifier(cfg =>
 			{
 				cfg.PositionProvider = new WindowPositionProvider(
-					parentWindow: thisWin,
+					parentWindow: window,
 					corner: Corner.BottomRight,
 					offsetX: 10,
 					offsetY: 10);
@@ -56,6 +47,14 @@ namespace Курсач
 				cfg.Dispatcher = Application.Current.Dispatcher;
 			});
 		}
+
+		private void OnStartup(object sender, StartupEventArgs e)
+		{
+			MainWindow view = new Курсач.MainWindow(); // создали View
+			CreateNotifier(view);
+			view.Show();
+		}
+
 		private void Application_LoadCompleted(object sender, System.Windows.Navigation.NavigationEventArgs e)
 		{
 			Language = Курсач.Properties.Settings.Default.DefaultLanguage;

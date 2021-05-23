@@ -24,7 +24,6 @@ namespace Курсач.Pages
         public YourBooks()
         {
             InitializeComponent();
-            DataContext = new YourBooksViewModel();
         }
     }
 }

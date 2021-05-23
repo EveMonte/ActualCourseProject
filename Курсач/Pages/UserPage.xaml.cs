@@ -24,16 +24,6 @@ namespace Курсач.Pages
         public UserPage()
         {
             InitializeComponent();
-            //DataContext = new UserPageVM();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            passwordStk.Visibility = Visibility.Visible;
-        }
-        private void Button_Click_Email(object sender, RoutedEventArgs e)
-        {
-            //emailStk.Visibility = Visibility.Visible;
         }
     }
 }

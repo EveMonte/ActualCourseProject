@@ -17,7 +17,6 @@ namespace Курсач.ViewModels
         #region Data
         SaltedHash sh;
         USERS currentUser;
-        Notifier notifier;
 
         public USERS CurrentUser
         {
@@ -73,10 +72,10 @@ namespace Курсач.ViewModels
             {
                 if (Email == null || Email == "")
                 {
-                    notifier.ShowWarning("Поле для Email не должно быть пустым!");
+                    App.notifier.ShowWarning("Поле для Email не должно быть пустым!");
                     if (Password == null)
                     {
-                        notifier.ShowWarning("Поле для пароля не должно быть пустым!");
+                        App.notifier.ShowWarning("Поле для пароля не должно быть пустым!");
                     }
                     return;
                 }
@@ -84,7 +83,7 @@ namespace Курсач.ViewModels
                 {
                     if (Password == null)
                     {
-                        notifier.ShowWarning("Поле для пароля не должно быть пустым!");
+                        App.notifier.ShowWarning("Поле для пароля не должно быть пустым!");
                         return;
                     }
                 }
@@ -104,12 +103,14 @@ namespace Курсач.ViewModels
                             AdminWindowSingleTone.GetInstance().AdminVM.CurrentPageViewModel = new ListOfBooksAdminVM(AdminWindowSingleTone.GetInstance().AdminVM.Books);
                             AdminWindowSingleTone.GetInstance().AdminVM.ButtonVisibility = u.ACCOUNT == "Администратор" ? "Visible" : "Collapsed";
                             AdminWindow adminWindow = new AdminWindow();
+                            App.CreateNotifier(adminWindow);
                             adminWindow.Show();
                         }
                         else
                         {
                             App.currentUser = u;
                             Workframe workframe = new Workframe();
+                            App.CreateNotifier(workframe);
                             workframe.Show();
                             WorkFrameSingleTone.GetInstance(new WorkframeViewModel());
                         }
@@ -125,7 +126,7 @@ namespace Курсач.ViewModels
                 }
                 if (flag)
                 {
-                    notifier.ShowWarning("Пользователя с таким Email или паролем не существует." +
+                    App.notifier.ShowWarning("Пользователя с таким Email или паролем не существует." +
                         "\nПроверьте правильность введенных данных");
                 }
             }
@@ -145,31 +146,7 @@ namespace Курсач.ViewModels
         {
             OpenRegisterControlCommand = new DelegateCommand(OpenRegisterWindow);
             OpenWorkFrameCommand = new DelegateCommand(OpenWorkFrame);
-            ForgotPasswordCommand = new DelegateCommand(ForgotPassword);
-
-            MainWindow thisWin = null;
-            foreach (Window win in Application.Current.Windows)
-            {
-                if (win is MainWindow)
-                {
-                    thisWin = win as MainWindow;
-                }
-            }
-
-            notifier = new Notifier(cfg =>
-            {
-                cfg.PositionProvider = new WindowPositionProvider(
-                    parentWindow: thisWin,
-                    corner: Corner.BottomRight,
-                    offsetX: 10,
-                    offsetY: 10);
-
-                cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
-                    notificationLifetime: TimeSpan.FromSeconds(5),
-                    maximumNotificationCount: MaximumNotificationCount.FromCount(5));
-
-                cfg.Dispatcher = Application.Current.Dispatcher;
-            });            
+            ForgotPasswordCommand = new DelegateCommand(ForgotPassword);        
         }
 
         private void ForgotPassword(object obj)

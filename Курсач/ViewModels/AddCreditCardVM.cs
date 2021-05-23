@@ -15,7 +15,6 @@ namespace Курсач.ViewModels
     public class AddCreditCardVM : BaseViewModel
     {
         #region Data
-        Notifier notifier;
 
         private string creditCard = "";
         public string CREDIT_CARD
@@ -122,43 +121,6 @@ namespace Курсач.ViewModels
             AddCardCommand = new DelegateCommand(AddCard);
             RemoveCardCommand = new DelegateCommand(RemoveCard);
             ///////////////////////////////////////////////
-            Window thisWin = null;
-            if(App.currentUser.ACCOUNT == "Пользователь")
-            {
-                foreach (Window win in Application.Current.Windows)
-                {
-                    if (win is Workframe)
-                    {
-                        thisWin = win as Workframe;
-                    }
-                }
-            }
-            else
-            {
-                foreach (Window win in Application.Current.Windows)
-                {
-                    if (win is AdminWindow)
-                    {
-                        thisWin = win as AdminWindow;
-                    }
-                }
-            }
-
-            notifier = new Notifier(cfg =>
-            {
-                cfg.PositionProvider = new WindowPositionProvider(
-                    parentWindow: thisWin,
-                    corner: Corner.BottomRight,
-                    offsetX: 10,
-                    offsetY: 10);
-
-                cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
-                    notificationLifetime: TimeSpan.FromSeconds(5),
-                    maximumNotificationCount: MaximumNotificationCount.FromCount(5));
-
-                cfg.Dispatcher = Application.Current.Dispatcher;
-            });
-
         }
 
         private void RemoveCard(object obj)
@@ -209,15 +171,15 @@ namespace Курсач.ViewModels
                     return;
                 }
                 user.CREDIT_CARD = CREDIT_CARD;
-                App.db.SaveChangesAsync().GetAwaiter();
+                App.db.SaveChanges();
                 App.currentUser.CREDIT_CARD = CREDIT_CARD;
             }
             catch(Exception ex)
             {
-                notifier.ShowError(ex.Message);
+                App.notifier.ShowError(ex.Message);
             }
             Close(obj); // Close User control
-            notifier.ShowSuccess("Карта успешно добавлена");
+            App.notifier.ShowSuccess("Карта успешно добавлена");
         }
 
         private void Close(object obj) // Close user control
@@ -227,7 +189,6 @@ namespace Курсач.ViewModels
                 WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = null; //viewmodel in content control = null
                 WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Collapsed"; // deactivate dark area
                 WorkFrameSingleTone.GetInstance().WorkframeViewModel.Blur = 0; // deactivate dark area
-                WorkFrameSingleTone.GetInstance().WorkframeViewModel.CurrentPageViewModel = new UserPageVM();
             }
             else
             {

@@ -442,8 +442,19 @@ namespace Курсач.ViewModels
         }
 
         public void OpenRegistrationWindow(object obj) // Выйти в окно регистрации
-        {            
-            (new MainWindow()).Show();
+        {
+            MainWindow win = new MainWindow();
+            win.Show();
+            App.CreateNotifier(win);
+            MainWindowViewModelSingleton.GetInstance().MainFrameViewModel.SelectedViewModel = new RegisterViewModel();
+            if(App.currentUser.ACCOUNT == "Пользователь")
+            {
+                WorkFrameSingleTone.GetInstance().WorkframeViewModel.CurrentPageViewModel = new ListOfBooksViewModel();
+            }
+            else
+            {
+                AdminWindowSingleTone.GetInstance().AdminVM.CurrentPageViewModel = new ListOfBooksViewModel();
+            }
             var windows = Application.Current.Windows;
             foreach(Window window in windows)
                 if (window is Workframe || window is AdminWindow)

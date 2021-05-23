@@ -15,7 +15,6 @@ namespace Курсач.ViewModels
     public class AdditionalInfoViewModel : BaseViewModel
     {
         #region Data
-        private Notifier notifier;
         private ObservableCollection<BOOKS> books;
         public ObservableCollection<BOOKS> Books // Similar books
         {
@@ -82,7 +81,7 @@ namespace Курсач.ViewModels
             }
             catch (Exception ex)
             {
-                notifier.ShowError(ex.Message);
+                App.notifier.ShowError(ex.Message);
             }
 
             CreateSimilarBooks(); // create collection of similar books
@@ -130,7 +129,7 @@ namespace Курсач.ViewModels
                         App.db.SaveChangesAsync().GetAwaiter();
                         try
                         {
-                            notifier.ShowSuccess("Книга успешно добавлена в корзину");
+                            App.notifier.ShowSuccess("Книга успешно добавлена в корзину");
                         }
                         catch (Exception ex)
                         {
@@ -139,17 +138,17 @@ namespace Курсач.ViewModels
                     }
                     else
                     {
-                        notifier.ShowWarning("Вы уже приобрели эту книгу");
+                        App.notifier.ShowWarning("Вы уже приобрели эту книгу");
                     }
                 }
                 else
                 {
-                    notifier.ShowWarning("Эта книга уже у вас в корзине");
+                    App.notifier.ShowWarning("Эта книга уже у вас в корзине");
                 }
             }
             catch (Exception ex)
             {
-                notifier.ShowError(ex.Message);
+                App.notifier.ShowError(ex.Message);
             }
         }
 
@@ -182,7 +181,7 @@ namespace Курсач.ViewModels
             }
             catch(Exception ex)
             {
-                notifier.ShowError(ex.Message);
+                App.notifier.ShowError(ex.Message);
             }
 
             FullInfoViewModelSingleTone.GetInstance().FullInfoViewModel.CurrentBook = new BOOKS(); // to trigger OnPropertyChanged and update info in FullInfoUserControl
@@ -220,12 +219,13 @@ namespace Курсач.ViewModels
                 newBook.USER_ID = App.currentUser.USER_ID;
                 App.db.YOUR_BOOKS.Add(newBook);
                 App.db.SaveChangesAsync().GetAwaiter();
+                App.notifier.ShowSuccess("Книга добавлена на полку");
             }
             else
             {
                 try
                 {
-                    notifier.ShowWarning("Книга уже у вас на полке");
+                    App.notifier.ShowWarning("Книга уже у вас на полке");
 
                 }
                 catch(Exception ex)
@@ -247,12 +247,12 @@ namespace Курсач.ViewModels
                 }
                 else
                 {
-                    notifier.ShowWarning("Вы уже приобрели эту книгу");
+                    App.notifier.ShowWarning("Вы уже приобрели эту книгу");
                 }
             }
             else
             {
-                notifier.ShowWarning("Для того чтобы купить книгу, необходимо добавить карту");
+                App.notifier.ShowWarning("Для того чтобы купить книгу, необходимо добавить карту");
                 WorkFrameSingleTone.GetInstance().WorkframeViewModel.AddCreditCardViewModel = new AddCreditCardVM();
                 WorkFrameSingleTone.GetInstance().WorkframeViewModel.Visibility = "Visible";
                 WorkFrameSingleTone.GetInstance().WorkframeViewModel.Blur = 3;
@@ -287,28 +287,6 @@ namespace Курсач.ViewModels
             }
 
             CreateSimilarBooks();
-            Workframe thisWin = null;
-            foreach (Window win in Application.Current.Windows)
-            {
-                if (win is Workframe)
-                {
-                    thisWin = win as Workframe;
-                }
-            }
-            notifier = new Notifier(cfg =>
-                    {
-                        cfg.PositionProvider = new WindowPositionProvider(
-                                parentWindow: thisWin,
-                            corner: Corner.BottomRight,
-                            offsetX: 10,
-                            offsetY: 10);
-
-                        cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
-                            notificationLifetime: TimeSpan.FromSeconds(5),
-                            maximumNotificationCount: MaximumNotificationCount.FromCount(5));
-
-                        cfg.Dispatcher = Application.Current.Dispatcher;
-                    });
 
             //DelegateCommand
             OpenFullInfo = new DelegateCommand(OpenFullInfoUserControl);

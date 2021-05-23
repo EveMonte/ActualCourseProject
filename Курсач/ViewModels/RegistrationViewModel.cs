@@ -20,7 +20,6 @@ namespace Курсач.ViewModels
     {
         #region Data
         SaltedHash sh;
-        Notifier notifier;
         private BaseViewModel _selectedViewModel;
         public BaseViewModel SelectedViewModel
         {
@@ -166,7 +165,7 @@ namespace Курсач.ViewModels
                     thisWin = win as MainWindow;
                 }
             }
-            notifier = new Notifier(cfg =>
+            App.notifier = new Notifier(cfg =>
             {
                 cfg.PositionProvider = new WindowPositionProvider(
                     parentWindow: Application.Current.MainWindow,
@@ -196,7 +195,7 @@ namespace Курсач.ViewModels
             {
                 if (App.db.USERS.FirstOrDefault(n => n.EMAIL == Email) != null)
                 {
-                    notifier.ShowWarning("Пользователь с таким Email уже существует");
+                    App.notifier.ShowWarning("Пользователь с таким Email уже существует");
                     return;
                 }
                 

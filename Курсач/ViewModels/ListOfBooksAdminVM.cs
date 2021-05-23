@@ -21,7 +21,6 @@ namespace Курсач.ViewModels
     {
         #region Data
 
-        Notifier notifier;
         private ObservableCollection<BOOKS> books;
         public ObservableCollection<BOOKS> Books
         {
@@ -141,30 +140,6 @@ namespace Курсач.ViewModels
             GetBooksCommand = new DelegateCommand(GetBooks);
             ClearCommand = new DelegateCommand(ClearFilter);
 
-            AdminWindow thisWin = null;
-            foreach (Window win in Application.Current.Windows)
-            {
-                if (win is AdminWindow)
-                {
-                    thisWin = win as AdminWindow;
-                }
-            }
-
-            notifier = new Notifier(cfg =>
-            {
-                cfg.PositionProvider = new WindowPositionProvider(
-                    parentWindow: thisWin,
-                    corner: Corner.BottomRight,
-                    offsetX: 10,
-                    offsetY: 10);
-
-                cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
-                    notificationLifetime: TimeSpan.FromSeconds(5),
-                    maximumNotificationCount: MaximumNotificationCount.FromCount(5));
-
-                cfg.Dispatcher = Application.Current.Dispatcher;
-            });
-
             Items = CollectionViewSource.GetDefaultView(Books);
             Items.Filter = Search;
             FindByGenreCommand = new DelegateCommand(FindByGenre);
@@ -200,7 +175,7 @@ namespace Курсач.ViewModels
             }
             catch (Exception ex)
             {
-                notifier.ShowError(ex.Message);
+                App.notifier.ShowError(ex.Message);
             }
         }
 
@@ -209,6 +184,7 @@ namespace Курсач.ViewModels
             Books = new ObservableCollection<BOOKS>(App.db.BOOKS);
             AdminWindowSingleTone.GetInstance().AdminVM.Books = Books;
             AdminWindowSingleTone.GetInstance().AdminVM.CurrentPageViewModel = new ListOfBooksAdminVM(Books);
+            App.notifier.ShowSuccess("Данные в коллекции обновлены");
         }
 
         private void SaveBooks(object obj)//Save books to database
@@ -244,10 +220,11 @@ namespace Курсач.ViewModels
                     App.db.BOOKS.RemoveRange(listToDelete);
                 listToDelete = null;
                 App.db.SaveChangesAsync().GetAwaiter();
+                App.notifier.ShowSuccess("Изменения в БД сохранены успешно");
             }
             catch(Exception ex)
             {
-                notifier.ShowError(ex.Message);
+                App.notifier.ShowError(ex.Message);
             }
         }
         bool CanRemoveBook(object arg)
@@ -258,10 +235,12 @@ namespace Курсач.ViewModels
         void RemoveBook(object obj)//Remove selected row from datagrid
         {
             Books.Remove((BOOKS)obj);
+            App.notifier.ShowSuccess("Книга успешно удалена");
         }
         private void AddBook(object obj) //Add new row to datagrid
         {
             Books.Add(new BOOKS {AUTHOR = "Автор", TITLE = "Название книги", DESCRIPTION = "Описание" });
+            App.notifier.ShowSuccess("Книга успешно добавлена");
         }
         #region Filter
         public string Text

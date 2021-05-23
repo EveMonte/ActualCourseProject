@@ -119,6 +119,7 @@
                            Text="{DynamicResource m_Author}" />
                     <TextBox FontSize="16"
                              MaxLength="50"
+                             Width="200"
                            Text="{Binding AUTHOR}" />
                     <ComboBox SelectedValuePath="Content"
                               Margin="25 0"

@@ -24,7 +24,6 @@ namespace Курсач.Pages
         public SubscriptionPage()
         {
             InitializeComponent();
-            DataContext = new SubscriptionVM();
         }
     }
 }

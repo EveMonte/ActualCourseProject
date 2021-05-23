@@ -5,7 +5,7 @@
              xmlns:userControls="clr-namespace:Курсач.UserControls"
              xmlns:pages="clr-namespace:Курсач.Pages"
              xmlns:viewmodels="clr-namespace:Курсач.ViewModels"
-             StartupUri="Views\MainWindow.xaml"
+             Startup="OnStartup"
              ShutdownMode="OnLastWindowClose"
              LoadCompleted="Application_LoadCompleted">
     <Application.Resources>
