@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="Хранилище LIBRARYModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ADVERTISEMENT">
+    <Key>
+      <PropertyRef Name="ADV_ID" />
+    </Key>
+    <Property Name="ADV_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IMAGE_SOURCE" Type="varchar" MaxLength="150" />
+    <Property Name="LINK" Type="varchar" MaxLength="150" />
+  </EntityType>
   <EntityType Name="BASKETS">
     <Key>
       <PropertyRef Name="BASKET_ID" />
@@ -13,17 +21,15 @@
       <PropertyRef Name="BOOK_ID" />
     </Key>
     <Property Name="BOOK_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="TITLE" Type="varchar" MaxLength="65" Nullable="false" />
+    <Property Name="TITLE" Type="varchar" MaxLength="65" />
     <Property Name="AUTHOR" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="GENRE" Type="int" />
-    <Property Name="YEAR" Type="int" Nullable="false" />
     <Property Name="PRICE" Type="smallmoney" Nullable="false" />
-    <Property Name="COVER" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="COVER" Type="varchar" MaxLength="100" Nullable="true" />
     <Property Name="CATEGORY" Type="varchar" MaxLength="10" />
     <Property Name="RATING" Type="numeric" Precision="3" Scale="2" Nullable="false" />
-    <Property Name="PAGES" Type="int" Nullable="false" />
     <Property Name="DESCRIPTION" Type="nvarchar" MaxLength="800" Nullable="false" />
-    <Property Name="LINK" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="LINK" Type="varchar" MaxLength="150" />
   </EntityType>
   <EntityType Name="GENRES">
     <Key>
@@ -47,7 +53,7 @@
     </Key>
     <Property Name="SUBSCRIPTION_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="SUBSCRIPTION_DATE" Type="datetime" Nullable="false" />
-    <Property Name="LENGTH" Type="int" Nullable="true" />
+    <Property Name="LENGTH" Type="int" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -177,6 +183,7 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="Хранилище LIBRARYModelContainer">
+    <EntitySet Name="ADVERTISEMENT" EntityType="Self.ADVERTISEMENT" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BASKETS" EntityType="Self.BASKETS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BOOKS" EntityType="Self.BOOKS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GENRES" EntityType="Self.GENRES" Schema="dbo" store:Type="Tables" />

@@ -24,12 +24,10 @@
     <Property Name="TITLE" Type="varchar" MaxLength="65" />
     <Property Name="AUTHOR" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="GENRE" Type="int" />
-    <Property Name="YEAR" Type="int" Nullable="false" />
     <Property Name="PRICE" Type="smallmoney" Nullable="false" />
-    <Property Name="COVER" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="COVER" Type="varchar" MaxLength="100" Nullable="true" />
     <Property Name="CATEGORY" Type="varchar" MaxLength="10" />
     <Property Name="RATING" Type="numeric" Precision="3" Scale="2" Nullable="false" />
-    <Property Name="PAGES" Type="int" Nullable="false" />
     <Property Name="DESCRIPTION" Type="nvarchar" MaxLength="800" Nullable="false" />
     <Property Name="LINK" Type="varchar" MaxLength="150" />
   </EntityType>

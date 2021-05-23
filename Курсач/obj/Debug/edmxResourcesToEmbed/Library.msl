@@ -26,12 +26,10 @@
           <ScalarProperty Name="TITLE" ColumnName="TITLE" />
           <ScalarProperty Name="AUTHOR" ColumnName="AUTHOR" />
           <ScalarProperty Name="GENRE" ColumnName="GENRE" />
-          <ScalarProperty Name="YEAR" ColumnName="YEAR" />
           <ScalarProperty Name="PRICE" ColumnName="PRICE" />
           <ScalarProperty Name="COVER" ColumnName="COVER" />
           <ScalarProperty Name="CATEGORY" ColumnName="CATEGORY" />
           <ScalarProperty Name="RATING" ColumnName="RATING" />
-          <ScalarProperty Name="PAGES" ColumnName="PAGES" />
           <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
           <ScalarProperty Name="LINK" ColumnName="LINK" />
         </MappingFragment>

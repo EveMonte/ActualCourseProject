@@ -23,7 +23,6 @@ namespace Курсач.UserControls
         public AddCreditCard()
         {
             InitializeComponent();
-            //DataContext = new 
         }
     }
 }

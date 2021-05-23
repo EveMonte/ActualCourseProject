@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using ToastNotifications;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Messages;
+using ToastNotifications.Position;
 using Курсач.Methods;
 using Курсач.Singleton;
 
@@ -16,6 +20,8 @@ namespace Курсач.ViewModels
     public class ListOfBooksAdminVM : BaseViewModel
     {
         #region Data
+
+        Notifier notifier;
         private ObservableCollection<BOOKS> books;
         public ObservableCollection<BOOKS> Books
         {
@@ -135,6 +141,30 @@ namespace Курсач.ViewModels
             GetBooksCommand = new DelegateCommand(GetBooks);
             ClearCommand = new DelegateCommand(ClearFilter);
 
+            AdminWindow thisWin = null;
+            foreach (Window win in Application.Current.Windows)
+            {
+                if (win is AdminWindow)
+                {
+                    thisWin = win as AdminWindow;
+                }
+            }
+
+            notifier = new Notifier(cfg =>
+            {
+                cfg.PositionProvider = new WindowPositionProvider(
+                    parentWindow: thisWin,
+                    corner: Corner.BottomRight,
+                    offsetX: 10,
+                    offsetY: 10);
+
+                cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+                    notificationLifetime: TimeSpan.FromSeconds(5),
+                    maximumNotificationCount: MaximumNotificationCount.FromCount(5));
+
+                cfg.Dispatcher = Application.Current.Dispatcher;
+            });
+
             Items = CollectionViewSource.GetDefaultView(Books);
             Items.Filter = Search;
             FindByGenreCommand = new DelegateCommand(FindByGenre);
@@ -170,7 +200,7 @@ namespace Курсач.ViewModels
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
+                notifier.ShowError(ex.Message);
             }
         }
 
@@ -210,13 +240,14 @@ namespace Курсач.ViewModels
                         listToDelete.Add(book);
                     }
                 }
-                App.db.BOOKS.RemoveRange(listToDelete);
+                if(listToDelete != null)
+                    App.db.BOOKS.RemoveRange(listToDelete);
                 listToDelete = null;
                 App.db.SaveChangesAsync().GetAwaiter();
             }
-            catch
+            catch(Exception ex)
             {
-
+                notifier.ShowError(ex.Message);
             }
         }
         bool CanRemoveBook(object arg)
@@ -230,7 +261,7 @@ namespace Курсач.ViewModels
         }
         private void AddBook(object obj) //Add new row to datagrid
         {
-            Books.Add(new BOOKS());
+            Books.Add(new BOOKS {AUTHOR = "Автор", TITLE = "Название книги", DESCRIPTION = "Описание" });
         }
         #region Filter
         public string Text

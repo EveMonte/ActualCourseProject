@@ -24,7 +24,6 @@ namespace Курсач.UserControls
         public YourBook()
         {
             InitializeComponent();
-            //DataContext = new YourBookViewModel();
         }
     }
 }

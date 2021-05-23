@@ -33,23 +33,27 @@ namespace Курсач.ViewModels
         }
         public void OpenWorkframe(object parameter)
         {
-            if (code == generatedCode)
+            try 
             {
-                App.db.USERS.Add(newUser);
-                App.db.SaveChangesAsync().GetAwaiter();
-                WorkFrameSingleTone.GetInstance(new WorkframeViewModel());
-
-                Workframe workframe = new Workframe();
-                workframe.Show();
-                foreach (Window window in Application.Current.Windows)
+                if (code == generatedCode)
                 {
-                    if (window is MainWindow)
-                    {
-                        window.Close();
-                        break;
-                    }
+                    App.db.USERS.Add(newUser);
+                    App.db.SaveChangesAsync().GetAwaiter();
+                    App.currentUser = newUser;
+                    Workframe workframe = new Workframe();
+                    workframe.Show();
+                    WorkFrameSingleTone.GetInstance(new WorkframeViewModel());
+                    var windows = Application.Current.Windows;
+                    foreach (Window window in windows)
+                        if (window != null && window is MainWindow)
+                            window.Close();
                 }
-                MainWindowViewModelSingleton.GetInstance().MainFrameViewModel.SelectedViewModel = new RegisterViewModel();
+                else return;
+            }
+            
+            catch(Exception ex)
+            {
+                
             }
         }
         private void SendNewMessage(object obj)

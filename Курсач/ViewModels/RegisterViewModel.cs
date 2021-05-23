@@ -109,10 +109,9 @@ namespace Курсач.ViewModels
                         else
                         {
                             App.currentUser = u;
-                            WorkFrameSingleTone.GetInstance(new WorkframeViewModel());
-                            WorkFrameSingleTone.GetInstance().WorkframeViewModel.CurrentPageViewModel = new ListOfBooksViewModel();
                             Workframe workframe = new Workframe();
                             workframe.Show();
+                            WorkFrameSingleTone.GetInstance(new WorkframeViewModel());
                         }
 
                         var windows = Application.Current.Windows;

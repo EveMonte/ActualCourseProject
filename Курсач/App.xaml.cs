@@ -7,6 +7,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using ToastNotifications;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Position;
 
 namespace Курсач
 {
@@ -17,6 +20,7 @@ namespace Курсач
     {
 		public static LIBRARYEntities db = new LIBRARYEntities();
 		public static USERS currentUser;
+		public static Notifier notifier;
 		private static List<CultureInfo> m_Languages = new List<CultureInfo>();
 
 		public static List<CultureInfo> Languages
@@ -25,6 +29,32 @@ namespace Курсач
 			{
 				return m_Languages;
 			}
+		}
+		public static void CreateNotifier()
+        {
+			Workframe thisWin = null;
+			foreach (Window win in Application.Current.Windows)
+			{
+				if (win is Workframe)
+				{
+					thisWin = win as Workframe;
+				}
+			}
+
+			notifier = new Notifier(cfg =>
+			{
+				cfg.PositionProvider = new WindowPositionProvider(
+					parentWindow: thisWin,
+					corner: Corner.BottomRight,
+					offsetX: 10,
+					offsetY: 10);
+
+				cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+					notificationLifetime: TimeSpan.FromSeconds(5),
+					maximumNotificationCount: MaximumNotificationCount.FromCount(5));
+
+				cfg.Dispatcher = Application.Current.Dispatcher;
+			});
 		}
 		private void Application_LoadCompleted(object sender, System.Windows.Navigation.NavigationEventArgs e)
 		{

@@ -24,7 +24,6 @@ namespace Курсач
         public RegisterControl()
         {
             InitializeComponent();
-            DataContext = new RegistrationViewModel();
-        }
+       }
     }
 }

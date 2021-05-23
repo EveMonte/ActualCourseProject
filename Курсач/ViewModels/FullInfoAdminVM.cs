@@ -99,10 +99,19 @@ namespace Курсач.ViewModels
             AddNewGenreCommand = new DelegateCommand(AddNewGenre);
             RemoveGenreCommand = new DelegateCommand(RemoveGenre);
 
+            AdminWindow thisWin = null;
+            foreach (Window win in Application.Current.Windows)
+            {
+                if (win is AdminWindow)
+                {
+                    thisWin = win as AdminWindow;
+                }
+            }
+
             notifier = new Notifier(cfg =>
             {
                 cfg.PositionProvider = new WindowPositionProvider(
-                    parentWindow: Application.Current.MainWindow,
+                    parentWindow: thisWin,
                     corner: Corner.BottomRight,
                     offsetX: 10,
                     offsetY: 10);
@@ -178,8 +187,15 @@ namespace Курсач.ViewModels
             {
                 CurrentBook.GENRE = App.db.GENRES.FirstOrDefault(n => n.GENRE == SelectedGenre.GENRE).GENRE_ID;
             }
-            AdminWindowSingleTone.GetInstance().AdminVM.CurrentPageViewModel = new ListOfBooksAdminVM(AdminWindowSingleTone.GetInstance().AdminVM.Books);
-            notifier.ShowSuccess("Изменения успешно сохранены");
+            if(CurrentBook.CATEGORY != null && CurrentBook.AUTHOR != null && CurrentBook.DESCRIPTION != null && CurrentBook.GENRE != null && CurrentBook.LINK != null  && CurrentBook.TITLE != null)
+            {
+                AdminWindowSingleTone.GetInstance().AdminVM.CurrentPageViewModel = new ListOfBooksAdminVM(AdminWindowSingleTone.GetInstance().AdminVM.Books);
+                notifier.ShowSuccess("Изменения успешно сохранены");
+            }
+            else
+            {
+                notifier.ShowWarning("Пожалуйста, заполните все поля");
+            }
         }
     }
 }

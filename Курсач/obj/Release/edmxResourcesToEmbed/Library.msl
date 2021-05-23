@@ -1,6 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="Хранилище LIBRARYModelContainer" CdmEntityContainer="LIBRARYEntities">
+    <EntitySetMapping Name="ADVERTISEMENT">
+      <EntityTypeMapping TypeName="LIBRARYModel.ADVERTISEMENT">
+        <MappingFragment StoreEntitySet="ADVERTISEMENT">
+          <ScalarProperty Name="ADV_ID" ColumnName="ADV_ID" />
+          <ScalarProperty Name="IMAGE_SOURCE" ColumnName="IMAGE_SOURCE" />
+          <ScalarProperty Name="LINK" ColumnName="LINK" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="BASKETS">
       <EntityTypeMapping TypeName="LIBRARYModel.BASKETS">
         <MappingFragment StoreEntitySet="BASKETS">
@@ -17,12 +26,10 @@
           <ScalarProperty Name="TITLE" ColumnName="TITLE" />
           <ScalarProperty Name="AUTHOR" ColumnName="AUTHOR" />
           <ScalarProperty Name="GENRE" ColumnName="GENRE" />
-          <ScalarProperty Name="YEAR" ColumnName="YEAR" />
           <ScalarProperty Name="PRICE" ColumnName="PRICE" />
           <ScalarProperty Name="COVER" ColumnName="COVER" />
           <ScalarProperty Name="CATEGORY" ColumnName="CATEGORY" />
           <ScalarProperty Name="RATING" ColumnName="RATING" />
-          <ScalarProperty Name="PAGES" ColumnName="PAGES" />
           <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
           <ScalarProperty Name="LINK" ColumnName="LINK" />
         </MappingFragment>

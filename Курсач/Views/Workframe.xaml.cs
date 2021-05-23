@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using Курсач.Singleton;
+using Курсач.ViewModels;
 
 namespace Курсач
 {
@@ -17,8 +18,7 @@ namespace Курсач
 
         private void WorkFrame_Loaded(object sender, RoutedEventArgs e)
         {
-            WorkFrameSingleTone.GetInstance();
-            DataContext = WorkFrameSingleTone.GetInstance().WorkframeViewModel;
+            DataContext = WorkFrameSingleTone.GetInstance(new WorkframeViewModel()).WorkframeViewModel;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

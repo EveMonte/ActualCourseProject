@@ -29,12 +29,10 @@
           <Property Name="TITLE" Type="varchar" MaxLength="65" />
           <Property Name="AUTHOR" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="GENRE" Type="int" />
-          <Property Name="YEAR" Type="int" Nullable="false" />
           <Property Name="PRICE" Type="smallmoney" Nullable="false" />
-          <Property Name="COVER" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="COVER" Type="varchar" MaxLength="100" Nullable="true" />
           <Property Name="CATEGORY" Type="varchar" MaxLength="10" />
           <Property Name="RATING" Type="numeric" Precision="3" Scale="2" Nullable="false" />
-          <Property Name="PAGES" Type="int" Nullable="false" />
           <Property Name="DESCRIPTION" Type="nvarchar" MaxLength="800" Nullable="false" />
           <Property Name="LINK" Type="varchar" MaxLength="150" />
         </EntityType>
@@ -263,12 +261,10 @@
           <Property Name="TITLE" Type="String" MaxLength="65" FixedLength="false" Unicode="false" />
           <Property Name="AUTHOR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="GENRE" Type="Int32" />
-          <Property Name="YEAR" Type="Int32" Nullable="false" />
           <Property Name="PRICE" Type="Decimal" Precision="10" Scale="4" Nullable="false" />
-          <Property Name="COVER" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="COVER" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="true" />
           <Property Name="CATEGORY" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="RATING" Type="Decimal" Precision="3" Scale="2" Nullable="false" />
-          <Property Name="PAGES" Type="Int32" Nullable="false" />
           <Property Name="DESCRIPTION" Type="String" MaxLength="800" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="LINK" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="BASKETS" Relationship="Self.BASKETS_BOOK_ID_FK" FromRole="BOOKS" ToRole="BASKETS" />
@@ -511,12 +507,10 @@
                 <ScalarProperty Name="TITLE" ColumnName="TITLE" />
                 <ScalarProperty Name="AUTHOR" ColumnName="AUTHOR" />
                 <ScalarProperty Name="GENRE" ColumnName="GENRE" />
-                <ScalarProperty Name="YEAR" ColumnName="YEAR" />
                 <ScalarProperty Name="PRICE" ColumnName="PRICE" />
                 <ScalarProperty Name="COVER" ColumnName="COVER" />
                 <ScalarProperty Name="CATEGORY" ColumnName="CATEGORY" />
                 <ScalarProperty Name="RATING" ColumnName="RATING" />
-                <ScalarProperty Name="PAGES" ColumnName="PAGES" />
                 <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
                 <ScalarProperty Name="LINK" ColumnName="LINK" />
               </MappingFragment>

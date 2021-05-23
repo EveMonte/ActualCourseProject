@@ -18,7 +18,6 @@ namespace Курсач.ViewModels
     public class ListOfBooksViewModel : BaseViewModel
     {
         #region Data
-        Notifier notifier;
         private ObservableCollection<BOOKS> books;
         public ObservableCollection<BOOKS> Books
         {
@@ -142,31 +141,9 @@ namespace Курсач.ViewModels
         //Constructor
         public ListOfBooksViewModel()
         {
-            Workframe thisWin = null;
-            foreach (Window win in Application.Current.Windows)
-            {
-                if (win is Workframe)
-                {
-                    thisWin = win as Workframe;
-                }
-            }
-
-            notifier = new Notifier(cfg =>
-            {
-                cfg.PositionProvider = new WindowPositionProvider(
-                    parentWindow: thisWin,
-                    corner: Corner.BottomRight,
-                    offsetX: 10,
-                    offsetY: 10);
-
-                cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
-                    notificationLifetime: TimeSpan.FromSeconds(5),
-                    maximumNotificationCount: MaximumNotificationCount.FromCount(5));
-
-                cfg.Dispatcher = Application.Current.Dispatcher;
-            });
             try 
             {
+                App.CreateNotifier();
                 Books = new ObservableCollection<BOOKS>(App.db.BOOKS);
                 var shelfBooks = App.db.YOUR_BOOKS.Where(n => n.USER_ID == App.currentUser.USER_ID);
                 foreach (var book in shelfBooks)
@@ -193,7 +170,7 @@ namespace Курсач.ViewModels
             }
             catch(Exception ex)
             {
-                notifier.ShowError(ex.Message);
+                App.notifier.ShowError(ex.Message);
             }
             foreach (BOOKS book in Books) //check books. If book is available by subscription, we place band
             {
@@ -261,7 +238,7 @@ namespace Курсач.ViewModels
             }
             catch(Exception ex)
             {
-                notifier.ShowError(ex.Message);
+                App.notifier.ShowError(ex.Message);
             }
         }
 

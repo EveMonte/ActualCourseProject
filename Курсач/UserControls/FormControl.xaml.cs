@@ -24,25 +24,7 @@ namespace Курсач
         RegisterViewModel registerViewModel;
         public FormControl()
         {
-            registerViewModel = new RegisterViewModel();
             InitializeComponent();
-            DataContext = registerViewModel;
-        }
-        /*private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (cmb.SelectedIndex == 0)
-            {
-                Properties.Settings.Default.languageCode = "ru-RU";
-            }
-            else
-                Properties.Settings.Default.languageCode = "en-US";
-            Properties.Settings.Default.Save();
-
-        }*/
-
-        private void Apply_Click(object sender, RoutedEventArgs e)
-        {
-            Environment.Exit(0);
         }
     }
 }
